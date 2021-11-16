@@ -13,7 +13,7 @@
   %body.bg-light
     = render 'layouts/svg_logo'
 
-    %header.p-3.mb-3.border-bottom
+    %header.p-3.border-bottom
       .container
         .d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-lg-start
           %a.d-flex.align-items-center.mb-2.mb-lg-0.text-dark.text-decoration-none{:href => "/"}
@@ -54,7 +54,7 @@
             %a{ href: '#', title: 'Hide this message', data: { bs_dismiss: :alert } } Dismiss
 
     %main
-      .container= yield
+      = yield
 
     %footer.mt-auto.my-5.pt-5.text-muted.text-center.text-small
       %p.mb-1 &copy; epiGenesys #{Date.today.year}
