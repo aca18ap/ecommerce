@@ -1,0 +1,10 @@
+%p#notice= notice
+
+.container
+  %p
+    %b Email:
+    = @newsletter.email
+
+  = link_to 'Edit', edit_newsletter_path(@newsletter)
+  \|
+  = link_to 'Back', newsletters_path
