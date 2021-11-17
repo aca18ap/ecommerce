@@ -1,6 +1,18 @@
 Rails.application.routes.draw do
 
+  get 'users/new'
+  get 'users/create'
+  get 'users/show', as: :user_show
+
+  devise_for :users
+
+  devise_scope :user do 
+    get '/users/sign_out' => 'devise/sessions#destroy'
+  end
+
   resources :newsletters
+
+
   match "/403", to: "errors#error_403", via: :all
   match "/404", to: "errors#error_404", via: :all
   match "/422", to: "errors#error_422", via: :all
