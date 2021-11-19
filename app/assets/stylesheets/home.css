@@ -1,0 +1,23 @@
+
+.bg-green{
+  background-color: mediumseagreen;
+}
+
+.bg-light-green {
+  background-color: rgba(38, 166, 91, 0.1)
+}
+
+.text-green {
+  color: mediumseagreen;
+}
+
+
+.text-shadow{
+  text-shadow: 0 0 0.5em black, 0 0 0.2em black;
+}
+
+
+.pad-edge{
+  padding-left: 20%;
+  padding-right: 20%;
+}

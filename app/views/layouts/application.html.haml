@@ -6,6 +6,7 @@
     %meta{ :'http-equiv' => 'X-UA-Compatible', content: 'IE=edge' }
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "content-type"}
     = stylesheet_pack_tag    "styles", media: :all
+    = stylesheet_link_tag    "application", media: :all
     = javascript_pack_tag "application"
     = favicon_link_tag '/favicon.ico'
     = csrf_meta_tags
@@ -14,7 +15,7 @@
     = render 'layouts/svg_logo'
 
     %header.p-3.border-bottom
-      .container
+      .container-fluid
         .d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-lg-start
           %a.d-flex.align-items-center.mb-2.mb-lg-0.text-dark.text-decoration-none{:href => "/"}
             %svg.bi.me-2{"aria-label" => "Bootstrap", :height => "32", :role => "img", :width => "40"}
@@ -23,11 +24,9 @@
             %li
               = link_to 'Home', root_path, title: 'Go to the home page', class: 'nav-link px-2 link-secondary'
             %li
-              %a.nav-link.px-2.link-dark{:href => "#"} Products
+              %a.nav-link.px-2.link-dark{:href => "#"} FAQs
             %li
-              %a.nav-link.px-2.link-dark{:href => "#"} Extension
-            %li
-              %a.nav-link.px-2.link-dark{:href => "#"} Upgrade
+              %a.nav-link.px-2.link-dark{:href => "#"} Reviews
           %form.col-12.col-lg-auto.mb-3.mb-lg-0.me-lg-3
             %input.form-control{"aria-label" => "Search", :placeholder => "Search...", :type => "search"}
           .dropdown.text-end
@@ -57,7 +56,7 @@
       = yield
 
     %footer.mt-auto.my-5.pt-5.text-muted.text-center.text-small
-      %p.mb-1 &copy; epiGenesys #{Date.today.year}
+      %p.mb-1 &copy; Team 4 #{Date.today.year}
       %ul.list-inline
         %li.list-inline-item
           = link_to 'epiGenesys', 'https://www.epigenesys.org.uk', target: '_blank', title: 'Go to the epiGenesys website'

@@ -1,10 +1,59 @@
 - content_for :title, "Team 4 Home"
 
-.py-5.bg-image(style = "background: url('bg-placeholder.png')")
-  .my-5.py-5.text-center(style = "backdrop-filter: blur(3px)")
-    %h1.text-shadow.text-white Reduce Your Impact
-    %p.lead.text-shadow.text-white Online shopping is a jungle of unsustainable products. Sign up now to make eco-friendly buying a breeze.
-    //= link_to "View Our Pricing Plans", new_newsletter_path, class:"btn btn-primary btn-lg rounded-pill my-3" 
-    = link_to "I'm a Business", new_newsletter_path, class:"btn btn-primary btn-lg rounded-pill m-3" 
-    = link_to "I'm a Customer", new_newsletter_path, class:"btn btn-primary btn-lg rounded-pill m-3" 
-.container
+.container-fluid
+  .row.bg-image(style = "background: url('bg-placeholder.png')")
+  
+
+  .row.text-green.text-center.pad-edge.pb-5
+    .col
+      .m-auto.card-transparent{:style => "width: 100%;"}
+        %img.card-img-top{:alt => "...", :src => "Eco conscious-bro.png"}/
+        .card-body
+          %h3.card-title Buy better
+          %p.card-text.lead We need to do more to reduce our carbon footprint. One of the ways we can do this is choosing eco-responsible retailers online.
+          -# %a.btn.btn-primary{:href => "#"} Share
+    .col.m-auto 
+      .m-auto.card-transparent{:style => "width: 100%;"}
+        %img.card-img-top{:alt => "...", :src => "Electric car-bro.png"}/
+        .card-body
+          %h3.card-title Do good
+          %p.card-text.lead Our custom tool will allow you to log in and track the eco-friendliness of your past purchases. View the manufacturer's location on a map.
+          -# %a.btn.btn-primary{:href => "#"} Share
+    .col.m-auto
+      .m-auto.card-transparent{:style => "width: 100%;"}
+        %img.card-img-top{:alt => "...", :src => "Volunteering-bro.png"}/
+        .card-body
+          %h3.card-title See your impact
+          %p.card-text.lead By analysing your purchase habits, we can estimate your carbon footprint, helping you to reduce it the next time you shop.
+          -# %a.btn.btn-primary{:href => "#"} Share
+  .row.text-center.text-dark.py-5.bg-image
+    .col
+      %h1 Are you a...
+  .row
+    .col.bg-light.py-5
+      .w-75.mx-auto.text-green.text-center
+        %h1 ...business?
+        %p.lead If you're an eco-friendly retailer, we can help you. Simply list your products with us and we'll do the rest.
+        %br
+        .input-group.mb-5.w-75.m-auto
+          %input.form-control.form-control-lg{"aria-label" => ".form-control-lg example", :placeholder => "Enter your email address", :type => "text"}/
+          %button.btn.btn-primary.btn-lg{:type => "button"} Learn more
+    .col.bg-green.bg-green.py-5
+      -# 
+      .row.w-75.m-auto.text-center 
+        %h1.text-shadow.text-white ...consumer?
+        %p.lead.text-shadow.text-white Online shopping is a jungle of unsustainable products. Sign up now to make eco-friendly buying a breeze. Best of all, it's totally free.
+        //= link_to "View Our Pricing Plans", new_newsletter_path, class:"btn btn-primary btn-lg rounded-pill my-3" 
+        .input-group.mb-5.w-75.m-auto
+          %input.form-control.form-control-lg{"aria-label" => ".form-control-lg example", :placeholder => "Enter your email address", :type => "text"}/
+          %button.btn.btn-primary.btn-lg{:type => "button"} Sign up - It's free!
+
+  
+
+
+-# .my-5.py-5.text-center(style = "backdrop-filter: blur(3px)")
+
+-# #(style = "background: url('bg-placeholder.png')")
+    
+
+  
