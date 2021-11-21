@@ -1,40 +1,27 @@
 - content_for :title, "Team 4 Home"
 
 .container-fluid
-  .row.text-center.text-feldgrau.pt-3
-    %h1 Did you know: 67% of the world's carbon emissions are your fault?
+  .row.text-center.text-feldgrau.py-5
+    %h2 Did you know: 67% of the world's carbon emissions are your fault?
     %h1
       Join us today, and
       %span.highlight-text change
       the world.
 
-  .row.text-feldgrau.text-center.pad-edge.pb-3
-    .col
-      .m-auto.card-transparent{:style => "width: 75%;"}
-        %img.card-img-top{:alt => "...", :src => "images/image-business.svg"}/
-        .card-body
-          %h3.card-title Protect your future
-          %p.card-text.lead We need to do more to reduce our carbon footprint. One of the ways we can do this is by choosing eco-responsible retailers online.
-          -# %a.btn.btn-primary{:href => "#"} Share
-    .col.m-auto 
-      .m-auto.card-transparent{:style => "width: 75%;"}
-        %img.card-img-top{:alt => "...", :src => "images/image-customer.svg"}/
-        .card-body
-          %h3.card-title Buy better
-          %p.card-text.lead Get eco-friendly product alternatives at the click of a button when shopping online.
-          %br
-          -# %a.btn.btn-primary{:href => "#"} Share
-    .col.m-auto
-      .m-auto.card-transparent{:style => "width: 75%;"}
-        %img.card-img-top{:alt => "...", :src => "Volunteering-bro.png"}/
-        .card-body
-          %h3.card-title See your impact
-          %p.card-text.lead By analysing your online purchasing habits, we can estimate your carbon footprint, helping you to reduce it the next time you shop.
-          -# %a.btn.btn-primary{:href => "#"} Share
+  .row.pad-edge 
+    .col-lg 
+      %img{:alt => "...", :src => "images/screenshot.svg"}/
+    .col-lg.my-auto
+      %ul.feature-list.p-0.mb-4
+        %li Get eco-friendly alternatives at the click of a button
+        %li View the location of all your purchases
+        %li View your purchase history
+      %button.text-center.mb-5.btn.btn-primary.btn-lg{:type => "button"} Learn more
 
+  
   .row.transition-wrapper
     .overlay.text-center.text-white
-      %h1 Hello, I'm...
+      %h2 Hello, I'm...
     .custom-shape-divider-top-1637446340
       %svg{"data-name" => "Layer 1", :preserveaspectratio => "none", :viewbox => "0 0 1200 120", :xmlns => "http://www.w3.org/2000/svg"}
         %path.shape-fill{:d => "M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z", :opacity => ".25"}
@@ -45,22 +32,22 @@
         %path.shape-fill{:d => "M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z", :opacity => ".25"}
         %path.shape-fill{:d => "M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z", :opacity => ".5"}
         %path.shape-fill{:d => "M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"}
-    .col-md.bg-business.h-100 
+    .col-lg.bg-business.h-100 
       .w-75.mx-auto.text-white.text-shadow.text-center.fixed-padding-top
         -# %img.w-75.wcard-img-top{:alt => "...", :src => "images/image-business.svg"}/
-        %h1 I'm a business
-        %p.lead 
+        %h2 I'm a business
+        %p
           If you're an eco-friendly retailer, we can help you. 
           %br
           Simply list your products with us and we'll do the rest.
         .input-group.w-75.m-auto
           %input.form-control.form-control-lg{"aria-label" => ".form-control-lg example", :placeholder => "e.g. yourname@example.com", :type => "text"}/
           %button.btn.btn-primary.btn-lg{:type => "button"} Learn more
-    .col-md.bg-consumer.h-100
+    .col-lg.bg-consumer.h-100
       .w-75.m-auto.text-center.text-white.text-shadow.fixed-padding-top
         -# %img.w-75.wcard-img-top{:alt => "...", :src => "images/image-customer.svg"}/
-        %h1 I'm a consumer
-        %p.lead 
+        %h2 I'm a consumer
+        %p 
           Online shopping is a jungle of unsustainable products. 
           %br
           Sign up now to make eco-friendly buying a breeze. 
@@ -68,6 +55,34 @@
         .input-group.w-75.m-auto
           %input.form-control.form-control-lg{"aria-label" => ".form-control-lg example", :placeholder => "e.g. yourname@example.com", :type => "text"}/
           %button.btn.btn-primary.btn-lg{:type => "button"} Sign up - it's free!
+
+  .row.text-feldgrau.text-center.pad-edge.pb-3
+    .col-lg.m-auto
+      .m-auto.card-transparent{:style => "width: 75%;"}
+        %img.card-img-top{:alt => "...", :src => "images/image-business.svg"}/
+        .card-body
+          %h3.card-title Protect your future
+          %p.card-text We need to do more to reduce our carbon footprint. We can do this is by choosing eco-retailers online.
+          -# %a.btn.btn-primary{:href => "#"} Share
+    .col-lg.m-auto 
+      .m-auto.card-transparent{:style => "width: 75%;"}
+        %img.card-img-top{:alt => "...", :src => "images/image-customer.svg"}/
+        .card-body
+          %h3.card-title Buy better
+          %p.card-text Get eco-friendly product alternatives at the click of a button when shopping online.
+          -# %br
+          -# %a.btn.btn-primary{:href => "#"} Share
+    .col-lg.m-auto
+      .m-auto.card-transparent{:style => "width: 75%;"}
+        %img.card-img-top{:alt => "...", :src => "Volunteering-bro.png"}/
+        .card-body
+          %h3.card-title See your impact
+          %p.card-text Subscribers can view an estimate of their online carbon footprint, helping them to understand their impact.
+          -# %a.btn.btn-primary{:href => "#"} Share
+
+
+  .row.text-feldgrau.text-center.pad-edge.pb-3
+
 
   
 

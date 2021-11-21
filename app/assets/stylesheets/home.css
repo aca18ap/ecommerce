@@ -40,7 +40,7 @@
 }
 
 .bg-business {
-  background: linear-gradient(to top, #0000FFFF, #EEDBBEEE), url("/images/bg-wind-turbines.jpg") repeat center center;
+  background: linear-gradient(to top, #8888FFFF, #EEDBBEEE), url("/images/bg-wind-turbines.jpg") repeat center center;
   background-size: cover;
 
 }
@@ -109,7 +109,7 @@
 }
 
 .highlight-text:hover {
-  color: green;
+  color: #5e8d66;
   cursor: default;
 }
 
@@ -117,3 +117,16 @@
 /* .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
   background-color: #3e4f44;
 } */
+
+ul.feature-list li { 
+  list-style-type: none;
+  background: url('/images/tick_medium.png') no-repeat left center;
+  padding: 5px 10px 5px 50px;
+  line-height: 50px;
+  margin: 0;
+  vertical-align: middle;
+  font-size: 1.4em;
+  font-weight: 200;
+  color: #3E4F44;
+} 
+
