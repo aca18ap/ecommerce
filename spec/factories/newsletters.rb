@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: newsletters
@@ -9,6 +11,6 @@
 #
 FactoryBot.define do
   factory :newsletter do
-    email { "MyString" }
+    email { 'MyString' }
   end
 end
