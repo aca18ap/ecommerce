@@ -11,6 +11,7 @@
 .bg-russian-green {background-color: #5E8D66;}
 .bg-feldgrau {background-color:#3E4F44;}
 
+.text-bluegrey {color: #263238;}
 
 .text-green {color: mediumseagreen; }
 .text-brown-sugar {color: #9F684B;}
@@ -20,7 +21,7 @@
 .text-feldgrau { color: #3E4F44;}
 
 .text-shadow{
-  text-shadow: 0 0 0.5em black, 0 0 0.2em black;
+  text-shadow: 0 0 0.5em black;
 }
 
 .pad-edge{
@@ -34,13 +35,14 @@
 }
 
 .bg-consumer {
-  background: linear-gradient(to top, #5e8d6611, #5e8d6655), url("/images/bg-forest.jpg") repeat top center;
-  height: 50vh;
+  background: linear-gradient(to top, #005500FF, #EEDBBE00), url("/images/bg-forest.jpg") repeat center center;
+  background-size: cover;
 }
 
 .bg-business {
-  background: linear-gradient(to top, #4a6d46ff, #4a6d46ff), url("/images/bg-placeholder.png") repeat top center;
-  height: 50vh;
+  background: linear-gradient(to top, #0000FFFF, #EEDBBEEE), url("/images/bg-wind-turbines.jpg") repeat center center;
+  background-size: cover;
+
 }
 
 .transition-wrapper {
