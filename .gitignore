@@ -1,4 +1,4 @@
 node_modules
 tmp/*
 log/*
-public/packs/manifest.json
+public/packs/
