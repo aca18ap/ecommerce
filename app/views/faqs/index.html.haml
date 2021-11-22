@@ -1,0 +1,29 @@
+%h1 Listing faqs
+
+%table
+  %thead
+    %tr
+      %th Question
+      %th Answer
+      %th Clicks
+      %th Hidden
+      %th Usefulness
+      %th
+      %th
+      %th
+
+  %tbody
+    - @faqs.each do |faq|
+      %tr
+        %td= faq.question
+        %td= faq.answer
+        %td= faq.clicks
+        %td= faq.hidden
+        %td= faq.usefulness
+        %td= link_to 'Show', faq
+        %td= link_to 'Edit', edit_faq_path(faq)
+        %td= link_to 'Destroy', faq, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Faq', new_faq_path
