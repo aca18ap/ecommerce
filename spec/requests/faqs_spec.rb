@@ -16,10 +16,9 @@ describe 'Managing FAQs' do
   context 'When I fill in the required information' do
     specify 'I can create a new FAQ entry' do
       visit '/faqs'
-      click_link 'New Faq'
+      click_link 'Submit a New Question'
       fill_in 'Question', with: 'An important question'
-      fill_in 'Answer', with: 'An important answer'
-      click_button 'Create Faq'
+      click_button 'Submit Question'
       expect(page).to have_content 'An important question'
     end
   end
@@ -27,10 +26,9 @@ describe 'Managing FAQs' do
   context 'When I miss out some required information' do
     specify 'I see an error message' do
       visit '/faqs'
-      click_link 'New Faq'
-      click_button 'Create Faq'
+      click_link 'Submit a New Question'
+      click_button 'Submit Question'
       expect(page).to have_content 'Question can\'t be blank'
-      expect(page).to have_content 'Answer can\'t be blank'
     end
   end
 
@@ -39,19 +37,26 @@ describe 'Managing FAQs' do
       FactoryBot.create :faq
       visit '/faqs'
       accept_confirm do
-        within(:css, 'table') { click_link 'Destroy' }
+        within(:css, '#table') { click_link 'Destroy' }
       end
-      within(:css, 'table') { expect(page).to_not have_content }
+      within(:css, '#table') { expect(page).to_not have_content }
     end
 
     specify 'I can edit it' do
       FactoryBot.create :faq
       visit '/faqs'
-      within(:css, 'table') { click_link 'Edit' }
+      within(:css, '#table') { click_link 'Edit' }
       fill_in 'Question', with: 'Updated question'
-      fill_in 'Answer', with: 'Updated answer'
-      click_button 'Update Faq'
+      click_button 'Submit Question'
       expect(page).to have_content 'Updated question'
+    end
+
+    specify 'I can answer it' do
+      FactoryBot.create :faq
+      visit '/faqs'
+      within(:css, '#table') { click_link 'Answer' }
+      fill_in 'Answer', with: 'Updated answer'
+      click_button 'Submit Answer'
       expect(page).to have_content 'Updated answer'
     end
   end

@@ -1,4 +1,7 @@
 node_modules
 tmp/*
 log/*
-public/packs/
+public/packs/*
+public/packs-test/*
+coverage/*
+.rspec-examples
