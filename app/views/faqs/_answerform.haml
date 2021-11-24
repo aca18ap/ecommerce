@@ -4,11 +4,9 @@
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
   .form-inputs
-    = f.input :question
-    = f.input :answer
-    = f.input :clicks
+    = f.input :answer, :label_html => { :class => 'b h4' }
     = f.input :hidden
-    = f.input :usefulness
 
-  .form-actions
-    = f.button :submit
+  .form-actions.input-group.m-3
+    = f.submit "Submit Answer", :class => "btn btn-primary"
+    = link_to 'Back', faqs_path, :class =>"btn btn-secondary"

@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
-  resources :faqs
+  resources :faqs do
+    member do
+      get 'answer'
+    end
+  end
   resources :newsletters
   match "/403", to: "errors#error_403", via: :all
   match "/404", to: "errors#error_404", via: :all

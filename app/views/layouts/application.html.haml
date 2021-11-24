@@ -47,16 +47,17 @@
               %li
                 %a.dropdown-item{:href => "#"} Sign out
 
-    .flash-messages
-      - flash.each do |name, msg|
-        - next unless name == 'alert' || name == 'notice'
-        .alert.fade.in
-          .container
-            = msg
-            %a{ href: '#', title: 'Hide this message', data: { bs_dismiss: :alert } } Dismiss
+    /.flash-messages
+    /  - flash.each do |name, msg|
+    /    - next unless name == 'alert' || name == 'notice'
+    /    .alert.fade.in
+    /      .container
+    /        = msg
+    /        %a{ href: '#', title: 'Hide this message', data: { bs_dismiss: :alert } } Dismiss
 
     %main
-      .container = yield
+      .container 
+        = yield
 
     %footer.mt-auto.my-5.pt-5.text-muted.text-center.text-small
       %p.mb-1 &copy; epiGenesys #{Date.today.year}
