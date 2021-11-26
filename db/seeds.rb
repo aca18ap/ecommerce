@@ -7,4 +7,4 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-User.where(email: "apia1@seffield.ac.uk").first_or_create(password: "sugalaminchia", password_confirmation:"sugalaminchia")
+User.where(email: "admin@shef.ac.uk").first_or_create(password: "sugalaminchia", password_confirmation:"sugalaminchia", admin: true, role: 'admin')

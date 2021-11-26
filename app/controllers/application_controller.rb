@@ -37,6 +37,6 @@ class ApplicationController < ActionController::Base
     end
 
     def after_sign_in_path_for(resource)
-      user_show_path
+      users_show_path
     end
 end

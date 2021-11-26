@@ -1,0 +1,14 @@
+= form_for :user do |f|
+    = f.label :email, "Email:"
+    = f.text_field :email
+
+    = f.label :password, "Password"
+    = f.password_field :password
+
+    = f.label :password_confirmation, "Confirm Password"
+    = f.password_field :password_confirmation
+
+    = f.label :role, "Select user role"
+    = f.select :role, ['admin', 'reporter', 'customer']
+
+    = f.submit

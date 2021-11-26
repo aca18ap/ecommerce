@@ -34,17 +34,17 @@
             %a#dropdownUser1.d-block.link-dark.text-decoration-none.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#"}
               %img.rounded-circle{:alt => "mdo", :height => "32", :src => "https://github.com/epigenesys.png", :width => "32"}
             %ul.dropdown-menu.text-small{"aria-labelledby" => "dropdownUser1", :style => ""}
-              -if current_user
+              -if user_signed_in?
                 %li
-                  %a.dropdown-item{:href => user_show_path} Profile
+                  %a.dropdown-item{:href => users_show_path} Profile
                 %li
-                  %hr.dropdown-divider/
+                  %hr.dropdown-divider
                 %li
-                  = link_to 'Sign Out', destroy_user_session_path, method: :get
+                  = link_to 'Sign Out', destroy_user_session_path, method: :delete
                 
               -else
                 %li
-                  = link_to 'Sign In', users_new_path
+                  = link_to 'Sign In', new_user_session_path, method: :post
               
 
     .flash-messages

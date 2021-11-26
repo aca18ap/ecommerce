@@ -1,1 +1,4 @@
 %h1.center Welcome #{current_user.email}
+%br
+- if current_user.role == "admin"
+    =link_to 'You can access the admin dashboard here', admin_index_url

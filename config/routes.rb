@@ -1,13 +1,23 @@
 Rails.application.routes.draw do
 
-  get 'users/new'
-  get 'users/create'
-  get 'users/show', as: :user_show
+  get 'users/show'
 
+  #get 'users/new'
+  #get 'users/:id', :to => 'users#show', :as => :user
+  #post 'users/create', action: :create, controller: 'users'
+  #delete '/users/:id', action: :destroy, controller: 'users'
+  
+  
+  get '/admin/index'
+  post '/admin/index', action: :create, controller: 'users'
+  delete '/admin/index', action: :delete_user, controller: 'admin'
+  
   devise_for :users
-
+  
   devise_scope :user do 
-    get '/users/sign_out' => 'devise/sessions#destroy'
+    delete '/users/sign_out' => 'devise/sessions#destroy'
+    #post '/users/sign_up' => 'devise/sessions#create'
+    #post '/users/new' => 'devise/sessions#new'
   end
 
   resources :newsletters
