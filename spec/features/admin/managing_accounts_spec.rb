@@ -52,11 +52,17 @@ describe 'Managing accounts' do
   context 'When accounts exist in the system' do
     #let(:customer) { FactoryBot.create :customer }
 
-    specify 'I can delete a user' do
+    specify 'I can delete a user', js: true do
       FactoryBot.create :customer
       visit '/admin/index'
       within(:css, '.table') { click_link 'Delete' }
-      within(:css, '.table') { expect(page).to_not have_content 'customer@team04.com' }
+      accept_confirm do
+        within(:css, '.table') { expect(page).to_not have_content 'customer@team04.com' }
+      end
+    end
+
+    specify 'I can edit a user' do
+      skip 'WAITING FOR IMPLEMENTATION'
     end
   end
 end
