@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(version: 2021_11_24_013725) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
+  create_table "faqs", force: :cascade do |t|
+    t.text "question"
+    t.text "answer"
+    t.integer "clicks"
+    t.boolean "hidden"
+    t.integer "usefulness"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "newsletters", force: :cascade do |t|
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
@@ -51,6 +61,11 @@ ActiveRecord::Schema.define(version: 2021_11_24_013725) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "role", default: "customer", null: false
