@@ -6,4 +6,9 @@ class PagesController < ApplicationController
   def home
     @current_nav_identifier = :home
   end
+
+  def pricing_plans
+    @current_nav_identifier = :pricing_plans
+  end
+
 end

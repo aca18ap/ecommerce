@@ -11,8 +11,10 @@
  * It is generally better to create a new file per style scope.
  *
  *= require home
+ *= require pricing_plans
  *= require_tree.
  *= require_self
+ *= require buttons
  *= @import url('https://fonts.googleapis.com/css2?family=Outfit&family=Quicksand&display=swap')
  */
 
@@ -45,19 +47,6 @@
 body {
   font-family: 'Outfit';
   font-weight: 300;
-  font-size: 1.2em;
-}
-
-h1 {
-  font-family: 'Fredericka the Great';
-  font-size: 3.4em;
-}
-
-h2 {
-  font-weight: 200;
-}
-
-h3 {
-  color: #5e8d66;
+  font-size: 1.5em;
 }
 

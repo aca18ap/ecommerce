@@ -1,4 +1,17 @@
 
+.grabber h1 {
+  font-family: 'Fredericka the Great';
+  font-size: 3.4em;
+}
+
+h2 {
+  font-weight: 200;
+}
+
+h3 {
+  color: #5e8d66;
+}
+
 .bg-green{
   background-color: mediumseagreen;
 }
@@ -49,7 +62,7 @@
   position: relative;
 }
 
-.custom-shape-divider-bottom-1637446340 {
+.custom-shape-divider-top-1637446340 {
   position: absolute;
   top: 0;
   left: 0;
@@ -60,7 +73,7 @@
   /* transform: rotate(180deg); */
 }
 
-.custom-shape-divider-bottom-1637446340 svg {
+.custom-shape-divider-top-1637446340 svg {
   position: relative;
   display: block;
   width: calc(165% + 1.3px);
@@ -68,11 +81,11 @@
   transform: rotateY(180deg);
 }
 
-.custom-shape-divider-bottom-1637446340 .shape-fill {
-  fill: #F7F7F7;
+.custom-shape-divider-top-1637446340 .shape-fill {
+  fill: #f7f7f7;
 }
 
-.custom-shape-divider-top-1637446340 {
+.custom-shape-divider-bottom-1637446340 {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -83,16 +96,16 @@
   transform: rotate(180deg);
 }
 
-.custom-shape-divider-top-1637446340 svg {
+.custom-shape-divider-bottom-1637446340 svg {
   position: relative;
   display: block;
-  width: calc(225% + 1.3px);
-  height: 80px;
+  width: calc(180% + 1.3px);
+  height: 75px;
   transform: rotateY(180deg);
 }
 
-.custom-shape-divider-top-1637446340 .shape-fill {
-  fill: #F7F7F7;
+.custom-shape-divider-bottom-1637446340 .shape-fill {
+  fill: #f7f7f7;
 }
 
 
@@ -125,8 +138,20 @@ ul.feature-list li {
   line-height: 50px;
   margin: 0;
   vertical-align: middle;
-  font-size: 1.4em;
-  font-weight: 200;
   color: #3E4F44;
 } 
+
+Button a {
+  color: white;
+  text-decoration: none;
+}
+
+Button a:hover {
+  color: white;
+}
+
+.pad-vertically {
+  padding-top: 150px;
+  padding-bottom: 150px;
+}
 

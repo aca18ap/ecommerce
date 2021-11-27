@@ -1,0 +1,37 @@
+.btn-custom, 
+.btn-custom:hover a{
+  transition: all 0.3s ease-in-out 0s;
+  -moz-transition: all 0.3s ease-in-out 0s;
+  -ms-transition: all 0.3s ease-in-out 0s;
+  -o-transition: all 0.3s ease-in-out 0s;
+  -webkit-transition: all 0.3s ease-in-out 0s;
+} 
+
+.btn-custom a{
+  border: 1px solid #2ECC71; 
+    color: #2ECC71;
+} 
+
+.btn-custom:hover a,
+.btn-custom:active a{
+  background-color: #2ECC71;
+  color: #fff;
+}
+
+.btn-custom {
+  margin: 20px 0 32px;
+}
+
+.btn-custom a{
+  border-radius: 50px;
+-moz-border-radius: 50px;
+-ms-border-radius: 50px;
+-o-border-radius: 50px;
+-webkit-border-radius: 50px;
+  display: inline-block;
+  font-size: 18px;
+  outline: medium none;
+  padding: 12px 30px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
