@@ -1,5 +1,10 @@
 class MetricsController < ApplicationController
 
+  def index
+    @current_nav_identifier = :metrics
+    @metrics = Visit.all
+  end
+
   def create
     from = Time.at(params["pageVisitedFrom"].to_i / 1000).to_datetime
     to = Time.at(params["pageVisitedTo"].to_i / 1000).to_datetime
@@ -13,5 +18,4 @@ class MetricsController < ApplicationController
 
     head :ok
   end
-
 end

@@ -1,0 +1,28 @@
+.container
+  .h1 Metrics summary
+
+  .h2 The landing page has been visited #{@metrics.size} times.
+
+  %table.table
+    %thead
+      %tr
+        %th Page visited
+        %th Time spent on page
+        %th User ID
+        %th CSRF token
+        %th Session Identifier
+
+
+    %tbody
+    - @metrics.each do |metric|
+      %tr
+        %td= metric.path
+        %td= metric.from
+        %td= metric.user_id
+        %td= metric.csrf_token
+        %td= metric.session_identifier
+      -# %td= link_to 'Show', product
+      -# %td= link_to 'Edit', edit_product_path(product)
+      -# %td= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' }
+
+
