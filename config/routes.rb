@@ -1,12 +1,6 @@
 Rails.application.routes.draw do
 
   get 'users/show'
-
-  #get 'users/new'
-  #get 'users/:id', :to => 'users#show', :as => :user
-  #post 'users/create', action: :create, controller: 'users'
-  #delete '/users/:id', action: :destroy, controller: 'users'
-  
   
   get '/admin/index'
   post '/admin/index', action: :create, controller: 'users'

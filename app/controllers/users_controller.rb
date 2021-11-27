@@ -11,8 +11,6 @@ class UsersController < ApplicationController
 
     if @user.save
       redirect_to(request.referer)
-    else
-      redirect_to root_path
     end
 
   end
