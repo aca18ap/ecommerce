@@ -7,20 +7,15 @@
     %thead
       %tr
         %th Page visited
-        %th Time spent on page
-        %th User ID
-        %th CSRF token
-        %th Session Identifier
-
+        %th Date of visit
+        %th Location
 
     %tbody
     - @metrics.each do |metric|
       %tr
         %td= metric.path
         %td= metric.from
-        %td= metric.user_id
-        %td= metric.csrf_token
-        %td= metric.session_identifier
+        %td= metric.location
       -# %td= link_to 'Show', product
       -# %td= link_to 'Edit', edit_product_path(product)
       -# %td= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' }

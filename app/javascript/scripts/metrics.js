@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const pageVisitedFrom = Date.now();
   const CSRFToken = document.querySelector("meta[name='csrf-token']").getAttribute('content');
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   // Bind listener to the visibilitychange event instead of unload, find out more at:
   // https://developer.mozilla.org/en-US/docs/Web/API/Navigator/sendBeacon#sending_analytics_at_the_end_of_a_session
@@ -9,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let metrics = new FormData();
       metrics.append('pageVisitedFrom', pageVisitedFrom);
       metrics.append('pageVisitedTo', Date.now());
+      metrics.append('location', timezone)
       metrics.append('path', window.location.pathname);
       metrics.append('authenticity_token', CSRFToken);
 
