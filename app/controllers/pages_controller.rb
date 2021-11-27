@@ -11,4 +11,8 @@ class PagesController < ApplicationController
     @current_nav_identifier = :pricing_plans
   end
 
+  def record_metrics
+    head :ok
+  end
+
 end
