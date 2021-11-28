@@ -2,10 +2,12 @@ Rails.application.routes.draw do
 
   get 'users/show'
   
-  get '/admin/index'
-  post '/admin/index', action: :create, controller: 'users'
-  delete '/admin/index', action: :delete_user, controller: 'admin'
-  
+  namespace :admin do
+    delete '/:id' => "admin/users#delete"
+    resources :users
+
+  end
+
   devise_for :users
   
   devise_scope :user do 
