@@ -1,19 +1,13 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
 
-
-  def new
-  end
-
+ 
 
   def create    
     @user = User.create(user_params)
-
     if @user.save
-      
-      redirect_to(request.referer)
+      redirect_to users_show_path
     end
-
   end
 
   def show
@@ -49,7 +43,7 @@ class UsersController < ApplicationController
 
 
     def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation, :role)
+      params.require(:user).permit(:email, :password, :password_confirmation)
     end
 
     

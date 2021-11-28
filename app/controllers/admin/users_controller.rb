@@ -30,7 +30,10 @@ class Admin::UsersController < ApplicationController
       end
     end
 
-    
+    def Edit
+        @user = User.find(find_user)
+        @user.role
+    end
 
     private 
 
