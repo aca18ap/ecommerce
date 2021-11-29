@@ -30,6 +30,9 @@
             -# Hide unless user is admin
             %li
               %a.nav-link.px-2.link-dark{:href => "/metrics"} Metrics
+              %a.nav-link.px-2.link-dark{:href => "/faqs"} FAQs
+            %li
+              %a.nav-link.px-2.link-dark{:href => "#"} Upgrade
           %form.col-12.col-lg-auto.mb-3.mb-lg-0.me-lg-3
             %input.form-control{"aria-label" => "Search", :placeholder => "Search...", :type => "search"}
           .dropdown.text-end
@@ -47,16 +50,17 @@
               %li
                 %a.dropdown-item{:href => "#"} Sign out
 
-    .flash-messages
-      - flash.each do |name, msg|
-        - next unless name == 'alert' || name == 'notice'
-        .alert.fade.in
-          .container
-            = msg
-            %a{ href: '#', title: 'Hide this message', data: { bs_dismiss: :alert } } Dismiss
+    /.flash-messages
+    /  - flash.each do |name, msg|
+    /    - next unless name == 'alert' || name == 'notice'
+    /    .alert.fade.in
+    /      .container
+    /        = msg
+    /        %a{ href: '#', title: 'Hide this message', data: { bs_dismiss: :alert } } Dismiss
 
     %main
-      = yield
+      .container 
+        = yield
 
     %footer.mt-auto.my-5.pt-5.text-muted.text-center.text-small
       %p.mb-1 &copy; Team 4 #{Date.today.year}

@@ -8,3 +8,7 @@ public/packs/manifest.json
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+public/packs/*
+public/packs-test/*
+coverage/*
+.rspec-examples

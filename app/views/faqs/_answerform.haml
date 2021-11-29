@@ -1,0 +1,12 @@
+-# frozen_string_literal: true
+= simple_form_for(@faq) do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .form-inputs
+    = f.input :answer, :label_html => { :class => 'b h4' }
+    = f.input :hidden
+
+  .form-actions.input-group.m-3
+    = f.submit "Submit Answer", :class => "btn btn-primary"
+    = link_to 'Back', faqs_path, :class =>"btn btn-secondary"

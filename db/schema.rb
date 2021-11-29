@@ -30,10 +30,21 @@ ActiveRecord::Schema.define(version: 2021_11_27_174357) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
+  create_table "faqs", force: :cascade do |t|
+    t.text "question", null: false
+    t.text "answer"
+    t.integer "clicks", default: 0, null: false
+    t.boolean "hidden"
+    t.integer "usefulness", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "newsletters", force: :cascade do |t|
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "vocation", default: "Customer", null: false
   end
 
   create_table "sessions", force: :cascade do |t|

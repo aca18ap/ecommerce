@@ -2,6 +2,11 @@
 
 Rails.application.routes.draw do
 
+  resources :faqs do
+    member do
+      get 'answer'
+    end
+  end
   resources :newsletters
   resources :metrics, only: [:index, :create]
 

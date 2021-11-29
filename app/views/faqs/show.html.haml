@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p.h4
+  Question
+%p
+  = @faq.question
+%hr
+%p.h4
+  Answer
+%p
+  = @faq.answer
+%hr
+%p
+  %b Popularity:
+  = @faq.clicks 
+  Clicks 
+  \|
+  %b Rating:
+  = @faq.usefulness
+  \|
+  %b Hidden:
+  = @faq.hidden
+
+.btn-group.my-auto{:role => "group"}
+  = link_to 'Edit', edit_faq_path(@faq), :class => "btn btn-secondary"
+  = link_to 'Answer', answer_faq_path(@faq), :class => "btn btn-secondary"
+  = link_to 'Back', faqs_path, :class => "btn btn-primary"

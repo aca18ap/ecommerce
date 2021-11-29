@@ -4,7 +4,10 @@
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
   .row.justify-content-center.m-4
-    .col-5
+    .col-auto
       .input-group
-        = f.input_field :email, :class => "form-control", :placeholder => "name@example.co.uk"
+        %span.input-group-text I am a...
+        = f.input_field :vocation, :class => "form-select", as: :select, collection: [ "Customer","Business"]
+      .input-group
+        = f.input_field :email, :class => "form-control w-25", :placeholder => "name@example.co.uk"
         = f.submit "Register Interest", :class => "btn btn-primary"
