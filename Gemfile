@@ -12,7 +12,8 @@ gem 'puma'
 gem 'rails', '~> 6.1', '>= 6.1.4'
 gem 'responders'
 gem 'rubocop', '~> 1.23', require: false
-
+gem 'ed25519'
+gem 'bcrypt_pbkdf'
 gem 'webpacker'
 
 gem 'pg'

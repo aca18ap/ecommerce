@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 ## Application configuration
+set :repo_url,                'git@git.shefcompsci.org.uk:com4525-2021-22/team04/project.git'
 set :application,             'project'
 set :branch,                  -> { fetch(:stage) }
-set :repo_url,                'git@git.shefcompsci.org.uk:com4525-2021-22/team04/project.git'
 set :linked_files,
     fetch(:linked_files, fetch(:env_links, [])).push('config/database.yml', 'config/secrets.yml')
 set :linked_dirs,             fetch(:linked_dirs, []).push('log', 'tmp/pids', 'uploads')
