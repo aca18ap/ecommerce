@@ -38,6 +38,8 @@ gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'whenever'
 
+gem 'jquery-rails'
+
 group :development, :test do
   gem 'byebug'
   gem 'rspec-rails'
