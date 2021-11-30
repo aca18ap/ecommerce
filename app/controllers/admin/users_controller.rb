@@ -3,6 +3,7 @@ class Admin::UsersController < ApplicationController
   before_action :authorize_admin
   protect_from_forgery with: :null_session
 
+
   def index
     @users = User.all
   end
@@ -19,13 +20,10 @@ class Admin::UsersController < ApplicationController
   end
 
   def create
-    @new_user = User.new(user_params)
-    if User.exists?(email: @new_user.email)
-      redirect_to admin_users_path, alert: 'User already exists'
-    elsif @new_user.save
-      redirect_to admin_users_path
+    if User.exists?(params[:email])
+      redirect_to admin_users_path, alert: "User already exists"
     else
-      redirect_to admin_users_path, alert: 'Please check credentials again'
+      User.invite!(email: params[:email])
     end
   end
 
@@ -49,6 +47,6 @@ class Admin::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :role)
+    params.require(:user).permit(:email, :role)
   end
 end
