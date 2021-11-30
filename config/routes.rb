@@ -17,7 +17,6 @@ Rails.application.routes.draw do
   get 'users/show'
   
   namespace :admin do
-    delete '/:id' => "admin/users#delete"
     resources :users
 
   end
