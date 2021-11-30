@@ -1,0 +1,14 @@
+.custom-nav {
+  background-color: #00241B;
+  color: #b5ffe1;
+  font-weight: 300;
+  font-size: 0.8em;
+}
+
+.custom-nav a {
+  color: #b5ffe1;
+}
+
+.custom-nav a:hover {
+  color: #93e5ab;
+}

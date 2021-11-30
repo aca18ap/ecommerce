@@ -1,23 +1,25 @@
-.container
-  .h1 Metrics summary
+- content_for :title, "Team 4 - Site metrics"
 
-  .h2 The landing page has been visited #{@metrics.size} times.
+.container-fluid.pad-edge
+  .pt-5
+    .h1 Metrics summary
+    .p The landing page has been visited #{@metrics.size} times.
 
-  %table.table
-    %thead
-      %tr
-        %th Page visited
-        %th Date of visit
-        %th Location
+    %table.table
+      %thead
+        %tr
+          %th Page visited
+          %th Date of visit
+          %th Location
 
-    %tbody
-    - @metrics.each do |metric|
-      %tr
-        %td= metric.path
-        %td= metric.from
-        %td= metric.location
-      -# %td= link_to 'Show', product
-      -# %td= link_to 'Edit', edit_product_path(product)
-      -# %td= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' }
+      %tbody
+      - @metrics.each do |metric|
+        %tr
+          %td= metric.path
+          %td= metric.from
+          %td= metric.location
+        -# %td= link_to 'Show', product
+        -# %td= link_to 'Edit', edit_product_path(product)
+        -# %td= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' }
 
 

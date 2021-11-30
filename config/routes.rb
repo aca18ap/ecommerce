@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
   get :ie_warning, to: 'errors#ie_warning'
   get :pricing_plans, to: 'pages#pricing_plans'
+  get :business_info, to: 'pages#business_info'
+  get :welcome, to: 'pages#welcome'
 
   root to: 'pages#home'
 

@@ -12,32 +12,28 @@
     = csrf_meta_tags
 
   %body.bg-light
-    = render 'layouts/svg_logo'
+    -# = render 'layouts/svg_logo'
 
-    %header.p-3.border-bottom
-      .container-fluid
+    %header.p-2.border-bottom.custom-nav
+      .container-fluid.pad-edge
         .d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-lg-start
-          %a.d-flex.align-items-center.mb-2.mb-lg-0.text-dark.text-decoration-none{:href => "/"}
-            %svg.bi.me-2{"aria-label" => "Bootstrap", :height => "32", :role => "img", :width => "40"}
-              %use{"xlink:href" => "#bootstrap"}
-          %ul.nav.col-12.col-lg-auto.me-lg-auto.mb-2.justify-content-center.mb-md-0
-            %li
-              = link_to 'Home', root_path, title: 'Go to the home page', class: 'nav-link px-2 link-secondary'
-            %li
-              %a.nav-link.px-2.link-dark{:href => "#"} FAQs
+          %a.d-flex.align-items-center.mb-2.mr-5.mb-lg-0.text-dark.text-decoration-none{:href => "/"}
+            %img{:alt => "mdo", :height => "48", :src => "../images/logo.png", :width => "160"}
+          .nav.col-12.col-lg-auto.me-lg-auto.justify-content-center.my-auto.mx-5
+            -#   = link_to 'Home', root_path, title: 'Go to the home page', class: 'nav-link px-2 link-secondary'
             %li
               %a.nav-link.px-2.link-dark{:href => "#"} Reviews
+            %li
+              %a.nav-link.px-2.ml-5.link-dark{:href => "/faqs"} FAQs
             -# Hide unless user is admin
             %li
               %a.nav-link.px-2.link-dark{:href => "/metrics"} Metrics
-              %a.nav-link.px-2.link-dark{:href => "/faqs"} FAQs
-            %li
-              %a.nav-link.px-2.link-dark{:href => "#"} Upgrade
-          %form.col-12.col-lg-auto.mb-3.mb-lg-0.me-lg-3
-            %input.form-control{"aria-label" => "Search", :placeholder => "Search...", :type => "search"}
+          -# %form.col-12.col-lg-auto.mb-3.mb-lg-0.me-lg-3
+          -#   %input.form-control{"aria-label" => "Search", :placeholder => "Search...", :type => "search"}
           .dropdown.text-end
             %a#dropdownUser1.d-block.link-dark.text-decoration-none.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#"}
-              %img.rounded-circle{:alt => "mdo", :height => "32", :src => "https://github.com/epigenesys.png", :width => "32"}
+              -# %img.rounded-circle{:alt => "mdo", :height => "32", :src => "https://github.com/epigenesys.png", :width => "32"}
+              Log in
             %ul.dropdown-menu.text-small{"aria-labelledby" => "dropdownUser1", :style => ""}
               %li
                 %a.dropdown-item{:href => "#"} New project...
@@ -59,10 +55,11 @@
     /        %a{ href: '#', title: 'Hide this message', data: { bs_dismiss: :alert } } Dismiss
 
     %main
-      .container 
-        = yield
+      = yield
 
-    %footer.mt-auto.my-5.pt-5.text-muted.text-center.text-small
+
+
+    %footer.mt-auto.my-5.pt-5.text-muted.text-center.text-small.custom-footer
       %p.mb-1 &copy; Team 4 #{Date.today.year}
       %ul.list-inline
         %li.list-inline-item
@@ -71,3 +68,4 @@
           %a{:href => "#"} Terms
         %li.list-inline-item
           %a{:href => "#"} Support
+

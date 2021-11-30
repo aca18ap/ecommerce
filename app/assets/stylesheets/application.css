@@ -15,6 +15,8 @@
  *= require_tree.
  *= require_self
  *= require buttons
+ *= require nav
+ *= require footer
  *= @import url('https://fonts.googleapis.com/css2?family=Outfit&family=Quicksand&display=swap')
  */
 
@@ -46,7 +48,7 @@
 
 body {
   font-family: 'Outfit';
-  font-weight: 300;
-  font-size: 1.5em;
+  font-weight: 200;
+  font-size: 1.2em;
 }
 
