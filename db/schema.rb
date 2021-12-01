@@ -31,11 +31,11 @@ ActiveRecord::Schema.define(version: 2021_11_27_174357) do
   end
 
   create_table "faqs", force: :cascade do |t|
-    t.text "question", null: false
+    t.text "question"
     t.text "answer"
-    t.integer "clicks", default: 0, null: false
+    t.integer "clicks"
     t.boolean "hidden"
-    t.integer "usefulness", default: 0, null: false
+    t.integer "usefulness"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
