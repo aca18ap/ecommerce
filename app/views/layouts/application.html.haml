@@ -17,12 +17,12 @@
     %header.p-2.border-bottom.custom-nav
       .container-fluid.pad-edge
         .d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-lg-start
-          %a.d-flex.align-items-center.mb-2.mr-5.mb-lg-0.text-dark.text-decoration-none{:href => "/"}
-            %img{:alt => "mdo", :height => "48", :src => "../images/logo.png", :width => "160"}
-          .nav.col-12.col-lg-auto.me-lg-auto.justify-content-center.my-auto.mx-5
+          %a.d-flex.align-items-center.mb-2.mr-5.mb-lg-0.text-decoration-none{:href => "/"}
+            %img{:alt => "mdo", :height => "48", :src => "/images/logo.png", :width => "160"}
+          .nav.col-12.col-lg-auto.me-lg-auto.justify-content-center.my-auto.mx-5.custom-nav-fonts
             -#   = link_to 'Home', root_path, title: 'Go to the home page', class: 'nav-link px-2 link-secondary'
             %li
-              %a.nav-link.px-2.link-dark{:href => "#"} Reviews
+              %a.nav-link.px-2{:href => "#"} Reviews
             %li
               %a.nav-link.px-2.ml-5.link-dark{:href => "/faqs"} FAQs
             -# Hide unless user is admin
@@ -31,21 +31,26 @@
           -# %form.col-12.col-lg-auto.mb-3.mb-lg-0.me-lg-3
           -#   %input.form-control{"aria-label" => "Search", :placeholder => "Search...", :type => "search"}
           .dropdown.text-end
-            %a#dropdownUser1.d-block.link-dark.text-decoration-none.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#"}
+            %a#dropdownUser1.d-block.custom-nav-fonts.text-decoration-none.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#"}
               -# %img.rounded-circle{:alt => "mdo", :height => "32", :src => "https://github.com/epigenesys.png", :width => "32"}
-              Log in
+              -if user_signed_in?
+                #{current_user.email}
+                %img.rounded-circle.filter-white{:alt => "user icon", :height => "32", :src => "/images/person.svg", :width => "32"}
+              -else
+                Account
             %ul.dropdown-menu.text-small{"aria-labelledby" => "dropdownUser1", :style => ""}
               -if user_signed_in?
                 %li
-                  %a.dropdown-item{:href => users_show_path} Profile
+                  = link_to 'Profile', users_show_path, :class => 'dropdown-link'
+                  -# %a.dropdown-item{:href => users_show_path} Profile
                 %li
                   %hr.dropdown-divider
                 %li
-                  = link_to 'Sign Out', destroy_user_session_path, method: :delete
+                  = link_to 'Sign Out', destroy_user_session_path, method: :delete, :class => "dropdown-link"
                 
               -else
                 %li
-                  = link_to 'Sign In', new_user_session_path, method: :post
+                  = link_to 'Sign In', new_user_session_path, method: :post, :class => "dropdown-link"
               
 
     /.flash-messages

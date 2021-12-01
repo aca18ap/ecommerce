@@ -66,7 +66,8 @@
                 / //FEATURE LIST END
                 / BUTTON START
                 .generic_price_btn.clearfix
-                  %a{:href => "/welcome"} Sign up
+                  -# %a{:href => "/newsletters/new", :vocation => "Customer"} Sign up
+                  = link_to 'Sign up', new_newsletter_path(@newsletters, :type => "Customer")
                 / //BUTTON END
               / //PRICE CONTENT END
             .col-md-4
@@ -112,7 +113,8 @@
                 / //FEATURE LIST END
                 / BUTTON START
                 .generic_price_btn.clearfix
-                  %a{:href => "/welcome"} Sign up
+                  -# %a{:href => "/newsletters/new", :vocation => "Customer"} Sign up
+                  = link_to 'Sign up', new_newsletter_path(@newsletters, :type => "Customer")
                 / //BUTTON END
               / //PRICE CONTENT END
             .col-md-4
@@ -158,7 +160,8 @@
                 / //FEATURE LIST END
                 / BUTTON START
                 .generic_price_btn.clearfix
-                  %a{:href => "/welcome"} Sign up
+                  -# %a{:href => "/newsletters/new", :vocation => "Customer"} Sign up
+                  = link_to 'Sign up', new_newsletter_path(@newsletters, :type => "Customer")
                 / //BUTTON END
               / //PRICE CONTENT END
           / //BLOCK ROW END
