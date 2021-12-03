@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/pia/projects/project/app/models/user.rb": {
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/models/user.rb": {
         "lines": [
           null,
           null,
@@ -51,7 +51,7 @@
           null
         ]
       },
-      "/home/pia/projects/project/app/models/application_record.rb": {
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/models/application_record.rb": {
         "lines": [
           null,
           null,
@@ -60,60 +60,23 @@
           null
         ]
       },
-      "/home/pia/projects/project/app/helpers/admin_helper.rb": {
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/helpers/admin_helper.rb": {
         "lines": [
           1,
           null
         ]
       },
-      "/home/pia/projects/project/app/helpers/admin/users_helper.rb": {
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/helpers/admin/users_helper.rb": {
         "lines": [
           1,
           null
         ]
       },
-      "/home/pia/projects/project/app/helpers/application_helper.rb": {
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/helpers/application_helper.rb": {
         "lines": [
           null,
           null,
           1,
-          null,
-          null,
-          null,
-          null,
-          null
-        ]
-      },
-      "/home/pia/projects/project/app/helpers/faqs_helper.rb": {
-        "lines": [
-          1,
-          null
-        ]
-      },
-      "/home/pia/projects/project/app/helpers/newsletters_helper.rb": {
-        "lines": [
-          null,
-          null,
-          1,
-          null
-        ]
-      },
-      "/home/pia/projects/project/app/helpers/users_helper.rb": {
-        "lines": [
-          1,
-          null
-        ]
-      },
-      "/home/pia/projects/project/app/decorators/admin/user_decorator.rb": {
-        "lines": [
-          1,
-          1,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
           null,
           null,
           null,
@@ -121,7 +84,27 @@
           null
         ]
       },
-      "/home/pia/projects/project/app/decorators/admin_decorator.rb": {
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/helpers/faqs_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/helpers/newsletters_helper.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          null
+        ]
+      },
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/helpers/users_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/decorators/admin/user_decorator.rb": {
         "lines": [
           1,
           1,
@@ -138,7 +121,7 @@
           null
         ]
       },
-      "/home/pia/projects/project/app/decorators/faq_decorator.rb": {
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/decorators/admin_decorator.rb": {
         "lines": [
           1,
           1,
@@ -155,7 +138,24 @@
           null
         ]
       },
-      "/home/pia/projects/project/app/models/faq.rb": {
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/decorators/faq_decorator.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/models/faq.rb": {
         "lines": [
           null,
           null,
@@ -175,7 +175,7 @@
           null
         ]
       },
-      "/home/pia/projects/project/app/decorators/newsletter_decorator.rb": {
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/decorators/newsletter_decorator.rb": {
         "lines": [
           null,
           null,
@@ -193,7 +193,7 @@
           null
         ]
       },
-      "/home/pia/projects/project/app/models/newsletter.rb": {
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/models/newsletter.rb": {
         "lines": [
           null,
           null,
@@ -211,7 +211,7 @@
           null
         ]
       },
-      "/home/pia/projects/project/app/decorators/user_decorator.rb": {
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/decorators/user_decorator.rb": {
         "lines": [
           1,
           1,
@@ -228,7 +228,7 @@
           null
         ]
       },
-      "/home/pia/projects/project/app/models/visit.rb": {
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/models/visit.rb": {
         "lines": [
           null,
           null,
@@ -249,7 +249,7 @@
           null
         ]
       },
-      "/home/pia/projects/project/app/controllers/admin/users_controller.rb": {
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/controllers/admin/users_controller.rb": {
         "lines": [
           1,
           1,
@@ -279,7 +279,10 @@
           0,
           null,
           4,
-          4,
+          3,
+          null,
+          1,
+          null,
           null,
           null,
           null,
@@ -311,7 +314,7 @@
           null
         ]
       },
-      "/home/pia/projects/project/app/controllers/application_controller.rb": {
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/controllers/application_controller.rb": {
         "lines": [
           null,
           null,
@@ -345,13 +348,13 @@
           1,
           null,
           1,
-          33,
-          33,
-          33,
+          32,
+          32,
+          32,
           null,
           null,
           1,
-          33,
+          32,
           0,
           null,
           null,
@@ -361,7 +364,7 @@
           null
         ]
       },
-      "/home/pia/projects/project/app/controllers/faqs_controller.rb": {
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/controllers/faqs_controller.rb": {
         "lines": [
           1,
           1,
@@ -429,95 +432,7 @@
           null
         ]
       },
-      "/home/pia/projects/project/app/controllers/newsletters_controller.rb": {
-        "lines": [
-          null,
-          null,
-          1,
-          1,
-          null,
-          null,
-          1,
-          0,
-          null,
-          null,
-          null,
-          1,
-          null,
-          null,
-          1,
-          1,
-          null,
-          null,
-          null,
-          1,
-          null,
-          null,
-          1,
-          0,
-          null,
-          0,
-          0,
-          null,
-          0,
-          null,
-          null,
-          null,
-          null,
-          1,
-          0,
-          0,
-          null,
-          0,
-          null,
-          null,
-          null,
-          null,
-          1,
-          0,
-          0,
-          null,
-          null,
-          1,
-          null,
-          null,
-          1,
-          0,
-          null,
-          null,
-          null,
-          1,
-          0,
-          null,
-          null,
-          null
-        ]
-      },
-      "/home/pia/projects/project/app/channels/application_cable/channel.rb": {
-        "lines": [
-          null,
-          null,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/home/pia/projects/project/app/channels/application_cable/connection.rb": {
-        "lines": [
-          null,
-          null,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/home/pia/projects/project/app/jobs/application_job.rb": {
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/jobs/application_job.rb": {
         "lines": [
           null,
           null,
@@ -532,133 +447,11 @@
         "branches": {
         }
       },
-      "/home/pia/projects/project/app/controllers/users_controller.rb": {
-        "lines": [
-          0,
-          0,
-          null,
-          null,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          null,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          0,
-          null,
-          null,
-          null,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/home/pia/projects/project/app/controllers/errors_controller.rb": {
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/channels/application_cable/connection.rb": {
         "lines": [
           null,
           null,
           0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          null,
-          0,
-          null,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/home/pia/projects/project/app/controllers/pages_controller.rb": {
-        "lines": [
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/home/pia/projects/project/app/controllers/metrics_controller.rb": {
-        "lines": [
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
           0,
           0,
           0
@@ -666,7 +459,19 @@
         "branches": {
         }
       },
-      "/home/pia/projects/project/app/models/ability.rb": {
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/channels/application_cable/channel.rb": {
+        "lines": [
+          null,
+          null,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/models/ability.rb": {
         "lines": [
           null,
           null,
@@ -707,7 +512,207 @@
         "branches": {
         }
       },
-      "/home/pia/projects/project/app/mailers/application_mailer.rb": {
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/controllers/metrics_controller.rb": {
+        "lines": [
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/controllers/users_controller.rb": {
+        "lines": [
+          0,
+          0,
+          null,
+          null,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          null,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/controllers/errors_controller.rb": {
+        "lines": [
+          null,
+          null,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/controllers/newsletters_controller.rb": {
+        "lines": [
+          null,
+          null,
+          0,
+          0,
+          null,
+          null,
+          0,
+          0,
+          0,
+          null,
+          null,
+          0,
+          null,
+          null,
+          0,
+          0,
+          0,
+          null,
+          null,
+          0,
+          null,
+          null,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          null,
+          0,
+          0,
+          0,
+          null,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/controllers/pages_controller.rb": {
+        "lines": [
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/home/liam/Documents/University/COM4525-Genesys/genesys/app/mailers/application_mailer.rb": {
         "lines": [
           null,
           null,
@@ -720,6 +725,6 @@
         }
       }
     },
-    "timestamp": 1638203893
+    "timestamp": 1638544327
   }
 }
