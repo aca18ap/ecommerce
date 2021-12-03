@@ -1,5 +1,5 @@
 // For some reason the Gem won't fetch the package
-import * as d3 from "/home/liam/.rvm/gems/ruby-2.7.4/gems/d3-rails-7.0.0/app/assets/javascripts/d3.js"
+import * as d3 from "d3"
 
 document.addEventListener('DOMContentLoaded', () => {
   const pageVisitedFrom = Date.now();
@@ -56,53 +56,36 @@ function drawBarPlot() {
   let metrics = gon.metrics;
 
   let pageVisits = groupBy(metrics, "path")
-  let pageVisitsCounts = {}
+  let pageVisitsCounts = []
   Object.keys(pageVisits).forEach(key => {
-    pageVisitsCounts[key] = pageVisits[key].length;
+    pageVisitsCounts.push({
+      page: key,
+      visits: pageVisits[key].length
+    });
   });
 
-  // set the dimensions and margins of the graph
-  var margin = {top: 10, right: 30, bottom: 30, left: 60},
-  width = 460 - margin.left - margin.right,
-  height = 400 - margin.top - margin.bottom;
+  console.log(typeof(pageVisitsCounts))
 
-  // append the svg object to the body of the page
-  var svg = d3.select("#visits-barchart-plot")
-  .append("svg")
-  .attr("width", width + margin.left + margin.right)
-  .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-  .attr("transform",
-  "translate(" + margin.left + "," + margin.top + ")");
+  const width = 500;
+  const height = 500;
 
-  //Read the data
-  d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/2_TwoNum.csv", function(data) {
-    // Add X axis
-    var x = d3.scaleLinear()
-    .domain([0, 4000])
-    .range([ 0, width ]);
-    svg.append("g")
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x));
+  var x = d3.scaleOrdinal().range([0, width]);
+  var y = d3.scaleLinear().range([height, 0]);
 
-    // Add Y axis
-    var y = d3.scaleLinear()
-    .domain([0, 500000])
-    .range([ height, 0]);
-    svg.append("g")
-    .call(d3.axisLeft(y));
+  x.domain(pageVisitsCounts.map(d => d.page));
+  y.domain([0, d3.max(pageVisitsCounts, d => d.visits)]);
 
-    // Add dots
-    svg.append('g')
-    .selectAll("dot")
-    .data(data)
-    .enter()
-    .append("circle")
-    .attr("cx", function (d) { return x(d.GrLivArea); } )
-    .attr("cy", function (d) { return y(d.SalePrice); } )
-    .attr("r", 1.5)
-    .style("fill", "#69b3a2")
-  })
+  let svg = d3.selectAll('#visits-barchart-plot')
+      .attr("width", width)
+      .attr("height", height);
 
-  //document.getElementById('visits-barchart-div').innerText = "GRAPH WILL APPEAR HERE";
+  svg.selectAll("bar")
+      .data(pageVisitsCounts)
+      .enter().append("rect")
+      .style("fill", "steelblue")
+      .attr("x", d => x[d.page])
+      .attr("width", 10)
+      .attr("y", d => y(d.visits))
+      .attr("height", d => height - y(d.visits));
+
 }
