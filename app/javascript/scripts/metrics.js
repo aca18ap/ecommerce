@@ -64,6 +64,8 @@ function drawBarPlot() {
     });
   });
 
+  top
+
   const width = 1000;
   const height = 500;
 
@@ -71,16 +73,20 @@ function drawBarPlot() {
     x: d => d.visits,
     y: d => d.page,
     yDomain: d3.groupSort(pageVisitsCounts, ([d]) => -d.visits, d => d.page), // sort by descending frequency
-    xFormat: "%",
-    xLabel: "Frequency →",
     width,
     height,
     color: "green",
-    marginLeft: 100
+    marginLeft: 100,
+    marginRight: 10,
+    xLabel: "Visits"
   })
 
 }
 
+// Copyright 2021 Observable, Inc.
+// Released under the ISC license.
+// https://observablehq.com/@d3/bar-chart
+// Modified
 function BarChart(data, {
   x = d => d, // given d in data, returns the (quantitative) x-value
   y = (d, i) => i, // given d in data, returns the (ordinal) y-value
@@ -163,7 +169,7 @@ function BarChart(data, {
       .attr("x", xScale(0))
       .attr("y", i => yScale(Y[i]))
       .attr("width", i => xScale(X[i]) - xScale(0))
-      .attr("height", yScale.bandwidth());
+      .attr("height", yScale.bandwidth())
 
   svg.append("g")
       .attr("fill", titleColor)

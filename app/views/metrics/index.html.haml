@@ -3,7 +3,7 @@
 
 .container-fluid.pad-edge
   .pt-5
-    .h1 Metrics summary
+    .h1 Metrics Summary
     .p The landing page has been visited #{@metrics.size} times.
 
     %table.table
@@ -14,8 +14,8 @@
           %th Location
 
       %tbody
-        .container#visits-barchart-div
-          %svg#visits-barchart-plot{height: "500px", width: "500px"}
+        .container#visits-barchart-div.justify-content-center
+          %svg#visits-barchart-plot.d-block.m-auto{height: "500px", width: "500px"}
 
 
       - @metrics.each do |metric|
