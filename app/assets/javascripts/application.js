@@ -1,5 +1,6 @@
 //= require jquery
 //= require jquery_ujs
+//= require jquery_ui
 //= require ajax_setup
 //= require ajax_modal
 //= require bootstrap
@@ -9,3 +10,4 @@
 //= require select2
 //= require select2_init
 //= require admin.js
+//= require d3

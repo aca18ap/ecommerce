@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const CSRFToken = document.querySelector("meta[name='csrf-token']").getAttribute('content');
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
+  // Load the graph of page visits
+  drawBarPlot();
+
   // Bind listener to the visibilitychange event instead of unload, find out more at:
   // https://developer.mozilla.org/en-US/docs/Web/API/Navigator/sendBeacon#sending_analytics_at_the_end_of_a_session
   document.addEventListener('visibilitychange', () => {
@@ -37,3 +40,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 });
+
+function groupBy(xs, key) {
+  return xs.reduce(function(rv, x) {
+    (rv[x[key]] = rv[x[key]] || []).push(x);
+    return rv;
+  }, {});
+}
+
+function drawBarPlot() {
+  // Receives @metrics from controller
+  let metrics = gon.metrics;
+
+  let pageVisits = groupBy(metrics, "path")
+  let pageVisitsCounts = {}
+  Object.keys(pageVisits).forEach(key => {
+    pageVisitsCounts[key] = pageVisits[key].length;
+  });
+
+  d3.select('#visits-barchart-plot')
+    .selectAll('rect')
+    .data(pageVisitsCounts)
+
+  document.getElementById('visits-barchart-div').innerText = "GRAPH WILL APPEAR HERE";
+}

@@ -124,6 +124,8 @@ GEM
     chronic (0.10.2)
     concurrent-ruby (1.1.9)
     crass (1.0.6)
+    d3-rails (7.0.0)
+      railties (>= 3.1)
     daemons (1.4.1)
     database_cleaner (2.0.1)
       database_cleaner-active_record (~> 2.0.0)
@@ -188,6 +190,11 @@ GEM
       rchardet (~> 1.8)
     globalid (1.0.0)
       activesupport (>= 5.0)
+    gon (6.4.0)
+      actionpack (>= 3.0.20)
+      i18n (>= 0.7)
+      multi_json
+      request_store (>= 1.0)
     hamlit (2.15.1)
       temple (>= 0.8.2)
       thor
@@ -231,6 +238,8 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.12.5)
       mini_portile2 (~> 2.6.1)
+      racc (~> 1.4)
+    nokogiri (1.12.5-x86_64-darwin)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     parallel (1.21.0)
@@ -400,6 +409,7 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rvm
   capybara
+  d3-rails
   daemons
   database_cleaner
   delayed_job
@@ -411,6 +421,7 @@ DEPENDENCIES
   ed25519
   epi_deploy!
   factory_bot_rails
+  gon
   hamlit
   hamlit-rails
   jquery-rails

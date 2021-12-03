@@ -3,6 +3,9 @@ class MetricsController < ApplicationController
   def index
     @current_nav_identifier = :metrics
     @metrics = Visit.all
+
+    # Allows the passing of the @metrics object to metric.js
+    gon.metrics = @metrics
   end
 
   def create

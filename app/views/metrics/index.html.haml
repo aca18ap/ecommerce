@@ -1,4 +1,5 @@
 - content_for :title, "Team 4 - Site metrics"
+= include_gon
 
 .container-fluid.pad-edge
   .pt-5
@@ -13,6 +14,10 @@
           %th Location
 
       %tbody
+        .container#visits-barchart-div
+          %svg#visits-barchart-plot
+
+
       - @metrics.each do |metric|
         %tr
           %td= metric.path
