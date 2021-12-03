@@ -10,7 +10,6 @@ class Admin::UsersController < ApplicationController
 
   def destroy
     @user = User.find_by_id(params[:id])
-    puts(@user)
     if @user.destroy
       redirect_to admin_users_path, notice: 'User deleted'
     else
@@ -24,12 +23,22 @@ class Admin::UsersController < ApplicationController
       redirect_to admin_users_path, alert: "User already exists"
     else
       User.invite!(email: params[:email])
+      redirect_to admin_users_path
     end
   end
 
   def edit
-    @user = User.find(find_user)
-    @user.role
+    @user = User.find_by_id(params[:id])
+  end
+
+  def update
+    @user = User.find_by_id(params[:id])
+    if @user.update(user_params)
+      @users = User.all
+      redirect_to admin_users_path, alert: "Role successfully updated"
+    else
+      redirect_to admin_users_path, alert: "Something went wrong changing this user's permission"
+    end
   end
 
   private

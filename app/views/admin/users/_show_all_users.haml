@@ -5,12 +5,13 @@
             %th Email
             %th Role
 
-    %tbody
+    %tbody#show_all_users
         - @users.each do |u|
             %tr
                 %td= u.email
                 %td= u.role
-                %td= link_to 'Edit user role', edit_admin_user_url, data: {toggle: 'modal', target: 'edit_user'}
+                %td= link_to 'Edit user', edit_admin_user_path(u), class: 'ajax-modal'
+
                 - if u != current_user
                     %td= link_to 'Delete', { action: :destroy, id: u.id }, method: :delete, class: 'btn btn-default btn-xs', data: { confirm: 'Are you sure?'}
 
