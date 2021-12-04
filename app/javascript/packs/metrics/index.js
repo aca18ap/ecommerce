@@ -12,6 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Only update graphs if there are any site tracking metrics in the system
     if (metrics.length > 0) {
+        // Update chart title to include total
+        document.getElementById('visits-barchart-title').innerText = `Site Visits by Page (Total: ${metrics.length})`;
+
         // Calculate the number of visits to each page
         let pageVisits = groupBy(metrics, "path")
         let pageVisitsCounts = []
@@ -38,6 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Group metrics into hours between first recorded visit and now
         let timeVisits = groupByHour(metrics, "from", metrics[0].from);
         let timeVisitsCounts = []
+
+        // Calculate number of visits at a specific time interval
         Object.keys(timeVisits).forEach(key => {
             timeVisitsCounts.push({
                 time: key,
@@ -56,12 +61,38 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Only update graphs if there are any site tracking metrics in the system
+    // Only update graphs if there are any registrations in the system
     if (registrations.length > 0) {
-        let timeRegs = groupByHour(registrations, "created_at", registrations[0].created_at);
-        console.log(timeRegs)
+        // Update chart title to include total
+        document.getElementById('registrations-barchart-title').innerText = `Site Registrations by Vocation (Total: ${registrations.length})`;
 
+        // Calculate the number of visits to each page
+        let vocationRegs = groupBy(registrations, "vocation")
+        let vocationRegsCounts = []
+        Object.keys(vocationRegs).forEach(key => {
+            vocationRegsCounts.push({
+                vocation: key,
+                registrations: vocationRegs[key].length
+            });
+        });
+
+        let vocationRegsCountsChart = HorizontalBarChart(vocationRegsCounts, {
+            x: d => d.registrations,
+            y: d => d.vocation,
+            yDomain: d3.groupSort(vocationRegsCounts, ([d]) => -d.registrations, d => d.vocation), // sort by descending frequency
+            width,
+            height,
+            color: 'green',
+            marginLeft: 70,
+            marginRight: 10,
+            xLabel: 'Registrations',
+            svgElement: document.getElementById('registrations-barchart-plot'),
+        });
+
+        // Group registrations into hours between first recorded visit and now
+        let timeRegs = groupByHour(registrations, "created_at", registrations[0].created_at);
         let timeRegsCounts = []
+
         // Calculate number of registrations at a specific time interval
         Object.keys(timeRegs).forEach(key => {
             timeRegsCounts.push({
