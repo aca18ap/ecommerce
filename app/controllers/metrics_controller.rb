@@ -3,9 +3,11 @@ class MetricsController < ApplicationController
   def index
     @current_nav_identifier = :metrics
     @metrics = Visit.all
+    @registrations = Newsletter.all
 
-    # Allows the passing of the @metrics object to metric.js
+    # Allows the passing of the @metrics and @registrations object to metrics/index.js
     gon.metrics = @metrics
+    gon.registrations = @registrations
   end
 
   def create

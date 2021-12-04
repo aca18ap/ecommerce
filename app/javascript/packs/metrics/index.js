@@ -2,53 +2,97 @@
 import * as d3 from "d3"
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Receives @metrics from controller using gon gem
+    // Receives @metrics and @registrations from controller using gon gem
     let metrics = gon.metrics;
-
-    // Calculate the number of visits to each page
-    let pageVisits = groupBy(metrics, "path")
-    let pageVisitsCounts = []
-    Object.keys(pageVisits).forEach(key => {
-        pageVisitsCounts.push({
-            page: key,
-            visits: pageVisits[key].length
-        });
-    });
-
-    // Group metrics into hours between first recorded visit and now
-    let timeVisits = groupByHour(metrics, "from", metrics[0].from);
-    let timeVisitsCounts = []
-    Object.keys(timeVisits).forEach(key => {
-        timeVisitsCounts.push({
-            date: key,
-            visits: timeVisits[key]
-        });
-    });
+    let registrations = gon.registrations;
 
     // Create charts to display on metrics page
     const width = 1000;
     const height = 500;
 
-    let pageVisitCountsChart = HorizontalBarChart(pageVisitsCounts, {
-        x: d => d.visits,
-        y: d => d.page,
-        yDomain: d3.groupSort(pageVisitsCounts, ([d]) => -d.visits, d => d.page), // sort by descending frequency
-        width,
-        height,
-        color: 'green',
-        marginLeft: 70,
-        marginRight: 10,
-        xLabel: 'Visits'
-    });
+    // Only update graphs if there are any site tracking metrics in the system
+    if (metrics.length > 0) {
+        // Calculate the number of visits to each page
+        let pageVisits = groupBy(metrics, "path")
+        let pageVisitsCounts = []
+        Object.keys(pageVisits).forEach(key => {
+            pageVisitsCounts.push({
+                page: key,
+                visits: pageVisits[key].length
+            });
+        });
 
-    let visitsOverTimeChart = LineChart(timeVisitsCounts, {
-        x: d => d.date,
-        y: d => d.visits,
-        yLabel: 'Visits',
-        width,
-        height,
-        color: 'green'
-    });
+        let pageVisitCountsChart = HorizontalBarChart(pageVisitsCounts, {
+            x: d => d.visits,
+            y: d => d.page,
+            yDomain: d3.groupSort(pageVisitsCounts, ([d]) => -d.visits, d => d.page), // sort by descending frequency
+            width,
+            height,
+            color: 'green',
+            marginLeft: 70,
+            marginRight: 10,
+            xLabel: 'Visits',
+            svgElement: document.getElementById('visits-barchart-plot'),
+        });
+
+        // Group metrics into hours between first recorded visit and now
+        let timeVisits = groupByHour(metrics, "from", metrics[0].from);
+        let timeVisitsCounts = []
+        Object.keys(timeVisits).forEach(key => {
+            timeVisitsCounts.push({
+                time: key,
+                visits: timeVisits[key].length
+            });
+        });
+
+        let visitsOverTimeChart = LineChart(timeVisitsCounts, {
+            x: d => d.time,
+            y: d => d.visits,
+            yLabel: 'Visits',
+            width,
+            height,
+            color: 'green',
+            svgElement: document.getElementById('visits-linechart-plot'),
+        });
+    }
+
+    // Only update graphs if there are any site tracking metrics in the system
+    if (registrations.length > 0) {
+        let timeRegs = groupByHour(registrations, "created_at", registrations[0].created_at);
+        console.log(timeRegs)
+
+        let timeRegsCounts = []
+        // Calculate number of registrations at a specific time interval
+        Object.keys(timeRegs).forEach(key => {
+            timeRegsCounts.push({
+                vocation: 'Total',
+                time: key,
+                registrations: timeRegs[key].length
+            });
+
+            // Calculate number of registrations at a specific time interval for each vocation
+            let vocationGrouped = groupBy(timeRegs[key], 'vocation');
+            Object.keys(vocationGrouped).forEach(vocation => {
+                timeRegsCounts.push({
+                    vocation: vocation,
+                    time: key,
+                    registrations: vocationGrouped[vocation].length
+                });
+            })
+        });
+
+        let regsOverTimeChart = LineChart(timeRegsCounts, {
+            x: d => d.time,
+            y: d => d.registrations,
+            z: d => d.vocation,
+            yLabel: 'Registrations',
+            width,
+            height,
+            color: 'green',
+            svgElement: document.getElementById('registrations-linechart-plot'),
+        });
+    }
+
 });
 
 function groupBy(arr, key) {
@@ -66,13 +110,13 @@ function groupByHour(arr, key, startTime) {
     // Create an dict of every hour between the start and end hour
     let hoursDict = {}
     for (let hour = startHour; hour <= endHour; hour += (60*60*1000)) {
-        hoursDict[hour] = 0;
+        hoursDict[hour] = [];
     }
 
     // Sum the number of visits and assign them to groups of hours
     for (let a of arr) {
         let aDate = new Date(Date.parse(a[key])).setMinutes(0, 0, 0);
-        hoursDict[aDate] += 1;
+        hoursDict[aDate].push(a);
     }
 
     return hoursDict
@@ -104,6 +148,7 @@ function HorizontalBarChart(data, {
     color = "currentColor", // bar fill color
     titleColor = "white", // title fill color when atop bar
     titleAltColor = "currentColor", // title fill color when atop background
+    svgElement
 } = {}) {
     // Compute values.
     const X = d3.map(data, x);
@@ -137,7 +182,7 @@ function HorizontalBarChart(data, {
         title = i => T(O[i], i, data);
     }
 
-    const svg = d3.select("#visits-barchart-plot")
+    const svg = d3.select(svgElement)
         .attr("width", width)
         .attr("height", height)
         .attr("viewBox", [0, 0, width, height])
@@ -194,10 +239,12 @@ function HorizontalBarChart(data, {
 
 // Copyright 2021 Observable, Inc.
 // Released under the ISC license.
-// https://observablehq.com/@d3/line-chart
+// https://observablehq.com/@d3/multi-line-chart
 function LineChart(data, {
     x = ([x]) => x, // given d in data, returns the (temporal) x-value
     y = ([, y]) => y, // given d in data, returns the (quantitative) y-value
+    z = () => 1, // given d in data, returns the (categorical) z-value
+    title, // given d in data, returns the title text
     defined, // for gaps in data
     curve = d3.curveLinear, // method of interpolation between points
     marginTop = 20, // top margin, in pixels
@@ -206,36 +253,49 @@ function LineChart(data, {
     marginLeft = 40, // left margin, in pixels
     width = 640, // outer width, in pixels
     height = 400, // outer height, in pixels
-    xType = d3.scaleUtc, // the x-scale type
+    xType = d3.scaleUtc, // type of x-scale
     xDomain, // [xmin, xmax]
     xRange = [marginLeft, width - marginRight], // [left, right]
-    yType = d3.scaleLinear, // the y-scale type
+    yType = d3.scaleLinear, // type of y-scale
     yDomain, // [ymin, ymax]
     yRange = [height - marginBottom, marginTop], // [bottom, top]
     yFormat, // a format specifier string for the y-axis
     yLabel, // a label for the y-axis
-    color = "currentColor", // stroke color of line
-    strokeLinecap = "round", // stroke line cap of the line
-    strokeLinejoin = "round", // stroke line join of the line
-    strokeWidth = 1.5, // stroke width of line, in pixels
-    strokeOpacity = 1, // stroke opacity of line
+    zDomain, // array of z-values
+    color = "currentColor", // stroke color of line, as a constant or a function of *z*
+    strokeLinecap, // stroke line cap of line
+    strokeLinejoin, // stroke line join of line
+    strokeWidth = 1.5, // stroke width of line
+    strokeOpacity, // stroke opacity of line
+    mixBlendMode = "multiply", // blend mode of lines
+    voronoi, // show a Voronoi overlay? (for debugging)
+    svgElement
 } = {}) {
     // Compute values.
     const X = d3.map(data, x);
     const Y = d3.map(data, y);
-    const I = d3.range(X.length);
+    const Z = d3.map(data, z);
+    const O = d3.map(data, d => d);
     if (defined === undefined) defined = (d, i) => !isNaN(X[i]) && !isNaN(Y[i]);
     const D = d3.map(data, defined);
 
-    // Compute default domains.
+    // Compute default domains, and unique the z-domain.
     if (xDomain === undefined) xDomain = d3.extent(X);
     if (yDomain === undefined) yDomain = [0, d3.max(Y)];
+    if (zDomain === undefined) zDomain = Z;
+    zDomain = new d3.InternSet(zDomain);
+
+    // Omit any data not present in the z-domain.
+    const I = d3.range(X.length).filter(i => zDomain.has(Z[i]));
 
     // Construct scales and axes.
     const xScale = xType(xDomain, xRange);
     const yScale = yType(yDomain, yRange);
     const xAxis = d3.axisBottom(xScale).ticks(width / 80).tickSizeOuter(0);
-    const yAxis = d3.axisLeft(yScale).ticks(height / 40, yFormat);
+    const yAxis = d3.axisLeft(yScale).ticks(height / 60, yFormat);
+
+    // Compute titles.
+    const T = title === undefined ? Z : title === null ? null : d3.map(data, title);
 
     // Construct a line generator.
     const line = d3.line()
@@ -244,11 +304,25 @@ function LineChart(data, {
         .x(i => xScale(X[i]))
         .y(i => yScale(Y[i]));
 
-    const svg = d3.select("#visits-linechart-plot")
+    const svg = d3.select(svgElement)
         .attr("width", width)
         .attr("height", height)
         .attr("viewBox", [0, 0, width, height])
-        .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
+        .attr("style", "max-width: 100%; height: auto; height: intrinsic;")
+        .style("-webkit-tap-highlight-color", "transparent")
+        .on("pointerenter", pointerentered)
+        .on("pointermove", pointermoved)
+        .on("pointerleave", pointerleft)
+        .on("touchstart", event => event.preventDefault());
+
+    // An optional Voronoi display (for fun).
+    if (voronoi) svg.append("path")
+        .attr("fill", "none")
+        .attr("stroke", "#ccc")
+        .attr("d", d3.Delaunay
+            .from(I, i => xScale(X[i]), i => yScale(Y[i]))
+            .voronoi([0, 0, width, height])
+            .render());
 
     svg.append("g")
         .attr("transform", `translate(0,${height - marginBottom})`)
@@ -258,7 +332,7 @@ function LineChart(data, {
         .attr("transform", `translate(${marginLeft},0)`)
         .call(yAxis)
         .call(g => g.select(".domain").remove())
-        .call(g => g.selectAll(".tick line").clone()
+        .call(voronoi ? () => {} : g => g.selectAll(".tick line").clone()
             .attr("x2", width - marginLeft - marginRight)
             .attr("stroke-opacity", 0.1))
         .call(g => g.append("text")
@@ -268,14 +342,52 @@ function LineChart(data, {
             .attr("text-anchor", "start")
             .text(yLabel));
 
-    svg.append("path")
+    const path = svg.append("g")
         .attr("fill", "none")
-        .attr("stroke", color)
-        .attr("stroke-width", strokeWidth)
+        .attr("stroke", typeof color === "string" ? color : null)
         .attr("stroke-linecap", strokeLinecap)
         .attr("stroke-linejoin", strokeLinejoin)
+        .attr("stroke-width", strokeWidth)
         .attr("stroke-opacity", strokeOpacity)
-        .attr("d", line(I));
+        .selectAll("path")
+        .data(d3.group(I, i => Z[i]))
+        .join("path")
+        .style("mix-blend-mode", mixBlendMode)
+        .attr("stroke", typeof color === "function" ? ([z]) => color(z) : null)
+        .attr("d", ([, I]) => line(I));
 
-    return svg.node();
+    const dot = svg.append("g")
+        .attr("display", "none");
+
+    dot.append("circle")
+        .attr("r", 2.5);
+
+    dot.append("text")
+        .attr("font-family", "sans-serif")
+        .attr("font-size", 10)
+        .attr("text-anchor", "middle")
+        .attr("y", -8);
+
+    function pointermoved(event) {
+        const [xm, ym] = d3.pointer(event);
+        const i = d3.least(I, i => Math.hypot(xScale(X[i]) - xm, yScale(Y[i]) - ym)); // closest point
+        path.style("stroke", ([z]) => Z[i] === z ? null : "#ddd").filter(([z]) => Z[i] === z).raise();
+        dot.attr("transform", `translate(${xScale(X[i])},${yScale(Y[i])})`);
+        if (T) dot.select("text").text(T[i]);
+        svg.property("value", O[i]).dispatch("input", {bubbles: true});
+    }
+
+    function pointerentered() {
+        path.style("mix-blend-mode", null).style("stroke", "#ddd");
+        dot.attr("display", null);
+    }
+
+    function pointerleft() {
+        path.style("mix-blend-mode", "multiply").style("stroke", null);
+        dot.attr("display", "none");
+        svg.node().value = null;
+        svg.dispatch("input", {bubbles: true});
+    }
+
+    return Object.assign(svg.node(), {value: null});
 }
