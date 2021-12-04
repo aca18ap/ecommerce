@@ -3,6 +3,8 @@
 Rails.application.routes.draw do
 
   resources :reviews
+  get :review_created, to: 'reviews#created'
+
   resources :faqs do
     member do
       get 'answer'

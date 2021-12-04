@@ -25,8 +25,9 @@
               = link_to 'Home', root_path, title: 'Go to the home page', class: 'nav-link px-2 link-secondary'
             %li
               %a.nav-link.px-2.link-dark{:href => "#"} FAQs
-            %li
-              %a.nav-link.px-2.link-dark{:href => "/reviews"} Reviews
+            - if can?(:manage, Review)  
+              %li
+                %a.nav-link.px-2.link-dark{:href => "/reviews"} Reviews
             -# Hide unless user is admin
             %li
               %a.nav-link.px-2.link-dark{:href => "/metrics"} Metrics
