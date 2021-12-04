@@ -15,17 +15,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Calculate landing page visits over time
-    let timeVisits = groupBy(metrics, "from")
+    // Group metrics into hours between first recorded visit and now
+    let timeVisits = groupByHour(metrics, "from", metrics[0].from);
     let timeVisitsCounts = []
     Object.keys(timeVisits).forEach(key => {
         timeVisitsCounts.push({
-            date: Date.parse(key),
-            visits: timeVisits[key].length
+            date: key,
+            visits: timeVisits[key]
         });
     });
-
-    console.log(timeVisitsCounts)
 
     // Create charts to display on metrics page
     const width = 1000;
@@ -38,9 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
         width,
         height,
         color: 'green',
-        marginLeft: 100,
+        marginLeft: 70,
         marginRight: 10,
-        xLabel: 'visits'
+        xLabel: 'Visits'
     });
 
     let visitsOverTimeChart = LineChart(timeVisitsCounts, {
@@ -53,11 +51,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-function groupBy(xs, key) {
-    return xs.reduce(function(rv, x) {
-        (rv[x[key]] = rv[x[key]] || []).push(x);
-        return rv;
+function groupBy(arr, key) {
+    return arr.reduce(function(rec_var, x) {
+        (rec_var[x[key]] = rec_var[x[key]] || []).push(x);
+        return rec_var;
     }, {});
+}
+
+
+function groupByHour(arr, key, startTime) {
+    let startHour = new Date(Date.parse(startTime)).setMinutes(0, 0, 0);
+    let endHour = new Date().setMinutes(0, 0, 0);
+
+    // Create an dict of every hour between the start and end hour
+    let hoursDict = {}
+    for (let hour = startHour; hour <= endHour; hour += (60*60*1000)) {
+        hoursDict[hour] = 0;
+    }
+
+    // Sum the number of visits and assign them to groups of hours
+    for (let a of arr) {
+        let aDate = new Date(Date.parse(a[key])).setMinutes(0, 0, 0);
+        hoursDict[aDate] += 1;
+    }
+
+    return hoursDict
 }
 
 

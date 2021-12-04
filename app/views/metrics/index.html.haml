@@ -16,10 +16,12 @@
 
       %tbody
         .container#visits-barchart-div.justify-content-center
-          %svg#visits-barchart-plot.d-block.m-auto{height: "500px", width: "500px"}
+          %h2.text-center Page Visit Counts
+          %svg#visits-barchart-plot.d-block.m-auto{height: "500px", width: "1000px"}
 
         .container#visits-linechart-div.justify-content-center
-          %svg#visits-linechart-plot.d-block.m-auto{height: "500px", width: "500px"}
+          %h2.text-center Landing Site Visits Over Time
+          %svg#visits-linechart-plot.d-block.m-auto{height: "500px", width: "1000px"}
 
 
       - @metrics.each do |metric|
