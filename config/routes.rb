@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
 
+  resources :reviews
   resources :faqs do
     member do
       get 'answer'
