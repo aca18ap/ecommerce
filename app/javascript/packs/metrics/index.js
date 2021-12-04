@@ -10,11 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const width = 1000;
     const height = 500;
 
+    let emptyCharts = [];
+
+
+    // Update chart title to include total
+    document.getElementById('visits-barchart-title').innerText = `Site Visits by Page (Total: ${metrics.length})`;
     // Only update graphs if there are any site tracking metrics in the system
     if (metrics.length > 0) {
-        // Update chart title to include total
-        document.getElementById('visits-barchart-title').innerText = `Site Visits by Page (Total: ${metrics.length})`;
-
         // Calculate the number of visits to each page
         let pageVisits = groupBy(metrics, "path")
         let pageVisitsCounts = []
@@ -35,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
             marginLeft: 70,
             marginRight: 10,
             xLabel: 'Visits',
-            svgElement: document.getElementById('visits-barchart-plot'),
+            svgElement: document.getElementById('visits-barchart-plot')
         });
 
         // Group metrics into hours between first recorded visit and now
@@ -59,13 +61,18 @@ document.addEventListener('DOMContentLoaded', () => {
             color: 'green',
             svgElement: document.getElementById('visits-linechart-plot'),
         });
+    } else {
+        // Set text of chart areas to indicate that there is no data
+        emptyCharts.push(
+            document.getElementById('visits-barchart-plot'),
+            document.getElementById('visits-linechart-plot'));
     }
 
+
+    // Update chart title to include total
+    document.getElementById('registrations-barchart-title').innerText = `Site Registrations by Vocation (Total: ${registrations.length})`;
     // Only update graphs if there are any registrations in the system
     if (registrations.length > 0) {
-        // Update chart title to include total
-        document.getElementById('registrations-barchart-title').innerText = `Site Registrations by Vocation (Total: ${registrations.length})`;
-
         // Calculate the number of visits to each page
         let vocationRegs = groupBy(registrations, "vocation")
         let vocationRegsCounts = []
@@ -86,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
             marginLeft: 70,
             marginRight: 10,
             xLabel: 'Registrations',
-            svgElement: document.getElementById('registrations-barchart-plot'),
+            svgElement: document.getElementById('registrations-barchart-plot')
         });
 
         // Group registrations into hours between first recorded visit and now
@@ -103,11 +110,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Calculate number of registrations at a specific time interval for each vocation
             let vocationGrouped = groupBy(timeRegs[key], 'vocation');
-            Object.keys(vocationGrouped).forEach(vocation => {
+            ['Customer', 'Business'].forEach(vocation => {
                 timeRegsCounts.push({
                     vocation: vocation,
                     time: key,
-                    registrations: vocationGrouped[vocation].length
+                    registrations: vocationGrouped[vocation] ? vocationGrouped[vocation].length : 0
                 });
             })
         });
@@ -120,8 +127,31 @@ document.addEventListener('DOMContentLoaded', () => {
             width,
             height,
             color: 'green',
-            svgElement: document.getElementById('registrations-linechart-plot'),
+            svgElement: document.getElementById('registrations-linechart-plot')
         });
+    } else {
+        // Set text of chart areas to indicate that there is no data
+        emptyCharts.push(
+            document.getElementById('registrations-barchart-plot'),
+            document.getElementById('registrations-linechart-plot'));
+    }
+
+    for (let chart of emptyCharts) {
+        console.log(chart);
+        let svg = d3.select(chart);
+        let g = svg.append("g")
+            .attr("transform", function(d, i) {
+                return "translate(0,0)";
+            });
+
+        g.append("text")
+            .attr("x", width / 2)
+            .attr("y", height / 2)
+            .attr("stroke", "#000")
+            .attr("text-anchor", "middle")
+            .attr("font-size", "24px")
+            .attr("font-family", "Outfit")
+            .text("There is no data for this metric yet");
     }
 
 });
@@ -271,6 +301,7 @@ function HorizontalBarChart(data, {
 // Copyright 2021 Observable, Inc.
 // Released under the ISC license.
 // https://observablehq.com/@d3/multi-line-chart
+// Modified
 function LineChart(data, {
     x = ([x]) => x, // given d in data, returns the (temporal) x-value
     y = ([, y]) => y, // given d in data, returns the (quantitative) y-value
