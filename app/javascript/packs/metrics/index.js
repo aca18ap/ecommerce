@@ -138,7 +138,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     for (let chart of emptyCharts) {
         console.log(chart);
-        let svg = d3.select(chart);
+        let svg = d3.select(chart)
+            .attr("width", width)
+            .attr("height", height)
+            .attr("viewBox", [0, 0, width, height])
+            .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
+
         let g = svg.append("g")
             .attr("transform", function(d, i) {
                 return "translate(0,0)";

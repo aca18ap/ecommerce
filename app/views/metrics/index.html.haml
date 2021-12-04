@@ -6,6 +6,27 @@
   .pt-5
     .h1 Metrics Summary
 
+.row.vw-75.m-3
+  #visits-barchart-div.justify-content-center.bg-light-green.col-6
+    %h2#visits-barchart-title.text-center Site Visits by Page
+    %svg#visits-barchart-plot.d-block.m-auto
+
+  #visits-linechart-div.justify-content-center.bg-light-green.col-6
+    %h2#visits-linechart-title.text-center Landing Page Visits Over Time
+    %svg#visits-linechart-plot.d-block.m-auto
+.row.vw-75.m-3
+  #registrations-barchart-div.justify-content-center.bg-light-green.col-6
+    %h2#registrations-barchart-title.text-center Site Registrations by Vocation
+    %svg#registrations-barchart-plot.d-block.m-auto
+
+  #registrations-linechart-div.justify-content-center.bg-light-green.col-6
+    %h2#registrations-linechart-title.text-center Site Registrations Over Time
+    %svg#registrations-linechart-plot.d-block.m-auto
+
+
+
+.container-fluid.pad-edge
+  .pt-5
     %table.table
       %thead
         %tr
@@ -14,22 +35,6 @@
           %th Location
 
       %tbody
-        .container#visits-barchart-div.justify-content-center
-          %h2#visits-barchart-title.text-center Site Visits by Page
-          %svg#visits-barchart-plot.d-block.m-auto{height: "500px", width: "1000px"}
-
-        .container#visits-linechart-div.justify-content-center
-          %h2#visits-linechart-title.text-center Landing Page Visits Over Time
-          %svg#visits-linechart-plot.d-block.m-auto{height: "500px", width: "1000px"}
-
-        .container#registrations-barchart-div.justify-content-center
-          %h2#registrations-barchart-title.text-center Site Registrations by Vocation
-          %svg#registrations-barchart-plot.d-block.m-auto{height: "500px", width: "1000px"}
-
-        .container#registrations-linechart-div.justify-content-center
-          %h2#registrations-linechart-title.text-center Site Registrations Over Time
-          %svg#registrations-linechart-plot.d-block.m-auto{height: "500px", width: "1000px"}
-
 
       - @metrics.each do |metric|
         %tr
