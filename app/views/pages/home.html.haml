@@ -85,6 +85,22 @@
           %p.card-text Subscribers can view an estimate of their online carbon footprint, helping them to understand their impact.
           -# %a.btn.btn-primary{:href => "#"} Share
 
+  %h1 Customer reviews
+  = link_to 'Leave Us A Review', new_review_path
+  %table.table
+    -#%thead
+      -#%tr
+        -#%th Description
+        -#%th Usefulenss
+  
+    %tbody
+      - @reviews.each do |review|
+        %tr
+          %td= review.description
+          %td
+          %td= link_to "Mark as useful", review_usefulness_path(id: review.id)
+
+
 
 
 
