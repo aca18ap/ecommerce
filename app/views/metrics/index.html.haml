@@ -1,5 +1,6 @@
 - content_for :title, "Team 4 - Site metrics"
 = include_gon
+= javascript_pack_tag('metrics/index')
 
 .container-fluid.pad-edge
   .pt-5
@@ -16,6 +17,9 @@
       %tbody
         .container#visits-barchart-div.justify-content-center
           %svg#visits-barchart-plot.d-block.m-auto{height: "500px", width: "500px"}
+
+        .container#visits-linechart-div.justify-content-center
+          %svg#visits-linechart-plot.d-block.m-auto{height: "500px", width: "500px"}
 
 
       - @metrics.each do |metric|

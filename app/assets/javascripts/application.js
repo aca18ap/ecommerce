@@ -11,4 +11,5 @@
 //= require admin.js
 //= require turbolinks
 //= require d3
+//= require ../../javascript/packs/metrics
 //= require_tree
