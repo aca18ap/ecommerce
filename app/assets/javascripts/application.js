@@ -11,5 +11,7 @@
 //= require admin.js
 //= require turbolinks
 //= require d3
+//= require d3-geo
 //= require ../../javascript/packs/metrics
+//= require topojson
 //= require_tree
