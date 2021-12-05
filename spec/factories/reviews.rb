@@ -3,7 +3,6 @@
 # Table name: reviews
 #
 #  id          :bigint           not null, primary key
-#  clicks      :integer          default(0), not null
 #  description :text             not null
 #  hidden      :boolean          default(TRUE)
 #  rank        :integer          default(0)
