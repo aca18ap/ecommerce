@@ -183,8 +183,10 @@ document.addEventListener('DOMContentLoaded', () => {
         .attr("stroke-width", 0.4)
         .attr("d", d3.geoPath(projection));
 
-    d3.select(`#county-${tempData[0].ID_1}-${tempData[0].ID_2}`)
+    d3.select(`#county-1-65`)
         .attr('fill', '#f00')
+
+
 });
 
 /**
