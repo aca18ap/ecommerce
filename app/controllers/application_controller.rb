@@ -3,7 +3,7 @@
 class ApplicationController < ActionController::Base
   # Ensure that CanCanCan is correctly configured
   # and authorising actions on each controller
-  # check_authorization
+  #check_authorization
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -39,5 +39,8 @@ class ApplicationController < ActionController::Base
     if request.user_agent.to_s =~ /MSIE [6-7]/ && request.user_agent.to_s !~ %r{Trident/7.0}
       redirect_to(ie_warning_path)
     end
+  end
+  def after_sign_in_path_for(resource)
+    users_show_path
   end
 end

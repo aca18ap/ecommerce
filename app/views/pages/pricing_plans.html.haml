@@ -1,8 +1,11 @@
 - content_for :title, "Team 4 - Pricing plans"
 
 .container-fluid
-  .row.text-center.text-feldgrau.py-5.grabber
-    %h2 Did you know: 67% of the world's carbon emissions are your fault?
+  .row.text-center.text-feldgrau.grabber.pt-5
+    %h4 
+      %span.highlight-dyk Did you know? 
+      By 2050, freight emissions will account for over a quarter of the world's carbon footprint?
+
     %h1
       Join us today, and
       %span.highlight-text change
@@ -63,7 +66,8 @@
                 / //FEATURE LIST END
                 / BUTTON START
                 .generic_price_btn.clearfix
-                  %a{:href => ""} Sign up
+                  -# %a{:href => "/newsletters/new", :vocation => "Customer"} Sign up
+                  = link_to 'Sign up', new_newsletter_path(@newsletters, :type => "Customer")
                 / //BUTTON END
               / //PRICE CONTENT END
             .col-md-4
@@ -109,7 +113,8 @@
                 / //FEATURE LIST END
                 / BUTTON START
                 .generic_price_btn.clearfix
-                  %a{:href => ""} Sign up
+                  -# %a{:href => "/newsletters/new", :vocation => "Customer"} Sign up
+                  = link_to 'Sign up', new_newsletter_path(@newsletters, :type => "Customer")
                 / //BUTTON END
               / //PRICE CONTENT END
             .col-md-4
@@ -155,7 +160,8 @@
                 / //FEATURE LIST END
                 / BUTTON START
                 .generic_price_btn.clearfix
-                  %a{:href => ""} Sign up
+                  -# %a{:href => "/newsletters/new", :vocation => "Customer"} Sign up
+                  = link_to 'Sign up', new_newsletter_path(@newsletters, :type => "Customer")
                 / //BUTTON END
               / //PRICE CONTENT END
           / //BLOCK ROW END

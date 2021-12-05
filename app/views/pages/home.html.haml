@@ -2,7 +2,10 @@
 
 .container-fluid
   .row.text-center.text-feldgrau.py-5.grabber
-    %h2 Did you know: 67% of the world's carbon emissions are your fault?
+    %h4
+      %span.highlight-dyk Did you know?
+      By 2050, freight emissions will account for over a quarter of the world's carbon footprint?
+
     %h1
       Join us today, and
       %span.highlight-text change
@@ -10,14 +13,19 @@
 
   .row.pad-edge 
     .col-lg 
-      %img{:alt => "...", :src => "images/screenshot.svg"}/
+      %img{:alt => "...", :src => "../images/screenshot.svg"}/
     .col-lg.my-auto
       %ul.feature-list.p-0.mb-4
-        %li Get eco-friendly alternatives at the click of a button
-        %li View the location of all your purchases
-        %li View your purchase history
-        .m-auto.btn-custom.clearfix
-          = link_to ("Learn more"), pricing_plans_url, method: :get
+        %li Eco-friendly online shopping suggestions as you browse
+        %li Check retailer eco-scores
+        %li See your carbon footprint
+      .row.row-cols-auto
+        .col
+          .m-auto.btn-custom-active.clearfix
+            = link_to ("as a customer"), pricing_plans_url, method: :get
+        .col
+          .m-auto.btn-custom.clearfix
+            = link_to ("as a business"), business_info_url, method: :get
 
   
   .row.transition-wrapper
@@ -31,34 +39,21 @@
         %path.shape-fill{:d => "M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z", :opacity => ".25"}
         %path.shape-fill{:d => "M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z", :opacity => ".5"}
         %path.shape-fill{:d => "M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"}
-    -# .col-lg.bg-business.h-100 
-    -#   .w-75.mx-auto.text-white.text-shadow.text-center.fixed-padding-top
-    -#     -# %img.w-75.wcard-img-top{:alt => "...", :src => "images/image-business.svg"}/
-    -#     %h2 I'm a business
-    -#     %p
-    -#       If you're an eco-friendly retailer, we can help you. 
-    -#       %br
-    -#       Simply list your products with us and we'll do the rest.
-    -#       .input-group.w-75.m-auto
-    -#         -# %input.form-control.form-control-lg{"aria-label" => ".form-control-lg example", :placeholder => "e.g. yourname@example.com", :type => "text"}/
-    -#         %button.m-auto.btn.btn-primary.btn-lg
-    -#           = link_to ("Learn more"), pricing_plans_url, method: :get
-    .col-lg.bg-consumer.pad-vertically
-      .row.text-white.pad-edge.pb-3
-        .h3 What is the problem
-        .p Shopping online can increase CO2 emissions when items are transported long distances. 
-        .h3 Why is it an important problem
-        .p Whilst the convenience of online shopping cannot be denied, we need to start thinking more carefully about the impact that it is having on the world. 
-        .p A major contributor to global warming is international freight which currently accounts for 7% of all global CO2 emissions. This doesn’t sound like much, but by 2050 this contribution is projected to have grown four-fold. 
-        .p So what can we do about this? 
-        .p It’s a very difficult problem to solve as a consumer as retailers do not provide enough information about where their suppliers are based. That’s where we come in.
-        .h3 What is the solution
-        .p Our product is a browser extension designed to reduce shipping distances by suggesting more environmentally friendly alternatives whilst you’re browsing. 
-        .p Our premium plans also provide a web interface where you can see summaries of your purchase habits, including how much you’ve contributed through use of our product. 
-        .h3 Why is the solution a good solution?
-        .p We know it’s not as simple as redirecting traffic to alternative retailers. That’s why we ensure all our eco-approved suppliers conform to ISO 14000. Not only this, but we ask all affiliates to provide us with information about where they manufacture their products.
-        .p We also know that life is busy and finding the time and energy to solve a problem that seems far off in the distance can be a challenge. 
-        .p That’s why we’ve made it as easy as possible to use. Simply download and install the browser extension, do your shopping as normal, and alternative suggestions will be one click away!
+    .col-lg.bg-segment.pad-vertically
+      .row.text-white.pad-edge.segment-font
+        .text-center.w-75.mx-auto.pb-5
+          .h2.p-4
+            Shopping online can increase CO
+            %sub 2
+            emissions when items are transported long distances.
+          .h3.pb-3 Why is this a problem?
+          .p.pb-3 Whilst the convenience of online shopping cannot be denied, we need to start thinking more carefully about the impact that it is having on the world. A major contributor to global warming is international freight which currently accounts for 7% of all global CO2 emissions. This doesn’t sound like much, but by 2050 this contribution is projected to have grown four-fold.
+          .h3.pb-2 So what can we do about this?
+          .p.pb-3 It’s a very difficult problem to solve as a consumer as retailers do not provide enough information about where their suppliers are based. That’s where we come in.
+          .h3 What is the solution?
+          .p.pb-3 Our product is a browser extension designed to reduce shipping distances by suggesting more environmentally friendly alternatives whilst you’re browsing. Our premium plans also provide a web interface where you can see summaries of your purchase habits, including how much you’ve contributed through use of our product.
+          .h3.pb-2 Why is the solution a good solution?
+          .p We know it’s not as simple as redirecting traffic to alternative retailers. That’s why we ensure all our eco-approved suppliers conform to ISO 14000. Not only this, but we ask all affiliates to provide us with information about where they manufacture their products.We also know that life is busy and finding the time and energy to solve a problem that seems far off in the distance can be a challenge. That’s why we’ve made it as easy as possible to use. Simply download and install the browser extension, do your shopping as normal, and alternative suggestions will be one click away!
 
 
   .row.text-feldgrau.text-center.pad-edge.pb-3
@@ -84,6 +79,29 @@
           %h3.card-title See your impact
           %p.card-text Subscribers can view an estimate of their online carbon footprint, helping them to understand their impact.
           -# %a.btn.btn-primary{:href => "#"} Share
+
+
+
+  .row.text-center.text-feldgrau.py-5.grabber
+    %p Tell us what you think!
+    %p
+    = button_to "Leave A Review", new_review_path, method: :get
+    %p
+    %p
+    %p
+    %p
+    %p
+    %h2 Top Customer Reviews
+    %p
+    %p
+    %p
+    %table.table
+      %tbody
+        - @reviews.each do |review|
+          %tr{:style => "background: #E1E7E5;"}
+            %td= "\"#{review.description}\""
+          %tr{:height => "90px"}
+            %td= link_to "Rate it useful", review_usefulness_path(id: review.id), class: 'css_class', style: 'font-size:90%; color:#419967'
 
 
 

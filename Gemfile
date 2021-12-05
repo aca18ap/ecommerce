@@ -12,10 +12,12 @@ gem 'puma'
 gem 'rails', '~> 6.1', '>= 6.1.4'
 gem 'responders'
 gem 'rubocop', '~> 1.23', require: false
-
+gem 'ed25519'
+gem 'bcrypt_pbkdf'
 gem 'webpacker'
 
 gem 'pg'
+gem 'gon'
 
 gem 'hamlit'
 gem 'hamlit-rails'
@@ -36,6 +38,8 @@ gem 'daemons'
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'whenever'
+
+gem 'jquery-rails'
 
 group :development, :test do
   gem 'byebug'
