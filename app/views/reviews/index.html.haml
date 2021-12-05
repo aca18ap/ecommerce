@@ -4,7 +4,6 @@
   %thead
     %tr
       %th Description
-      %th Clicks
       %th Rating
       %th Hidden
       %th Rank
@@ -16,7 +15,6 @@
     - @reviews.each do |review|
       %tr
         %td= review.description
-        %td= review.clicks
         %td= review.rating
         %td= review.hidden
         %td= review.rank

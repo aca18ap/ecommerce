@@ -3,10 +3,10 @@
 = render 'editform'
 
 - if @error_msg.to_i == 1
-  %p1= "Rank shoudld be zero if review is not shown on the front page"
+  %p1= "Rank shoudld be 0 if review is hidden from the front page"
 
 - if @error_msg.to_i == 2
-  %p1= "Rank shoudld be non zero for review to be shown on the front page"
+  %p1= "Rank should not be 0 for review to be shown on the front page"
 
 %br
 
