@@ -85,20 +85,29 @@
           %p.card-text Subscribers can view an estimate of their online carbon footprint, helping them to understand their impact.
           -# %a.btn.btn-primary{:href => "#"} Share
 
+  
+
   .row.text-center.text-feldgrau.py-5.grabber
-    = link_to 'Leave Us A Review', new_review_path
+    %p Tell us what you think!
+    %p
+    = button_to "Leave A Review", new_review_path, method: :get
     %p
     %p
-    %h2 Top customer reviews
+    %p
+    %p
+    %p
+    %h2 Top Customer Reviews
+    %p
+    %p
+    %p
     %table.table
-      %tbody
+      %tbody 
         - @reviews.each do |review|
-          %tr
-            %td= review.description
-            %td
-            %td= link_to "Mark as useful", review_usefulness_path(id: review.id)
-
-
+          %tr{:style => "background: #E1E7E5;"}
+            %td= "\"#{review.description}\""
+          %tr{:height => "90px"}
+            %td= link_to "Rate it useful", review_usefulness_path(id: review.id), class: 'css_class', style: 'font-size:90%; color:#419967'
+         
 
 
 

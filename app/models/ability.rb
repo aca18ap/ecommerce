@@ -13,10 +13,10 @@ class Ability
       can :read, :all
     elsif user.role == "reporter"
       can :read, :all
+      cannot :manage, Review
     else
       can :new, Review
       can :create, Review
-      can :show, Review
       can :created, Review
     end
     #
