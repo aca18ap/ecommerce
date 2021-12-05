@@ -11,6 +11,15 @@ class PagesController < ApplicationController
     @current_nav_identifier = :pricing_plans
   end
 
+  def business_info
+    @current_nav_identifier = :pricing_plans
+  end
+
+
+  def welcome
+    @current_nav_identifier = :welcome
+  end
+
   def record_metrics
     head :ok
   end

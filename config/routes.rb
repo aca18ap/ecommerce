@@ -45,6 +45,8 @@ Rails.application.routes.draw do
   get :pricing_plans, to: 'pages#pricing_plans'
   get :review_usefulness, to:'pages#review_usefulness'
 
+  get :business_info, to: 'pages#business_info'
+  get :welcome, to: 'pages#welcome'
 
   root to: 'pages#home'
 

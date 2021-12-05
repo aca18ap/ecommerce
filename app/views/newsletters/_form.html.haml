@@ -6,8 +6,9 @@
   .row.justify-content-center.m-4
     .col-auto
       .input-group
-        %span.input-group-text I am a...
-        = f.input_field :vocation, :class => "form-select", as: :select, collection: [ "Customer","Business"]
+        -# %span.input-group-text I am a...
+        -# = f.input_field :vocation, :class => "form-select", as: :select, collection: [ "Customer","Business"]
+        = f.hidden_field :vocation, :value => request.params[:type]
       .input-group
         = f.input_field :email, :class => "form-control w-25", :placeholder => "name@example.co.uk"
         = f.submit "Register Interest", :class => "btn btn-primary"
