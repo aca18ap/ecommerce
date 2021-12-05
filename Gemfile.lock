@@ -124,8 +124,6 @@ GEM
     chronic (0.10.2)
     concurrent-ruby (1.1.9)
     crass (1.0.6)
-    d3-rails (7.0.0)
-      railties (>= 3.1)
     daemons (1.4.1)
     database_cleaner (2.0.1)
       database_cleaner-active_record (~> 2.0.0)
@@ -186,6 +184,7 @@ GEM
     faraday-patron (1.0.0)
     faraday-rack (1.0.0)
     ffi (1.15.4)
+    geocoder (1.7.0)
     git (1.9.1)
       rchardet (~> 1.8)
     globalid (1.0.0)
@@ -409,7 +408,6 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rvm
   capybara
-  d3-rails
   daemons
   database_cleaner
   delayed_job
@@ -421,6 +419,7 @@ DEPENDENCIES
   ed25519
   epi_deploy!
   factory_bot_rails
+  geocoder (~> 1.3)
   gon
   hamlit
   hamlit-rails

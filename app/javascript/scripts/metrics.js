@@ -2,6 +2,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const pageVisitedFrom = Date.now();
   const CSRFToken = document.querySelector("meta[name='csrf-token']").getAttribute('content');
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  var latitude;
+  var longitude; 
+
+  getLocation()
+
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+      // console.log("Geolocation is not supported by this browser.");
+    }
+  }
+
+  function showPosition(position) {
+    latitude = position.coords.latitude;
+    longitude = position.coords.longitude;
+  }
+
 
   // Load the graph of page visits
 
@@ -12,9 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
       let metrics = new FormData();
       metrics.append('pageVisitedFrom', pageVisitedFrom);
       metrics.append('pageVisitedTo', Date.now());
-      metrics.append('location', timezone)
+      // metrics.append('location', timezone)
       metrics.append('path', window.location.pathname);
       metrics.append('authenticity_token', CSRFToken);
+      metrics.append('latitude', latitude)
+      metrics.append('longitude', longitude)
 
       console.log(metrics);
       // navigator.sendBeacon is the easist way to send a request to the server when a page is unloading.

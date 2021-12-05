@@ -43,7 +43,9 @@
         %tr
           %th Page visited
           %th Date of visit
-          %th Location
+          %th Latitude 
+          %th Longitude
+          %th Session ID
 
       %tbody
 
@@ -51,6 +53,8 @@
         %tr
           %td= metric.path
           %td= metric.from
-          %td= metric.location
+          %td= metric.latitude 
+          %td= metric.longitude
+          %td= metric.session_identifier
 
 

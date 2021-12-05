@@ -1,27 +1,30 @@
-%h1 Listing reviews
+.container-fluid.pad-edge
 
-%table.table
-  %thead
-    %tr
-      %th Description
-      %th Clicks
-      %th Rating
-      %th Hidden
-      %th Rank
-      %th
-      %th
-      %th
 
-  %tbody
-    - @reviews.each do |review|
+  %h1.pt-5 Listing reviews
+
+  %table.table
+    %thead
       %tr
-        %td= review.description
-        %td= review.clicks
-        %td= review.rating
-        %td= review.hidden
-        %td= review.rank
-        %td= link_to 'Show', review
-        %td= link_to 'Edit', edit_review_path(review)
-        %td= link_to 'Destroy', review, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %th Description
+        %th Clicks
+        %th Rating
+        %th Hidden
+        %th Rank
+        %th
+        %th
+        %th
 
-%br
+    %tbody
+      - @reviews.each do |review|
+        %tr
+          %td= review.description
+          %td= review.clicks
+          %td= review.rating
+          %td= review.hidden
+          %td= review.rank
+          %td= link_to 'Show', review
+          %td= link_to 'Edit', edit_review_path(review)
+          %td= link_to 'Destroy', review, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+  %br

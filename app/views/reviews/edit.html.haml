@@ -1,15 +1,17 @@
-%h1 Editing review
+.container-fluid.pad-edge 
 
-= render 'editform'
+  %h1.pt-5 Editing review
 
-- if @error_msg.to_i == 1
-  %p1= "Rank shoudld be zero if review is not shown on the front page"
+  = render 'editform'
 
-- if @error_msg.to_i == 2
-  %p1= "Rank shoudld be non zero for review to be shown on the front page"
+  - if @error_msg.to_i == 1
+    %p1= "Rank shoudld be zero if review is not shown on the front page"
 
-%br
+  - if @error_msg.to_i == 2
+    %p1= "Rank shoudld be non zero for review to be shown on the front page"
 
-= link_to 'Show', @review
-\|
-= link_to 'Back', reviews_path
+  %br
+
+  = link_to 'Show', @review
+  \|
+  = link_to 'Back', reviews_path
