@@ -29,6 +29,7 @@ FactoryBot.define do
       email { 'admin@team04.com' }
       password { 'Password123' }
       role { 'admin' }
+      admin { true }
     end
 
     factory :reporter do

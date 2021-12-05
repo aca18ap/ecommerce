@@ -1,9 +1,10 @@
 class FaqsController < ApplicationController
+  authorize_resource
   before_action :set_faq, only: [:show, :edit, :answer, :update, :destroy]
 
   # GET /faqs
   def index
-    @faqs = Faq.order(clicks: :desc)
+    @faqs = Faq.accessible_by(current_ability).order(clicks: :desc)
   end
 
   # GET /faqs/1

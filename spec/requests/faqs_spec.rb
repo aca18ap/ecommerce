@@ -12,6 +12,7 @@ require 'rails_helper'
  # of tools you can use to make these specs even more expressive, but we're
  # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
+
 describe 'Managing FAQs' do
   context 'When I fill in the required information' do
     specify 'I can create a new FAQ entry' do
@@ -33,6 +34,8 @@ describe 'Managing FAQs' do
   end
 
   context 'Given that an FAQ already exists' do
+    before { login_as(FactoryBot.create(:admin)) }
+
     specify 'I can delete it', js: true do
       FactoryBot.create :faq
       visit '/faqs'
