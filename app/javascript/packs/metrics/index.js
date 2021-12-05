@@ -169,16 +169,30 @@ document.addEventListener('DOMContentLoaded', () => {
         .scale(4000)
         .translate([width/5, (2.4*height)/3])
 
+    console.log(uk.features);
+    let tempData = [{ID_1: 1, ID_2: 1, value: 1}, {ID_1: 1, ID_2: 2, value: 1}]
+
     svg.append("g")
         .selectAll("path")
         .data(uk.features)
-        .join("path")
+        .enter()
+        .append("path")
+        .attr("id", d => { return `county-${d.properties.ID_1}-${d.properties.ID_2}` })
         .attr("fill", "#000")
         .attr("stroke", "white")
         .attr("stroke-width", 0.4)
         .attr("d", d3.geoPath(projection));
+
+    d3.select(`#county-${tempData[0].ID_1}-${tempData[0].ID_2}`)
+        .attr('fill', '#f00')
 });
 
+/**
+ * Groups elements of an array of dicts by a certain key
+ * @param arr array of dicts to sort
+ * @param key key to sort by
+ * @returns {*} dict: key is the specified key's value, value is an array of dicts with the specified key's value
+ */
 function groupBy(arr, key) {
     return arr.reduce(function(rec_var, x) {
         (rec_var[x[key]] = rec_var[x[key]] || []).push(x);
@@ -186,7 +200,13 @@ function groupBy(arr, key) {
     }, {});
 }
 
-
+/**
+ * Creates a dict of hours between a start time and assigns
+ * @param arr array of dicts to sort
+ * @param key string based time key to sort by
+ * @param startTime string based time as the start time
+ * @returns {{}} dict: key is each hour from start time to now, value is array of dicts, grouped into hours
+ */
 function groupByHour(arr, key, startTime) {
     let startHour = new Date(Date.parse(startTime)).setMinutes(0, 0, 0);
     let endHour = new Date().setMinutes(0, 0, 0);
