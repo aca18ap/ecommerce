@@ -69,6 +69,33 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('visits-linechart-plot'));
     }
 
+    let projection = d3.geoAlbers()
+        .center([0, 55.4])
+        .rotate([4.4, 0])
+        .parallels([50, 60])
+        .scale(4000)
+        .translate([width/5, (2.4*height)/3])
+
+    let visits_svg = d3.select('#visits-geo-plot');
+    let visitsTempData = [{ID_1: 1, ID_2: 1, value: 1}, {ID_1: 1, ID_2: 2, value: 1}]
+    visits_svg.append("g")
+        .selectAll("path")
+        .data(uk.features)
+        .enter()
+        .append("path")
+        .attr("id", d => { return `visits-${d.properties.ID_1}-${d.properties.ID_2}` })
+        .attr("fill", "#000")
+        .attr("stroke", "white")
+        .attr("stroke-width", 0.4)
+        .attr("d", d3.geoPath(projection))
+        .append('title')
+        .text(d =>  `${d.properties.NAME_2}\nVisits: 0`);
+
+    d3.select(`#visits-1-30`)
+        .attr('fill', '#198754')
+        .select('title')
+        .text('TEMP')
+
 
     // Update chart title to include total
     document.getElementById('registrations-barchart-title').innerText = `Site Registrations by Vocation (Total: ${registrations.length})`;
@@ -130,15 +157,107 @@ document.addEventListener('DOMContentLoaded', () => {
             color: 'green',
             svgElement: document.getElementById('registrations-linechart-plot')
         });
+
+        // Chart for viewing most popular pricing plans by registration
+        let customers = registrations.filter( d => d.vocation === 'Customer');
+        let tierRegs = groupBy(customers, 'tier');
+        let tierRegsCounts = []
+        Object.keys(tierRegs).forEach(key => {
+            tierRegsCounts.push({
+                tier: key,
+                registrations: tierRegs[key].length
+            });
+        });
+
+        let tierRegsCountsChart = HorizontalBarChart(tierRegsCounts, {
+            x: d => d.registrations,
+            y: d => d.tier,
+            yDomain: d3.groupSort(tierRegsCounts, ([d]) => -d.registrations, d => d.tier), // sort by descending frequency
+            width,
+            height,
+            color: 'green',
+            marginLeft: 70,
+            marginRight: 10,
+            xLabel: 'Registrations',
+            svgElement: document.getElementById('registrations-by-type-barchart-plot')
+        });
+
     } else {
         // Set text of chart areas to indicate that there is no data
         emptyCharts.push(
             document.getElementById('registrations-barchart-plot'),
-            document.getElementById('registrations-linechart-plot'));
+            document.getElementById('registrations-linechart-plot'),
+            document.getElementById('registrations-by-type-barchart-plot'),
+            );
     }
 
+    let svg = d3.select('#registrations-geo-plot');
+    let regsTempData = [{ID_1: 1, ID_2: 1, value: 1}, {ID_1: 1, ID_2: 2, value: 1}]
+
+    svg.append("g")
+        .selectAll("path")
+        .data(uk.features)
+        .enter()
+        .append("path")
+            .attr("id", d => { return `regs-${d.properties.ID_1}-${d.properties.ID_2}` })
+            .attr("fill", "#000")
+            .attr("stroke", "white")
+            .attr("stroke-width", 0.4)
+            .attr("d", d3.geoPath(projection))
+        .append('title')
+            .text(d =>  `${d.properties.NAME_2}\nRegistrations: 0`)
+
+    d3.select(`#regs-1-65`)
+        .attr('fill', '#198754')
+        .select('title')
+            .text('TEMP')
+
+
+    if (metrics.length > 0) {
+        let sessions = groupBy(metrics, "session_identifier");
+        let sessionsFlows = [];
+        Object.keys(sessions).forEach(key => {
+            sessionsFlows.push({
+                id: key,
+                flow: sessions[key]
+            });
+        });
+
+        let sessionsList = document.getElementById('sessions-list');
+        for (let s of sessionsFlows) {
+            let b = document.createElement('button');
+            b.innerText = s.id;
+            b.onclick = () => {
+                let flowList = document.getElementById('flow-list');
+                flowList.innerHTML = '';
+                for (let i=0; i<s.flow.length; i++) {
+                    let row = document.createElement('tr');
+                    let column1 = document.createElement('td');
+                    let column2 = document.createElement('td');
+                    column1.innerText = (i+1).toString();
+                    column2.innerText = s.flow[i].path;
+                    row.append(column1);
+                    row.append(column2);
+                    flowList.append(row);
+                }
+            };
+            let row = document.createElement('tr');
+            let column1 = document.createElement('td');
+            let column2 = document.createElement('td');
+            // NEED TO WORK OUT A WAY TO GET WHETHER A USER REGISTERED
+            row.append(column1);
+            column2.append(b);
+            row.append(column2);
+            sessionsList.append(row);
+        }
+    } else {
+        emptyCharts.push(
+            document.getElementById('flow-report-plot'),
+        )
+    }
+
+    // Add missing data message to appropriate chart areas
     for (let chart of emptyCharts) {
-        console.log(chart);
         let svg = d3.select(chart)
             .attr("width", width)
             .attr("height", height)
@@ -159,34 +278,6 @@ document.addEventListener('DOMContentLoaded', () => {
             .attr("font-family", "Outfit")
             .text("There is no data for this metric yet");
     }
-
-
-    let svg = d3.select('#registrations-geo-plot');
-    let projection = d3.geoAlbers()
-        .center([0, 55.4])
-        .rotate([4.4, 0])
-        .parallels([50, 60])
-        .scale(4000)
-        .translate([width/5, (2.4*height)/3])
-
-    console.log(uk.features);
-    let tempData = [{ID_1: 1, ID_2: 1, value: 1}, {ID_1: 1, ID_2: 2, value: 1}]
-
-    svg.append("g")
-        .selectAll("path")
-        .data(uk.features)
-        .enter()
-        .append("path")
-        .attr("id", d => { return `county-${d.properties.ID_1}-${d.properties.ID_2}` })
-        .attr("fill", "#000")
-        .attr("stroke", "white")
-        .attr("stroke-width", 0.4)
-        .attr("d", d3.geoPath(projection));
-
-    d3.select(`#county-1-65`)
-        .attr('fill', '#f00')
-
-
 });
 
 /**
@@ -225,7 +316,7 @@ function groupByHour(arr, key, startTime) {
         hoursDict[aDate].push(a);
     }
 
-    return hoursDict
+    return hoursDict;
 }
 
 // Copyright 2021 Observable, Inc.
