@@ -12,3 +12,6 @@ public/packs/*
 public/packs-test/*
 coverage/*
 .rspec-examples
+coverage/.resultset.json
+coverage/index.html
+public/packs-test/manifest.json
