@@ -16,10 +16,11 @@ describe 'Metrics management', js: true do
       within(:css, '#registrations-by-type-barchart-plot') { expect(page).to have_content 'There is no data for this metric yet' }
 
       within(:css, '#feature-interest-barchart-plot') { expect(page).to have_content 'There is no data for this metric yet' }
-      within(:css, '#feature-interest-barchart-title') { expect(page).to have_content 'Site Visits by Page (Total: 0)' }
+      within(:css, '#feature-interest-barchart-title') { expect(page).to have_content 'Clicks/Visits (REMOVE ONE) By Feature (Total: 0)' }
       within(:css, '#feature-shares-barchart-plot') { expect(page).to have_content 'There is no data for this metric yet' }
-      within(:css, '#feature-shares-barchart-title') { expect(page).to have_content 'Site Visits by Page (Total: 0)' }
-      # NEED TO TEST MAPS SOMEHOW
+      within(:css, '#feature-shares-barchart-title') { expect(page).to have_content 'Shares By Feature (Total: 0)' }
+
+      # TEST MAPS AND USER FLOW CHART
     end
   end
 
@@ -37,6 +38,8 @@ describe 'Metrics management', js: true do
       within(:css, '#visits-barchart-plot') { expect(page).to have_content '/reviews' }
       within(:css, '#visits-barchart-plot') { expect(page).to have_content 1.00 }
       within(:css, '#visits-linechart-plot') { expect(page).to have_content 3.00 }
+
+      # TEST MAP AND USER FLOW CHARTS
     end
 
     specify 'If there are registrations' do
@@ -56,12 +59,23 @@ describe 'Metrics management', js: true do
       within(:css, '#registrations-by-type-barchart-plot') { expect(page).to have_content 'Solo' }
       within(:css, '#registrations-by-type-barchart-plot') { expect(page).to have_content 'Family' }
       within(:css, '#registrations-by-type-barchart-plot') { expect(page).to have_content 1.00 }
+
+      # TEST MAP
+    end
+
+    specify 'If there are feature shares' do
+      skip 'WAITING FOR FEATURE IMPLEMENTATION'
+    end
+
+    specify 'If there are feature clicks/visits' do
+      skip 'WAITING FOR FEATURE IMPLEMENTATION'
     end
   end
 
   context 'Security' do
     specify 'If I am not logged in, I cannot view metrics' do
       visit '/metrics'
+      within(:css, '.nav') { expect(page).not_to have_content 'Metrics' }
       expect(page).not_to have_content 'Metrics Summary'
       expect(page).to have_current_path('/')
     end
@@ -69,6 +83,7 @@ describe 'Metrics management', js: true do
     specify 'If I am not an admin or reporter, I cannot view metrics' do
       before { login_as(FactoryBot.create(:customer)) }
       visit '/metrics'
+      within(:css, '.nav') { expect(page).not_to have_content 'Metrics' }
       expect(page).not_to have_content 'Metrics Summary'
       expect(page).to have_current_path('/')
     end
