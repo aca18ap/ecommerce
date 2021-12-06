@@ -50,7 +50,6 @@ ActiveRecord::Schema.define(version: 2021_12_06_164934) do
 
   create_table "reviews", force: :cascade do |t|
     t.text "description", null: false
-    t.integer "clicks", default: 0, null: false
     t.integer "rating", default: 0, null: false
     t.boolean "hidden", default: true
     t.integer "rank", default: 0
