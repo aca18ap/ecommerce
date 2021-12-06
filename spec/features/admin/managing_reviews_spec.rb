@@ -3,12 +3,12 @@ require 'rails_helper'
 describe 'Managing reviews' do
   # view all reviews
   # remove reviews
-  # hide/show reviews
   # edit reviews
   # change rank of reviews
   context 'As an administrator' do
     before { login_as(FactoryBot.create(:admin)) }
     let!(:review) { FactoryBot.create(:review) }
+    let!(:second_review) { FactoryBot.create(:second_review) }
     let!(:hidden_review) { FactoryBot.create(:hidden_review) }
 
     specify 'The reviews button appears in the nav bar' do
@@ -21,7 +21,7 @@ describe 'Managing reviews' do
       within(:css, '.table') { expect(page).to have_content 'MyText' }
       within(:css, '.table') { expect(page).to have_content 'MyHiddenText' }
     end
-    
+
     context 'If the rank is 0 when showing a review' do
       specify 'an error is displayed' do
         visit '/reviews'
@@ -55,10 +55,11 @@ describe 'Managing reviews' do
     specify 'I can change the order of reviews' do
       visit '/reviews'
       within(:css, '.table') { click_link 'Edit' }
-
-
+      fill_in 'review[rank]', with: 2
+      click_button 'Update Review'
       visit '/'
-      within(:css, '.table') { expect(page).to have_content 'MyText' }
+      within(:css, '.table') { expect(page).to have_tag 'tbody:first-child', text: 'MyText' }
+      within(:css, '.table') { expect(page).to have_tag 'tbody:last-child', text: 'MySecondText' }
     end
   end
 

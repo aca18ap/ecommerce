@@ -20,5 +20,10 @@ FactoryBot.define do
       description { 'MyHiddenText' }
       hidden { true }
     end
+
+    factory :second_review do
+      description { 'MySecondText' }
+      rank { 1 }
+    end
   end
 end
