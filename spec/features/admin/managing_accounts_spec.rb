@@ -53,23 +53,25 @@ describe 'Managing accounts' do
     end
   end
 
-  context 'If I am a reporter' do
-    before { login_as(FactoryBot.create(:reporter)) }
+  context 'security' do
+    context 'If I am a reporter' do
+      before { login_as(FactoryBot.create(:reporter)) }
 
-    specify 'I cannot access the accounts management system' do
-      visit '/admin/users'
-      expect(page).not_to have_content 'Admin Dashboard'
-      expect(page).to have_current_path('/')
+      specify 'I cannot access the accounts management system' do
+        visit '/admin/users'
+        expect(page).not_to have_content 'Admin Dashboard'
+        expect(page).to have_current_path('/')
+      end
     end
-  end
 
-  context 'If I am a customer' do
-    before { login_as(FactoryBot.create(:customer)) }
+    context 'If I am a customer' do
+      before { login_as(FactoryBot.create(:customer)) }
 
-    specify 'I cannot access the accounts management system' do
-      visit '/admin/users'
-      expect(page).not_to have_content 'Admin Dashboard'
-      expect(page).to have_current_path('/')
+      specify 'I cannot access the accounts management system' do
+        visit '/admin/users'
+        expect(page).not_to have_content 'Admin Dashboard'
+        expect(page).to have_current_path('/')
+      end
     end
   end
 end
