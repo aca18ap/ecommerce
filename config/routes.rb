@@ -2,6 +2,9 @@
 
 Rails.application.routes.draw do
 
+  resources :reviews
+  get :review_created, to: 'reviews#created'
+
   resources :faqs do
     member do
       get 'answer'
@@ -40,6 +43,8 @@ Rails.application.routes.draw do
 
   get :ie_warning, to: 'errors#ie_warning'
   get :pricing_plans, to: 'pages#pricing_plans'
+  get :review_usefulness, to:'pages#review_usefulness'
+
   get :business_info, to: 'pages#business_info'
   get :welcome, to: 'pages#welcome'
 

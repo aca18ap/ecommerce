@@ -16,7 +16,9 @@ class MetricsController < ApplicationController
 
     Visit.create(from: from,
       to: to,
-      location: params['location'],
+      # location: params['location'],
+      latitude: params['latitude'],
+      longitude: params['longitude'],
       path: params['path'],
       csrf_token: params['authenticity_token'],
       session_identifier: session.id

@@ -12,7 +12,6 @@
     = csrf_meta_tags
 
   %body.bg-light
-    -# = render 'layouts/svg_logo'
 
     %header.p-2.border-bottom.custom-nav
       .container-fluid.pad-edge
@@ -22,12 +21,16 @@
           .nav.col-12.col-lg-auto.me-lg-auto.justify-content-center.my-auto.mx-5.custom-nav-fonts
             -#   = link_to 'Home', root_path, title: 'Go to the home page', class: 'nav-link px-2 link-secondary'
             %li
-              %a.nav-link.px-2{:href => "#"} Reviews
-            %li
-              %a.nav-link.px-2.ml-5.link-dark{:href => "/faqs"} FAQs
+              = link_to 'Home', root_path, title: 'Go to the home page', class: 'nav-link px-2 link-secondary'
+            - if can?(:manage, Newsletter)
+              %li
+                %a.nav-link.px-2.ml-5{:href => "/faqs"} FAQs
+            - if can?(:manage, Review)
+              %li
+                %a.nav-link.px-2.link-dark{:href => "/reviews"} Reviews
             -# Hide unless user is admin
             %li
-              %a.nav-link.px-2.link-dark{:href => "/metrics"} Metrics
+              %a.nav-link.px-2{:href => "/metrics"} Metrics
           -# %form.col-12.col-lg-auto.mb-3.mb-lg-0.me-lg-3
           -#   %input.form-control{"aria-label" => "Search", :placeholder => "Search...", :type => "search"}
           .dropdown.text-end

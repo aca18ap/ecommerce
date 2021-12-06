@@ -9,9 +9,15 @@ class Ability
     user ||= User.new # guest user (not logged in)
     if user.admin?
       can :manage, User
+      can :manage, Review
       can :read, :all
     elsif user.role == "reporter"
       can :read, :all
+      cannot :manage, Review
+    else
+      can :new, Review
+      can :create, Review
+      can :created, Review
     end
     #
     # The first argument to `can` is the action you are giving the user

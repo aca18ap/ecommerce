@@ -55,4 +55,25 @@
             %th County
             %th Registrations
 
+.container-fluid.pad-edge
+  .pt-5
+    %table.table
+      %thead
+        %tr
+          %th Page visited
+          %th Date of visit
+          %th Latitude 
+          %th Longitude
+          %th Session ID
+
+      %tbody
+
+      - @metrics.each do |metric|
+        %tr
+          %td= metric.path
+          %td= metric.from
+          %td= metric.latitude 
+          %td= metric.longitude
+          %td= metric.session_identifier
+
 

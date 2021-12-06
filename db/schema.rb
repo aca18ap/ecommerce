@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_27_174357) do
+ActiveRecord::Schema.define(version: 2021_12_05_205152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,17 @@ ActiveRecord::Schema.define(version: 2021_11_27_174357) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "vocation", default: "Customer", null: false
+    t.string "tier"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.text "description", null: false
+    t.integer "clicks", default: 0, null: false
+    t.integer "rating", default: 0, null: false
+    t.boolean "hidden", default: true
+    t.integer "rank", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -84,7 +95,8 @@ ActiveRecord::Schema.define(version: 2021_11_27_174357) do
     t.string "session_identifier"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "location"
+    t.float "latitude"
+    t.float "longitude"
   end
 
 end
