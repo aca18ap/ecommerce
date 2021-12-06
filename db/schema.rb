@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2021_12_06_160106) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "vocation", default: "Customer", null: false
+    t.string "tier"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -103,7 +104,8 @@ ActiveRecord::Schema.define(version: 2021_12_06_160106) do
     t.string "session_identifier"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "location"
+    t.float "latitude"
+    t.float "longitude"
   end
 
   add_foreign_key "faq_votes", "faqs"

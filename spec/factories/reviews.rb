@@ -12,10 +12,13 @@
 #
 FactoryBot.define do
   factory :review do
-    description { "MyText" }
-    clicks { 1 }
+    description { 'MyText' }
     rating { 1 }
-    hidden { false }
     rank { 1 }
+    hidden { false }
+    factory :hidden_review do
+      description { 'MyHiddenText' }
+      hidden { true }
+    end
   end
 end
