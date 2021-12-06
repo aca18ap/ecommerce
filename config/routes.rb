@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources :faqs do
     member do
       get 'answer'
+      post 'like'
+      post 'dislike'
     end
   end
   resources :newsletters

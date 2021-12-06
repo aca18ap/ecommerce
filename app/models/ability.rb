@@ -19,6 +19,8 @@ class Ability
       can :create, Faq
       can :update, Faq
       can :answer, Faq
+      can :like, Faq
+      can :dislike, Faq
     else
       can :new, Review
       can :create, Review
@@ -26,6 +28,8 @@ class Ability
       can :read, Faq, :hidden => false
       can :read, Faq, :hidden => nil
       can :create, Faq
+      can :like, Faq
+      can :dislike, Faq
     end
     #
     # The first argument to `can` is the action you are giving the user

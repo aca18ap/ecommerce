@@ -1,6 +1,6 @@
 class FaqsController < ApplicationController
   authorize_resource
-  before_action :set_faq, only: [:show, :edit, :answer, :update, :destroy]
+  before_action :set_faq, only: [:show, :edit, :answer, :update, :destroy, :like, :dislike]
 
   # GET /faqs
   def index
@@ -24,6 +24,36 @@ class FaqsController < ApplicationController
 
   # GET /faqs/1/answer
   def answer
+  end
+
+  #POST /faqs/1/like
+  def like
+    @faq_vote = FaqVote.find_or_create_by(ipAddress: request.remote_ip.to_s, faq_id: @faq.id)
+    if @faq_vote.value == 1
+      @faq_vote.value = 0
+    else
+      @faq_vote.value = 1
+    end
+    if @faq_vote.save
+      redirect_to faqs_url, notice: 'Thank you for your feedback!'
+    else
+      redirect_to faqs_url, notice: 'Sorry, something went wrong.'
+    end
+  end
+
+  #POST /faqs/1/dislike
+  def dislike
+    @faq_vote = FaqVote.find_or_create_by(ipAddress: request.remote_ip.to_s, faq_id: @faq.id)
+    if @faq_vote.value == -1
+      @faq_vote.value = 0
+    else
+      @faq_vote.value = -1
+    end
+    if @faq_vote.save
+      redirect_to faqs_url, notice: 'Thank you for your feedback!'
+    else
+      redirect_to faqs_url, notice: 'Sorry, something went wrong.'
+    end
   end
 
   # POST /faqs

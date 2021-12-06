@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_05_202426) do
+ActiveRecord::Schema.define(version: 2021_12_06_160106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,16 @@ ActiveRecord::Schema.define(version: 2021_12_05_202426) do
     t.datetime "created_at", precision: 6
     t.datetime "updated_at", precision: 6
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
+  create_table "faq_votes", force: :cascade do |t|
+    t.string "ipAddress"
+    t.bigint "faq_id", null: false
+    t.integer "value", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["faq_id"], name: "index_faq_votes_on_faq_id"
+    t.index ["ipAddress", "faq_id"], name: "index_faq_votes_on_ipAddress_and_faq_id", unique: true
   end
 
   create_table "faqs", force: :cascade do |t|
@@ -96,4 +106,5 @@ ActiveRecord::Schema.define(version: 2021_12_05_202426) do
     t.string "location"
   end
 
+  add_foreign_key "faq_votes", "faqs"
 end

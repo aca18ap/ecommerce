@@ -64,6 +64,8 @@
     /        %a{ href: '#', title: 'Hide this message', data: { bs_dismiss: :alert } } Dismiss
 
     %main
+      - if !notice.nil? then
+        .alert.alert-secondary#notice= notice
       = yield
 
 

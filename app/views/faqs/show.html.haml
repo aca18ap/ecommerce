@@ -1,8 +1,5 @@
 .container-fluid.pad-edge
-
-  %p.pt-5#notice= notice
-
-  %p.h4
+  %p.h4.pt-5
     Question
   %p
     = @faq.question
@@ -18,10 +15,12 @@
     Clicks 
     \|
     %b Rating:
-    = @faq.usefulness
-    \|
-    %b Hidden:
-    = @faq.hidden
+    = @faq.faq_vote.sum(:value)
+    - if can? :edit, @faq then
+      ="(+"+@faq.faq_vote.where(value: 1).count.to_s + ",-" + @faq.faq_vote.where(value: -1).count.to_s + ")"
+      \|
+      %b Hidden:
+      = @faq.hidden
 
   .btn-group.my-auto{:role => "group"}
     - if can? :edit, @faq then
