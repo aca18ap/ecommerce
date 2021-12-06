@@ -4,24 +4,41 @@
     %hr
     - @faqs.each do |faq|
       .row.justify-content-between
+        .col-auto.mx-3
+          = form_with class: "row", url: like_faq_path(faq) do |faq_v|
+            - if FaqVote.exists?(ipAddress: request.remote_ip.to_s, faq_id: faq.id, value: 1) then
+              = faq_v.submit :value => "+", data: { disable_with: "✗" }, :class => "btn rounded-0 rounded-top btn-success btn-sm btn-block"
+            - else
+              = faq_v.submit :value => "+", data: { disable_with: "✔" }, :class => "btn rounded-0 rounded-top btn-outline-success btn-sm btn-block"
+          = form_with class: "row", url: dislike_faq_path(faq) do |faq_v|
+            - if FaqVote.exists?(ipAddress: request.remote_ip.to_s, faq_id: faq.id, value: -1) then
+              = faq_v.submit :value => "-", data: { disable_with: "✗" }, :class => "btn rounded-0 rounded-bottom btn-danger btn-sm btn-block"
+            - else
+              = faq_v.submit :value => "-", data: { disable_with: "✔" }, :class => "btn rounded-0 rounded-bottom btn-outline-danger btn-sm btn-block"
         .col
           %p.h3= faq.question
         .col-auto.mx-3.row
           .col.text-center
-            - if faq.answer.nil? then
+            - if faq.hidden? then 
+              %span.row.mx-auto.badge.bg-info Hidden
+            - elsif faq.answer.nil? then
               %span.row.mx-auto.badge.bg-warning Unanswered
             - else
               %span.row.mx-auto.badge.bg-success Answered
             %p.m-1.text-nowrap
               = faq.clicks
               Reads | Rated
-              =faq.usefulness
+              = faq.faq_vote.sum(:value)
           .col.btn-group.my-auto{:role => "group"}
-            = link_to 'View', faq, :class => "btn btn-primary"
-            = link_to 'Edit', edit_faq_path(faq), :class => "btn btn-secondary"
-            = link_to 'Destroy', faq, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => "btn btn-danger"
-            = link_to 'Answer', answer_faq_path(faq), :class => "btn btn-primary"
+            - if can? :read, faq then
+              = link_to 'View', faq, :class => "btn btn-primary"
+            - if can? :edit, faq then
+              = link_to 'Edit', edit_faq_path(faq), :class => "btn btn-secondary"
+            - if can? :destroy, faq then
+              = link_to 'Destroy', faq, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => "btn btn-danger"
+            - if can? :answer, faq then
+              = link_to 'Answer', answer_faq_path(faq), :class => "btn btn-primary"
       %hr
     %br
-
-    = link_to 'Submit a New Question', new_faq_path, :class => "btn btn-primary"
+    - if can? :create, Faq then
+      = link_to 'Submit a New Question', new_faq_path, :class => "btn btn-primary"

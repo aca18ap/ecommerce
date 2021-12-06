@@ -23,7 +23,7 @@
             %li
               = link_to 'Home', root_path, title: 'Go to the home page', class: 'nav-link px-2 link-secondary'
             %li
-              %a.nav-link.px-2.ml-5{:href => "#"} FAQs
+              %a.nav-link.px-2.ml-5{:href => "/faqs"} FAQs
             - if can?(:manage, Review)
               %li
                 %a.nav-link.px-2.link-dark{:href => "/reviews"} Reviews
@@ -64,6 +64,8 @@
     /        %a{ href: '#', title: 'Hide this message', data: { bs_dismiss: :alert } } Dismiss
 
     %main
+      - if !notice.nil? then
+        .alert.alert-secondary#notice= notice
       = yield
 
 
