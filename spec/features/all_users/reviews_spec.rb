@@ -52,12 +52,29 @@ describe 'Managing reviews' do
     expect(page).to have_content 'Thank you for your feedback.'
   end
 
-  context 'Security' do
+  context 'Security', js: true do
+    before { login_as(FactoryBot.create(:admin)) }
+
     specify 'I cannot perform an SQL injection attack' do
       visit '/'
       click_button 'Leave A Review'
       fill_in 'review[description]', with: "'); DROP TABLE Reviews--"
       click_button 'Create Review'
+    end
+
+    specify 'I cannot perform an XSS attack' do
+      visit '/'
+      click_button 'Leave A Review'
+      fill_in 'review[description]', with: "<h1>Hello</h1>
+                                <script>
+                                  $(function() {
+                                    window.location.replace('http://api.rubyonrails.org/classes/ActionView/Helpers/SanitizeHelper.html');
+                                  });
+                                </script>"
+      click_button 'Create Review'
+      sleep(2)
+      expect(current_url).not_to eq 'http://api.rubyonrails.org/classes/ActionView/Helpers/SanitizeHelper.html'
+      expect(page).to have_content '<h1>Hello</h1>'
     end
   end
 end
