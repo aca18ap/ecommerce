@@ -34,7 +34,7 @@ describe 'Logging in' do
     end
 
     specify 'I cannot change my user role via mass assignment' do
-      
+      skip 'COME BACK WHEN YOU WORK OUT HOW TO TEST THIS'
     end
   end
 end

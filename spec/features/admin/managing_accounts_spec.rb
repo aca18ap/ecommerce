@@ -41,10 +41,10 @@ describe 'Managing accounts' do
 
       specify 'I can delete a user', js: true do
         visit '/admin/users'
-        within(:css, '.table') { click_link 'Delete' }
         accept_confirm do
-          within(:css, '.table') { expect(page).to_not have_content 'customer@team04.com' }
+          within(:css, '.table') { click_button 'Delete' }
         end
+        within(:css, '.table') { expect(page).to_not have_content 'customer@team04.com' }
       end
 
       specify 'I can edit a user' do
