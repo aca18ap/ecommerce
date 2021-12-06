@@ -7,10 +7,18 @@ describe 'Metrics management', js: true do
     specify 'The graphs should show an appropriate message' do
       visit '/metrics'
       within(:css, '#visits-barchart-plot') { expect(page).to have_content 'There is no data for this metric yet' }
+      within(:css, '#visits-barchart-title') { expect(page).to have_content 'Site Visits by Page (Total: 0)' }
       within(:css, '#visits-linechart-plot') { expect(page).to have_content 'There is no data for this metric yet' }
+
       within(:css, '#registrations-barchart-plot') { expect(page).to have_content 'There is no data for this metric yet' }
+      within(:css, '#registrations-barchart-plot') { expect(page).to have_content 'Site Registrations by Vocation (Total: 0)' }
       within(:css, '#registrations-linechart-plot') { expect(page).to have_content 'There is no data for this metric yet' }
       within(:css, '#registrations-by-type-barchart-plot') { expect(page).to have_content 'There is no data for this metric yet' }
+
+      within(:css, '#feature-interest-barchart-plot') { expect(page).to have_content 'There is no data for this metric yet' }
+      within(:css, '#feature-interest-barchart-title') { expect(page).to have_content 'Site Visits by Page (Total: 0)' }
+      within(:css, '#feature-shares-barchart-plot') { expect(page).to have_content 'There is no data for this metric yet' }
+      within(:css, '#feature-shares-barchart-title') { expect(page).to have_content 'Site Visits by Page (Total: 0)' }
       # NEED TO TEST MAPS SOMEHOW
     end
   end

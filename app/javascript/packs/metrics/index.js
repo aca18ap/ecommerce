@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Receives @metrics and @registrations from controller using gon gem
     let metrics = gon.metrics;
     let registrations = gon.registrations;
+    let features = [] // gon.features;
 
     // Create charts to display on metrics page
     const width = 1000;
@@ -213,6 +214,17 @@ document.addEventListener('DOMContentLoaded', () => {
             .text('TEMP')
 
 
+    document.getElementById('feature-interest-barchart-title').innerText = `Clicks/Visits (REMOVE ONE) By Feature (Total: ${features.length})`;
+    document.getElementById('feature-shares-barchart-title').innerText = `Shares By Feature (Total: ${features.length})`;
+    if (features.length > 0) {
+
+    } else {
+        emptyCharts.push(
+            document.getElementById('feature-interest-barchart-plot'),
+            document.getElementById('feature-shares-barchart-plot'),
+        )
+    }
+
     if (metrics.length > 0) {
         let sessions = groupBy(metrics, "session_identifier");
         let sessionsFlows = [];
@@ -253,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         emptyCharts.push(
             document.getElementById('flow-report-plot'),
-        )
+        );
     }
 
     // Add missing data message to appropriate chart areas
