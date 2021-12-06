@@ -230,18 +230,24 @@ document.addEventListener('DOMContentLoaded', () => {
             b.onclick = () => {
                 let flowList = document.getElementById('flow-list');
                 flowList.innerHTML = '';
-                for (let page of s.flow) {
+                for (let i=0; i<s.flow.length; i++) {
                     let row = document.createElement('tr');
-                    let column = document.createElement('td');
-                    column.innerText = page.path;
-                    row.append(column);
+                    let column1 = document.createElement('td');
+                    let column2 = document.createElement('td');
+                    column1.innerText = (i+1).toString();
+                    column2.innerText = s.flow[i].path;
+                    row.append(column1);
+                    row.append(column2);
                     flowList.append(row);
                 }
             };
             let row = document.createElement('tr');
-            let column = document.createElement('td');
-            column.append(b);
-            row.append(column);
+            let column1 = document.createElement('td');
+            let column2 = document.createElement('td');
+            // NEED TO WORK OUT A WAY TO GET WHETHER A USER REGISTERED
+            row.append(column1);
+            column2.append(b);
+            row.append(column2);
             sessionsList.append(row);
         }
     } else {
@@ -310,7 +316,7 @@ function groupByHour(arr, key, startTime) {
         hoursDict[aDate].push(a);
     }
 
-    return hoursDict
+    return hoursDict;
 }
 
 // Copyright 2021 Observable, Inc.

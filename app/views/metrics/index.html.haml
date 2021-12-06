@@ -64,21 +64,23 @@
 .row.vw-75.m-3
   #flow-report-div.justify-content-center.bg-light-green.col-xl-12
     %h2#flow-report-title.text-center User Flow Report (This will be made to look better dw)
-    .row
+    .row{'max-height': '150px'}
       .container.col-xl-4.overflow-scroll
         %table#registrations-geo-table.table.w-25
           %thead
             %tr
+              %th Registered?
               %th Session ID
           %tbody#sessions-list
 
       .container.col-xl-8.overflow-scroll
         %table#registrations-geo-table.table.w-25
-          %thead
+          %thead.d-block
             %tr
+              %th State
               %th Page
 
-          %tbody#flow-list
+          %tbody#flow-list.d-block.overflow-scroll{'height': '300px'}
 
     %svg#flow-report-plot.d-block.m-auto.col-xl-12
 
