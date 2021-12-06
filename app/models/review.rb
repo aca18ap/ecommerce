@@ -11,4 +11,5 @@
 #  updated_at  :datetime         not null
 #
 class Review < ApplicationRecord
+    validates :description, :presence => true
 end
