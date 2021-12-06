@@ -215,8 +215,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (metrics.length > 0) {
         let sessions = groupBy(metrics, "session_identifier");
+        let sessionsFlows = [];
+        Object.keys(sessions).forEach(key => {
+            sessionsFlows.push({
+                id: key,
+                flow: sessions[key]
+            });
+        });
+
+        let sessionsList = document.getElementById('sessions-list');
+        for (let s of sessionsFlows) {
+            let b = document.createElement('button');
+            b.innerText = s.id;
+            b.onclick = () => {
+                let flowList = document.getElementById('flow-list');
+                flowList.innerHTML = '';
+                for (let page of s.flow) {
+                    let row = document.createElement('tr');
+                    let column = document.createElement('td');
+                    column.innerText = page.path;
+                    row.append(column);
+                    flowList.append(row);
+                }
+            };
+            let row = document.createElement('tr');
+            let column = document.createElement('td');
+            column.append(b);
+            row.append(column);
+            sessionsList.append(row);
+        }
     } else {
-        //emptyCharts
+        emptyCharts.push(
+            document.getElementById('flow-report-plot'),
+        )
     }
 
     // Add missing data message to appropriate chart areas
