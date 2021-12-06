@@ -1,15 +1,21 @@
 - content_for :title, 'Log In'
 
-.row.justify-content-center
-  .col-sm-6.col-lg-4
-    .card.card-light
-      = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-        .card-header
-          Log In
-        .card-body
-          = f.input :email, autofocus: true, required: true
-          = f.input :password, required: true
-        .card-footer
-          %button.btn.btn-primary{ type: :submit }
-            Log in
-          .mt-3= render "devise/shared/links"
+.container-fluid.pad-edge
+
+  .row.w-50.mx-auto.pt-5.text-center
+    .col.mx-auto
+      %img{:alt => "mdo", :height => "200", :src => "../images/logo-icon.png", :width => "200"}
+      .h1.p-3 Create a better tomorrow, today.
+  .row.justify-content-center.pt-3
+    .col-sm-6.col-lg-4
+      .card.card-light
+        = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+          .card-header
+            Log In
+          .card-body
+            = f.input :email, autofocus: true, required: true
+            = f.input :password, required: true
+          .card-footer
+            %button.btn.btn-primary{ type: :submit }
+              Log in
+            -# .mt-3= render "devise/shared/links"

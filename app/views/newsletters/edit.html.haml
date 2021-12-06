@@ -1,6 +1,8 @@
 .container
   %h1 Editing newsletter
 
+  #{@newsletter.vocation}
+
   = render 'form'
 
   = link_to 'Show', @newsletter

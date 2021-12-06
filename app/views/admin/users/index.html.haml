@@ -1,11 +1,12 @@
-%h1 Admin Dashboard
-- if flash[:alert]
-    .alert=flash[:alert]
-.row
-    .card-col6
-        .card-header
-            = render 'show_all_users'
+.container-fluid.pad-edge
 
+    %h1.pt-5 Admin Dashboard
+    - if flash[:alert]
+        .alert=flash[:alert]
+    .row
+        .card-col6
+            .card-header
+                = render 'show_all_users'
 
     .card-col6
         = link_to 'Invite new user', new_user_invitation_path

@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const CSRFToken = document.querySelector("meta[name='csrf-token']").getAttribute('content');
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
+  // Load the graph of page visits
+
   // Bind listener to the visibilitychange event instead of unload, find out more at:
   // https://developer.mozilla.org/en-US/docs/Web/API/Navigator/sendBeacon#sending_analytics_at_the_end_of_a_session
   document.addEventListener('visibilitychange', () => {

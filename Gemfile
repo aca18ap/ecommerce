@@ -17,6 +17,7 @@ gem 'bcrypt_pbkdf'
 gem 'webpacker'
 
 gem 'pg'
+gem 'gon'
 
 gem 'hamlit'
 gem 'hamlit-rails'

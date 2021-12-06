@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_30_221233) do
+ActiveRecord::Schema.define(version: 2021_12_05_202426) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,15 @@ ActiveRecord::Schema.define(version: 2021_11_30_221233) do
     t.string "vocation", default: "Customer", null: false
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.text "description", null: false
+    t.integer "rating", default: 0, null: false
+    t.boolean "hidden", default: true
+    t.integer "rank", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.string "session_id", null: false
     t.text "data"
@@ -62,6 +71,11 @@ ActiveRecord::Schema.define(version: 2021_11_30_221233) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "role", default: "customer", null: false

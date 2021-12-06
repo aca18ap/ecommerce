@@ -8,21 +8,26 @@
 } 
 
 .btn-custom a{
-  border: 1px solid #2ECC71; 
-    color: #2ECC71;
+  border: 1px solid #65b891;
+  color: #65b891;
+} 
+
+.btn-custom-active a{
+  background-color: #65b891;
+  color: #fff;
 } 
 
 .btn-custom:hover a,
 .btn-custom:active a{
-  background-color: #2ECC71;
+  background-color: #65b891;
   color: #fff;
 }
 
-.btn-custom {
+.btn-custom, .btn-custom-active {
   margin: 20px 0 32px;
 }
 
-.btn-custom a{
+.btn-custom a, .btn-custom-active a{
   border-radius: 50px;
 -moz-border-radius: 50px;
 -ms-border-radius: 50px;

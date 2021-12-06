@@ -1,4 +1,9 @@
-%h1.center Welcome #{current_user.email}
-%br
-- if current_user.role == "admin"
-    =link_to 'You can access the admin dashboard here', admin_users_path
+.container-fluid.pad-edge
+
+    %h1.pt-5.center Hello, #{current_user.email}.
+    %br
+    - if current_user.role == "admin"
+        =link_to 'Modify users', admin_users_path
+        %br
+        =link_to 'View metrics', metrics_path
+
