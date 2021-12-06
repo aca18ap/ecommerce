@@ -25,27 +25,25 @@
 #
 FactoryBot.define do
   factory :user do
+    password { 'Password123' }
+
     factory :admin do
       email { 'admin@team04.com' }
-      password { 'Password123' }
       role { 'admin' }
     end
 
     factory :reporter do
       email { 'reporter@team04.com' }
-      password { 'Password123' }
       role { 'reporter' }
     end
 
     factory :customer do
       email { 'customer@team04.com' }
-      password { 'Password123' }
       role { 'customer' }
     end
 
     factory :business do
       email { 'business@team04.com' }
-      password { 'Password123' }
       role { 'customer' }
     end
   end
