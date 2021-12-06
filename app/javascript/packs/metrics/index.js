@@ -138,7 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     for (let chart of emptyCharts) {
-        console.log(chart);
         let svg = d3.select(chart)
             .attr("width", width)
             .attr("height", height)
@@ -177,16 +176,18 @@ document.addEventListener('DOMContentLoaded', () => {
         .data(uk.features)
         .enter()
         .append("path")
-        .attr("id", d => { return `county-${d.properties.ID_1}-${d.properties.ID_2}` })
-        .attr("fill", "#000")
-        .attr("stroke", "white")
-        .attr("stroke-width", 0.4)
-        .attr("d", d3.geoPath(projection));
+            .attr("id", d => { return `county-${d.properties.ID_1}-${d.properties.ID_2}` })
+            .attr("fill", "#000")
+            .attr("stroke", "white")
+            .attr("stroke-width", 0.4)
+            .attr("d", d3.geoPath(projection))
+        .append('title')
+            .text(d =>  `${d.properties.NAME_2}\nRegistrations: 0`)
 
     d3.select(`#county-1-65`)
-        .attr('fill', '#f00')
-
-
+        .attr('fill', '#198754')
+        .select('title')
+            .text('TEMP')
 });
 
 /**

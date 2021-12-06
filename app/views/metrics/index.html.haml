@@ -18,6 +18,20 @@
     %svg#visits-linechart-plot.d-block.m-auto
 
 .row.vw-75.m-3
+  %h1.mt-5.mb-3.text-center Visitor Geography Statistics
+  #registrations-geochart-div.justify-content-center.bg-light-green.col-xl-6
+    %svg#registrations-geo-plot.d-block.m-auto{width: "500px", height: "800px"}
+
+  #registrations-geo-div.justify-content-center.bg-light-green.col-xl-6
+    %h2#registrations-geo-title.text-center Site Registrations By UK County
+    .container.p-5.overflow-scroll
+      %table#registrations-geo-table.table.m-5
+        %thead
+          %tr
+            %th County
+            %th Visitors
+
+.row.vw-75.m-3
   %h1.mt-5.mb-3.text-center Registration Statistics
   #registrations-barchart-div.justify-content-center.bg-light-green.col-xl-6
     %h2#registrations-barchart-title.text-center Site Registrations by Vocation
@@ -34,23 +48,11 @@
 
   #registrations-geo-div.justify-content-center.bg-light-green.col-xl-6
     %h2#registrations-geo-title.text-center Site Registrations By UK County
-    %table
-
-.container-fluid.pad-edge
-  .pt-5
-    %table.table
-      %thead
-        %tr
-          %th Page visited
-          %th Date of visit
-          %th Location
-
-      %tbody
-
-      - @metrics.each do |metric|
-        %tr
-          %td= metric.path
-          %td= metric.from
-          %td= metric.location
+    .container.p-5.overflow-scroll
+      %table#registrations-geo-table.table.m-5
+        %thead
+          %tr
+            %th County
+            %th Registrations
 
 
