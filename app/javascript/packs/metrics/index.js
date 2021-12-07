@@ -19,20 +19,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('visits-barchart-title').innerText = `Site Visits by Page (Total: ${metrics.length})`;
     // Only update graphs if there are any site tracking metrics in the system
     if (metrics.length > 0) {
-        // Calculate the number of visits to each page
-        let pageVisits = groupBy(metrics, "path")
-        let pageVisitsCounts = []
-        Object.keys(pageVisits).forEach(key => {
-            pageVisitsCounts.push({
-                page: key,
-                visits: pageVisits[key].length
-            });
-        });
-
-        let pageVisitCountsChart = HorizontalBarChart(pageVisitsCounts, {
+        // Gets pageVisits from gon gem - calculated in CalculateMetrics service class
+        let pageVisitCountsChart = HorizontalBarChart(gon.pageVisits, {
             x: d => d.visits,
             y: d => d.page,
-            yDomain: d3.groupSort(pageVisitsCounts, ([d]) => -d.visits, d => d.page), // sort by descending frequency
+            yDomain: d3.groupSort(gon.pageVisits, ([d]) => -d.visits, d => d.page), // sort by descending frequency
             width,
             height,
             color: 'green',
@@ -102,20 +93,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('registrations-barchart-title').innerText = `Site Registrations by Vocation (Total: ${registrations.length})`;
     // Only update graphs if there are any registrations in the system
     if (registrations.length > 0) {
-        // Calculate the number of visits to each page
-        let vocationRegs = groupBy(registrations, "vocation")
-        let vocationRegsCounts = []
-        Object.keys(vocationRegs).forEach(key => {
-            vocationRegsCounts.push({
-                vocation: key,
-                registrations: vocationRegs[key].length
-            });
-        });
-
-        let vocationRegsCountsChart = HorizontalBarChart(vocationRegsCounts, {
+        // Gets pageVisits from gon gem - calculated in CalculateMetrics service class
+        let vocationRegsCountsChart = HorizontalBarChart(gon.vocationRegistrations, {
             x: d => d.registrations,
             y: d => d.vocation,
-            yDomain: d3.groupSort(vocationRegsCounts, ([d]) => -d.registrations, d => d.vocation), // sort by descending frequency
+            yDomain: d3.groupSort(gon.vocationRegistrations, ([d]) => -d.registrations, d => d.vocation), // sort by descending frequency
             width,
             height,
             color: 'green',
@@ -159,21 +141,10 @@ document.addEventListener('DOMContentLoaded', () => {
             svgElement: document.getElementById('registrations-linechart-plot')
         });
 
-        // Chart for viewing most popular pricing plans by registration
-        let customers = registrations.filter( d => d.vocation === 'Customer');
-        let tierRegs = groupBy(customers, 'tier');
-        let tierRegsCounts = []
-        Object.keys(tierRegs).forEach(key => {
-            tierRegsCounts.push({
-                tier: key,
-                registrations: tierRegs[key].length
-            });
-        });
-
-        let tierRegsCountsChart = HorizontalBarChart(tierRegsCounts, {
+        let tierRegsCountsChart = HorizontalBarChart(gon.tierRegistrations, {
             x: d => d.registrations,
             y: d => d.tier,
-            yDomain: d3.groupSort(tierRegsCounts, ([d]) => -d.registrations, d => d.tier), // sort by descending frequency
+            yDomain: d3.groupSort(gon.tierRegistrations, ([d]) => -d.registrations, d => d.tier), // sort by descending frequency
             width,
             height,
             color: 'green',
@@ -226,17 +197,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (metrics.length > 0) {
-        let sessions = groupBy(metrics, "session_identifier");
-        let sessionsFlows = [];
-        Object.keys(sessions).forEach(key => {
-            sessionsFlows.push({
-                id: key,
-                flow: sessions[key]
-            });
-        });
 
         let sessionsList = document.getElementById('sessions-list');
-        for (let s of sessionsFlows) {
+        for (let s of gon.sessionFlows) {
             let b = document.createElement('button');
             b.innerText = s.id;
             b.onclick = () => {
