@@ -5,8 +5,10 @@
         %h4.modal-title Editing user 
         = link_to 'Back', admin_users_path
       .modal-body
-        = f.input :email
-        = f.select :role, ['admin', 'reporter', 'customer']      
+        .card-body
+          = f.input :email
+        .card-body
+          = f.select :role, ['admin', 'reporter', 'customer'] 
       .modal-footer
         .pull-left
           
