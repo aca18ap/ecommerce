@@ -1,5 +1,5 @@
 class MetricsController < ApplicationController
-
+  
   def index
     @current_nav_identifier = :metrics
     @metrics = Visit.all

@@ -1,5 +1,15 @@
-%h1 Editing user
-
-= render 'edit_form'
-
-= link_to 'Back', users_show_path
+.modal-dialog
+  .modal-content
+    = simple_form_for @user, url: admin_user_path do |f|
+      .modal-header
+        %h4.modal-title Editing user 
+        = link_to 'Back', admin_users_path
+      .modal-body
+        .card-body
+          = f.input :email
+        .card-body
+          = f.select :role, ['admin', 'reporter', 'customer'] 
+      .modal-footer
+        .pull-left
+          
+        = f.button :submit, method: :update , class: 'btn btn-outline-dark'
