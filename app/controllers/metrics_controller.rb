@@ -8,7 +8,7 @@ class MetricsController < ApplicationController
 
     # Passes metrics calculated in service class to metrics/index.js using gon gem
     metrics_calculator = CalculateMetrics.new(@visits, @registrations)
-    gon.metrics = @visits
+    gon.visits = @visits
     gon.registrations = @registrations
     gon.pageVisits = metrics_calculator.page_visits
     gon.timeVisits = metrics_calculator.time_visits
@@ -17,6 +17,9 @@ class MetricsController < ApplicationController
     gon.sessionFlows = metrics_calculator.session_flows
     gon.timeVisits = metrics_calculator.time_visits
     gon.timeRegistrations = metrics_calculator.time_registrations
+
+    # Seems to only get state_district consistently rip
+    gon.temp = Geocoder.search(Geocoder.search('90.204.36.252').first.coordinates).first
   end
 
   def create

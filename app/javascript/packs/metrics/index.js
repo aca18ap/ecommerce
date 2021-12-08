@@ -9,7 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let emptyCharts = [];
 
-    console.log(gon.timeRegistrations)
+    console.log(gon.registrations)
+    console.log(gon.visits)
+    console.log(gon.temp)
 
     // Only update graphs if there are any site tracking metrics in the system
     if (gon.pageVisits.length > 0) {
