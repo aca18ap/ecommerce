@@ -6,6 +6,7 @@
 #
 #  id         :bigint           not null, primary key
 #  email      :string
+#  tier       :string
 #  vocation   :string           default("Customer"), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
