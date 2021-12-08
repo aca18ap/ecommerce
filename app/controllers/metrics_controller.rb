@@ -2,18 +2,21 @@ class MetricsController < ApplicationController
 
   def index
     @current_nav_identifier = :metrics
-    @metrics = Visit.all
+    @visits = Visit.all
     @registrations = Newsletter.all
-    metricsCalculator = CalculateMetrics.new(@metrics, @registrations)
     #@features = Features.all
 
-    # Allows the passing of the @metrics, @registrations and @features object to metrics/index.js
-    gon.metrics = @metrics
+    # Passes metrics calculated in service class to metrics/index.js using gon gem
+    metrics_calculator = CalculateMetrics.new(@visits, @registrations)
+    gon.metrics = @visits
     gon.registrations = @registrations
-    gon.pageVisits = metricsCalculator.page_visits
-    gon.vocationRegistrations = metricsCalculator.vocation_registrations
-    gon.tierRegistrations = metricsCalculator.tier_registrations
-    gon.sessionFlows = metricsCalculator.session_flows
+    gon.pageVisits = metrics_calculator.page_visits
+    gon.timeVisits = metrics_calculator.time_visits
+    gon.vocationRegistrations = metrics_calculator.vocation_registrations
+    gon.tierRegistrations = metrics_calculator.tier_registrations
+    gon.sessionFlows = metrics_calculator.session_flows
+    gon.timeVisits = metrics_calculator.time_visits
+    gon.timeRegistrations = metrics_calculator.time_registrations
   end
 
   def create

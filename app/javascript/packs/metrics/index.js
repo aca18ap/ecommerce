@@ -3,22 +3,16 @@ import * as d3 from 'd3';
 import * as uk from './uk-geo.json';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Receives @metrics and @registrations from controller using gon gem
-    let metrics = gon.metrics;
-    let registrations = gon.registrations;
-    let features = [] // gon.features;
-
     // Create charts to display on metrics page
     const width = 1000;
     const height = 500;
 
     let emptyCharts = [];
 
+    console.log(gon.timeRegistrations)
 
-    // Update chart title to include total
-    document.getElementById('visits-barchart-title').innerText = `Site Visits by Page (Total: ${metrics.length})`;
     // Only update graphs if there are any site tracking metrics in the system
-    if (metrics.length > 0) {
+    if (gon.pageVisits.length > 0) {
         // Gets pageVisits from gon gem - calculated in CalculateMetrics service class
         let pageVisitCountsChart = HorizontalBarChart(gon.pageVisits, {
             x: d => d.visits,
@@ -33,19 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
             svgElement: document.getElementById('visits-barchart-plot')
         });
 
-        // Group metrics into hours between first recorded visit and now
-        let timeVisits = groupByHour(metrics, "from", metrics[0].from);
-        let timeVisitsCounts = []
-
-        // Calculate number of visits at a specific time interval
-        Object.keys(timeVisits).forEach(key => {
-            timeVisitsCounts.push({
-                time: key,
-                visits: timeVisits[key].length
-            });
-        });
-
-        let visitsOverTimeChart = LineChart(timeVisitsCounts, {
+        // Gets timeVisits from gon gem - calculated in CalculateMetrics service class
+        let visitsOverTimeChart = LineChart(gon.timeVisits, {
             x: d => d.time,
             y: d => d.visits,
             yLabel: 'Visits',
@@ -89,10 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .text('TEMP')
 
 
-    // Update chart title to include total
-    document.getElementById('registrations-barchart-title').innerText = `Site Registrations by Vocation (Total: ${registrations.length})`;
     // Only update graphs if there are any registrations in the system
-    if (registrations.length > 0) {
+    if (gon.vocationRegistrations.length > 0) {
         // Gets pageVisits from gon gem - calculated in CalculateMetrics service class
         let vocationRegsCountsChart = HorizontalBarChart(gon.vocationRegistrations, {
             x: d => d.registrations,
@@ -130,6 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
         });
 
+        // Gets timeRegistrations from gon gem - calculated in CalculateMetrics service class
         let regsOverTimeChart = LineChart(timeRegsCounts, {
             x: d => d.time,
             y: d => d.registrations,
@@ -197,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (metrics.length > 0) {
-
+        // Gets sessionFlows from gon gem - calculated in CalculateMetrics service class
         let sessionsList = document.getElementById('sessions-list');
         for (let s of gon.sessionFlows) {
             let b = document.createElement('button');

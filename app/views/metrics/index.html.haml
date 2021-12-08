@@ -10,7 +10,7 @@
 .row.vw-75.m-3
   %h1.m-3.text-center Visitor Statistics
   #visits-barchart-div.justify-content-center.bg-light-green.col-xl-6
-    %h2#visits-barchart-title.text-center Site Visits by Page
+    %h2#visits-barchart-title.text-center Site Visits by Page (Total: #{@visits.size})
     %svg#visits-barchart-plot.d-block.m-auto
 
   #visits-linechart-div.justify-content-center.bg-light-green.col-xl-6
@@ -34,7 +34,7 @@
 .row.vw-75.m-3
   %h1.mt-5.mb-3.text-center Registration Statistics
   #registrations-barchart-div.justify-content-center.bg-light-green.col-xl-6
-    %h2#registrations-barchart-title.text-center Site Registrations by Vocation
+    %h2#registrations-barchart-title.text-center Site Registrations by Vocation (Total: #{@registrations.size})
     %svg#registrations-barchart-plot.d-block.m-auto
 
   #registrations-linechart-div.justify-content-center.bg-light-green.col-xl-6
@@ -108,11 +108,11 @@
 
       %tbody
 
-      - @metrics.each do |metric|
+      - @visits.each do |visit|
         %tr
-          %td= metric.path
-          %td= metric.from
-          %td= metric.location
-          %td= metric.session_identifier
+          %td= visit.path
+          %td= visit.from
+          %td= visit.location
+          %td= visit.session_identifier
 
 
