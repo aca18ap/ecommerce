@@ -5,12 +5,14 @@
             %th Email
             %th Role
 
-    %tbody
+    %tbody#show_all_users
         - @users.each do |u|
             %tr
                 %td= u.email
                 %td= u.role
-                = form_for [:admin, u], method: 'delete' do |f|
-                    - if u != current_user
-                        %td= f.submit "Delete", method: :delete, data: { id: u.id, confirm: 'Are you sure you want to delete this user?' }
+                %td= link_to 'Edit user', edit_admin_user_path(u), class: 'ajax-modal', class: 'btn btn-xs'
+
+                - if u != current_user
+                    %td= link_to 'Delete', { action: :destroy, id: u.id }, method: :delete, class: 'btn btn-default btn-xs', data: { confirm: 'Are you sure?'}
+
 

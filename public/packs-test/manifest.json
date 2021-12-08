@@ -20,23 +20,32 @@
     },
     "styles": {
       "css": [
-        "/packs-test/css/styles-aa6c92fe.css"
+        "/packs-test/css/styles-06e350fe.css"
       ],
       "js": [
-        "/packs-test/js/styles-558c622f327af44052b0.js"
+        "/packs-test/js/styles-71a497b214e7b57bcc3b.js"
       ],
       "css.map": [
-        "/packs-test/css/styles-aa6c92fe.css.map"
+        "/packs-test/css/styles-06e350fe.css.map"
       ],
       "js.map": [
-        "/packs-test/js/styles-558c622f327af44052b0.js.map"
+        "/packs-test/js/styles-71a497b214e7b57bcc3b.js.map"
       ]
     }
   },
+<<<<<<< HEAD
   "metrics/index.js": "/packs-test/js/metrics/index-db609050180ec1b99514.js",
   "metrics/index.js.map": "/packs-test/js/metrics/index-db609050180ec1b99514.js.map",
   "styles.css": "/packs-test/css/styles-aa6c92fe.css",
   "styles.css.map": "/packs-test/css/styles-aa6c92fe.css.map",
   "styles.js": "/packs-test/js/styles-558c622f327af44052b0.js",
   "styles.js.map": "/packs-test/js/styles-558c622f327af44052b0.js.map"
+=======
+  "metrics/index.js": "/packs-test/js/metrics/index-b7a0aeb9dbeea523ca65.js",
+  "metrics/index.js.map": "/packs-test/js/metrics/index-b7a0aeb9dbeea523ca65.js.map",
+  "styles.css": "/packs-test/css/styles-06e350fe.css",
+  "styles.css.map": "/packs-test/css/styles-06e350fe.css.map",
+  "styles.js": "/packs-test/js/styles-71a497b214e7b57bcc3b.js",
+  "styles.js.map": "/packs-test/js/styles-71a497b214e7b57bcc3b.js.map"
+>>>>>>> users_features
 }
