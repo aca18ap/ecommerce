@@ -13,6 +13,8 @@
 #
 FactoryBot.define do
   factory :newsletter do
+    created_at { '2021-11-27 16:39:22' }
+
     factory :free_customer_newsletter do
       email { 'freecustomer@team04.com' }
       vocation { 'Customer' }

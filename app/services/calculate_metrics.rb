@@ -51,23 +51,7 @@ class CalculateMetrics
     end
   end
 
-  # Calculates the number of registrations per hour for a subset of all registrations
-  def calculate_time_counts(vocation_group, earliest_hour)
-    time_registrations_counts = {}
-
-    latest_hour = DateTime.now.change({ min: 0, sec: 0 })
-    (earliest_hour.to_i..latest_hour.to_i).step(1.hour) do |date|
-      time_registrations_counts[date] = 0
-    end
-
-    vocation_group.each do |registration|
-      time_registrations_counts[DateTime.parse(registration.created_at.to_s).change({ min: 0, sec: 0 }).to_i] += 1
-    end
-
-    time_registrations_counts
-  end
-
-  # Calculates number of registrations at each hour from the hour of the first registration
+  # Calculates number of registrations at each hour, for each vocation (and total) from the hour of the first registration
   def time_registrations
     if @registrations.size.positive?
 
@@ -83,5 +67,23 @@ class CalculateMetrics
 
       time_regs
     end
+  end
+
+  private
+
+  # Calculates the number of registrations per hour for a subset of all registrations
+  def calculate_time_counts(vocation_group, earliest_hour)
+    time_registrations_counts = {}
+
+    latest_hour = DateTime.now.change({ min: 0, sec: 0 })
+    (earliest_hour.to_i..latest_hour.to_i).step(1.hour) do |date|
+      time_registrations_counts[date] = 0
+    end
+
+    vocation_group.each do |registration|
+      time_registrations_counts[DateTime.parse(registration.created_at.to_s).change({ min: 0, sec: 0 }).to_i] += 1
+    end
+
+    time_registrations_counts
   end
 end
