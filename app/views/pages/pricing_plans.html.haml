@@ -3,8 +3,8 @@
 .container-fluid
   .row.text-center.text-feldgrau.grabber.pt-5
     %h4 
-      %span.highlight-dyk Did you know? 
-      By 2050, freight emissions will account for over a quarter of the world's carbon footprint?
+      %span.highlight-dyk Did you know?
+      By 2050, global freight will account for over a quarter of the world's carbon footprint?
 
     %h1
       Join us today, and
@@ -37,7 +37,7 @@
                     / //HEAD END
                   / //HEAD CONTENT END
                   / PRICE START
-                  .generic_price_tag.clearfix
+                  .generic_price_tag.clearfix.height-fix.pt-3
                     %span.price
                       %span.sign £
                       %span.currency 0
@@ -67,7 +67,7 @@
                 / BUTTON START
                 .generic_price_btn.clearfix
                   -# %a{:href => "/newsletters/new", :vocation => "Customer"} Sign up
-                  = link_to 'Sign up', new_newsletter_path(@newsletters, :type => "Customer")
+                  = link_to 'Sign up', new_newsletter_path(@newsletters, :type => "Customer", :tier => "Free")
                 / //BUTTON END
               / //PRICE CONTENT END
             .col-md-4
@@ -84,10 +84,10 @@
                     / //HEAD END
                   / //HEAD CONTENT END
                   / PRICE START
-                  .generic_price_tag.clearfix
+                  .generic_price_tag.clearfix.height-fix.pt-3
                     %span.price
                       %span.sign £
-                      %span.currency 5
+                      %span.currency 4
                       %span.cent .99
                       %span.month /MONTH
                   / //PRICE END
@@ -114,12 +114,14 @@
                 / BUTTON START
                 .generic_price_btn.clearfix
                   -# %a{:href => "/newsletters/new", :vocation => "Customer"} Sign up
-                  = link_to 'Sign up', new_newsletter_path(@newsletters, :type => "Customer")
+                  = link_to 'Sign up', new_newsletter_path(@newsletters, :type => "Customer", :tier => "Solo")
                 / //BUTTON END
               / //PRICE CONTENT END
             .col-md-4
               / PRICE CONTENT START
-              .generic_content.clearfix
+              .generic_content.clearfix.active.ribbon-holder 
+                .corner-ribbon.top-right
+                  SALE
                 / HEAD PRICE DETAIL START
                 .generic_head_price.clearfix
                   / HEAD CONTENT START
@@ -131,7 +133,9 @@
                     / //HEAD END
                   / //HEAD CONTENT END
                   / PRICE START
-                  .generic_price_tag.clearfix
+                  .generic_price_tag.clearfix.height-fix
+                    %span.price
+                      %span.sign.strikethrough £19.99
                     %span.price
                       %span.sign £
                       %span.currency 14
@@ -161,7 +165,7 @@
                 / BUTTON START
                 .generic_price_btn.clearfix
                   -# %a{:href => "/newsletters/new", :vocation => "Customer"} Sign up
-                  = link_to 'Sign up', new_newsletter_path(@newsletters, :type => "Customer")
+                  = link_to 'Sign up', new_newsletter_path(@newsletters, :type => "Customer", :tier => "Family")
                 / //BUTTON END
               / //PRICE CONTENT END
           / //BLOCK ROW END

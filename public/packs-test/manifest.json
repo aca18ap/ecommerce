@@ -1,21 +1,21 @@
 {
-  "application.js": "/packs-test/js/application-29b5c5779f111c2fe830.js",
-  "application.js.map": "/packs-test/js/application-29b5c5779f111c2fe830.js.map",
+  "application.js": "/packs-test/js/application-a148f556f765dddd9c02.js",
+  "application.js.map": "/packs-test/js/application-a148f556f765dddd9c02.js.map",
   "entrypoints": {
     "application": {
       "js": [
-        "/packs-test/js/application-29b5c5779f111c2fe830.js"
+        "/packs-test/js/application-a148f556f765dddd9c02.js"
       ],
       "js.map": [
-        "/packs-test/js/application-29b5c5779f111c2fe830.js.map"
+        "/packs-test/js/application-a148f556f765dddd9c02.js.map"
       ]
     },
     "metrics/index": {
       "js": [
-        "/packs-test/js/metrics/index-db609050180ec1b99514.js"
+        "/packs-test/js/metrics/index-e7d041a3b37d276d8743.js"
       ],
       "js.map": [
-        "/packs-test/js/metrics/index-db609050180ec1b99514.js.map"
+        "/packs-test/js/metrics/index-e7d041a3b37d276d8743.js.map"
       ]
     },
     "styles": {
@@ -33,8 +33,8 @@
       ]
     }
   },
-  "metrics/index.js": "/packs-test/js/metrics/index-db609050180ec1b99514.js",
-  "metrics/index.js.map": "/packs-test/js/metrics/index-db609050180ec1b99514.js.map",
+  "metrics/index.js": "/packs-test/js/metrics/index-e7d041a3b37d276d8743.js",
+  "metrics/index.js.map": "/packs-test/js/metrics/index-e7d041a3b37d276d8743.js.map",
   "styles.css": "/packs-test/css/styles-aa6c92fe.css",
   "styles.css.map": "/packs-test/css/styles-aa6c92fe.css.map",
   "styles.js": "/packs-test/js/styles-558c622f327af44052b0.js",

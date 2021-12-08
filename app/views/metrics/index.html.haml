@@ -10,7 +10,7 @@
 .row.vw-75.m-3
   %h1.m-3.text-center Visitor Statistics
   #visits-barchart-div.justify-content-center.bg-light-green.col-xl-6
-    %h2#visits-barchart-title.text-center Site Visits by Page
+    %h2#visits-barchart-title.text-center Site Visits by Page (Total: #{@visits.size})
     %svg#visits-barchart-plot.d-block.m-auto
 
   #visits-linechart-div.justify-content-center.bg-light-green.col-xl-6
@@ -18,14 +18,33 @@
     %svg#visits-linechart-plot.d-block.m-auto
 
 .row.vw-75.m-3
+  %h1.mt-5.mb-3.text-center Visitor Geography Statistics
+  #visits-geochart-div.justify-content-center.bg-light-green.col-xl-6
+    %svg#visits-geo-plot.d-block.m-auto{width: "500px", height: "800px"}
+
+  #registrations-geo-div.justify-content-center.bg-light-green.col-xl-6
+    %h2#registrations-geo-title.text-center Site Registrations By UK County
+    .container.p-5.overflow-scroll
+      %table#registrations-geo-table.table.m-5
+        %thead
+          %tr
+            %th County
+            %th Visitors
+
+.row.vw-75.m-3
   %h1.mt-5.mb-3.text-center Registration Statistics
   #registrations-barchart-div.justify-content-center.bg-light-green.col-xl-6
-    %h2#registrations-barchart-title.text-center Site Registrations by Vocation
+    %h2#registrations-barchart-title.text-center Site Registrations by Vocation (Total: #{@registrations.size})
     %svg#registrations-barchart-plot.d-block.m-auto
 
   #registrations-linechart-div.justify-content-center.bg-light-green.col-xl-6
     %h2#registrations-linechart-title.text-center Site Registrations Over Time
     %svg#registrations-linechart-plot.d-block.m-auto
+
+.row.vw-75.m-3
+  #registrations-by-type-barchart-div.justify-content-center.bg-light-green.col-xl-12
+    %h2#registrations-by-type-barchart-title.text-center Registrations By Pricing Plan
+    %svg#registrations-by-type-barchart-plot.d-block.m-auto
 
 .row.vw-75.m-3
   %h1.mt-5.mb-3.text-center Registration Geography Statistics
@@ -34,7 +53,47 @@
 
   #registrations-geo-div.justify-content-center.bg-light-green.col-xl-6
     %h2#registrations-geo-title.text-center Site Registrations By UK County
-    %table
+    .container.p-5.overflow-scroll
+      %table#registrations-geo-table.table.m-5
+        %thead
+          %tr
+            %th County
+            %th Registrations
+        %tbody
+
+.row.vw-75.m-3
+  #feature-interest-div.justify-content-center.bg-light-green.col-xl-6
+    %h2#feature-interest-barchart-title.text-center Clicks/Visits (REMOVE ONE) By Feature (Total: #{})
+    %svg#feature-interest-barchart-plot.d-block.m-auto
+
+  #feature-shares-div.justify-content-center.bg-light-green.col-xl-6
+    %h2#feature-shares-barchart-title.text-center Shares By Feature (Total: #{})
+    %svg#feature-shares-barchart-plot.d-block.m-auto
+
+.row.vw-75.m-3
+  #flow-report-div.justify-content-center.bg-light-green.col-xl-12
+    %h2#flow-report-title.text-center User Flow Report (This will be made to look better dw)
+    .row{'max-height': '150px'}
+      .container.col-xl-4.overflow-scroll
+        %table#registrations-geo-table.table.w-25
+          %thead
+            %tr
+              %th Registered?
+              %th Session ID
+          %tbody#sessions-list
+
+      .container.col-xl-8.overflow-scroll
+        %table#registrations-geo-table.table.w-25
+          %thead.d-block
+            %tr
+              %th State
+              %th Page
+
+          %tbody#flow-list.d-block.overflow-scroll{'height': '300px'}
+
+    %svg#flow-report-plot.d-block.m-auto.col-xl-12
+
+
 
 .container-fluid.pad-edge
   .pt-5
@@ -44,13 +103,16 @@
           %th Page visited
           %th Date of visit
           %th Location
+          %th Session ID
+
 
       %tbody
 
-      - @metrics.each do |metric|
+      - @visits.each do |visit|
         %tr
-          %td= metric.path
-          %td= metric.from
-          %td= metric.location
+          %td= visit.path
+          %td= visit.from
+          %td= visit.location
+          %td= visit.session_identifier
 
 

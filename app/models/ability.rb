@@ -10,6 +10,8 @@ class Ability
     if user.admin?
       can :manage, User
       can :manage, Review
+      can :manage, Visit
+      can :manage, Newsletter
       can :read, :all
       can :manage, Faq
     elsif user.role == "reporter"
@@ -30,6 +32,11 @@ class Ability
       can :create, Faq
       can :like, Faq
       can :dislike, Faq
+      can :new, Newsletter
+      can :create, Newsletter
+      can :created, Newsletter
+      cannot :manage, Visit
+      cannot :all, MetricsController
     end
     #
     # The first argument to `can` is the action you are giving the user

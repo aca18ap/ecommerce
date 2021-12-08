@@ -2,7 +2,7 @@
 
 /* #generic_price_table {
   /* background-color: #f0eded; */
-} */
+/* } */
 
 /*PRICE COLOR CODE START*/
 #generic_price_table .generic_content{
@@ -403,3 +403,38 @@
   text-decoration:none;
 }
 
+.strikethrough {
+  text-decoration: line-through;
+}
+
+.corner-ribbon{
+  width: 200px;
+  background: #e43;
+  position: absolute;
+  top: 25px;
+  left: -50px;
+  text-align: center;
+  line-height: 50px;
+  letter-spacing: 1px;
+  color: #f0f0f0;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  z-index:10;
+}
+
+.corner-ribbon.top-right{
+  top: 25px;
+  right: -50px;
+  left: auto;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.ribbon-holder {
+  position:relative;
+  overflow:hidden;
+}
+
+.height-fix {
+  height: 120px;
+}

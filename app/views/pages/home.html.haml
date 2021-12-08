@@ -4,28 +4,31 @@
   .row.text-center.text-feldgrau.py-5.grabber
     %h4
       %span.highlight-dyk Did you know?
-      By 2050, freight emissions will account for over a quarter of the world's carbon footprint?
+      By 2050, global freight will account for over a quarter of the world's carbon footprint?
 
     %h1
-      Join us today, and
-      %span.highlight-text change
-      the world.
+      Introducing ecommerce, the
+      %span.highlight-text green
+      browser extension
 
-  .row.pad-edge 
-    .col-lg 
-      %img{:alt => "...", :src => "../images/screenshot.svg"}/
-    .col-lg.my-auto
-      %ul.feature-list.p-0.mb-4
-        %li Eco-friendly online shopping suggestions as you browse
-        %li Check retailer eco-scores
-        %li See your carbon footprint
-      .row.row-cols-auto
-        .col
-          .m-auto.btn-custom-active.clearfix
-            = link_to ("as a customer"), pricing_plans_url, method: :get
-        .col
-          .m-auto.btn-custom.clearfix
-            = link_to ("as a business"), business_info_url, method: :get
+  .row.pad-edge.w-75.mx-auto 
+    = render 'carousel'
+    -# .col-lg 
+    -#   %img{:alt => "...", :src => "../images/screenshot.svg"}/
+    -# .col-lg.my-auto
+    -#   %ul.feature-list.p-0.mb-4
+    -#     %li Eco-friendly online shopping suggestions as you browse
+    -#     %li Check retailer eco-scores
+    -#     %li See your carbon footprint
+  .row.pad-edge.pt-5.text-center
+    %h3 Click below to learn more!
+  .row.pad-edge
+    .col.text-end
+      .btn-custom-active.clearfix
+        = link_to ("as a customer"), pricing_plans_url, method: :get
+    .col
+      .btn-custom.clearfix
+        = link_to ("as a business"), business_info_url, method: :get
 
   
   .row.transition-wrapper
@@ -53,7 +56,7 @@
           .h3 What is the solution?
           .p.pb-3 Our product is a browser extension designed to reduce shipping distances by suggesting more environmentally friendly alternatives whilst you’re browsing. Our premium plans also provide a web interface where you can see summaries of your purchase habits, including how much you’ve contributed through use of our product.
           .h3.pb-2 Why is the solution a good solution?
-          .p We know it’s not as simple as redirecting traffic to alternative retailers. That’s why we ensure all our eco-approved suppliers conform to ISO 14000. Not only this, but we ask all affiliates to provide us with information about where they manufacture their products.We also know that life is busy and finding the time and energy to solve a problem that seems far off in the distance can be a challenge. That’s why we’ve made it as easy as possible to use. Simply download and install the browser extension, do your shopping as normal, and alternative suggestions will be one click away!
+          .p We know it’s not as simple as redirecting traffic to alternative retailers. That’s why we ensure all our eco-approved suppliers conform to ISO 14000. Not only this, but we ask all affiliates to provide us with information about where they manufacture their products. We also know that life is busy and finding the time and energy to solve a problem that seems far off in the distance can be a challenge. That’s why we’ve made it as easy as possible to use. Simply download and install the browser extension, do your shopping as normal, and alternative suggestions will be one click away!
 
 
   .row.text-feldgrau.text-center.pad-edge.pb-3
@@ -61,29 +64,28 @@
       .m-auto.card-transparent{:style => "width: 75%;"}
         %img.card-img-top{:alt => "...", :src => "images/image-business.svg"}/
         .card-body
-          %h3.card-title Protect your future
+          %h3.card-title Feature #1
           %p.card-text We need to do more to reduce our carbon footprint. We can do this is by choosing eco-retailers online.
-          -# %a.btn.btn-primary{:href => "#"} Share
+          = render 'share_icons'
     .col-lg.m-auto 
       .m-auto.card-transparent{:style => "width: 75%;"}
         %img.card-img-top{:alt => "...", :src => "images/image-customer.svg"}/
         .card-body
-          %h3.card-title Buy better
+          %h3.card-title Feature #2
           %p.card-text Get eco-friendly product alternatives at the click of a button when shopping online.
-          -# %br
-          -# %a.btn.btn-primary{:href => "#"} Share
+          = render 'share_icons'
     .col-lg.m-auto
       .m-auto.card-transparent{:style => "width: 75%;"}
         %img.card-img-top{:alt => "...", :src => "Volunteering-bro.png"}/
         .card-body
-          %h3.card-title See your impact
+          %h3.card-title Feature #3
           %p.card-text Subscribers can view an estimate of their online carbon footprint, helping them to understand their impact.
-          -# %a.btn.btn-primary{:href => "#"} Share
+          = render 'share_icons'
 
 
 
   .row.text-center.text-feldgrau.py-5.grabber
-    %p Tell us what you think!
+    %h2 Tell us what you think!
     %p
     = button_to "Leave A Review", new_review_path, method: :get
     %p

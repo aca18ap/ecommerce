@@ -1,18 +1,20 @@
-%p#notice= notice
+.container-fluid.pad-edge.pt-5
 
-%p
-  %b Description:
-  = @review.description
-%p
-  %b Rating:
-  = @review.rating
-%p
-  %b Hidden:
-  = @review.hidden
-%p
-  %b Rank:
-  = @review.rank
+  %p#notice= notice
 
-= link_to 'Edit', edit_review_path(@review)
-\|
-= link_to 'Back', reviews_path
+  %p
+    %b Description:
+    = @review.description
+  %p
+    %b Rating:
+    = @review.rating
+  %p
+    %b Hidden:
+    = @review.hidden
+  %p
+    %b Rank:
+    = @review.rank
+
+  = link_to 'Edit', edit_review_path(@review)
+  \|
+  = link_to 'Back', reviews_path

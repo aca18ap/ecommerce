@@ -3,35 +3,23 @@ import * as d3 from 'd3';
 import * as uk from './uk-geo.json';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Receives @metrics and @registrations from controller using gon gem
-    let metrics = gon.metrics;
-    let registrations = gon.registrations;
-
     // Create charts to display on metrics page
     const width = 1000;
     const height = 500;
 
     let emptyCharts = [];
 
+    console.log(gon.registrations)
+    console.log(gon.visits)
+    console.log(gon.temp)
 
-    // Update chart title to include total
-    document.getElementById('visits-barchart-title').innerText = `Site Visits by Page (Total: ${metrics.length})`;
     // Only update graphs if there are any site tracking metrics in the system
-    if (metrics.length > 0) {
-        // Calculate the number of visits to each page
-        let pageVisits = groupBy(metrics, "path")
-        let pageVisitsCounts = []
-        Object.keys(pageVisits).forEach(key => {
-            pageVisitsCounts.push({
-                page: key,
-                visits: pageVisits[key].length
-            });
-        });
-
-        let pageVisitCountsChart = HorizontalBarChart(pageVisitsCounts, {
+    if (gon.visits.length > 0) {
+        // Gets pageVisits from gon gem - calculated in CalculateMetrics service class
+        let pageVisitCountsChart = HorizontalBarChart(gon.pageVisits, {
             x: d => d.visits,
             y: d => d.page,
-            yDomain: d3.groupSort(pageVisitsCounts, ([d]) => -d.visits, d => d.page), // sort by descending frequency
+            yDomain: d3.groupSort(gon.pageVisits, ([d]) => -d.visits, d => d.page), // sort by descending frequency
             width,
             height,
             color: 'green',
@@ -41,19 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
             svgElement: document.getElementById('visits-barchart-plot')
         });
 
-        // Group metrics into hours between first recorded visit and now
-        let timeVisits = groupByHour(metrics, "from", metrics[0].from);
-        let timeVisitsCounts = []
-
-        // Calculate number of visits at a specific time interval
-        Object.keys(timeVisits).forEach(key => {
-            timeVisitsCounts.push({
-                time: key,
-                visits: timeVisits[key].length
-            });
-        });
-
-        let visitsOverTimeChart = LineChart(timeVisitsCounts, {
+        // Gets timeVisits from gon gem - calculated in CalculateMetrics service class
+        let visitsOverTimeChart = LineChart(gon.timeVisits, {
             x: d => d.time,
             y: d => d.visits,
             yLabel: 'Visits',
@@ -69,25 +46,41 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('visits-linechart-plot'));
     }
 
+    let projection = d3.geoAlbers()
+        .center([0, 55.4])
+        .rotate([4.4, 0])
+        .parallels([50, 60])
+        .scale(4000)
+        .translate([width/5, (2.4*height)/3])
 
-    // Update chart title to include total
-    document.getElementById('registrations-barchart-title').innerText = `Site Registrations by Vocation (Total: ${registrations.length})`;
+    let visits_svg = d3.select('#visits-geo-plot');
+    let visitsTempData = [{ID_1: 1, ID_2: 1, value: 1}, {ID_1: 1, ID_2: 2, value: 1}]
+    visits_svg.append("g")
+        .selectAll("path")
+        .data(uk.features)
+        .enter()
+        .append("path")
+        .attr("id", d => { return `visits-${d.properties.ID_1}-${d.properties.ID_2}` })
+        .attr("fill", "#000")
+        .attr("stroke", "white")
+        .attr("stroke-width", 0.4)
+        .attr("d", d3.geoPath(projection))
+        .append('title')
+        .text(d =>  `${d.properties.NAME_2}\nVisits: 0`);
+
+    d3.select(`#visits-1-30`)
+        .attr('fill', '#198754')
+        .select('title')
+        .text('TEMP')
+
+
     // Only update graphs if there are any registrations in the system
-    if (registrations.length > 0) {
-        // Calculate the number of visits to each page
-        let vocationRegs = groupBy(registrations, "vocation")
-        let vocationRegsCounts = []
-        Object.keys(vocationRegs).forEach(key => {
-            vocationRegsCounts.push({
-                vocation: key,
-                registrations: vocationRegs[key].length
-            });
-        });
-
-        let vocationRegsCountsChart = HorizontalBarChart(vocationRegsCounts, {
+    if (gon.registrations.length > 0) {
+        // Gets pageVisits from gon gem - calculated in CalculateMetrics service class
+        let vocationRegsCountsChart = HorizontalBarChart(gon.vocationRegistrations, {
             x: d => d.registrations,
             y: d => d.vocation,
-            yDomain: d3.groupSort(vocationRegsCounts, ([d]) => -d.registrations, d => d.vocation), // sort by descending frequency
+            yDomain: d3.groupSort(gon.vocationRegistrations, ([d]) => -d.registrations, d => d.vocation), // sort by descending frequency
             width,
             height,
             color: 'green',
@@ -97,30 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
             svgElement: document.getElementById('registrations-barchart-plot')
         });
 
-        // Group registrations into hours between first recorded visit and now
-        let timeRegs = groupByHour(registrations, "created_at", registrations[0].created_at);
-        let timeRegsCounts = []
-
-        // Calculate number of registrations at a specific time interval
-        Object.keys(timeRegs).forEach(key => {
-            timeRegsCounts.push({
-                vocation: 'Total',
-                time: key,
-                registrations: timeRegs[key].length
-            });
-
-            // Calculate number of registrations at a specific time interval for each vocation
-            let vocationGrouped = groupBy(timeRegs[key], 'vocation');
-            ['Customer', 'Business'].forEach(vocation => {
-                timeRegsCounts.push({
-                    vocation: vocation,
-                    time: key,
-                    registrations: vocationGrouped[vocation] ? vocationGrouped[vocation].length : 0
-                });
-            })
-        });
-
-        let regsOverTimeChart = LineChart(timeRegsCounts, {
+        // Gets timeRegistrations from gon gem - calculated in CalculateMetrics service class
+        let regsOverTimeChart = LineChart(gon.timeRegistrations, {
             x: d => d.time,
             y: d => d.registrations,
             z: d => d.vocation,
@@ -130,15 +101,96 @@ document.addEventListener('DOMContentLoaded', () => {
             color: 'green',
             svgElement: document.getElementById('registrations-linechart-plot')
         });
+
+        let tierRegsCountsChart = HorizontalBarChart(gon.tierRegistrations, {
+            x: d => d.registrations,
+            y: d => d.tier,
+            yDomain: d3.groupSort(gon.tierRegistrations, ([d]) => -d.registrations, d => d.tier), // sort by descending frequency
+            width,
+            height,
+            color: 'green',
+            marginLeft: 70,
+            marginRight: 10,
+            xLabel: 'Registrations',
+            svgElement: document.getElementById('registrations-by-type-barchart-plot')
+        });
+
     } else {
         // Set text of chart areas to indicate that there is no data
         emptyCharts.push(
             document.getElementById('registrations-barchart-plot'),
-            document.getElementById('registrations-linechart-plot'));
+            document.getElementById('registrations-linechart-plot'),
+            document.getElementById('registrations-by-type-barchart-plot'),
+            );
     }
 
+    let svg = d3.select('#registrations-geo-plot');
+    let regsTempData = [{ID_1: 1, ID_2: 1, value: 1}, {ID_1: 1, ID_2: 2, value: 1}]
+
+    svg.append("g")
+        .selectAll("path")
+        .data(uk.features)
+        .enter()
+        .append("path")
+            .attr("id", d => { return `regs-${d.properties.ID_1}-${d.properties.ID_2}` })
+            .attr("fill", "#000")
+            .attr("stroke", "white")
+            .attr("stroke-width", 0.4)
+            .attr("d", d3.geoPath(projection))
+        .append('title')
+            .text(d =>  `${d.properties.NAME_2}\nRegistrations: 0`)
+
+    d3.select(`#regs-1-65`)
+        .attr('fill', '#198754')
+        .select('title')
+            .text('TEMP')
+
+    if (false) {
+
+    } else {
+        emptyCharts.push(
+            document.getElementById('feature-interest-barchart-plot'),
+            document.getElementById('feature-shares-barchart-plot'),
+        )
+    }
+
+    if (gon.visits.length > 0) {
+        // Gets sessionFlows from gon gem - calculated in CalculateMetrics service class
+        let sessionsList = document.getElementById('sessions-list');
+        for (let s of gon.sessionFlows) {
+            let b = document.createElement('button');
+            b.innerText = s.id;
+            b.onclick = () => {
+                let flowList = document.getElementById('flow-list');
+                flowList.innerHTML = '';
+                for (let i=0; i<s.flow.length; i++) {
+                    let row = document.createElement('tr');
+                    let column1 = document.createElement('td');
+                    let column2 = document.createElement('td');
+                    column1.innerText = (i+1).toString();
+                    column2.innerText = s.flow[i].path;
+                    row.append(column1);
+                    row.append(column2);
+                    flowList.append(row);
+                }
+            };
+            let row = document.createElement('tr');
+            let column1 = document.createElement('td');
+            let column2 = document.createElement('td');
+            // NEED TO WORK OUT A WAY TO GET WHETHER A USER REGISTERED
+            row.append(column1);
+            column2.append(b);
+            row.append(column2);
+            sessionsList.append(row);
+        }
+    } else {
+        emptyCharts.push(
+            document.getElementById('flow-report-plot'),
+        );
+    }
+
+    // Add missing data message to appropriate chart areas
     for (let chart of emptyCharts) {
-        console.log(chart);
         let svg = d3.select(chart)
             .attr("width", width)
             .attr("height", height)
@@ -159,34 +211,6 @@ document.addEventListener('DOMContentLoaded', () => {
             .attr("font-family", "Outfit")
             .text("There is no data for this metric yet");
     }
-
-
-    let svg = d3.select('#registrations-geo-plot');
-    let projection = d3.geoAlbers()
-        .center([0, 55.4])
-        .rotate([4.4, 0])
-        .parallels([50, 60])
-        .scale(4000)
-        .translate([width/5, (2.4*height)/3])
-
-    console.log(uk.features);
-    let tempData = [{ID_1: 1, ID_2: 1, value: 1}, {ID_1: 1, ID_2: 2, value: 1}]
-
-    svg.append("g")
-        .selectAll("path")
-        .data(uk.features)
-        .enter()
-        .append("path")
-        .attr("id", d => { return `county-${d.properties.ID_1}-${d.properties.ID_2}` })
-        .attr("fill", "#000")
-        .attr("stroke", "white")
-        .attr("stroke-width", 0.4)
-        .attr("d", d3.geoPath(projection));
-
-    d3.select(`#county-1-65`)
-        .attr('fill', '#f00')
-
-
 });
 
 /**
@@ -225,7 +249,7 @@ function groupByHour(arr, key, startTime) {
         hoursDict[aDate].push(a);
     }
 
-    return hoursDict
+    return hoursDict;
 }
 
 // Copyright 2021 Observable, Inc.
