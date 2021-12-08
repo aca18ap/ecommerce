@@ -12,6 +12,7 @@ class Ability
       can :manage, Review
       can :read, :all
       can :manage, Faq
+      can :manage, :metrics
     elsif user.role == "reporter"
       can :read, :all
       cannot :manage, Review

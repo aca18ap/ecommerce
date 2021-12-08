@@ -32,8 +32,9 @@
               %li
                 %a.nav-link.px-2.link-dark{:href => "/reviews"} Reviews
             -# Hide unless user is admin
-            %li
-              %a.nav-link.px-2{:href => "/metrics"} Metrics
+            - if can?(:manage, :metrics)
+              %li
+                %a.nav-link.px-2{:href => "/metrics"} Metrics
           -# %form.col-12.col-lg-auto.mb-3.mb-lg-0.me-lg-3
           -#   %input.form-control{"aria-label" => "Search", :placeholder => "Search...", :type => "search"}
           .dropdown.text-end

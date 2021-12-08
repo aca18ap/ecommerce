@@ -1,4 +1,6 @@
 class MetricsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :is_admin?
   
   def index
     @current_nav_identifier = :metrics
@@ -24,4 +26,13 @@ class MetricsController < ApplicationController
 
     head :ok
   end
+
+  private
+
+  def is_admin?
+    if !current_user.admin?
+      redirect_to '/403'
+    end
+  end
+
 end
