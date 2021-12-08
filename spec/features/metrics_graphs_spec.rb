@@ -11,7 +11,7 @@ describe 'Metrics management', js: true do
       within(:css, '#visits-linechart-plot') { expect(page).to have_content 'There is no data for this metric yet' }
 
       within(:css, '#registrations-barchart-plot') { expect(page).to have_content 'There is no data for this metric yet' }
-      within(:css, '#registrations-barchart-plot') { expect(page).to have_content 'Site Registrations by Vocation (Total: 0)' }
+      within(:css, '#registrations-barchart-title') { expect(page).to have_content 'Site Registrations by Vocation (Total: 0)' }
       within(:css, '#registrations-linechart-plot') { expect(page).to have_content 'There is no data for this metric yet' }
       within(:css, '#registrations-by-type-barchart-plot') { expect(page).to have_content 'There is no data for this metric yet' }
 
