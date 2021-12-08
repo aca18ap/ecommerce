@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(gon.temp)
 
     // Only update graphs if there are any site tracking metrics in the system
-    if (gon.pageVisits.length > 0) {
+    if (gon.visits.length > 0) {
         // Gets pageVisits from gon gem - calculated in CalculateMetrics service class
         let pageVisitCountsChart = HorizontalBarChart(gon.pageVisits, {
             x: d => d.visits,
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // Only update graphs if there are any registrations in the system
-    if (gon.vocationRegistrations.length > 0) {
+    if (gon.registrations.length > 0) {
         // Gets pageVisits from gon gem - calculated in CalculateMetrics service class
         let vocationRegsCountsChart = HorizontalBarChart(gon.vocationRegistrations, {
             x: d => d.registrations,
@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
         )
     }
 
-    if (gon.pageVisits.length > 0) {
+    if (gon.visits.length > 0) {
         // Gets sessionFlows from gon gem - calculated in CalculateMetrics service class
         let sessionsList = document.getElementById('sessions-list');
         for (let s of gon.sessionFlows) {

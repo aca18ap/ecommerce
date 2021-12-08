@@ -80,12 +80,14 @@ describe 'Metrics management', js: true do
       expect(page).to have_current_path('/')
     end
 
-    specify 'If I am not an admin or reporter, I cannot view metrics' do
+    context 'If I am not an admin or reporter' do
       before { login_as(FactoryBot.create(:customer)) }
-      visit '/metrics'
-      within(:css, '.nav') { expect(page).not_to have_content 'Metrics' }
-      expect(page).not_to have_content 'Metrics Summary'
-      expect(page).to have_current_path('/')
+      specify ', I cannot view metrics' do
+        visit '/metrics'
+        within(:css, '.nav') { expect(page).not_to have_content 'Metrics' }
+        expect(page).not_to have_content 'Metrics Summary'
+        expect(page).to have_current_path('/')
+      end
     end
   end
 end

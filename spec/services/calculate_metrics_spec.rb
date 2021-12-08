@@ -15,6 +15,10 @@ describe 'Calculating metrics' do
       [free_customer_newsletter, solo_customer_newsletter , family_customer_newsletter, business_newsletter])
   }
 
+  let(:no_data_calculate_metrics) {
+    CalculateMetrics.new(nil, nil)
+  }
+
   it 'Calculates visits to each site page' do
     expect(calculate_metrics.page_visits).to eq([{ 'page' => '/', 'visits' => 1 }, { 'page' => '/reviews', 'visits' => 1 }])
   end
@@ -56,6 +60,18 @@ describe 'Calculating metrics' do
         expect(time_registrations['registrations']).to eq(0)
       end
     end
+  end
+
+  it 'Returns nil if there are no visits in the system' do
+    expect(no_data_calculate_metrics.page_visits).to eq(nil)
+    expect(no_data_calculate_metrics.time_visits).to eq(nil)
+    expect(no_data_calculate_metrics.session_flows).to eq(nil)
+  end
+
+  it 'Returns nil if there are no visits in the system' do
+    expect(no_data_calculate_metrics.vocation_registrations).to eq(nil)
+    expect(no_data_calculate_metrics.tier_registrations).to eq(nil)
+    expect(no_data_calculate_metrics.time_registrations).to eq(nil)
   end
 
 end

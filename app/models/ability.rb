@@ -10,6 +10,8 @@ class Ability
     if user.admin?
       can :manage, User
       can :manage, Review
+      can :manage, Visit
+      can :manage, Newsletter
       can :read, :all
     elsif user.role == "reporter"
       can :read, :all
@@ -18,6 +20,10 @@ class Ability
       can :new, Review
       can :create, Review
       can :created, Review
+      can :new, Newsletter
+      can :create, Newsletter
+      can :created, Newsletter
+      cannot :manage, Visit
     end
     #
     # The first argument to `can` is the action you are giving the user
