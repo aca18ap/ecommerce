@@ -1,12 +1,15 @@
 .container-fluid.pad-edge
   .row.w-50.mx-auto.pt-5.text-left
-    %h2= t "devise.invitations.new.header"
-    = simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post }) do |f|
-      = f.error_notification
-      - resource.class.invite_key_fields.each do |field|
-        .form-inputs
-          = f.input :email
-          // = f.select :role, ['admin', 'reporter', 'customer'] @TODO  choose role at invitation
-      .form-actions
-        = f.button :submit, t("devise.invitations.new.submit_button")
+    .d-flex.flex-row.justify-content-between
+      %h2= t "devise.invitations.new.header"
+      %h2= link_to "Go Back", :back, class:'btn btn-xs float-right'
+    .row
+      = simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post }) do |f|
+        = f.error_notification
+        - resource.class.invite_key_fields.each do |field|
+          .form-inputs
+            = f.input :email
+            // = f.select :role, ['admin', 'reporter', 'customer'] @TODO  choose role at invitation
+        .form-actions
+          = f.button :submit, t("devise.invitations.new.submit_button")
 

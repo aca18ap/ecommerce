@@ -2,17 +2,16 @@
 
     %h1.pt-5.center Hello, #{current_user.email}.
     %br
-    %h2 Sorry, there isn't much to see here at the moment :(
-    %br
-    = "Make sure you're subscribed #{link_to 'here', new_newsletter_path} to receive email updates! "
-    %br
     - if current_user.admin?
-        =link_to 'Modify users', admin_users_path
-        %br
-        =link_to 'View metrics', metrics_path
-    - elsif current_user.role == 'reporter'
-        =link_to 'View metrics', metrics_path
+        =link_to 'Access admin dashboard', admin_users_path, class: 'btn btn-xl'
     - else
+        %br
+        %br
+        %h2 Sorry, there isn't much to see here at the moment :(
+        %br
+        = "Make sure you're subscribed #{link_to 'here', new_newsletter_path} to receive email updates! "
+        
+
         
     
 
