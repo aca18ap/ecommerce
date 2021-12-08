@@ -5,7 +5,6 @@
 
 import Rails from "@rails/ujs";
 import "bootstrap";
-
 import '../scripts/metrics';
 
 Rails.start();

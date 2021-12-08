@@ -15,7 +15,7 @@ gem 'rubocop', '~> 1.23', require: false
 gem 'ed25519'
 gem 'bcrypt_pbkdf'
 gem 'webpacker'
-
+gem 'font-awesome-rails'
 gem 'pg'
 gem 'gon'
 
