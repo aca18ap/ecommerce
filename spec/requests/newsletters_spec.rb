@@ -16,7 +16,7 @@ describe 'Managing newsletters/registrations of interest' do
         visit '/newsletters/new'
         fill_in 'newsletter[email]', with: 'invalid_email'
         click_button 'Register Interest'
-        expect(page).to have_content 'Invalid email'
+        expect(page).to have_content 'Invalid email'  
       end
     end
 

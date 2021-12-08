@@ -14,6 +14,7 @@ class Ability
       can :manage, Newsletter
       can :read, :all
       can :manage, Faq
+      can :manage, :metrics
     elsif user.role == "reporter"
       can :read, :all
       cannot :manage, Review

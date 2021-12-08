@@ -1,21 +1,21 @@
 {
-  "application.js": "/packs-test/js/application-a148f556f765dddd9c02.js",
-  "application.js.map": "/packs-test/js/application-a148f556f765dddd9c02.js.map",
+  "application.js": "/packs-test/js/application-29b5c5779f111c2fe830.js",
+  "application.js.map": "/packs-test/js/application-29b5c5779f111c2fe830.js.map",
   "entrypoints": {
     "application": {
       "js": [
-        "/packs-test/js/application-a148f556f765dddd9c02.js"
+        "/packs-test/js/application-29b5c5779f111c2fe830.js"
       ],
       "js.map": [
-        "/packs-test/js/application-a148f556f765dddd9c02.js.map"
+        "/packs-test/js/application-29b5c5779f111c2fe830.js.map"
       ]
     },
     "metrics/index": {
       "js": [
-        "/packs-test/js/metrics/index-e7d041a3b37d276d8743.js"
+        "/packs-test/js/metrics/index-db609050180ec1b99514.js"
       ],
       "js.map": [
-        "/packs-test/js/metrics/index-e7d041a3b37d276d8743.js.map"
+        "/packs-test/js/metrics/index-db609050180ec1b99514.js.map"
       ]
     },
     "styles": {
@@ -33,10 +33,25 @@
       ]
     }
   },
-  "metrics/index.js": "/packs-test/js/metrics/index-e7d041a3b37d276d8743.js",
-  "metrics/index.js.map": "/packs-test/js/metrics/index-e7d041a3b37d276d8743.js.map",
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 1c224009f97afb819819412ad5ed1195ae6398a0
+  "metrics/index.js": "/packs-test/js/metrics/index-db609050180ec1b99514.js",
+  "metrics/index.js.map": "/packs-test/js/metrics/index-db609050180ec1b99514.js.map",
   "styles.css": "/packs-test/css/styles-aa6c92fe.css",
   "styles.css.map": "/packs-test/css/styles-aa6c92fe.css.map",
   "styles.js": "/packs-test/js/styles-558c622f327af44052b0.js",
   "styles.js.map": "/packs-test/js/styles-558c622f327af44052b0.js.map"
+<<<<<<< HEAD
+=======
+  "metrics/index.js": "/packs-test/js/metrics/index-b7a0aeb9dbeea523ca65.js",
+  "metrics/index.js.map": "/packs-test/js/metrics/index-b7a0aeb9dbeea523ca65.js.map",
+  "styles.css": "/packs-test/css/styles-06e350fe.css",
+  "styles.css.map": "/packs-test/css/styles-06e350fe.css.map",
+  "styles.js": "/packs-test/js/styles-71a497b214e7b57bcc3b.js",
+  "styles.js.map": "/packs-test/js/styles-71a497b214e7b57bcc3b.js.map"
+>>>>>>> users_features
+=======
+>>>>>>> 1c224009f97afb819819412ad5ed1195ae6398a0
 }
