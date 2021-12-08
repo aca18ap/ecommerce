@@ -88,31 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
             svgElement: document.getElementById('registrations-barchart-plot')
         });
 
-        // Group registrations into hours between first recorded visit and now
-        let timeRegs = groupByHour(registrations, "created_at", registrations[0].created_at);
-        let timeRegsCounts = []
-
-        // Calculate number of registrations at a specific time interval
-        Object.keys(timeRegs).forEach(key => {
-            timeRegsCounts.push({
-                vocation: 'Total',
-                time: key,
-                registrations: timeRegs[key].length
-            });
-
-            // Calculate number of registrations at a specific time interval for each vocation
-            let vocationGrouped = groupBy(timeRegs[key], 'vocation');
-            ['Customer', 'Business'].forEach(vocation => {
-                timeRegsCounts.push({
-                    vocation: vocation,
-                    time: key,
-                    registrations: vocationGrouped[vocation] ? vocationGrouped[vocation].length : 0
-                });
-            })
-        });
-
         // Gets timeRegistrations from gon gem - calculated in CalculateMetrics service class
-        let regsOverTimeChart = LineChart(timeRegsCounts, {
+        let regsOverTimeChart = LineChart(gon.timeRegistrations, {
             x: d => d.time,
             y: d => d.registrations,
             z: d => d.vocation,
@@ -166,10 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .select('title')
             .text('TEMP')
 
-
-    document.getElementById('feature-interest-barchart-title').innerText = `Clicks/Visits (REMOVE ONE) By Feature (Total: ${features.length})`;
-    document.getElementById('feature-shares-barchart-title').innerText = `Shares By Feature (Total: ${features.length})`;
-    if (features.length > 0) {
+    if (false) {
 
     } else {
         emptyCharts.push(
@@ -178,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
         )
     }
 
-    if (metrics.length > 0) {
+    if (gon.pageVisits.length > 0) {
         // Gets sessionFlows from gon gem - calculated in CalculateMetrics service class
         let sessionsList = document.getElementById('sessions-list');
         for (let s of gon.sessionFlows) {
