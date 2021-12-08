@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 describe 'Managing reviews' do
-  # sql injection
-  # mass assignment
-  # xss prevention
-
   let!(:review) { FactoryBot.create(:review) }
   let!(:hidden_review) { FactoryBot.create(:hidden_review) }
 
@@ -42,7 +38,7 @@ describe 'Managing reviews' do
       visit '/'
       click_button 'Leave A Review'
       click_button 'Create Review'
-      expect(page).to have_content 'Description cannot be empty'
+      expect(page).to have_content "Description can't be blan"
     end
   end
 
@@ -60,6 +56,7 @@ describe 'Managing reviews' do
       click_button 'Leave A Review'
       fill_in 'review[description]', with: "'); DROP TABLE Reviews--"
       click_button 'Create Review'
+      expect(page).to have_content "'); DROP TABLE Reviews--"
     end
 
     specify 'I cannot perform an XSS attack' do
