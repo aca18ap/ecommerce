@@ -47,6 +47,10 @@ Rails.application.routes.draw do
   get :pricing_plans, to: 'pages#pricing_plans'
   get :review_usefulness, to:'pages#review_usefulness'
 
+  get :carbon_footprint_viewer, to: 'pages#carbon_footprint_viewer'
+  get :extension_features, to: 'pages#extension_features'
+  get :crowdsourced_feature, to: 'pages#crowdsourced_feature'
+
   get :business_info, to: 'pages#business_info'
   get :welcome, to: 'pages#welcome'
 

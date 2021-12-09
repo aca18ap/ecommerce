@@ -1,12 +1,14 @@
-%h1 Listing reviews
-
-%table.table
+%br
+%p
+%h1{:style => "margin-left: 10%"} Listing reviews
+%br
+%table.table{:style=>"width: 80%; margin-left: auto; margin-right: auto"}
   %thead
     %tr
-      %th Description
-      %th Rating
-      %th Hidden
-      %th Rank
+      %th{:style=>"text-align: center; width: 55%"} Description
+      %th{:style=>"text-align: center"} Rating
+      %th{:style=>"text-align: center"} Hidden
+      %th{:style=>"text-align: center"} Rank
       %th
       %th
       %th
@@ -14,15 +16,15 @@
   %tbody
     - @reviews.each do |review|
       %tr
-        %td= review.description
-        %td= review.rating
+        %td= truncate review.description, length: 120, separator: /\w+/ 
+        %td{:style=>"text-align: center"}= review.rating
         - if review.hidden
-          %td= "Yes"
+          %td{:style=>"text-align: center"}= "Yes"
         - else
-          %td= "No"        
-        %td= review.rank
-        %td= link_to 'Show', review
-        %td= link_to 'Edit', edit_review_path(review)
-        %td= link_to 'Destroy', review, :method => :delete, :data => { :confirm => 'Are you sure?' }
+          %td{:style=>"text-align: center"}= "No"        
+        %td{:style=>"text-align: center"}= review.rank
+        %td= button_to "Show", review, method: :get
+        %td= button_to "Edit", edit_review_path(review), method: :get
+        %td= button_to "Delete", review, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
