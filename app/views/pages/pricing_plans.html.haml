@@ -67,13 +67,14 @@
                           %h5= 'Browse your shopping like you normally do'
                           %h5= 'Find what you like'
                           %h5= 'Get greener alternatives suggested to you!'
-                          .d-flex.justify-content-center
-                            %a.twitter-share-button{ :href => "https://twitter.com/intent/tweet?text=Unlimited%20shopping%20suggestions%20in%20all%20plans!!%20@ecommerce_team04"}
-                              %i.fa.fa-twitter
-                            .fb-share-button{"data-href" => "https://team04.demo1.genesys.shefcompsci.org.uk/#", "data-layout" => "button_count", "data-size" => "small"}
-                              %a.fb-xfbml-parse-ignore{:href => "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fteam04.demo1.genesys.shefcompsci.org.uk%2F%23&src=sdkpreparse", :target => "_blank"}
-                                %i.fa.fa-facebook
-                            %a{ :href => "mailto:"}
+                          = render 'share_icons'
+                          //.d-flex.justify-content-center
+                          //  %a.twitter-share-button{ :href => "https://twitter.com/intent/tweet?text=Unlimited%20shopping%20suggestions%20in%20all%20plans!!%20@ecommerce_team04"}
+                          //    %i.fa.fa-twitter
+                          //  .fb-share-button{"data-href" => "https://team04.demo1.genesys.shefcompsci.org.uk/#", "data-layout" => "button_count", "data-size" => "small"}
+                          //    %a.fb-xfbml-parse-ignore{:href => "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fteam04.demo1.genesys.shefcompsci.org.uk%2F%23&src=sdkpreparse", :target => "_blank"}
+                          //      %i.fa.fa-facebook
+                          //  %a{ :href => "mailto:"}
                     %li 
                       %span#headingOne
                         One-click

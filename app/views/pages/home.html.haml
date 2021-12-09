@@ -64,22 +64,25 @@
       .m-auto.card-transparent{:style => "width: 75%;"}
         %img.card-img-top{:alt => "...", :src => "images/image-business.svg"}/
         .card-body
-          %h3.card-title Feature #1
-          %p.card-text We need to do more to reduce our carbon footprint. We can do this is by choosing eco-retailers online.
+          %a#features-links{ :href => carbon_footprint_viewer_url }
+            %h3.card-title#features-links Carbon Footprint Viewer
+          %p.card-text Subscribers can view an estimate of their online carbon footprint, helping them to understand their impact.
           = render 'share_icons'
     .col-lg.m-auto 
       .m-auto.card-transparent{:style => "width: 75%;"}
         %img.card-img-top{:alt => "...", :src => "images/image-customer.svg"}/
         .card-body
-          %h3.card-title Feature #2
+          %a#features-links{ :href => extension_features_url }
+            %h3.card-title#features-links Browser Extension
           %p.card-text Get eco-friendly product alternatives at the click of a button when shopping online.
           = render 'share_icons'
     .col-lg.m-auto
-      .m-auto.card-transparent{:style => "width: 75%;"}
+      .m-auto.card-transparent{ :style => "width: 75%;" }
         %img.card-img-top{:alt => "...", :src => "Volunteering-bro.png"}/
         .card-body
-          %h3.card-title Feature #3
-          %p.card-text Subscribers can view an estimate of their online carbon footprint, helping them to understand their impact.
+          %a#features-links{ :href => crowdsourced_feature_url }
+            %h3.card-title#features-links Crowdsourced Data
+          %p.card-text The data is collected thanks to you! This means a constantly updated database and a lot of options to choose from!
           = render 'share_icons'
 
 

@@ -1,0 +1,27 @@
+
+
+.container-fluid
+  .row
+    %a.btn.btn-secondary{ :href=>'/#' } Back
+      
+  .row.text-center.text-feldgrau.py-5.grabber
+    %h1 Crowdsourced data!
+
+    %br
+    %br
+    %br
+
+  .row.h-50.align-items-top
+    .col-4
+      .row.text-center.w-75
+        %h2 Access thousands of user powered entries
+        = image_tag 'crowd', alt: 'crowd-powered'
+    .col-4 
+      .row.text-center.w-75
+        %h2 Ethical
+        = image_tag 'ethical', alt: 'ethical-source'
+    .col-4
+      .row.text-center.w-75
+        %h2 Guaranteed real people suggestions
+        = image_tag 'trusted', alt: 'trusted'
+
