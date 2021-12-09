@@ -23,12 +23,13 @@ class NewslettersController < ApplicationController
   def create
 
     location = RetrieveLocation.new(newsletter_params, request.remote_ip).get_location
-    newsletter_params[:latitude] = location['latitude']
-    newsletter_params[:longitude] = location['longitude']
 
-    puts newsletter_params
-
-    @newsletter = Newsletter.new(newsletter_params)
+    @newsletter = Newsletter.new(
+      email: newsletter_params['email'],
+      vocation: newsletter_params['vocation'],
+      longitude: location['longitude'],
+      latitude: location['latitude']
+    )
 
     if @newsletter.save
       redirect_to @newsletter, notice: 'Newsletter was successfully created.'

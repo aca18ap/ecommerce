@@ -18,8 +18,13 @@ class RetrieveLocation
       # IP = '90.204.36.252' if localhost to test on dev server
       geocode = Geocoder.search(@ip == '127.0.0.1' ? '90.204.36.252' : @ip).first
 
-      latitude = geocode.latitude
-      longitude = geocode.longitude
+      begin
+        latitude = geocode.latitude
+        longitude = geocode.longitude
+      rescue
+        longitude = nil
+        latitude = nil
+      end
     end
 
     return { 'longitude' => longitude, 'latitude' => latitude }

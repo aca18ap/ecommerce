@@ -53,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
     colour.unknown('#fff');
 
     let visitsPlotData = create_feature_dict(uk.features, gon.visits);
-
     let visits_values = Object.values(visitsPlotData);
     let visits_min = get_min(visits_values);
     let visits_max = get_max(visits_values);
@@ -144,9 +143,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let regs_values = Object.values(regsPlotData);
     let regs_min = get_min(regs_values);
     let regs_max = get_max(regs_values);
-
-    console.log(regsPlotData);
-    console.log(gon.registrations);
 
     let svg = d3.select('#registrations-geo-plot');
     svg.append("g")
