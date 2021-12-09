@@ -1,3 +1,5 @@
+# CalculateMetrics calculates the points to represent on the
+# D3 graphs represented on metrics/index
 class CalculateMetrics
   def initialize(visits, registrations)
     @visits = visits

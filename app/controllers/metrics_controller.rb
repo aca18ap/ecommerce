@@ -17,37 +17,36 @@ class MetricsController < ApplicationController
     gon.sessionFlows = metrics_calculator.session_flows
     gon.timeVisits = metrics_calculator.time_visits
     gon.timeRegistrations = metrics_calculator.time_registrations
-
-    # Seems to only get state_district consistently rip
-    gon.temp = Geocoder.search(Geocoder.search('90.204.36.252').first.coordinates).first
   end
 
   def create
     from = Time.at(params["pageVisitedFrom"].to_i / 1000).to_datetime
     to = Time.at(params["pageVisitedTo"].to_i / 1000).to_datetime
 
-    # Check if user has enabled location services
-    if(params.has_key?(:latitude) && params.has_key?(:longitude))
-      begin
-        results = Geocoder.search([params['latitude'], params['longitude']])
-      rescue 
-        location = params['location']
-      else
-        location = results[0].county
-      end
-    else
-      location = params['location']
-    end
+    # Call to service class to find the longitude and latitude for a visit
+    location = RetrieveLocation.new(params, request.remote_ip).get_location
 
     # Create instance of visit object
     Visit.create(from: from,
-      to: to,
-      location: location,
-      path: params['path'],
-      csrf_token: params['csrf_token'],
-      session_identifier: session.id
-    )
+                 to: to,
+                 longitude: location['longitude'],
+                 latitude: location['latitude'],
+                 path: params['path'],
+                 csrf_token: params['csrf_token'],
+                 session_identifier: session.id)
 
     head :ok
+  end
+end
+
+def temp
+  if params.key?(:latitude) && params.key?(:longitude)
+    latitude = params['latitude']
+    longitude = params['longitude']
+  else
+    # IP = '90.204.36.252' if localhost to test on dev server
+    geocode = Geocoder.search(request.remote_ip == '127.0.0.1' ? '90.204.36.252' : request.remote_ip).first
+    latitude = geocode.latitude
+    longitude = geocode.longitude
   end
 end

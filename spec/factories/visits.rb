@@ -5,7 +5,8 @@
 #  id                 :bigint           not null, primary key
 #  csrf_token         :string
 #  from               :datetime
-#  location           :string
+#  latitude           :float
+#  longitude          :float
 #  path               :string
 #  session_identifier :string
 #  to                 :datetime

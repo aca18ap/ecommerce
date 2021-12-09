@@ -9,10 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let emptyCharts = [];
 
-    console.log(gon.registrations)
-    console.log(gon.visits)
-    console.log(gon.temp)
-
     // Only update graphs if there are any site tracking metrics in the system
     if (gon.visits.length > 0) {
         // Gets pageVisits from gon gem - calculated in CalculateMetrics service class
@@ -51,7 +47,31 @@ document.addEventListener('DOMContentLoaded', () => {
         .rotate([4.4, 0])
         .parallels([50, 60])
         .scale(4000)
-        .translate([width/5, (2.4*height)/3])
+        .translate([width / 5, (2.4 * height) / 3])
+
+    const colour = d3.scaleSequential([1, 10], d3.schemeGreens[9]);
+    colour.unknown = '#000';
+
+    console.log(colour);
+
+
+    let visitsPlotData = {}
+    //uk.features.forEach(f => visitsPlotData[f.properties.NAME_2] = 0 );
+    for (let v of gon.visits) {
+        if (!v.latitude || !v.longitude) {
+            continue;
+        }
+        for (let f of uk.features) {
+            if (d3.geoContains(f, [v.longitude, v.latitude])) {
+                if (!visitsPlotData[f.properties.NAME_2]) {
+                    visitsPlotData[f.properties.NAME_2] = 1
+                } else {
+                    visitsPlotData[f.properties.NAME_2] += 1
+                }
+                break;
+            }
+        }
+    }
 
     let visits_svg = d3.select('#visits-geo-plot');
     let visitsTempData = [{ID_1: 1, ID_2: 1, value: 1}, {ID_1: 1, ID_2: 2, value: 1}]
@@ -60,18 +80,13 @@ document.addEventListener('DOMContentLoaded', () => {
         .data(uk.features)
         .enter()
         .append("path")
-        .attr("id", d => { return `visits-${d.properties.ID_1}-${d.properties.ID_2}` })
-        .attr("fill", "#000")
+        .attr("id", d => `visits-${d.properties.NAME_2}` )
+        .attr("fill", d => colour(visitsPlotData[d.properties.NAME_2]))
         .attr("stroke", "white")
         .attr("stroke-width", 0.4)
         .attr("d", d3.geoPath(projection))
         .append('title')
-        .text(d =>  `${d.properties.NAME_2}\nVisits: 0`);
-
-    d3.select(`#visits-1-30`)
-        .attr('fill', '#198754')
-        .select('title')
-        .text('TEMP')
+        .text(d => `${d.properties.NAME_2}\nVisits: ${!visitsPlotData[d.properties.NAME_2] ? 0 : visitsPlotData[d.properties.NAME_2]}`);
 
 
     // Only update graphs if there are any registrations in the system
@@ -121,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('registrations-barchart-plot'),
             document.getElementById('registrations-linechart-plot'),
             document.getElementById('registrations-by-type-barchart-plot'),
-            );
+        );
     }
 
     let svg = d3.select('#registrations-geo-plot');
@@ -132,18 +147,20 @@ document.addEventListener('DOMContentLoaded', () => {
         .data(uk.features)
         .enter()
         .append("path")
-            .attr("id", d => { return `regs-${d.properties.ID_1}-${d.properties.ID_2}` })
-            .attr("fill", "#000")
-            .attr("stroke", "white")
-            .attr("stroke-width", 0.4)
-            .attr("d", d3.geoPath(projection))
+        .attr("id", d => {
+            return `regs-${d.properties.ID_1}-${d.properties.ID_2}`
+        })
+        .attr("fill", "#000")
+        .attr("stroke", "white")
+        .attr("stroke-width", 0.4)
+        .attr("d", d3.geoPath(projection))
         .append('title')
-            .text(d =>  `${d.properties.NAME_2}\nRegistrations: 0`)
+        .text(d => `${d.properties.NAME_2}\nRegistrations: 0`)
 
     d3.select(`#regs-1-65`)
         .attr('fill', '#198754')
         .select('title')
-            .text('TEMP')
+        .text('TEMP')
 
     if (false) {
 

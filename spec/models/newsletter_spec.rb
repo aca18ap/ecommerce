@@ -6,6 +6,8 @@
 #
 #  id         :bigint           not null, primary key
 #  email      :string
+#  latitude   :float
+#  longitude  :float
 #  tier       :string
 #  vocation   :string           default("Customer"), not null
 #  created_at :datetime         not null
