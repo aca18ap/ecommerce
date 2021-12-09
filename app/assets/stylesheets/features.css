@@ -1,21 +1,74 @@
 ul#features-list {
-    text-align: center;
-    list-style-type: none;
-    
+  text-align: center;
+  list-style-type: none;
 }
 
-li {
-    margin: 20px 0;
-    font-size: 20px;
-    font-family: 'Quicksand';
+li#feature {
+  opacity: 0;
+  margin: 20px 0;
+  font-size: 20px;
+  font-family: "Quicksand";
+
+  animation: fadeIn 4s;
+  -webkit-animation: fadeIn 4s;
+  -moz-animation: fadeIn 4s;
+  -o-animation: fadeIn 4s;
+  -ms-animation: fadeIn 4s;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
 }
 
-span {
-    font-size: 30px;
-    color: darkslategrey;
+li#feature span {
+  font-size: 30px;
+  color: darkslategrey;
 }
 
-.tracker-preview{
-    border-right: 1px solid darkslategrey;
-    padding-right: 10%;
+.tracker-preview {
+  border-right: 1px solid darkslategrey;
+  padding-right: 10%;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

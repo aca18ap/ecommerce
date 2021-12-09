@@ -1,23 +1,26 @@
+= stylesheet_link_tag 'features'
+= javascript_packs_with_chunks_tag 'application'
+
 .container-fluid
   .row.text-center.text-feldgrau.py-2.grabber
     %h1 Browser extension
 
-  .row
+  .row.p-5
     .col-8
       = render 'carousel'
 
-    .col-4.generic_feature_list
-      %ul
-        %li
+    .col-4
+      %ul#features-list
+        %li#feature
           %span Shop
           online as you normally would and seamlessly get suggestion for greener alternatives
-        %li
+        %li#feature
           %span Estimated
           carbon footprint of the product currently being viewed will appear on top of the webpage
-        %li 
+        %li#feature
           %span Click
           on the extension to be redirected to the a more eco-friendly solution
-        %li
+        %li#feature
           %span Add
           missing data to the crowdsourced database when you're browsing
         

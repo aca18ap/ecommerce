@@ -1,4 +1,5 @@
-
+= stylesheet_link_tag 'features'
+= javascript_packs_with_chunks_tag 'application'
 
 .container-fluid
   .row
@@ -23,7 +24,7 @@
     .col-4
       .row.text-center.w-75
         %h2 Guaranteed real people suggestions
-        = image_tag 'trusted', alt: 'trusted'#text-center
+        = image_tag 'trusted', alt: 'trusted'
 
   = render 'share_icons'
 
