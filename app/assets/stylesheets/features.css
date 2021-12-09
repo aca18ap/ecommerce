@@ -1,0 +1,21 @@
+ul#features-list {
+    text-align: center;
+    list-style-type: none;
+    
+}
+
+li {
+    margin: 20px 0;
+    font-size: 20px;
+    font-family: 'Quicksand';
+}
+
+span {
+    font-size: 30px;
+    color: darkslategrey;
+}
+
+.tracker-preview{
+    border-right: 1px solid darkslategrey;
+    padding-right: 10%;
+}

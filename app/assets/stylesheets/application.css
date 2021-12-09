@@ -18,6 +18,7 @@
  *= require buttons
  *= require nav
  *= require footer
+ *= require features
  *= @import url('https://fonts.googleapis.com/css2?family=Outfit&family=Quicksand&display=swap')
  */
 
