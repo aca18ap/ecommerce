@@ -82,9 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return (value - min) / (max - min);
     }
 
-
     let visits_svg = d3.select('#visits-geo-plot');
-    let visitsTempData = [{ID_1: 1, ID_2: 1, value: 1}, {ID_1: 1, ID_2: 2, value: 1}]
     visits_svg.append("g")
         .selectAll("path")
         .data(uk.features)
@@ -102,6 +100,18 @@ document.addEventListener('DOMContentLoaded', () => {
         title: 'Visitors',
         width: 250,
     }));
+
+    let countyVisits = document.getElementById('county-visits-list');
+    Object.keys(visitsPlotData).forEach( county => {
+        let row = document.createElement('tr');
+        let countyCol = document.createElement('td');
+        countyCol.innerText = county;
+        row.appendChild(countyCol);
+        let visitsCol = document.createElement('td');
+        visitsCol.innerText = visitsPlotData[county];
+        row.appendChild(visitsCol);
+        countyVisits.append(row);
+    });
 
 
     // Only update graphs if there are any registrations in the system

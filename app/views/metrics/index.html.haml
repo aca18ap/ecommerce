@@ -24,12 +24,13 @@
 
   #registrations-geo-div.justify-content-center.bg-light-green.col-xl-6
     %h2#registrations-geo-title.text-center Site Registrations By UK County
-    .container.p-5.overflow-scroll
+    .container
       %table#registrations-geo-table.table.m-5
         %thead
           %tr
             %th County
             %th Visitors
+        %tbody#county-visits-list.d-block.overflow-scroll{'height': '600px'}
 
 .row.vw-75.m-3
   %h1.mt-5.mb-3.text-center Registration Statistics
