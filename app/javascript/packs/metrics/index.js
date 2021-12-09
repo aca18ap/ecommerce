@@ -52,35 +52,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const colour = d3.scaleSequential([1, 10], d3.interpolateGreens);
     colour.unknown('#fff');
 
-    let visitsPlotData = {}
-    uk.features.forEach( f => visitsPlotData[f.properties.NAME_2] = 0 )
-    for (let v of gon.visits) {
-        if (!v.latitude || !v.longitude) {
-            continue;
-        }
-        for (let f of uk.features) {
-            if (d3.geoContains(f, [v.longitude, v.latitude])) {
-                if (!visitsPlotData[f.properties.NAME_2]) {
-                    visitsPlotData[f.properties.NAME_2] = 1;
-                } else {
-                    visitsPlotData[f.properties.NAME_2] += 1;
-                }
-                break;
-            }
-        }
-    }
+    let visitsPlotData = create_feature_dict(uk.features, gon.visits);
 
     let visits_values = Object.values(visitsPlotData);
-    let visits_min = visits_values.reduce(function(a, b) {
-        return Math.min(a, b);
-    }, 0);
-    let visits_max = visits_values.reduce(function(a, b) {
-        return Math.max(a, b);
-    }, 0);
-
-    let normalise = function(value, min, max) {
-        return (value - min) / (max - min);
-    }
+    let visits_min = get_min(visits_values);
+    let visits_max = get_max(visits_values);
 
     let visits_svg = d3.select('#visits-geo-plot');
     visits_svg.append("g")
@@ -164,28 +140,27 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     }
 
-    let svg = d3.select('#registrations-geo-plot');
-    let regsTempData = [{ID_1: 1, ID_2: 1, value: 1}, {ID_1: 1, ID_2: 2, value: 1}]
+    let regsPlotData = create_feature_dict(uk.features, gon.registrations);
+    let regs_values = Object.values(regsPlotData);
+    let regs_min = get_min(regs_values);
+    let regs_max = get_max(regs_values);
 
+    console.log(regsPlotData);
+    console.log(gon.registrations);
+
+    let svg = d3.select('#registrations-geo-plot');
     svg.append("g")
         .selectAll("path")
         .data(uk.features)
         .enter()
         .append("path")
-        .attr("id", d => {
-            return `regs-${d.properties.ID_1}-${d.properties.ID_2}`
-        })
-        .attr("fill", "#000")
-        .attr("stroke", "white")
+        .attr("id", d => `regs-${d.properties.NAME_2}` )
+        .attr("fill", d => colour(10* normalise(regsPlotData[d.properties.NAME_2], regs_min, regs_max)))
+        .attr("stroke", "black")
         .attr("stroke-width", 0.4)
         .attr("d", d3.geoPath(projection))
         .append('title')
-        .text(d => `${d.properties.NAME_2}\nRegistrations: 0`)
-
-    d3.select(`#regs-1-65`)
-        .attr('fill', '#198754')
-        .select('title')
-        .text('TEMP')
+        .text(d => `${d.properties.NAME_2}\nRegistrations: ${!regsPlotData[d.properties.NAME_2] ? 0 : regsPlotData[d.properties.NAME_2]}`);
 
     if (false) {
 
@@ -254,6 +229,64 @@ document.addEventListener('DOMContentLoaded', () => {
             .text("There is no data for this metric yet");
     }
 });
+
+/** Creates dictionary of counties with counts for the number of
+ * points bounded within them
+ *
+ * @param features UK county features
+ * @param data Data to be grouped into county
+ * @returns {{}} Dictionary of counties and the nuber of points bounded within them
+ */
+function create_feature_dict(features, data) {
+    let featureDict = {}
+    features.forEach( f => featureDict[f.properties.NAME_2] = 0 );
+    for (let d of data) {
+        if (!d.latitude || !d.longitude) {
+            continue;
+        }
+        for (let f of features) {
+            if (d3.geoContains(f, [d.longitude, d.latitude])) {
+                featureDict[f.properties.NAME_2] += 1;
+                break;
+            }
+        }
+    }
+    return featureDict;
+}
+
+/** Gets the smallest value in an array
+ *
+ * @param arr array of numbers
+ * @returns {*} smallest value in array
+ */
+function get_min(arr) {
+    return arr.reduce(function(a, b) {
+        return Math.min(a, b);
+    }, 0);
+}
+
+/** Gets the largest value in an array
+ *
+ * @param arr array of numbers
+ * @returns {*} largest value in array
+ */
+function get_max(arr) {
+    return arr.reduce(function(a, b) {
+        return Math.max(a, b);
+    }, 0);
+}
+
+/** Normalises value to be between 0 and 1 based on the
+ * minimum and maximum values provided from a dataset
+ *
+ * @param value value to be normalised
+ * @param min minimum value in the set
+ * @param max maximum value in the set
+ * @returns {number} normalised input
+ */
+function normalise(value, min, max) {
+    return (value - min) / (max - min);
+}
 
 /**
  * Groups elements of an array of dicts by a certain key

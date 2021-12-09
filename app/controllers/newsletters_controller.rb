@@ -21,6 +21,13 @@ class NewslettersController < ApplicationController
 
   # POST /newsletters
   def create
+
+    location = RetrieveLocation.new(newsletter_params, request.remote_ip).get_location
+    newsletter_params[:latitude] = location['latitude']
+    newsletter_params[:longitude] = location['longitude']
+
+    puts newsletter_params
+
     @newsletter = Newsletter.new(newsletter_params)
 
     if @newsletter.save
