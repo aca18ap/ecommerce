@@ -78,7 +78,7 @@ describe 'Metrics management', js: true do
       visit '/metrics'
       within(:css, '.nav') { expect(page).not_to have_content 'Metrics' }
       expect(page).not_to have_content 'Metrics Summary'
-      expect(page).to have_current_path('/')
+      expect(page).to have_current_path('/users/sign_in')
     end
 
     context 'If I am not an admin or reporter' do
@@ -87,7 +87,7 @@ describe 'Metrics management', js: true do
         visit '/metrics'
         within(:css, '.nav') { expect(page).not_to have_content 'Metrics' }
         expect(page).not_to have_content 'Metrics Summary'
-        expect(page).to have_current_path('/')
+        expect(page).to have_current_path('/403')
       end
     end
   end

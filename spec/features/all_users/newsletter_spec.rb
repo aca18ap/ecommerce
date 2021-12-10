@@ -74,12 +74,12 @@ describe 'Newsletters' do
       expect(current_url).not_to eq 'http://api.rubyonrails.org/classes/ActionView/Helpers/SanitizeHelper.html'
       expect(page).to have_content "Please review the problems below"
     end
-  end
 
-  specify 'I cannot perform an SQL injection attack' do
-    visit new_newsletter_path
-    fill_in 'newsletter[email]', with: "'); DROP TABLE Newsletters--"
-    click_button 'Register Interest'
-    expect(page).to have_content "Please review the problems below"
+    specify 'I cannot perform an SQL injection attack' do
+      visit new_newsletter_path
+      fill_in 'newsletter[email]', with: "'); DROP TABLE Newsletters--"
+      click_button 'Register Interest'
+      expect(page).to have_content "Please review the problems below"
+    end
   end
 end
