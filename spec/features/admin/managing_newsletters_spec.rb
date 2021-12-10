@@ -16,9 +16,5 @@ describe 'Managing newsletters' do
       visit '/newsletters'
       expect(page.status_code).to eq 403
     end
-
-    specify 'I cannot perform an SQL injection attack' do
-      skip 'COME BACK AND WORK OUT HOW TO DO THIS'
-    end
   end
 end
