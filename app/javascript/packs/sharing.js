@@ -6,22 +6,25 @@ function getTwitterLink(text){
     return tmp
 }
 
-$/* (function(){
-    $('.share').each((i)=>{
-        $(this).on(
+$(function(){
+    const CSRFToken = document.querySelector("meta[name='csrf-token']").getAttribute('content');
+    $('.share').each((idx, e)=>{
+        $(e).on(
             'click',
             function(){
-                sendData(this.id)
+                sendData(e.id, window.location.pathname)
             }
         )
     })
 })
 
-function sendData(social){
+function sendData(social, feature){
     console.log(social)
-    let metrics = new FormData();
+    let share = new FormData();
 
-    metrics.append('social', social)
-    navigator.sendBeacon('/metrics', metrics);
+    share.append('social', social)
+    share.append('feature', feature)
+    console.log(social + "  " + feature) 
+    navigator.sendBeacon('/shares', share);
 
-} */
+} 

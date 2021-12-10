@@ -1,6 +1,7 @@
 class MetricsController < ApplicationController
   before_action :authenticate_user!
   before_action :is_admin?
+  
 
   def index
     @current_nav_identifier = :metrics
