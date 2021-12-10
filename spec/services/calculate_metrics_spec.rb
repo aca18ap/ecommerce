@@ -13,11 +13,12 @@ describe 'Calculating metrics' do
   let(:calculate_metrics) {
     CalculateMetrics.new(
       [visit_root, visit_reviews, visit_newsletters],
-      [free_customer_newsletter, solo_customer_newsletter, family_customer_newsletter, business_newsletter])
+      [free_customer_newsletter, solo_customer_newsletter, family_customer_newsletter, business_newsletter],
+      [])
   }
 
   let(:no_data_calculate_metrics) {
-    CalculateMetrics.new(nil, nil)
+    CalculateMetrics.new(nil, nil, nil)
   }
 
   it 'Calculates visits to each site page' do
@@ -60,6 +61,10 @@ describe 'Calculating metrics' do
       else
         expect(time_registrations['registrations']).to eq(0)
       end
+    end
+
+    it 'gets the number of times a feature shares' do
+      skip 'DIDNT HAVE TIME'
     end
   end
 
