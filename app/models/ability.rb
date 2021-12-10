@@ -13,13 +13,27 @@ class Ability
       can :manage, Visit
       can :manage, Newsletter
       can :read, :all
-    elsif user.role == "reporter"
+      can :manage, Faq
+      can :manage, :metrics
+    elsif user.role == 'reporter'
       can :read, :all
       cannot :manage, Review
+      can :manage, :metrics
+      can :read, Faq
+      can :create, Faq
+      can :update, Faq
+      can :answer, Faq
+      can :like, Faq
+      can :dislike, Faq
     else
       can :new, Review
       can :create, Review
       can :created, Review
+      can :read, Faq, hidden: false
+      can :read, Faq, hidden: nil
+      can :create, Faq
+      can :like, Faq
+      can :dislike, Faq
       can :new, Newsletter
       can :create, Newsletter
       can :created, Newsletter

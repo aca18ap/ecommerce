@@ -1,5 +1,10 @@
 - content_for :title, "Team 4 - Pricing plans"
-
+#fb-root
+%script{:async => "", :crossorigin => "anonymous", :defer => "defer", :nonce => "04pcKjuC", :src => "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0"}
+%script{:src => "https://platform.linkedin.com/in.js", :type => "text/javascript"}
+  :cdata
+    lang: en_US
+%script{"data-url" => "https://www.linkedin.com", :type => "IN/Share"}
 .container-fluid
   .row.text-center.text-feldgrau.grabber.pt-5
     %h4 
@@ -46,23 +51,73 @@
                   / //PRICE END
                 / //HEAD PRICE DETAIL END
                 / FEATURE LIST START
+                
                 .generic_feature_list
-                  %ul
+                  %ul#accordionFree.accordion
                     %li
-                      %span Unlimited
-                      shopping suggestions
-                    %li
-                      %span One-click
+                      %span#headingOne
+                        Unlimited 
+                      suggestions
+
+                      %button.btn{"aria-controls" => "collapseFree_1", "aria-expanded" => "true", "data-target" => "#collapseFree_1", "data-toggle" => "collapse", :type => "button"}
+                        %i.fa.fa-plus
+
+                      #collapseFree_1.collapse{"aria-labelledby" => "headingOne", "data-parent" => "#accordionFree"}
+                        .card-body
+                          %h5= 'Browse your shopping like you normally do'
+                          %h5= 'Find what you like'
+                          %h5= 'Get greener alternatives suggested to you!'
+                          = render 'share_icons'
+                          //.d-flex.justify-content-center
+                          //  %a.twitter-share-button{ :href => "https://twitter.com/intent/tweet?text=Unlimited%20shopping%20suggestions%20in%20all%20plans!!%20@ecommerce_team04"}
+                          //    %i.fa.fa-twitter
+                          //  .fb-share-button{"data-href" => "https://team04.demo1.genesys.shefcompsci.org.uk/#", "data-layout" => "button_count", "data-size" => "small"}
+                          //    %a.fb-xfbml-parse-ignore{:href => "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fteam04.demo1.genesys.shefcompsci.org.uk%2F%23&src=sdkpreparse", :target => "_blank"}
+                          //      %i.fa.fa-facebook
+                          //  %a{ :href => "mailto:"}
+                    %li 
+                      %span#headingOne
+                        One-click
                       Visit retailer
+                      %button.btn{"aria-controls" => "collapseFree_2", "aria-expanded" => "true", "data-target" => "#collapseFree_2", "data-toggle" => "collapse", :type => "button"}
+                        %i.fa.fa-plus
+                      #collapseFree_2.collapse{"aria-labelledby" => "headingOne", "data-parent" => "#accordionFree"}
+                        .card-body
+                          %h5= 'Once a suggestion appears you just have to click on the banner'
+                          %h5= 'You will automatically be brought to the product page '
+                          %h5= 'From there you\'ll be able to complete your purchase '
+                          .d-flex.justify-content-center
+                            %a.twitter-share-button{ :href => "https://twitter.com/intent/tweet?text=Unlimited%20shopping%20suggestions%20in%20all%20plans!!%20@ecommerce_team04"}
+                              %i.fa.fa-twitter
+                            .fb-share-button{"data-href" => "https://team04.demo1.genesys.shefcompsci.org.uk/#", "data-layout" => "button_count", "data-size" => "small"}
+                              %a.fb-xfbml-parse-ignore{:href => "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fteam04.demo1.genesys.shefcompsci.org.uk%2F%23&src=sdkpreparse", :target => "_blank"}
+                                %i.fa.fa-facebook
+                            %a{ :href => "mailto:"}
                     %li
-                      %span No
+                      %span#headingOne{:disabled => true}
+                        No
                       purchase history
                     %li
-                      %span No
+                      %span#headingOne{:disabled => true}
+                        No
                       carbon footprint viewer
-                    %li
-                      %span 24/7
+                    %li.disabled
+                      %span#headingOne
+                        24/7
                       Support
+                      %button.btn{"aria-controls" => "collapseFree_3", "aria-expanded" => "true", "data-target" => "#collapseFree_3", "data-toggle" => "collapse", :type => "button"}
+                        %i.fa.fa-plus
+                      #collapseFree_3.collapse{"aria-labelledby" => "headingOne", "data-parent" => "#accordionFree"}
+                        .card-body
+                          %h5= 'Live chat available 24/7 (maybe a bot?)'
+                        .d-flex.justify-content-center
+                          %a.twitter-share-button{ :href => "https://twitter.com/intent/tweet?text=Unlimited%20shopping%20suggestions%20in%20all%20plans!!%20@ecommerce_team04"}
+                            %i.fa.fa-twitter
+                          .fb-share-button{"data-href" => "https://team04.demo1.genesys.shefcompsci.org.uk/#", "data-layout" => "button_count", "data-size" => "small"}
+                            %a.fb-xfbml-parse-ignore{:href => "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fteam04.demo1.genesys.shefcompsci.org.uk%2F%23&src=sdkpreparse", :target => "_blank"}
+                              %i.fa.fa-facebook
+                          %a{ :href => "mailto:"}
+                    
                 / //FEATURE LIST END
                 / BUTTON START
                 .generic_price_btn.clearfix
@@ -94,22 +149,95 @@
                 / //HEAD PRICE DETAIL END
                 / FEATURE LIST START
                 .generic_feature_list
-                  %ul
+                  %ul#accordionMid.accordion
                     %li
-                      %span Unlimited
-                      shopping suggestions
+                      %span#headingOne Unlimited
+                      suggestions
+                      %button.btn{"aria-controls" => "collapseFive_1", "aria-expanded" => "true", "data-target" => "#collapseFive_1", "data-toggle" => "collapse", :type => "button"}
+                        %i.fa.fa-plus
+
+                      #collapseFive_1.collapse{"aria-labelledby" => "headingOne", "data-parent" => "#accordionMid"}
+                        .card-body
+                          %h5= 'Browse your shopping like you normally do'
+                          %h5= 'Find what you like'
+                          %h5= 'Get greener alternatives suggested to you!'
+                          .d-flex.justify-content-center
+                            %a.twitter-share-button{ :href => "https://twitter.com/intent/tweet?text=Unlimited%20shopping%20suggestions%20in%20all%20plans!!%20@ecommerce_team04"}
+                              %i.fa.fa-twitter
+                            .fb-share-button{"data-href" => "https://team04.demo1.genesys.shefcompsci.org.uk/#", "data-layout" => "button_count", "data-size" => "small"}
+                              %a.fb-xfbml-parse-ignore{:href => "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fteam04.demo1.genesys.shefcompsci.org.uk%2F%23&src=sdkpreparse", :target => "_blank"}
+                                %i.fa.fa-facebook
+                            %a{ :href => "mailto:"}
                     %li
-                      %span One-click
+                      %span#headingOne One-click
                       access
+                      %button.btn{"aria-controls" => "collapseFive_2", "aria-expanded" => "true", "data-target" => "#collapseFive_2", "data-toggle" => "collapse", :type => "button"}
+                        %i.fa.fa-plus
+
+                      #collapseFive_2.collapse{"aria-labelledby" => "headingOne", "data-parent" => "#accordionMid"}
+                        .card-body
+                          %h5= 'Purchase directly from our website'
+                          %h5= 'No hassle creating accounts'
+                          %h5= 'Automatically track your shopping trends and environmental impact'
+                          .d-flex.justify-content-center
+                            %a.twitter-share-button{ :href => "https://twitter.com/intent/tweet?text=Unlimited%20shopping%20suggestions%20in%20all%20plans!!%20@ecommerce_team04"}
+                              %i.fa.fa-twitter
+                            .fb-share-button{"data-href" => "https://team04.demo1.genesys.shefcompsci.org.uk/#", "data-layout" => "button_count", "data-size" => "small"}
+                              %a.fb-xfbml-parse-ignore{:href => "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fteam04.demo1.genesys.shefcompsci.org.uk%2F%23&src=sdkpreparse", :target => "_blank"}
+                                %i.fa.fa-facebook
+                            %a{ :href => "mailto:"}
                     %li
-                      %span View
+                      %span#headingOne View
                       purchase history
+                      %button.btn{"aria-controls" => "collapseFive_3", "aria-expanded" => "true", "data-target" => "#collapseFive_3", "data-toggle" => "collapse", :type => "button"}
+                        %i.fa.fa-plus
+
+                      #collapseFive_3.collapse{"aria-labelledby" => "headingOne", "data-parent" => "#accordionMid"}
+                        .card-body
+                          %h5= 'View your purchases statistics'
+                          %h5= 'See how you do compared to others!'
+                          %h5= 'Track your environmental impact'
+                          .d-flex.justify-content-center
+                            %a.twitter-share-button{ :href => "https://twitter.com/intent/tweet?text=Unlimited%20shopping%20suggestions%20in%20all%20plans!!%20@ecommerce_team04"}
+                              %i.fa.fa-twitter
+                            .fb-share-button{"data-href" => "https://team04.demo1.genesys.shefcompsci.org.uk/#", "data-layout" => "button_count", "data-size" => "small"}
+                              %a.fb-xfbml-parse-ignore{:href => "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fteam04.demo1.genesys.shefcompsci.org.uk%2F%23&src=sdkpreparse", :target => "_blank"}
+                                %i.fa.fa-facebook
+                            %a{ :href => "mailto:"}
                     %li
-                      %span View
+                      %span#headingOne View
                       carbon footprint
+                      %button.btn{"aria-controls" => "collapseFive_4", "aria-expanded" => "true", "data-target" => "#collapseFive_4", "data-toggle" => "collapse", :type => "button"}
+                        %i.fa.fa-plus
+
+                      #collapseFive_4.collapse{"aria-labelledby" => "headingOne", "data-parent" => "#accordionMid"}
+                        .card-body
+                          %h5= 'Browse your shopping like you normally do'
+                          %h5= 'Find what you like'
+                          %h5= 'Get greener alternatives suggested to you!'
+                          .d-flex.justify-content-center
+                            %a.twitter-share-button{ :href => "https://twitter.com/intent/tweet?text=Unlimited%20shopping%20suggestions%20in%20all%20plans!!%20@ecommerce_team04"}
+                              %i.fa.fa-twitter
+                            .fb-share-button{"data-href" => "https://team04.demo1.genesys.shefcompsci.org.uk/#", "data-layout" => "button_count", "data-size" => "small"}
+                              %a.fb-xfbml-parse-ignore{:href => "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fteam04.demo1.genesys.shefcompsci.org.uk%2F%23&src=sdkpreparse", :target => "_blank"}
+                                %i.fa.fa-facebook
+                            %a{ :href => "mailto:"}
                     %li
-                      %span 24/7
+                      %span#headingOne 24/7
                       Support
+                      %button.btn{"aria-controls" => "collapseFive_5", "aria-expanded" => "true", "data-target" => "#collapseFive_5", "data-toggle" => "collapse", :type => "button"}
+                        %i.fa.fa-plus
+
+                      #collapseFive_5.collapse{"aria-labelledby" => "headingOne", "data-parent" => "#accordionMid"}
+                        .card-body
+                          %h5= 'Live chat available 24/7 (maybe a bot?)'
+                          .d-flex.justify-content-center
+                            %a.twitter-share-button{ :href => "https://twitter.com/intent/tweet?text=Unlimited%20shopping%20suggestions%20in%20all%20plans!!%20@ecommerce_team04"}
+                              %i.fa.fa-twitter
+                            .fb-share-button{"data-href" => "https://team04.demo1.genesys.shefcompsci.org.uk/#", "data-layout" => "button_count", "data-size" => "small"}
+                              %a.fb-xfbml-parse-ignore{:href => "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fteam04.demo1.genesys.shefcompsci.org.uk%2F%23&src=sdkpreparse", :target => "_blank"}
+                                %i.fa.fa-facebook
+                            %a{ :href => "mailto:"}
                 / //FEATURE LIST END
                 / BUTTON START
                 .generic_price_btn.clearfix
@@ -145,22 +273,93 @@
                 / //HEAD PRICE DETAIL END
                 / FEATURE LIST START
                 .generic_feature_list
-                  %ul
+                  %ul#accordionTop.accordion
                     %li
-                      %span Unlimited
-                      shopping suggestions
+                      %span#headingOne Unlimited
+                      suggestions
+                      %button.btn{"aria-controls" => "collapse4teen_1", "aria-expanded" => "true", "data-target" => "#collapse4teen_1", "data-toggle" => "collapse", :type => "button"}
+                        %i.fa.fa-plus
+
+                      #collapse4teen_1.collapse{"aria-labelledby" => "headingOne", "data-parent" => "#accordionTop"}
+                        .card-body
+                          %h5= 'Browse your shopping like you normally do'
+                          %h5= 'Find what you like'
+                          %h5= 'Get greener alternatives suggested to you!'
+                          .d-flex.justify-content-center
+                            %a.twitter-share-button{ :href => "https://twitter.com/intent/tweet?text=Unlimited%20shopping%20suggestions%20in%20all%20plans!!%20@ecommerce_team04"}
+                              %i.fa.fa-twitter
+                            .fb-share-button{"data-href" => "https://team04.demo1.genesys.shefcompsci.org.uk/#", "data-layout" => "button_count", "data-size" => "small"}
+                              %a.fb-xfbml-parse-ignore{:href => "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fteam04.demo1.genesys.shefcompsci.org.uk%2F%23&src=sdkpreparse", :target => "_blank"}
+                                %i.fa.fa-facebook
+                            %a{ :href => "mailto:"}
                     %li
-                      %span One-click
+                      %span#headingOne One-click
                       access
+                      %button.btn{"aria-controls" => "collapse4teen_2", "aria-expanded" => "true", "data-target" => "#collapse4teen_2", "data-toggle" => "collapse", :type => "button"}
+                        %i.fa.fa-plus
+
+                      #collapse4teen_2.collapse{"aria-labelledby" => "headingOne", "data-parent" => "#accordionTop"}
+                        .card-body
+                          %h5= 'Browse your shopping like you normally do'
+                          %h5= 'Find what you like'
+                          %h5= 'Get greener alternatives suggested to you!'
+                          .d-flex.justify-content-center
+                            %a.twitter-share-button{ :href => "https://twitter.com/intent/tweet?text=Unlimited%20shopping%20suggestions%20in%20all%20plans!!%20@ecommerce_team04"}
+                              %i.fa.fa-twitter
+                            .fb-share-button{"data-href" => "https://team04.demo1.genesys.shefcompsci.org.uk/#", "data-layout" => "button_count", "data-size" => "small"}
+                              %a.fb-xfbml-parse-ignore{:href => "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fteam04.demo1.genesys.shefcompsci.org.uk%2F%23&src=sdkpreparse", :target => "_blank"}
+                                %i.fa.fa-facebook
+                            %a{ :href => "mailto:"}
                     %li
-                      %span View family
+                      %span#headingOne Family 
                       purchase history
+                      %button.btn{"aria-controls" => "collapse4teen_3", "aria-expanded" => "true", "data-target" => "#collapse4teen_3", "data-toggle" => "collapse", :type => "button"}
+                        %i.fa.fa-plus
+
+                      #collapse4teen_3.collapse{"aria-labelledby" => "headingOne", "data-parent" => "#accordionTop"}
+                        .card-body
+                          %h5= 'Track up to X accounts'
+                          %h5= 'Be a green family'
+                          .d-flex.justify-content-center
+                            %a.twitter-share-button{ :href => "https://twitter.com/intent/tweet?text=Unlimited%20shopping%20suggestions%20in%20all%20plans!!%20@ecommerce_team04"}
+                              %i.fa.fa-twitter
+                            .fb-share-button{"data-href" => "https://team04.demo1.genesys.shefcompsci.org.uk/#", "data-layout" => "button_count", "data-size" => "small"}
+                              %a.fb-xfbml-parse-ignore{:href => "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fteam04.demo1.genesys.shefcompsci.org.uk%2F%23&src=sdkpreparse", :target => "_blank"}
+                                %i.fa.fa-facebook
+                            %a{ :href => "mailto:"}
                     %li
-                      %span View family
+                      %span#headingOne View family
                       carbon footprint
+                      %button.btn{"aria-controls" => "collapse4teen_4", "aria-expanded" => "true", "data-target" => "#collapse4teen_4", "data-toggle" => "collapse", :type => "button"}
+                        %i.fa.fa-plus
+
+                      #collapse4teen_4.collapse{"aria-labelledby" => "headingOne", "data-parent" => "#accordionTop"}
+                        .card-body
+                          %h5= 'Running out of ideas'
+
+                          .d-flex.justify-content-center
+                            %a.twitter-share-button{ :href => "https://twitter.com/intent/tweet?text=Unlimited%20shopping%20suggestions%20in%20all%20plans!!%20@ecommerce_team04"}
+                              %i.fa.fa-twitter
+                            .fb-share-button{"data-href" => "https://team04.demo1.genesys.shefcompsci.org.uk/#", "data-layout" => "button_count", "data-size" => "small"}
+                              %a.fb-xfbml-parse-ignore{:href => "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fteam04.demo1.genesys.shefcompsci.org.uk%2F%23&src=sdkpreparse", :target => "_blank"}
+                                %i.fa.fa-facebook
+                            %a{ :href => "mailto:"}
                     %li
-                      %span 24/7
+                      %span#headingOne 24/7
                       Support
+                      %button.btn{"aria-controls" => "collapse4teen_5", "aria-expanded" => "true", "data-target" => "#collapse4teen_5", "data-toggle" => "collapse", :type => "button"}
+                        %i.fa.fa-plus
+
+                      #collapse4teen_5.collapse{"aria-labelledby" => "headingOne", "data-parent" => "#accordionTop"}
+                        .card-body
+                          %h5= 'Live chat available 24/7 (maybe a bot?)'
+                          .d-flex.justify-content-center
+                            %a.twitter-share-button{ :href => "https://twitter.com/intent/tweet?text=Unlimited%20shopping%20suggestions%20in%20all%20plans!!%20@ecommerce_team04"}
+                              %i.fa.fa-twitter
+                            .fb-share-button{"data-href" => "https://team04.demo1.genesys.shefcompsci.org.uk/#", "data-layout" => "button_count", "data-size" => "small"}
+                              %a.fb-xfbml-parse-ignore{:href => "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fteam04.demo1.genesys.shefcompsci.org.uk%2F%23&src=sdkpreparse", :target => "_blank"}
+                                %i.fa.fa-facebook
+                            %a{ :href => "mailto:"}
                 / //FEATURE LIST END
                 / BUTTON START
                 .generic_price_btn.clearfix
@@ -169,3 +368,5 @@
                 / //BUTTON END
               / //PRICE CONTENT END
           / //BLOCK ROW END
+
+          

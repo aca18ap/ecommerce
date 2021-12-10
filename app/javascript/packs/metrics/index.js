@@ -170,6 +170,9 @@ document.addEventListener('DOMContentLoaded', () => {
         countyRegistration.append(row);
     });
 
+    //console.log(uk.features)
+
+
     if (false) {
 
     } else {

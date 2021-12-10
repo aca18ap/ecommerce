@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources :faqs do
     member do
       get 'answer'
+      post 'like'
+      post 'dislike'
     end
   end
   resources :newsletters
@@ -20,8 +22,8 @@ Rails.application.routes.draw do
   get 'users/show'
   
   namespace :admin do
-    delete '/:id' => "admin/users#delete"
     resources :users
+      patch '/:id/edit', to: 'admin/users#update'
 
   end
 
@@ -44,6 +46,10 @@ Rails.application.routes.draw do
   get :ie_warning, to: 'errors#ie_warning'
   get :pricing_plans, to: 'pages#pricing_plans'
   get :review_usefulness, to:'pages#review_usefulness'
+
+  get :carbon_footprint_viewer, to: 'pages#carbon_footprint_viewer'
+  get :extension_features, to: 'pages#extension_features'
+  get :crowdsourced_feature, to: 'pages#crowdsourced_feature'
 
   get :business_info, to: 'pages#business_info'
   get :welcome, to: 'pages#welcome'

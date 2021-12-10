@@ -32,6 +32,7 @@ gem 'will_paginate'
 
 gem 'cancancan'
 gem 'devise'
+gem 'devise_invitable', '~> 2.0.0'
 gem 'devise_cas_authenticatable'
 gem 'devise_ldap_authenticatable'
 gem "font-awesome-rails"
