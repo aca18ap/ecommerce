@@ -35,6 +35,8 @@
             - if can?(:manage, :metrics)
               %li
                 %a.nav-link.px-2{:href => "/metrics"} Metrics
+              %li
+                %a.nav-link.px-2{:href => "/admin/users"} Admin Panel
             - if can?(:manage, Newsletter)
               %li
                 %a.nav-link.px-2{:href => "/newsletters"} Newsletters
