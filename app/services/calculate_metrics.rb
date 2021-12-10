@@ -93,4 +93,10 @@ class CalculateMetrics
 
     time_registrations_counts
   end
+
+  def record_share_feature(social)
+    @share = Share.where(social: social)
+    @share.count += 1
+  end
+
 end

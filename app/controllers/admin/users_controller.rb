@@ -37,7 +37,7 @@ class Admin::UsersController < ApplicationController
       @users = User.all
       redirect_to admin_users_path, alert: "Role successfully updated"
     else
-      redirect_to admin_users_path, alert: "Something went wrong changing this user's permission"
+      redirect_to edit_admin_user_path, alert: "Check the user\'s details again!"
     end
   end
 
