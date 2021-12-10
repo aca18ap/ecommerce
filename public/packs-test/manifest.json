@@ -20,33 +20,33 @@
     },
     "metrics/index": {
       "js": [
-        "/packs-test/js/metrics/index-1757c67a84c1ea1e2d42.js"
+        "/packs-test/js/metrics/index-97426becb452f865cc2f.js"
       ],
       "js.map": [
-        "/packs-test/js/metrics/index-1757c67a84c1ea1e2d42.js.map"
+        "/packs-test/js/metrics/index-97426becb452f865cc2f.js.map"
       ]
     },
     "styles": {
       "css": [
-        "/packs-test/css/styles-aa6c92fe.css"
+        "/packs-test/css/styles-3a631d49.css"
       ],
       "js": [
-        "/packs-test/js/styles-558c622f327af44052b0.js"
+        "/packs-test/js/styles-c76cc20c98039b8e8b1a.js"
       ],
       "css.map": [
-        "/packs-test/css/styles-aa6c92fe.css.map"
+        "/packs-test/css/styles-3a631d49.css.map"
       ],
       "js.map": [
-        "/packs-test/js/styles-558c622f327af44052b0.js.map"
+        "/packs-test/js/styles-c76cc20c98039b8e8b1a.js.map"
       ]
     }
   },
   "features.js": "/packs-test/js/features-2c47fcd46a496e80d413.js",
   "features.js.map": "/packs-test/js/features-2c47fcd46a496e80d413.js.map",
-  "metrics/index.js": "/packs-test/js/metrics/index-1757c67a84c1ea1e2d42.js",
-  "metrics/index.js.map": "/packs-test/js/metrics/index-1757c67a84c1ea1e2d42.js.map",
-  "styles.css": "/packs-test/css/styles-aa6c92fe.css",
-  "styles.css.map": "/packs-test/css/styles-aa6c92fe.css.map",
-  "styles.js": "/packs-test/js/styles-558c622f327af44052b0.js",
-  "styles.js.map": "/packs-test/js/styles-558c622f327af44052b0.js.map"
+  "metrics/index.js": "/packs-test/js/metrics/index-97426becb452f865cc2f.js",
+  "metrics/index.js.map": "/packs-test/js/metrics/index-97426becb452f865cc2f.js.map",
+  "styles.css": "/packs-test/css/styles-3a631d49.css",
+  "styles.css.map": "/packs-test/css/styles-3a631d49.css.map",
+  "styles.js": "/packs-test/js/styles-c76cc20c98039b8e8b1a.js",
+  "styles.js.map": "/packs-test/js/styles-c76cc20c98039b8e8b1a.js.map"
 }
