@@ -90,7 +90,7 @@ describe 'Managing accounts' do
           page.find('#edit-user-1').click
           fill_in 'user[email]', with: 'invalid_email'
           click_button 'Update User'
-          expect(page).to have_content 'Email is invalid'
+          expect(page).to have_content 'Check the user\'s details again!'
         end
       end
 
