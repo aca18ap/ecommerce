@@ -19,10 +19,7 @@ class Ability
       can :read, :all
       cannot :manage, Review
       can :manage, :metrics
-      can :read, Faq
       can :create, Faq
-      can :update, Faq
-      can :answer, Faq
       can :like, Faq
       can :dislike, Faq
     else
