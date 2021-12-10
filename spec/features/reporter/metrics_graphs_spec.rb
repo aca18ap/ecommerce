@@ -82,7 +82,7 @@ describe 'Metrics management', js: true do
     end
 
     context 'If I am an admin' do
-      before { login_as(FactoryBot.create(:customer)) }
+      before { login_as(FactoryBot.create(:admin)) }
       specify 'I can view metrics' do
         visit '/metrics'
         within(:css, '.nav') { expect(page).to have_content 'Metrics' }
