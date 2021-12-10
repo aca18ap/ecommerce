@@ -62,10 +62,9 @@ describe 'Calculating metrics' do
         expect(time_registrations['registrations']).to eq(0)
       end
     end
-
-    it 'gets the number of times a feature shares' do
-      skip 'DIDNT HAVE TIME'
-    end
+  end
+  it 'gets the number of times a feature shares' do
+    skip 'DIDNT HAVE TIME'
   end
 
   it 'Returns nil if there are no visits in the system' do
