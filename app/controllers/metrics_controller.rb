@@ -1,17 +1,18 @@
 class MetricsController < ApplicationController
   before_action :authenticate_user!
-  authorize_resource :class => false
+  before_action :is_admin?
 
   def index
     @current_nav_identifier = :metrics
     @visits = Visit.all
     @registrations = Newsletter.all
-    @features = [] #Features.all
+    @shares = Shares.all
 
     # Passes metrics calculated in service class to metrics/index.js using gon gem
-    metrics_calculator = CalculateMetrics.new(@visits, @registrations)
+    metrics_calculator = CalculateMetrics.new(@visits, @registrations, @shares)
     gon.visits = @visits
     gon.registrations = @registrations
+    gon.shares = @shares
     gon.pageVisits = metrics_calculator.page_visits
     gon.timeVisits = metrics_calculator.time_visits
     gon.vocationRegistrations = metrics_calculator.vocation_registrations
@@ -19,9 +20,6 @@ class MetricsController < ApplicationController
     gon.sessionFlows = metrics_calculator.session_flows
     gon.timeVisits = metrics_calculator.time_visits
     gon.timeRegistrations = metrics_calculator.time_registrations
-
-    # Seems to only get state_district consistently rip
-    gon.temp = Geocoder.search(Geocoder.search('90.204.36.252').first.coordinates).first
   end
 
   def create
@@ -41,5 +39,17 @@ class MetricsController < ApplicationController
                  session_identifier: session.id)
 
     head :ok
+  end
+
+  private
+
+  def is_admin?
+    # Check admin status in first instance
+    if !current_user.admin?
+      # Check role status in second instance
+      if current_user.role != "reporter"
+        redirect_to '/403'
+      end
+    end
   end
 end

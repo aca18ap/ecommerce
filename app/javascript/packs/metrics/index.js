@@ -170,11 +170,20 @@ document.addEventListener('DOMContentLoaded', () => {
         countyRegistration.append(row);
     });
 
-    //console.log(uk.features)
-
-
-    if (false) {
-
+    if (gon.shares.length > 0) {
+        console.log(gon.shares);
+        let featureSharesChart = HorizontalBarChart(gon.shares, {
+            x: d => d.shares,
+            y: d => d.feature,
+            yDomain: d3.groupSort(gon.shares, ([d]) => -d.shares, d => d.feature), // sort by descending frequency
+            width,
+            height,
+            color: 'green',
+            marginLeft: 80,
+            marginRight: 10,
+            xLabel: 'Shares',
+            svgElement: document.getElementById('feature-shares-barchart-plot')
+        });
     } else {
         emptyCharts.push(
             document.getElementById('feature-interest-barchart-plot'),

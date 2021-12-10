@@ -1,10 +1,10 @@
 # CalculateMetrics calculates the points to represent on the
 # D3 graphs represented on metrics/index
 class CalculateMetrics
-  def initialize(visits, registrations)
+  def initialize(visits, registrations, shares)
     @visits = visits
     @registrations = registrations
-    #@features = features
+    @shares = shares
   end
 
   # Calculates the number of visits for each page
@@ -68,14 +68,21 @@ class CalculateMetrics
     # Need to create a dict of all hours between start and now to display 0 values correctly
     earliest_hour = DateTime.parse(@registrations[0].created_at.to_s).change({ min: 0, sec: 0 })
     time_regs = calculate_time_counts(@registrations, earliest_hour)
-                .map { |time, regs| { 'vocation' => 'Total', 'time' => time, 'registrations' => regs } }
+                  .map { |time, regs| { 'vocation' => 'Total', 'time' => time, 'registrations' => regs } }
 
     @registrations.group_by { |registration| registration.vocation.itself }.each do |k, v|
       time_regs.concat(calculate_time_counts(v, earliest_hour)
-               .map { |time, regs| { 'vocation' => k, 'time' => time, 'registrations' => regs } })
+                         .map { |time, regs| { 'vocation' => k, 'time' => time, 'registrations' => regs } })
     end
 
     time_regs
+  end
+
+  def feature_shares
+    return if @shares.nil? || @shares.empty?
+
+    @shares.group_by { |share| share.feature.itself }
+           .map { |k, v| { 'feature' => k, 'shares' => v.length } }
   end
 
   private

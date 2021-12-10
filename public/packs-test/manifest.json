@@ -1,8 +1,8 @@
 {
   "admin.js": "/packs-test/js/admin-15723185a6d0d945405b.js",
   "admin.js.map": "/packs-test/js/admin-15723185a6d0d945405b.js.map",
-  "application.js": "/packs-test/js/application-07082621e488202a4d8b.js",
-  "application.js.map": "/packs-test/js/application-07082621e488202a4d8b.js.map",
+  "application.js": "/packs-test/js/application-650be3a9e1b9cf682532.js",
+  "application.js.map": "/packs-test/js/application-650be3a9e1b9cf682532.js.map",
   "entrypoints": {
     "admin": {
       "js": [
@@ -14,10 +14,10 @@
     },
     "application": {
       "js": [
-        "/packs-test/js/application-07082621e488202a4d8b.js"
+        "/packs-test/js/application-650be3a9e1b9cf682532.js"
       ],
       "js.map": [
-        "/packs-test/js/application-07082621e488202a4d8b.js.map"
+        "/packs-test/js/application-650be3a9e1b9cf682532.js.map"
       ]
     },
     "features": {
@@ -30,18 +30,18 @@
     },
     "metrics/index": {
       "js": [
-        "/packs-test/js/metrics/index-ddf9da0e640e96bfaee0.js"
+        "/packs-test/js/metrics/index-112d051a38d71cfe7d85.js"
       ],
       "js.map": [
-        "/packs-test/js/metrics/index-ddf9da0e640e96bfaee0.js.map"
+        "/packs-test/js/metrics/index-112d051a38d71cfe7d85.js.map"
       ]
     },
     "sharing": {
       "js": [
-        "/packs-test/js/sharing-d6798d5dfd33022702b4.js"
+        "/packs-test/js/sharing-2ef83f3ac787482be66f.js"
       ],
       "js.map": [
-        "/packs-test/js/sharing-d6798d5dfd33022702b4.js.map"
+        "/packs-test/js/sharing-2ef83f3ac787482be66f.js.map"
       ]
     },
     "styles": {
@@ -61,10 +61,10 @@
   },
   "features.js": "/packs-test/js/features-2c47fcd46a496e80d413.js",
   "features.js.map": "/packs-test/js/features-2c47fcd46a496e80d413.js.map",
-  "metrics/index.js": "/packs-test/js/metrics/index-ddf9da0e640e96bfaee0.js",
-  "metrics/index.js.map": "/packs-test/js/metrics/index-ddf9da0e640e96bfaee0.js.map",
-  "sharing.js": "/packs-test/js/sharing-d6798d5dfd33022702b4.js",
-  "sharing.js.map": "/packs-test/js/sharing-d6798d5dfd33022702b4.js.map",
+  "metrics/index.js": "/packs-test/js/metrics/index-112d051a38d71cfe7d85.js",
+  "metrics/index.js.map": "/packs-test/js/metrics/index-112d051a38d71cfe7d85.js.map",
+  "sharing.js": "/packs-test/js/sharing-2ef83f3ac787482be66f.js",
+  "sharing.js.map": "/packs-test/js/sharing-2ef83f3ac787482be66f.js.map",
   "styles.css": "/packs-test/css/styles-aa6c92fe.css",
   "styles.css.map": "/packs-test/css/styles-aa6c92fe.css.map",
   "styles.js": "/packs-test/js/styles-558c622f327af44052b0.js",
