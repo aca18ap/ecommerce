@@ -14,10 +14,10 @@
       %th
 
   %tbody
-    - @reviews.each do |review|
+    - @reviews.each_with_index do |review, i|
       %tr
         %td= truncate review.description, length: 120, separator: /\w+/ 
-        %td{:style=>"text-align: center"}= review.rating
+        %td.text-center{'id': "review-#{i}-rating"}= review.rating
         - if review.hidden
           %td{:style=>"text-align: center"}= "Yes"
         - else

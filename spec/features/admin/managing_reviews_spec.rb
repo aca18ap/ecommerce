@@ -19,13 +19,16 @@ describe 'Managing reviews' do
     end
 
     specify 'I can view the usefulness of reviews' do
-      skip 'a'
+      visit '/'
+      click_link 'Rate it useful'
+      visit '/reviews'
+      within(:css, '#review-0-rating') { expect(page).to have_content 1 }
     end
 
     context 'If the rank is 0 when showing a review' do
       specify 'an error is displayed' do
         visit '/reviews'
-        within(:css, '.table') { click_link 'Edit' }
+        within(:css, '.table') { click_button 'Edit' }
         uncheck 'review[hidden]'
         fill_in 'review[rank]', with: 0
         click_button 'Update Review'
@@ -36,7 +39,7 @@ describe 'Managing reviews' do
     context 'If the rank is not 0 when hiding a review' do
       specify 'an error is displayed' do
         visit '/reviews'
-        within(:css, '.table') { click_link 'Edit' }
+        within(:css, '.table') { click_button 'Edit' }
         check 'review[hidden]'
         fill_in 'review[rank]', with: 1
         click_button 'Update Review'
@@ -46,7 +49,7 @@ describe 'Managing reviews' do
 
     specify 'I can hide a review' do
       visit '/reviews'
-      within(:css, '.table') { click_link 'Edit' }
+      within(:css, '.table') { click_button 'Edit' }
       check 'review[hidden]'
       fill_in 'review[rank]', with: 0
       click_button 'Update Review'
@@ -56,7 +59,7 @@ describe 'Managing reviews' do
 
     specify 'I can show a review' do
       visit '/reviews'
-      within(:css, '.table') { click_link 'Edit' }
+      within(:css, '.table') { click_button 'Edit' }
       uncheck 'review[hidden]'
       fill_in 'review[rank]', with: 1
       click_button 'Update Review'
@@ -66,7 +69,7 @@ describe 'Managing reviews' do
 
     specify 'I can change the order of reviews' do
       visit '/reviews'
-      within(:css, '.table') { click_link 'Edit' }
+      within(:css, '.table') { click_button 'Edit' }
       fill_in 'review[rank]', with: 2
       click_button 'Update Review'
       visit '/'
@@ -77,14 +80,14 @@ describe 'Managing reviews' do
     specify 'I can delete reviews', js: true do
       visit '/reviews'
       accept_confirm do
-        within(:css, '.table') { click_link 'Destroy' }
+        within(:css, '.table') { click_button 'Delete' }
       end
       within(:css, '.table') { expect(page).not_to have_content 'MyHiddenReview' }
     end
 
     specify 'I can edit review text' do
       visit '/reviews'
-      within(:css, '.table') { click_link 'Edit' }
+      within(:css, '.table') { click_button 'Edit' }
       fill_in 'review[description]', with: 'Edited review'
       fill_in 'review[rank]', with: 0
       click_button 'Update Review'
