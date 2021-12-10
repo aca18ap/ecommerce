@@ -15,10 +15,9 @@ class Ability
     elsif user.role == "reporter"
       can :read, :all
       cannot :manage, Review
-      can :read, Faq
+      can :read, Faq, :hidden => false
+      can :read, Faq, :hidden => nil
       can :create, Faq
-      can :update, Faq
-      can :answer, Faq
       can :like, Faq
       can :dislike, Faq
     else
