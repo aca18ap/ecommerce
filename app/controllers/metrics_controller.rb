@@ -1,6 +1,6 @@
 class MetricsController < ApplicationController
   before_action :authenticate_user!
-  before_action :is_admin?
+  authorize_resource :class => false
 
   def index
     @current_nav_identifier = :metrics
@@ -41,17 +41,5 @@ class MetricsController < ApplicationController
                  session_identifier: session.id)
 
     head :ok
-  end
-
-  private
-
-  def is_admin?
-    # Check admin status in first instance
-    if !current_user.admin?
-      # Check role status in second instance
-      if current_user.role != "reporter"
-        redirect_to '/403'
-      end
-    end
   end
 end

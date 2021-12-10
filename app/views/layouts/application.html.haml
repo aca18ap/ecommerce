@@ -32,9 +32,10 @@
               %li
                 %a.nav-link.px-2.link-dark{:href => "/reviews"} Reviews
             -# Hide unless user is admin
-            - if can?(:manage, :metrics)
+            - if can?(:read, :metrics)
               %li
                 %a.nav-link.px-2{:href => "/metrics"} Metrics
+            - if can?(:manage, :metrics)
               %li
                 %a.nav-link.px-2{:href => "/admin/users"} Admin Panel
             - if can?(:manage, Newsletter)

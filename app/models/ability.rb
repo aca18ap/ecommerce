@@ -18,7 +18,7 @@ class Ability
     elsif user.role == 'reporter'
       can :read, :all
       cannot :manage, Review
-      can :manage, :metrics
+      can :read, :metrics
       can :create, Faq
       can :like, Faq
       can :dislike, Faq
@@ -35,7 +35,7 @@ class Ability
       can :create, Newsletter
       can :created, Newsletter
       cannot :manage, Visit
-      cannot :all, MetricsController
+      cannot :all, :metrics
     end
     #
     # The first argument to `can` is the action you are giving the user
