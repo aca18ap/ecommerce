@@ -46,7 +46,7 @@ RSpec.describe FaqVote, type: :model do
   end
 
   describe 'Associations' do
-    it { should belong_to(:faq) }
+    it { should belong_to(:faq).without_validating_presence }
   end
 
 end

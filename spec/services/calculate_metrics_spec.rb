@@ -21,7 +21,7 @@ describe 'Calculating metrics' do
   }
 
   it 'Calculates visits to each site page' do
-    expect(calculate_metrics.page_visits).to eq([{ 'page' => '/', 'visits' => 1 }, { 'page' => '/reviews', 'visits' => 1 }])
+    expect(calculate_metrics.page_visits).to eq([{ 'page' => '/', 'visits' => 1 }, { 'page' => '/reviews', 'visits' => 1 }, { 'page' => '/newsletters/1', 'visits' => 1 }])
   end
 
   it 'Calculates the number of registrations by vocation' do
@@ -39,7 +39,7 @@ describe 'Calculating metrics' do
   it 'Calculates the number of visits per hour' do
     calculate_metrics.time_visits.each do |time_visits|
       if time_visits['time'] == DateTime.parse('2021-11-27 16:39:22').change({ min: 0, sec: 0 }).to_i
-        expect(time_visits['visits']).to eq(2)
+        expect(time_visits['visits']).to eq(3)
       else
         expect(time_visits['visits']).to eq(0)
       end
