@@ -6,7 +6,7 @@ class MetricsController < ApplicationController
     @current_nav_identifier = :metrics
     @visits = Visit.all
     @registrations = Newsletter.all
-    @shares = Shares.all
+    @shares = Share.all
 
     # Passes metrics calculated in service class to metrics/index.js using gon gem
     metrics_calculator = CalculateMetrics.new(@visits, @registrations, @shares)
