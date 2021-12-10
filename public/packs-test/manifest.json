@@ -30,10 +30,10 @@
     },
     "metrics/index": {
       "js": [
-        "/packs-test/js/metrics/index-b841b206d0e23da51805.js"
+        "/packs-test/js/metrics/index-ddf9da0e640e96bfaee0.js"
       ],
       "js.map": [
-        "/packs-test/js/metrics/index-b841b206d0e23da51805.js.map"
+        "/packs-test/js/metrics/index-ddf9da0e640e96bfaee0.js.map"
       ]
     },
     "sharing": {
@@ -46,27 +46,27 @@
     },
     "styles": {
       "css": [
-        "/packs-test/css/styles-3a631d49.css"
+        "/packs-test/css/styles-aa6c92fe.css"
       ],
       "js": [
-        "/packs-test/js/styles-c76cc20c98039b8e8b1a.js"
+        "/packs-test/js/styles-558c622f327af44052b0.js"
       ],
       "css.map": [
-        "/packs-test/css/styles-3a631d49.css.map"
+        "/packs-test/css/styles-aa6c92fe.css.map"
       ],
       "js.map": [
-        "/packs-test/js/styles-c76cc20c98039b8e8b1a.js.map"
+        "/packs-test/js/styles-558c622f327af44052b0.js.map"
       ]
     }
   },
   "features.js": "/packs-test/js/features-2c47fcd46a496e80d413.js",
   "features.js.map": "/packs-test/js/features-2c47fcd46a496e80d413.js.map",
-  "metrics/index.js": "/packs-test/js/metrics/index-b841b206d0e23da51805.js",
-  "metrics/index.js.map": "/packs-test/js/metrics/index-b841b206d0e23da51805.js.map",
+  "metrics/index.js": "/packs-test/js/metrics/index-ddf9da0e640e96bfaee0.js",
+  "metrics/index.js.map": "/packs-test/js/metrics/index-ddf9da0e640e96bfaee0.js.map",
   "sharing.js": "/packs-test/js/sharing-d6798d5dfd33022702b4.js",
   "sharing.js.map": "/packs-test/js/sharing-d6798d5dfd33022702b4.js.map",
-  "styles.css": "/packs-test/css/styles-3a631d49.css",
-  "styles.css.map": "/packs-test/css/styles-3a631d49.css.map",
-  "styles.js": "/packs-test/js/styles-c76cc20c98039b8e8b1a.js",
-  "styles.js.map": "/packs-test/js/styles-c76cc20c98039b8e8b1a.js.map"
+  "styles.css": "/packs-test/css/styles-aa6c92fe.css",
+  "styles.css.map": "/packs-test/css/styles-aa6c92fe.css.map",
+  "styles.js": "/packs-test/js/styles-558c622f327af44052b0.js",
+  "styles.js.map": "/packs-test/js/styles-558c622f327af44052b0.js.map"
 }

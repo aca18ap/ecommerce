@@ -47,6 +47,7 @@ gem 'jquery-rails'
 group :development, :test do
   gem 'byebug'
   gem 'rspec-rails'
+  gem 'shoulda-matchers'
   gem 'sqlite3'
 end
 

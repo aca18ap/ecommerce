@@ -95,7 +95,11 @@ describe 'Managing accounts' do
       end
 
       specify 'I cannot add them again' do
-
+        visit '/admin/users'
+        click_link 'Invite new user'
+        fill_in 'user[email]', with: 'customer@team04.com'
+        click_button 'Send an invitation'
+        expect(page).to have_content 'Email has already been taken'
       end
     end
   end
