@@ -178,12 +178,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 flowList.innerHTML = '';
                 for (let i=0; i<s.flow.length; i++) {
                     let row = document.createElement('tr');
-                    let column1 = document.createElement('td');
-                    let column2 = document.createElement('td');
-                    column1.innerText = (i+1).toString();
-                    column2.innerText = s.flow[i].path;
-                    row.append(column1);
-                    row.append(column2);
+                    let indexCol = document.createElement('td');
+                    let pathCol = document.createElement('td');
+                    let timeCol = document.createElement('td');
+                    indexCol.innerText = (i+1).toString();
+                    pathCol.innerText = s.flow[i].path;
+                    timeCol.innerText = `${(Date.parse(s.flow[i].to) - Date.parse(s.flow[i].from)) / 1000}s`;
+                    row.append(indexCol);
+                    row.append(pathCol);
+                    row.append(timeCol);
                     flowList.append(row);
                 }
             };
