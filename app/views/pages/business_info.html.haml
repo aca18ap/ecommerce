@@ -1,7 +1,29 @@
 - content_for :title, "Team 4 - Business info"
 
 .container-fluid.pad-edge
-  %h1.pt-5 Business info
-  We haven't quite got anything yet, but we'd love to tell you when we have.
-  .generic_price_btn.clearfix
-    = link_to 'Sign up', new_newsletter_path(@newsletters, :type => "Business")
+  .row.text-center.text-feldgrau.grabber.pt-5
+    %h4
+      %span.highlight-dyk Did you know?
+      By 2050, global freight will account for over a quarter of the world's carbon footprint?
+
+    %h1
+      Join us today, and
+      %span.highlight-text change
+      the world.
+
+  .row.justify-content-center
+    %img.w-25.mx-auto.card-img-top{:alt => "...", :src => "images/marketing.svg"}/
+
+  .row.text-center
+    %h2.pt-5 Are you an eco-friendly online clothes retailer?
+    %h1 We're looking for you.
+    %p
+      By listing your products with us, we can help you reach more customers than ever before.
+      %br Our browser extension lets customers know when they would be better off purchasing from your store as
+      opposed to your less environmentally-conscious competitors.
+
+    %p Best of all, it costs virtually nothing.
+    %p To find out more about our services, click the link below.
+
+    .generic_price_btn.clearfix
+      = link_to 'Sign up', new_newsletter_path(@newsletters, :type => "Business")
