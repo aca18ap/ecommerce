@@ -30,5 +30,9 @@ FactoryBot.define do
       path { '/reviews' }
       session_identifier { 'session_2' }
     end
+
+    factory :visit_newsletters_new
+    path { '/newsletters/1' }
+    session_identifier { 'session_3' }
   end
 end

@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'Calculating metrics' do
   let(:visit_root) { FactoryBot.create(:visit_root) }
   let(:visit_reviews) { FactoryBot.create(:visit_reviews) }
+  let(:visit_newsletters) { FactoryBot.create(:visit_newsletters_new) }
 
   let(:free_customer_newsletter) { FactoryBot.create(:free_customer_newsletter) }
   let(:solo_customer_newsletter) { FactoryBot.create(:solo_customer_newsletter) }
@@ -11,8 +12,8 @@ describe 'Calculating metrics' do
 
   let(:calculate_metrics) {
     CalculateMetrics.new(
-      [visit_root, visit_reviews],
-      [free_customer_newsletter, solo_customer_newsletter , family_customer_newsletter, business_newsletter])
+      [visit_root, visit_reviews, visit_newsletters],
+      [free_customer_newsletter, solo_customer_newsletter, family_customer_newsletter, business_newsletter])
   }
 
   let(:no_data_calculate_metrics) {
@@ -32,7 +33,7 @@ describe 'Calculating metrics' do
   end
 
   it 'Calculates the session flows for a user session' do
-    expect(calculate_metrics.session_flows).to eq([{ 'id' => 'session_1', 'flow' => [visit_root] }, { 'id' => 'session_2', 'flow' => [visit_reviews] }])
+    expect(calculate_metrics.session_flows).to eq([{ 'id' => 'session_1', 'flow' => [visit_root], 'registered' => false }, { 'id' => 'session_2', 'flow' => [visit_reviews], 'registered' => false }, { 'id' => 'session_3', 'flow' => [visit_newsletters], 'registered' => true }])
   end
 
   it 'Calculates the number of visits per hour' do

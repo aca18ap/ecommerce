@@ -96,6 +96,7 @@ class CalculateMetrics
     time_registrations_counts
   end
 
+  # Identifies whether a session led to a registration by checking for /newsletters/# in path
   def flow_contains_registration(flow)
     flow.each do |f|
       return true if f.path.match(/.*\/newsletters\/[0-9]+/)

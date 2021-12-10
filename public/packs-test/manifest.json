@@ -12,10 +12,10 @@
     },
     "metrics/index": {
       "js": [
-        "/packs-test/js/metrics/index-e7d041a3b37d276d8743.js"
+        "/packs-test/js/metrics/index-c015830d66216eb0f74b.js"
       ],
       "js.map": [
-        "/packs-test/js/metrics/index-e7d041a3b37d276d8743.js.map"
+        "/packs-test/js/metrics/index-c015830d66216eb0f74b.js.map"
       ]
     },
     "styles": {
@@ -33,8 +33,8 @@
       ]
     }
   },
-  "metrics/index.js": "/packs-test/js/metrics/index-e7d041a3b37d276d8743.js",
-  "metrics/index.js.map": "/packs-test/js/metrics/index-e7d041a3b37d276d8743.js.map",
+  "metrics/index.js": "/packs-test/js/metrics/index-c015830d66216eb0f74b.js",
+  "metrics/index.js.map": "/packs-test/js/metrics/index-c015830d66216eb0f74b.js.map",
   "styles.css": "/packs-test/css/styles-aa6c92fe.css",
   "styles.css.map": "/packs-test/css/styles-aa6c92fe.css.map",
   "styles.js": "/packs-test/js/styles-558c622f327af44052b0.js",
