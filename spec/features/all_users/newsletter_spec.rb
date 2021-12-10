@@ -51,13 +51,11 @@ describe 'Newsletters' do
 
   context 'If I have already registered interest' do
 
-    # Add some records - Doesn't work in dev environment
-    @newsletter = Newsletter.new(email: "test@example.com", vocation: 'Customer')
-    @newsletter.save
+    let!(:free_customer_newsletter) { FactoryBot.create(:free_customer_newsletter) }
 
     specify 'I am shown an error' do
       visit new_newsletter_path
-      fill_in 'newsletter[email]', with: 'test@example.com'
+      fill_in 'newsletter[email]', with: 'freecustomer@team04.com'
       click_button 'Register Interest'
       expect(page).to have_content "Please review the problems below"
     end

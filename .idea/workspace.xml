@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eac607c4-e5d1-456b-a69c-fec8ba613f04" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/newsletter.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/newsletter.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/pages/pricing_plans.html.haml" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/pages/pricing_plans.html.haml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coverage/.last_run.json" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/.last_run.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coverage/.resultset.json" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/.resultset.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coverage/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/packs-test/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/packs-test/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/spec/features/all_users/newsletter_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/features/all_users/newsletter_spec.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -175,7 +168,7 @@
       <option name="presentableId" value="Default" />
       <updated>1639075822252</updated>
       <workItem from="1639075826307" duration="6523000" />
-      <workItem from="1639095339906" duration="5570000" />
+      <workItem from="1639095339906" duration="6096000" />
     </task>
     <servers />
   </component>
