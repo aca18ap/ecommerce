@@ -56,7 +56,7 @@ class MetricsController < ApplicationController
   private
 
   def is_admin?
-    if !current_user.admin?
+    if !current_user.role == 'reporter' || !current_user.admin?
       redirect_to '/403'
     end
   end

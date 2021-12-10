@@ -15,9 +15,10 @@ class Ability
       can :read, :all
       can :manage, Faq
       can :manage, :metrics
-    elsif user.role == "reporter"
+    elsif user.role == 'reporter'
       can :read, :all
       cannot :manage, Review
+      can :manage, :metrics
       can :read, Faq
       can :create, Faq
       can :update, Faq
@@ -28,8 +29,8 @@ class Ability
       can :new, Review
       can :create, Review
       can :created, Review
-      can :read, Faq, :hidden => false
-      can :read, Faq, :hidden => nil
+      can :read, Faq, hidden: false
+      can :read, Faq, hidden: nil
       can :create, Faq
       can :like, Faq
       can :dislike, Faq
