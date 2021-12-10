@@ -15,6 +15,7 @@ gem 'rubocop', '~> 1.23', require: false
 gem 'ed25519'
 gem 'bcrypt_pbkdf'
 gem 'webpacker'
+gem 'geocoder', '~> 1.3'
 
 gem 'pg'
 gem 'gon'
@@ -31,8 +32,10 @@ gem 'will_paginate'
 
 gem 'cancancan'
 gem 'devise'
+gem 'devise_invitable', '~> 2.0.0'
 gem 'devise_cas_authenticatable'
 gem 'devise_ldap_authenticatable'
+gem "font-awesome-rails"
 
 gem 'daemons'
 gem 'delayed_job'

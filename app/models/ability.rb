@@ -10,13 +10,15 @@ class Ability
     if user.admin?
       can :manage, User
       can :manage, Review
+      can :manage, Visit
+      can :manage, Newsletter
       can :read, :all
       can :manage, Faq
-    elsif user.role == "reporter"
+      can :manage, :metrics
+    elsif user.role == 'reporter'
       can :read, :all
       cannot :manage, Review
-      can :read, Faq, :hidden => false
-      can :read, Faq, :hidden => nil
+      can :manage, :metrics
       can :create, Faq
       can :like, Faq
       can :dislike, Faq
@@ -24,11 +26,16 @@ class Ability
       can :new, Review
       can :create, Review
       can :created, Review
-      can :read, Faq, :hidden => false
-      can :read, Faq, :hidden => nil
+      can :read, Faq, hidden: false
+      can :read, Faq, hidden: nil
       can :create, Faq
       can :like, Faq
       can :dislike, Faq
+      can :new, Newsletter
+      can :create, Newsletter
+      can :created, Newsletter
+      cannot :manage, Visit
+      cannot :all, MetricsController
     end
     #
     # The first argument to `can` is the action you are giving the user

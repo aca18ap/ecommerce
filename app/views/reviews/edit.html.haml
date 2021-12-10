@@ -1,15 +1,15 @@
-%h1 Editing review
+.container-fluid.pad-edge
 
-= render 'editform'
+  %h1.pt-5 Editing review
+
+  = render 'editform'
 
 - if @error_msg.to_i == 1
-  %p1= "Rank shoudld be 0 if review is hidden from the front page"
+  %p1{:style => "margin-left: 10%"}= "Rank should be 0 if review is hidden from the front page"
 
 - if @error_msg.to_i == 2
-  %p1= "Rank should not be 0 for review to be shown on the front page"
+  %p1{:style => "margin-left: 10%"}= "Rank should not be 0 for review to be shown on the front page"
 
-%br
+  %br
 
-= link_to 'Show', @review
-\|
-= link_to 'Back', reviews_path
+  

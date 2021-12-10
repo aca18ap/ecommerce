@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class NewslettersController < ApplicationController
+  before_action :authenticate_user!
+  before_action :is_admin?
   before_action :set_newsletter, only: %i[show edit update destroy]
 
   # GET /newsletters
@@ -21,7 +23,15 @@ class NewslettersController < ApplicationController
 
   # POST /newsletters
   def create
-    @newsletter = Newsletter.new(newsletter_params)
+
+    location = RetrieveLocation.new(newsletter_params, request.remote_ip).get_location
+
+    @newsletter = Newsletter.new(
+      email: newsletter_params['email'],
+      vocation: newsletter_params['vocation'],
+      longitude: location['longitude'],
+      latitude: location['latitude']
+    )
 
     if @newsletter.save
       redirect_to @newsletter, notice: 'Newsletter was successfully created.'
@@ -54,7 +64,13 @@ class NewslettersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def newsletter_params
-    params.require(:newsletter).permit(:email, :vocation)
+    params.require(:newsletter).permit(:email, :vocation, :tier, :latitude, :longitude)
   end
-    
+
+  def is_admin?
+    if !current_user.admin?
+      redirect_to '/403'
+    end
+  end
+
 end

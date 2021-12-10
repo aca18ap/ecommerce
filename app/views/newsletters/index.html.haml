@@ -1,10 +1,13 @@
-.container
-  %h1 Listing newsletters
+.container-fluid.pad-edge
+
+  %h1.pt-5 Listing newsletters
 
   %table
     %thead
       %tr
         %th Email
+        %th Longitude
+        %th Latitude
         %th
         %th
         %th
@@ -13,6 +16,8 @@
       - @newsletters.each do |newsletter|
         %tr
           %td= newsletter.email
+          %td= newsletter.longitude
+          %td= newsletter.latitude
           %td= link_to 'Show', newsletter
           %td= link_to 'Edit', edit_newsletter_path(newsletter)
           %td= link_to 'Destroy', newsletter, :method => :delete, :data => { :confirm => 'Are you sure?' }

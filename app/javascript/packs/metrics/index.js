@@ -3,35 +3,19 @@ import * as d3 from 'd3';
 import * as uk from './uk-geo.json';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Receives @metrics and @registrations from controller using gon gem
-    let metrics = gon.metrics;
-    let registrations = gon.registrations;
-
     // Create charts to display on metrics page
     const width = 1000;
     const height = 500;
 
     let emptyCharts = [];
 
-
-    // Update chart title to include total
-    document.getElementById('visits-barchart-title').innerText = `Site Visits by Page (Total: ${metrics.length})`;
     // Only update graphs if there are any site tracking metrics in the system
-    if (metrics.length > 0) {
-        // Calculate the number of visits to each page
-        let pageVisits = groupBy(metrics, "path")
-        let pageVisitsCounts = []
-        Object.keys(pageVisits).forEach(key => {
-            pageVisitsCounts.push({
-                page: key,
-                visits: pageVisits[key].length
-            });
-        });
-
-        let pageVisitCountsChart = HorizontalBarChart(pageVisitsCounts, {
+    if (gon.visits.length > 0) {
+        // Gets pageVisits from gon gem - calculated in CalculateMetrics service class
+        let pageVisitCountsChart = HorizontalBarChart(gon.pageVisits, {
             x: d => d.visits,
             y: d => d.page,
-            yDomain: d3.groupSort(pageVisitsCounts, ([d]) => -d.visits, d => d.page), // sort by descending frequency
+            yDomain: d3.groupSort(gon.pageVisits, ([d]) => -d.visits, d => d.page), // sort by descending frequency
             width,
             height,
             color: 'green',
@@ -41,19 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
             svgElement: document.getElementById('visits-barchart-plot')
         });
 
-        // Group metrics into hours between first recorded visit and now
-        let timeVisits = groupByHour(metrics, "from", metrics[0].from);
-        let timeVisitsCounts = []
-
-        // Calculate number of visits at a specific time interval
-        Object.keys(timeVisits).forEach(key => {
-            timeVisitsCounts.push({
-                time: key,
-                visits: timeVisits[key].length
-            });
-        });
-
-        let visitsOverTimeChart = LineChart(timeVisitsCounts, {
+        // Gets timeVisits from gon gem - calculated in CalculateMetrics service class
+        let visitsOverTimeChart = LineChart(gon.timeVisits, {
             x: d => d.time,
             y: d => d.visits,
             yLabel: 'Visits',
@@ -69,25 +42,60 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('visits-linechart-plot'));
     }
 
+    let projection = d3.geoAlbers()
+        .center([0, 55.4])
+        .rotate([4.4, 0])
+        .parallels([50, 60])
+        .scale(4000)
+        .translate([width / 5, (2.4 * height) / 3])
 
-    // Update chart title to include total
-    document.getElementById('registrations-barchart-title').innerText = `Site Registrations by Vocation (Total: ${registrations.length})`;
+    const colour = d3.scaleSequential([1, 10], d3.interpolateGreens);
+    colour.unknown('#fff');
+
+    let visitsPlotData = create_feature_dict(uk.features, gon.visits);
+    let visits_values = Object.values(visitsPlotData);
+    let visits_min = get_min(visits_values);
+    let visits_max = get_max(visits_values);
+
+    let visits_svg = d3.select('#visits-geo-plot');
+    visits_svg.append("g")
+        .selectAll("path")
+        .data(uk.features)
+        .enter()
+        .append("path")
+        .attr("id", d => `visits-${d.properties.NAME_2}` )
+        .attr("fill", d => colour(10* normalise(visitsPlotData[d.properties.NAME_2], visits_min, visits_max)))
+        .attr("stroke", "black")
+        .attr("stroke-width", 0.4)
+        .attr("d", d3.geoPath(projection))
+        .append('title')
+        .text(d => `${d.properties.NAME_2}\nVisits: ${!visitsPlotData[d.properties.NAME_2] ? 0 : visitsPlotData[d.properties.NAME_2]}`);
+
+    document.getElementById('visits-geo-plot').append(Legend(d3.scaleSequential([], d3.interpolateGreens), {
+        title: 'Visitors',
+        width: 250,
+    }));
+
+    let countyVisits = document.getElementById('county-visits-list');
+    Object.keys(visitsPlotData).forEach( county => {
+        let row = document.createElement('tr');
+        let countyCol = document.createElement('td');
+        countyCol.innerText = county;
+        row.appendChild(countyCol);
+        let visitsCol = document.createElement('td');
+        visitsCol.innerText = visitsPlotData[county];
+        row.appendChild(visitsCol);
+        countyVisits.append(row);
+    });
+
+
     // Only update graphs if there are any registrations in the system
-    if (registrations.length > 0) {
-        // Calculate the number of visits to each page
-        let vocationRegs = groupBy(registrations, "vocation")
-        let vocationRegsCounts = []
-        Object.keys(vocationRegs).forEach(key => {
-            vocationRegsCounts.push({
-                vocation: key,
-                registrations: vocationRegs[key].length
-            });
-        });
-
-        let vocationRegsCountsChart = HorizontalBarChart(vocationRegsCounts, {
+    if (gon.registrations.length > 0) {
+        // Gets pageVisits from gon gem - calculated in CalculateMetrics service class
+        let vocationRegsCountsChart = HorizontalBarChart(gon.vocationRegistrations, {
             x: d => d.registrations,
             y: d => d.vocation,
-            yDomain: d3.groupSort(vocationRegsCounts, ([d]) => -d.registrations, d => d.vocation), // sort by descending frequency
+            yDomain: d3.groupSort(gon.vocationRegistrations, ([d]) => -d.registrations, d => d.vocation), // sort by descending frequency
             width,
             height,
             color: 'green',
@@ -97,30 +105,8 @@ document.addEventListener('DOMContentLoaded', () => {
             svgElement: document.getElementById('registrations-barchart-plot')
         });
 
-        // Group registrations into hours between first recorded visit and now
-        let timeRegs = groupByHour(registrations, "created_at", registrations[0].created_at);
-        let timeRegsCounts = []
-
-        // Calculate number of registrations at a specific time interval
-        Object.keys(timeRegs).forEach(key => {
-            timeRegsCounts.push({
-                vocation: 'Total',
-                time: key,
-                registrations: timeRegs[key].length
-            });
-
-            // Calculate number of registrations at a specific time interval for each vocation
-            let vocationGrouped = groupBy(timeRegs[key], 'vocation');
-            ['Customer', 'Business'].forEach(vocation => {
-                timeRegsCounts.push({
-                    vocation: vocation,
-                    time: key,
-                    registrations: vocationGrouped[vocation] ? vocationGrouped[vocation].length : 0
-                });
-            })
-        });
-
-        let regsOverTimeChart = LineChart(timeRegsCounts, {
+        // Gets timeRegistrations from gon gem - calculated in CalculateMetrics service class
+        let regsOverTimeChart = LineChart(gon.timeRegistrations, {
             x: d => d.time,
             y: d => d.registrations,
             z: d => d.vocation,
@@ -130,15 +116,113 @@ document.addEventListener('DOMContentLoaded', () => {
             color: 'green',
             svgElement: document.getElementById('registrations-linechart-plot')
         });
+
+        let tierRegsCountsChart = HorizontalBarChart(gon.tierRegistrations, {
+            x: d => d.registrations,
+            y: d => d.tier,
+            yDomain: d3.groupSort(gon.tierRegistrations, ([d]) => -d.registrations, d => d.tier), // sort by descending frequency
+            width,
+            height,
+            color: 'green',
+            marginLeft: 70,
+            marginRight: 10,
+            xLabel: 'Registrations',
+            svgElement: document.getElementById('registrations-by-type-barchart-plot')
+        });
+
     } else {
         // Set text of chart areas to indicate that there is no data
         emptyCharts.push(
             document.getElementById('registrations-barchart-plot'),
-            document.getElementById('registrations-linechart-plot'));
+            document.getElementById('registrations-linechart-plot'),
+            document.getElementById('registrations-by-type-barchart-plot'),
+        );
     }
 
+    let regsPlotData = create_feature_dict(uk.features, gon.registrations);
+    let regs_values = Object.values(regsPlotData);
+    let regs_min = get_min(regs_values);
+    let regs_max = get_max(regs_values);
+
+    let svg = d3.select('#registrations-geo-plot');
+    svg.append("g")
+        .selectAll("path")
+        .data(uk.features)
+        .enter()
+        .append("path")
+        .attr("id", d => `regs-${d.properties.NAME_2}` )
+        .attr("fill", d => colour(10* normalise(regsPlotData[d.properties.NAME_2], regs_min, regs_max)))
+        .attr("stroke", "black")
+        .attr("stroke-width", 0.4)
+        .attr("d", d3.geoPath(projection))
+        .append('title')
+        .text(d => `${d.properties.NAME_2}\nRegistrations: ${!regsPlotData[d.properties.NAME_2] ? 0 : regsPlotData[d.properties.NAME_2]}`);
+
+    let countyRegistration = document.getElementById('county-registrations-list');
+    Object.keys(regsPlotData).forEach( county => {
+        let row = document.createElement('tr');
+        let countyCol = document.createElement('td');
+        countyCol.innerText = county;
+        row.appendChild(countyCol);
+        let regsCol = document.createElement('td');
+        regsCol.innerText = regsPlotData[county];
+        row.appendChild(regsCol);
+        countyRegistration.append(row);
+    });
+
+    //console.log(uk.features)
+
+
+    if (false) {
+
+    } else {
+        emptyCharts.push(
+            document.getElementById('feature-interest-barchart-plot'),
+            document.getElementById('feature-shares-barchart-plot'),
+        )
+    }
+
+    if (gon.visits.length > 0) {
+        // Gets sessionFlows from gon gem - calculated in CalculateMetrics service class
+        let sessionsList = document.getElementById('sessions-list');
+        for (let s of gon.sessionFlows) {
+            let b = document.createElement('button');
+            b.innerText = 'View Flow';
+            b.classList += 'btn btn-success';
+            b.onclick = () => {
+                let flowList = document.getElementById('flow-list');
+                flowList.innerHTML = '';
+                for (let i=0; i<s.flow.length; i++) {
+                    let row = document.createElement('tr');
+                    let indexCol = document.createElement('td');
+                    let pathCol = document.createElement('td');
+                    let timeCol = document.createElement('td');
+                    indexCol.innerText = (i+1).toString();
+                    pathCol.innerText = s.flow[i].path;
+                    timeCol.innerText = `${(Date.parse(s.flow[i].to) - Date.parse(s.flow[i].from)) / 1000}s`;
+                    row.append(indexCol);
+                    row.append(pathCol);
+                    row.append(timeCol);
+                    flowList.append(row);
+                }
+            };
+            let row = document.createElement('tr');
+            let column1 = document.createElement('td');
+            let column2 = document.createElement('td');
+            column1.innerText = s.registered;
+            row.append(column1);
+            column2.append(b);
+            row.append(column2);
+            sessionsList.append(row);
+        }
+    } else {
+        emptyCharts.push(
+            document.getElementById('flow-report-plot'),
+        );
+    }
+
+    // Add missing data message to appropriate chart areas
     for (let chart of emptyCharts) {
-        console.log(chart);
         let svg = d3.select(chart)
             .attr("width", width)
             .attr("height", height)
@@ -159,35 +243,65 @@ document.addEventListener('DOMContentLoaded', () => {
             .attr("font-family", "Outfit")
             .text("There is no data for this metric yet");
     }
-
-
-    let svg = d3.select('#registrations-geo-plot');
-    let projection = d3.geoAlbers()
-        .center([0, 55.4])
-        .rotate([4.4, 0])
-        .parallels([50, 60])
-        .scale(4000)
-        .translate([width/5, (2.4*height)/3])
-
-    console.log(uk.features);
-    let tempData = [{ID_1: 1, ID_2: 1, value: 1}, {ID_1: 1, ID_2: 2, value: 1}]
-
-    svg.append("g")
-        .selectAll("path")
-        .data(uk.features)
-        .enter()
-        .append("path")
-        .attr("id", d => { return `county-${d.properties.ID_1}-${d.properties.ID_2}` })
-        .attr("fill", "#000")
-        .attr("stroke", "white")
-        .attr("stroke-width", 0.4)
-        .attr("d", d3.geoPath(projection));
-
-    d3.select(`#county-1-65`)
-        .attr('fill', '#f00')
-
-
 });
+
+/** Creates dictionary of counties with counts for the number of
+ * points bounded within them
+ *
+ * @param features UK county features
+ * @param data Data to be grouped into county
+ * @returns {{}} Dictionary of counties and the nuber of points bounded within them
+ */
+function create_feature_dict(features, data) {
+    let featureDict = {}
+    features.forEach( f => featureDict[f.properties.NAME_2] = 0 );
+    for (let d of data) {
+        if (!d.latitude || !d.longitude) {
+            continue;
+        }
+        for (let f of features) {
+            if (d3.geoContains(f, [d.longitude, d.latitude])) {
+                featureDict[f.properties.NAME_2] += 1;
+                break;
+            }
+        }
+    }
+    return featureDict;
+}
+
+/** Gets the smallest value in an array
+ *
+ * @param arr array of numbers
+ * @returns {*} smallest value in array
+ */
+function get_min(arr) {
+    return arr.reduce(function(a, b) {
+        return Math.min(a, b);
+    }, 0);
+}
+
+/** Gets the largest value in an array
+ *
+ * @param arr array of numbers
+ * @returns {*} largest value in array
+ */
+function get_max(arr) {
+    return arr.reduce(function(a, b) {
+        return Math.max(a, b);
+    }, 0);
+}
+
+/** Normalises value to be between 0 and 1 based on the
+ * minimum and maximum values provided from a dataset
+ *
+ * @param value value to be normalised
+ * @param min minimum value in the set
+ * @param max maximum value in the set
+ * @returns {number} normalised input
+ */
+function normalise(value, min, max) {
+    return (value - min) / (max - min);
+}
 
 /**
  * Groups elements of an array of dicts by a certain key
@@ -225,7 +339,157 @@ function groupByHour(arr, key, startTime) {
         hoursDict[aDate].push(a);
     }
 
-    return hoursDict
+    return hoursDict;
+}
+
+// Copyright 2021, Observable Inc.
+// Released under the ISC license.
+// https://observablehq.com/@d3/color-legend
+function Legend(color, {
+    title,
+    tickSize = 6,
+    width = 320,
+    height = 44 + tickSize,
+    marginTop = 18,
+    marginRight = 0,
+    marginBottom = 16 + tickSize,
+    marginLeft = 0,
+    ticks = width / 64,
+    tickFormat,
+    tickValues
+} = {}) {
+
+    function ramp(color, n = 256) {
+        const canvas = document.createElement("canvas");
+        canvas.width = n;
+        canvas.height = 1;
+        const context = canvas.getContext("2d");
+        for (let i = 0; i < n; ++i) {
+            context.fillStyle = color(i / (n - 1));
+            context.fillRect(i, 0, 1, 1);
+        }
+        return canvas;
+    }
+
+    const svg = d3.create("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("viewBox", [0, 0, width, height])
+        .style("overflow", "visible")
+        .style("display", "block");
+
+    let tickAdjust = g => g.selectAll(".tick line").attr("y1", marginTop + marginBottom - height);
+    let x;
+
+    // Continuous
+    if (color.interpolate) {
+        const n = Math.min(color.domain().length, color.range().length);
+
+        x = color.copy().rangeRound(d3.quantize(d3.interpolate(marginLeft, width - marginRight), n));
+
+        svg.append("image")
+            .attr("x", marginLeft)
+            .attr("y", marginTop)
+            .attr("width", width - marginLeft - marginRight)
+            .attr("height", height - marginTop - marginBottom)
+            .attr("preserveAspectRatio", "none")
+            .attr("xlink:href", ramp(color.copy().domain(d3.quantize(d3.interpolate(0, 1), n))).toDataURL());
+    }
+
+    // Sequential
+    else if (color.interpolator) {
+        x = Object.assign(color.copy()
+                .interpolator(d3.interpolateRound(marginLeft, width - marginRight)),
+            {range() { return [marginLeft, width - marginRight]; }});
+
+        svg.append("image")
+            .attr("x", marginLeft)
+            .attr("y", marginTop)
+            .attr("width", width - marginLeft - marginRight)
+            .attr("height", height - marginTop - marginBottom)
+            .attr("preserveAspectRatio", "none")
+            .attr("xlink:href", ramp(color.interpolator()).toDataURL());
+
+        // scaleSequentialQuantile doesn’t implement ticks or tickFormat.
+        if (!x.ticks) {
+            if (tickValues === undefined) {
+                const n = Math.round(ticks + 1);
+                tickValues = d3.range(n).map(i => d3.quantile(color.domain(), i / (n - 1)));
+            }
+            if (typeof tickFormat !== "function") {
+                tickFormat = d3.format(tickFormat === undefined ? ",f" : tickFormat);
+            }
+        }
+    }
+
+    // Threshold
+    else if (color.invertExtent) {
+        const thresholds
+            = color.thresholds ? color.thresholds() // scaleQuantize
+            : color.quantiles ? color.quantiles() // scaleQuantile
+                : color.domain(); // scaleThreshold
+
+        const thresholdFormat
+            = tickFormat === undefined ? d => d
+            : typeof tickFormat === "string" ? d3.format(tickFormat)
+                : tickFormat;
+
+        x = d3.scaleLinear()
+            .domain([-1, color.range().length - 1])
+            .rangeRound([marginLeft, width - marginRight]);
+
+        svg.append("g")
+            .selectAll("rect")
+            .data(color.range())
+            .join("rect")
+            .attr("x", (d, i) => x(i - 1))
+            .attr("y", marginTop)
+            .attr("width", (d, i) => x(i) - x(i - 1))
+            .attr("height", height - marginTop - marginBottom)
+            .attr("fill", d => d);
+
+        tickValues = d3.range(thresholds.length);
+        tickFormat = i => thresholdFormat(thresholds[i], i);
+    }
+
+    // Ordinal
+    else {
+        x = d3.scaleBand()
+            .domain(color.domain())
+            .rangeRound([marginLeft, width - marginRight]);
+
+        svg.append("g")
+            .selectAll("rect")
+            .data(color.domain())
+            .join("rect")
+            .attr("x", x)
+            .attr("y", marginTop)
+            .attr("width", Math.max(0, x.bandwidth() - 1))
+            .attr("height", height - marginTop - marginBottom)
+            .attr("fill", color);
+
+        tickAdjust = () => {};
+    }
+
+    svg.append("g")
+        .attr("transform", `translate(0,${height - marginBottom})`)
+        .call(d3.axisBottom(x)
+            .ticks(ticks, typeof tickFormat === "string" ? tickFormat : undefined)
+            .tickFormat(typeof tickFormat === "function" ? tickFormat : undefined)
+            .tickSize(tickSize)
+            .tickValues(tickValues))
+        .call(tickAdjust)
+        .call(g => g.select(".domain").remove())
+        .call(g => g.append("text")
+            .attr("x", marginLeft)
+            .attr("y", marginTop + marginBottom - height - 6)
+            .attr("fill", "currentColor")
+            .attr("text-anchor", "start")
+            .attr("font-weight", "bold")
+            .attr("class", "title")
+            .text(title));
+
+    return svg.node();
 }
 
 // Copyright 2021 Observable, Inc.

@@ -1,0 +1,27 @@
+#carouselExampleCaptions.carousel.carousel-dark.slide{"data-bs-ride" => "carousel"}
+  .carousel-indicators
+    %button.active{"aria-current" => "true", "aria-label" => "Slide 1", "data-bs-slide-to" => "0", "data-bs-target" => "#carouselExampleCaptions", :type => "button"}
+    %button{"aria-label" => "Slide 2", "data-bs-slide-to" => "1", "data-bs-target" => "#carouselExampleCaptions", :type => "button"}
+    %button{"aria-label" => "Slide 3", "data-bs-slide-to" => "2", "data-bs-target" => "#carouselExampleCaptions", :type => "button"}
+  .carousel-inner
+    .carousel-item.active
+      %img.d-block.w-100{:alt => "Step 1", :src => "images/step_1.png"}/
+      -# .carousel-caption.d-none.d-md-block
+      -#   %h5 Step 1
+      -#   %p Download our browser extension
+    .carousel-item
+      %img.d-block.w-100{:alt => "Step 2", :src => "images/step_2.png"}/
+      -# .carousel-caption.d-none.d-md-block
+      -#   %h5 Second slide label
+      -#   %p Some representative placeholder content for the second slide.
+    .carousel-item
+      %img.d-block.w-100{:alt => "Step 3", :src => "images/step_3.png"}/
+      -# .carousel-caption.d-none.d-md-block
+      -#   %h5 Third slide label
+      -#   %p Some representative placeholder content for the third slide.
+  %button.carousel-control-prev{"data-bs-slide" => "prev", "data-bs-target" => "#carouselExampleCaptions", :type => "button"}
+    %span.carousel-control-prev-icon{"aria-hidden" => "true"}
+    %span.visually-hidden Previous
+  %button.carousel-control-next{"data-bs-slide" => "next", "data-bs-target" => "#carouselExampleCaptions", :type => "button"}
+    %span.carousel-control-next-icon{"aria-hidden" => "true"}
+    %span.visually-hidden Next

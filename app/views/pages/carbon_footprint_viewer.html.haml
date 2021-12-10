@@ -1,0 +1,36 @@
+= stylesheet_link_tag 'features'
+= javascript_packs_with_chunks_tag 'application'
+.container-fluid
+  .row.text-center.text-feldgrau.py-5.grabber
+    %h1 View your shopping footprint in an instant!
+
+  .row.px-5.text-right
+    .col-6.tracker-preview
+      %h2 Easy access dashboard
+      %br
+      .card
+        = image_tag 'footprint_view.png', { :id => 'footprint_mockup'}
+    .col-6
+      %h2.text-center
+        View your purchase history and details
+      %br
+      %br
+      
+        %ul#features-list.text-center
+          %li#feature
+            %span Explore 
+            your shopping history and trends
+          %li#feature
+            %span Analyse
+            your carbon emissions on each  purchase
+          %li#feature
+            %span Statistics
+            about your overall carbon footprint
+          %li#feature
+            %span Share
+            your achievements with your friends on social media!
+
+    .d-flex.justify-content-end
+      = render 'share_icons'
+
+

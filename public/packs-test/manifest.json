@@ -1,42 +1,52 @@
 {
-  "application.js": "/packs-test/js/application-29b5c5779f111c2fe830.js",
-  "application.js.map": "/packs-test/js/application-29b5c5779f111c2fe830.js.map",
+  "application.js": "/packs-test/js/application-7f346e1fe68704291ed6.js",
+  "application.js.map": "/packs-test/js/application-7f346e1fe68704291ed6.js.map",
   "entrypoints": {
     "application": {
       "js": [
-        "/packs-test/js/application-29b5c5779f111c2fe830.js"
+        "/packs-test/js/application-7f346e1fe68704291ed6.js"
       ],
       "js.map": [
-        "/packs-test/js/application-29b5c5779f111c2fe830.js.map"
+        "/packs-test/js/application-7f346e1fe68704291ed6.js.map"
+      ]
+    },
+    "features": {
+      "js": [
+        "/packs-test/js/features-2c47fcd46a496e80d413.js"
+      ],
+      "js.map": [
+        "/packs-test/js/features-2c47fcd46a496e80d413.js.map"
       ]
     },
     "metrics/index": {
       "js": [
-        "/packs-test/js/metrics/index-db609050180ec1b99514.js"
+        "/packs-test/js/metrics/index-97426becb452f865cc2f.js"
       ],
       "js.map": [
-        "/packs-test/js/metrics/index-db609050180ec1b99514.js.map"
+        "/packs-test/js/metrics/index-97426becb452f865cc2f.js.map"
       ]
     },
     "styles": {
       "css": [
-        "/packs-test/css/styles-aa6c92fe.css"
+        "/packs-test/css/styles-3a631d49.css"
       ],
       "js": [
-        "/packs-test/js/styles-558c622f327af44052b0.js"
+        "/packs-test/js/styles-c76cc20c98039b8e8b1a.js"
       ],
       "css.map": [
-        "/packs-test/css/styles-aa6c92fe.css.map"
+        "/packs-test/css/styles-3a631d49.css.map"
       ],
       "js.map": [
-        "/packs-test/js/styles-558c622f327af44052b0.js.map"
+        "/packs-test/js/styles-c76cc20c98039b8e8b1a.js.map"
       ]
     }
   },
-  "metrics/index.js": "/packs-test/js/metrics/index-db609050180ec1b99514.js",
-  "metrics/index.js.map": "/packs-test/js/metrics/index-db609050180ec1b99514.js.map",
-  "styles.css": "/packs-test/css/styles-aa6c92fe.css",
-  "styles.css.map": "/packs-test/css/styles-aa6c92fe.css.map",
-  "styles.js": "/packs-test/js/styles-558c622f327af44052b0.js",
-  "styles.js.map": "/packs-test/js/styles-558c622f327af44052b0.js.map"
+  "features.js": "/packs-test/js/features-2c47fcd46a496e80d413.js",
+  "features.js.map": "/packs-test/js/features-2c47fcd46a496e80d413.js.map",
+  "metrics/index.js": "/packs-test/js/metrics/index-97426becb452f865cc2f.js",
+  "metrics/index.js.map": "/packs-test/js/metrics/index-97426becb452f865cc2f.js.map",
+  "styles.css": "/packs-test/css/styles-3a631d49.css",
+  "styles.css.map": "/packs-test/css/styles-3a631d49.css.map",
+  "styles.js": "/packs-test/js/styles-c76cc20c98039b8e8b1a.js",
+  "styles.js.map": "/packs-test/js/styles-c76cc20c98039b8e8b1a.js.map"
 }

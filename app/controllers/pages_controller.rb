@@ -24,6 +24,18 @@ class PagesController < ApplicationController
     head :ok
   end
 
+  def carbon_footprint_viewer
+    @current_nav_identifier = :carboon_footprint_viewer
+  end
+
+  def extension_features
+    @current_nav_identifier = :extension_features
+  end
+
+  def crowdsourced_features
+    @current_nav_identifier = :crowdsourced_features
+  end
+
   def review_usefulness
     @r = Review.find(params[:id].to_i)
     a = @r.rating

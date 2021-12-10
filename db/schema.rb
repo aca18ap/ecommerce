@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_06_160106) do
+ActiveRecord::Schema.define(version: 2021_12_09_060616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,8 @@ ActiveRecord::Schema.define(version: 2021_12_06_160106) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "vocation", default: "Customer", null: false
     t.string "tier"
+    t.float "longitude"
+    t.float "latitude"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -76,6 +78,13 @@ ActiveRecord::Schema.define(version: 2021_12_06_160106) do
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
+  create_table "shares", force: :cascade do |t|
+    t.integer "count"
+    t.string "social"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -91,7 +100,18 @@ ActiveRecord::Schema.define(version: 2021_12_06_160106) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "role", default: "customer", null: false
     t.boolean "admin"
+    t.string "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer "invitation_limit"
+    t.string "invited_by_type"
+    t.bigint "invited_by_id"
+    t.integer "invitations_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+    t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
+    t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -104,8 +124,8 @@ ActiveRecord::Schema.define(version: 2021_12_06_160106) do
     t.string "session_identifier"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.float "latitude"
     t.float "longitude"
+    t.float "latitude"
   end
 
   add_foreign_key "faq_votes", "faqs"
