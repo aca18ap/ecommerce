@@ -81,6 +81,24 @@ describe 'Metrics management', js: true do
       expect(page).to have_current_path('/users/sign_in')
     end
 
+    context 'If I am an admin' do
+      before { login_as(FactoryBot.create(:customer)) }
+      specify 'I can view metrics' do
+        visit '/metrics'
+        within(:css, '.nav') { expect(page).to have_content 'Metrics' }
+        expect(page).to have_content 'Metrics Summary'
+      end
+    end
+
+    context 'If I am an reporter' do
+      before { login_as(FactoryBot.create(:reporter)) }
+      specify 'I can view metrics' do
+        visit '/metrics'
+        within(:css, '.nav') { expect(page).to have_content 'Metrics' }
+        expect(page).to have_content 'Metrics Summary'
+      end
+    end
+
     context 'If I am not an admin or reporter' do
       before { login_as(FactoryBot.create(:customer)) }
       specify ', I cannot view metrics' do
