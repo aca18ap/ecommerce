@@ -13,5 +13,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+
 class Newsletter < ApplicationRecord
+  validates :email, :presence => true, :uniqueness => true,  format: { with: URI::MailTo::EMAIL_REGEXP }
 end

@@ -1,3 +1,6 @@
+.card.text-center
+  - if flash[:alert]
+    .alert=flash[:alert]
 .modal-dialog
   .modal-content
     = simple_form_for @user, url: admin_user_path do |f|
@@ -6,10 +9,10 @@
         = link_to 'Back', admin_users_path
       .modal-body
         .card-body
-          = f.input :email
+          .email{ 'pattern'=>"(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" }= f.input :email, validate: true, id: 'email', type: 'email'
         .card-body
           = f.select :role, ['admin', 'reporter', 'customer'] 
       .modal-footer
         .pull-left
           
-        = f.button :submit, method: :update , class: 'btn btn-outline-dark'
+        = f.button :submit, method: :update , id:'submit_button' , class: 'btn btn-outline-dark'

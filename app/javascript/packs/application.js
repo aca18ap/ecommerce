@@ -7,5 +7,7 @@ import Rails from "@rails/ujs";
 import "bootstrap";
 import '../scripts/metrics';
 import './features';
+import './sharing';
+import './admin';
 
 Rails.start();

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class NewslettersController < ApplicationController
+  before_action :authenticate_user!
+  before_action :is_admin?
   before_action :set_newsletter, only: %i[show edit update destroy]
 
   # GET /newsletters
@@ -64,5 +66,11 @@ class NewslettersController < ApplicationController
   def newsletter_params
     params.require(:newsletter).permit(:email, :vocation, :tier, :latitude, :longitude)
   end
-    
+
+  def is_admin?
+    if !current_user.admin?
+      redirect_to '/403'
+    end
+  end
+
 end
