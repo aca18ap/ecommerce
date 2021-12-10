@@ -73,8 +73,8 @@ describe 'Managing reviews' do
       fill_in 'review[rank]', with: 2
       click_button 'Update Review'
       visit '/'
-      within(:css, '.table') { expect(page).to have_tag 'tbody:first-child', text: 'MyText' }
-      within(:css, '.table') { expect(page).to have_tag 'tbody:last-child', text: 'MySecondText' }
+      within(:css, '#review-0') { expect(page).to have_content 'MyText' }
+      within(:css, '#review-1') { expect(page).to have_content 'MySecondText' }
     end
 
     specify 'I can delete reviews', js: true do

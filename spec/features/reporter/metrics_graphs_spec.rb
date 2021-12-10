@@ -6,6 +6,7 @@ describe 'Metrics management', js: true do
 
     specify 'The graphs should show an appropriate message' do
       visit '/metrics'
+      expect(page).to have_current_path '/metrics'
       within(:css, '#visits-barchart-plot') { expect(page).to have_content 'There is no data for this metric yet' }
       within(:css, '#visits-barchart-title') { expect(page).to have_content 'Site Visits by Page (Total: 0)' }
       within(:css, '#visits-linechart-plot') { expect(page).to have_content 'There is no data for this metric yet' }

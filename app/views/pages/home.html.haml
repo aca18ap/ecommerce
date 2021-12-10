@@ -102,9 +102,9 @@
     %p
     %table.table
       %tbody
-        - @reviews.each do |review|
+        - @reviews.each_with_index do |review, i|
           %tr{:style => "display: inline-block; width:65%;background: #E1E7E5;"}
-            %td{:style => "display: inline-block"}= "\"#{review.description}\""
+            %td{:style => "display: inline-block", 'id': "review-#{i}"}= "\"#{review.description}\""
           %tr{:height => "90px", :style => "border-color: #f8f9fa"}
             %td= link_to "Rate it useful", review_usefulness_path(id: review.id), class: 'css_class', style: 'font-size:90%; color:#419967; border:none'
 

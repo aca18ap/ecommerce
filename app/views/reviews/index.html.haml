@@ -19,10 +19,10 @@
         %td= truncate review.description, length: 120, separator: /\w+/ 
         %td.text-center{'id': "review-#{i}-rating"}= review.rating
         - if review.hidden
-          %td{:style=>"text-align: center"}= "Yes"
+          %td.text-center= "Yes"
         - else
-          %td{:style=>"text-align: center"}= "No"        
-        %td{:style=>"text-align: center"}= review.rank
+          %td.text-center= "No"
+        %td.text-center= review.rank
         %td= button_to "Show", review, method: :get
         %td= button_to "Edit", edit_review_path(review), method: :get
         %td= button_to "Delete", review, :method => :delete, :data => { :confirm => 'Are you sure?' }
