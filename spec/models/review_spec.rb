@@ -13,5 +13,31 @@
 require 'rails_helper'
 
 RSpec.describe Review, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { described_class.new(description: 'a', hidden: true, rank: 0, rating: 0) }
+
+  describe 'Validations' do
+    it 'is valid with valid attributes' do
+      expect(subject).to be_valid
+    end
+
+    it 'is valid if hidden is not present' do
+      subject.hidden = nil
+      expect(subject).to be_valid
+    end
+
+    it 'is valid if rank is not present' do
+      subject.rank = nil
+      expect(subject).to be_valid
+    end
+
+    it 'is valid if rating is not present' do
+      subject.rating = nil
+      expect(subject).to be_valid
+    end
+
+    it 'is invalid if description is not present' do
+      subject.description = nil 
+      expect(subject).not_to be_valid
+    end
+  end
 end

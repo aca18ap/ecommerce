@@ -37,5 +37,41 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let!(:reporter) { FactoryBot.create(:reporter) }
+  subject { described_class.new(email: 'customer@team04.com', admin: false, role: 'customer', password: 'Password123') }
+
+  describe 'Validates' do
+    it 'is valid with valid attributes' do
+      expect(subject).to be_valid
+    end
+
+    it 'is invalid without an email' do
+      subject.email = nil
+      expect(subject).not_to be_valid
+    end
+
+    it 'is invalid if an email is already being used' do
+      subject.email = 'reporter@team04.com'
+      expect(subject).not_to be_valid
+    end
+
+    it 'is invalid without a password' do
+      subject.password = nil
+      expect(subject).not_to be_valid
+    end
+
+    it 'does not store a plaintext password' do
+      expect(subject.encrypted_password).not_to eq('Password123')
+    end
+
+    it 'is valid if admin is not present' do
+      subject.admin = nil
+      expect(subject).to be_valid
+    end
+
+    it 'is valid if role is not present' do
+      subject.role = nil
+      expect(subject).to be_valid
+    end
+  end
 end

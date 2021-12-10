@@ -13,11 +13,12 @@
 #
 FactoryBot.define do
   factory :faq do
+    id { 1 }
     question { "MyQuestion" }
     answer { "MyAnswer" }
-    clicks { 1 }
+    clicks { 0 }
     hidden { false }
-    usefulness { 1 }
+    usefulness { 0 }
   end
   trait :with_upvote do
     after(:create) do |f|

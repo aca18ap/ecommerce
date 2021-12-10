@@ -53,6 +53,7 @@ Rails.application.routes.draw do
 
   get :business_info, to: 'pages#business_info'
   get :welcome, to: 'pages#welcome'
+  get :thanks, to: 'pages#thanks'
 
   root to: 'pages#home'
 
