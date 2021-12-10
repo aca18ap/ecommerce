@@ -1,13 +1,23 @@
 {
-  "application.js": "/packs-test/js/application-7f346e1fe68704291ed6.js",
-  "application.js.map": "/packs-test/js/application-7f346e1fe68704291ed6.js.map",
+  "admin.js": "/packs-test/js/admin-15723185a6d0d945405b.js",
+  "admin.js.map": "/packs-test/js/admin-15723185a6d0d945405b.js.map",
+  "application.js": "/packs-test/js/application-07082621e488202a4d8b.js",
+  "application.js.map": "/packs-test/js/application-07082621e488202a4d8b.js.map",
   "entrypoints": {
-    "application": {
+    "admin": {
       "js": [
-        "/packs-test/js/application-7f346e1fe68704291ed6.js"
+        "/packs-test/js/admin-15723185a6d0d945405b.js"
       ],
       "js.map": [
-        "/packs-test/js/application-7f346e1fe68704291ed6.js.map"
+        "/packs-test/js/admin-15723185a6d0d945405b.js.map"
+      ]
+    },
+    "application": {
+      "js": [
+        "/packs-test/js/application-07082621e488202a4d8b.js"
+      ],
+      "js.map": [
+        "/packs-test/js/application-07082621e488202a4d8b.js.map"
       ]
     },
     "features": {
@@ -20,10 +30,18 @@
     },
     "metrics/index": {
       "js": [
-        "/packs-test/js/metrics/index-97426becb452f865cc2f.js"
+        "/packs-test/js/metrics/index-b841b206d0e23da51805.js"
       ],
       "js.map": [
-        "/packs-test/js/metrics/index-97426becb452f865cc2f.js.map"
+        "/packs-test/js/metrics/index-b841b206d0e23da51805.js.map"
+      ]
+    },
+    "sharing": {
+      "js": [
+        "/packs-test/js/sharing-d6798d5dfd33022702b4.js"
+      ],
+      "js.map": [
+        "/packs-test/js/sharing-d6798d5dfd33022702b4.js.map"
       ]
     },
     "styles": {
@@ -43,8 +61,10 @@
   },
   "features.js": "/packs-test/js/features-2c47fcd46a496e80d413.js",
   "features.js.map": "/packs-test/js/features-2c47fcd46a496e80d413.js.map",
-  "metrics/index.js": "/packs-test/js/metrics/index-97426becb452f865cc2f.js",
-  "metrics/index.js.map": "/packs-test/js/metrics/index-97426becb452f865cc2f.js.map",
+  "metrics/index.js": "/packs-test/js/metrics/index-b841b206d0e23da51805.js",
+  "metrics/index.js.map": "/packs-test/js/metrics/index-b841b206d0e23da51805.js.map",
+  "sharing.js": "/packs-test/js/sharing-d6798d5dfd33022702b4.js",
+  "sharing.js.map": "/packs-test/js/sharing-d6798d5dfd33022702b4.js.map",
   "styles.css": "/packs-test/css/styles-3a631d49.css",
   "styles.css.map": "/packs-test/css/styles-3a631d49.css.map",
   "styles.js": "/packs-test/js/styles-c76cc20c98039b8e8b1a.js",
