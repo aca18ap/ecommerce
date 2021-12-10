@@ -54,21 +54,21 @@
 
   #registrations-geo-div.justify-content-center.bg-light-green.col-xl-6
     %h2#registrations-geo-title.text-center Site Registrations By UK County
-    .container.p-5.overflow-scroll
+    .container
       %table#registrations-geo-table.table.m-5
         %thead
           %tr
             %th County
             %th Registrations
-        %tbody
+        %tbody#county-registrations-list.d-block.overflow-scroll{'height': '600px'}
 
 .row.vw-75.m-3
   #feature-interest-div.justify-content-center.bg-light-green.col-xl-6
-    %h2#feature-interest-barchart-title.text-center Clicks/Visits (REMOVE ONE) By Feature (Total: #{})
+    %h2#feature-interest-barchart-title.text-center Clicks By Feature (Total: #{@features.size})
     %svg#feature-interest-barchart-plot.d-block.m-auto
 
   #feature-shares-div.justify-content-center.bg-light-green.col-xl-6
-    %h2#feature-shares-barchart-title.text-center Shares By Feature (Total: #{})
+    %h2#feature-shares-barchart-title.text-center Shares By Feature (Total: #{@features.size})
     %svg#feature-shares-barchart-plot.d-block.m-auto
 
 .row.vw-75.m-3
@@ -94,29 +94,5 @@
           %tbody#flow-list.d-block.overflow-scroll{'height': '300px'}
 
     %svg#flow-report-plot.d-block.m-auto.col-xl-12
-
-
-
-.container-fluid.pad-edge
-  .pt-5
-    %table.table
-      %thead
-        %tr
-          %th Page visited
-          %th Date of visit
-          %th Longitude
-          %th Latitude
-          %th Session ID
-
-
-      %tbody
-
-      - @visits.each do |visit|
-        %tr
-          %td= visit.path
-          %td= visit.from
-          %td= visit.longitude
-          %td= visit.latitude
-          %td= visit.session_identifier
 
 

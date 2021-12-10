@@ -16,7 +16,7 @@ describe 'Metrics management', js: true do
       within(:css, '#registrations-by-type-barchart-plot') { expect(page).to have_content 'There is no data for this metric yet' }
 
       within(:css, '#feature-interest-barchart-plot') { expect(page).to have_content 'There is no data for this metric yet' }
-      within(:css, '#feature-interest-barchart-title') { expect(page).to have_content 'Clicks/Visits (REMOVE ONE) By Feature (Total: 0)' }
+      within(:css, '#feature-interest-barchart-title') { expect(page).to have_content 'Clicks By Feature (Total: 0)' }
       within(:css, '#feature-shares-barchart-plot') { expect(page).to have_content 'There is no data for this metric yet' }
       within(:css, '#feature-shares-barchart-title') { expect(page).to have_content 'Shares By Feature (Total: 0)' }
 

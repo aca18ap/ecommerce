@@ -4,8 +4,8 @@ class MetricsController < ApplicationController
     @current_nav_identifier = :metrics
     @visits = Visit.all
     @registrations = Newsletter.all
-    #@features = Features.all
-
+    @features = [] #Features.all
+    
     # Passes metrics calculated in service class to metrics/index.js using gon gem
     metrics_calculator = CalculateMetrics.new(@visits, @registrations)
     gon.visits = @visits
@@ -36,17 +36,5 @@ class MetricsController < ApplicationController
                  session_identifier: session.id)
 
     head :ok
-  end
-end
-
-def temp
-  if params.key?(:latitude) && params.key?(:longitude)
-    latitude = params['latitude']
-    longitude = params['longitude']
-  else
-    # IP = '90.204.36.252' if localhost to test on dev server
-    geocode = Geocoder.search(request.remote_ip == '127.0.0.1' ? '90.204.36.252' : request.remote_ip).first
-    latitude = geocode.latitude
-    longitude = geocode.longitude
   end
 end

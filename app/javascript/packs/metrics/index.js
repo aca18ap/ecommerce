@@ -158,6 +158,18 @@ document.addEventListener('DOMContentLoaded', () => {
         .append('title')
         .text(d => `${d.properties.NAME_2}\nRegistrations: ${!regsPlotData[d.properties.NAME_2] ? 0 : regsPlotData[d.properties.NAME_2]}`);
 
+    let countyRegistration = document.getElementById('county-registrations-list');
+    Object.keys(regsPlotData).forEach( county => {
+        let row = document.createElement('tr');
+        let countyCol = document.createElement('td');
+        countyCol.innerText = county;
+        row.appendChild(countyCol);
+        let regsCol = document.createElement('td');
+        regsCol.innerText = regsPlotData[county];
+        row.appendChild(regsCol);
+        countyRegistration.append(row);
+    });
+
     if (false) {
 
     } else {
