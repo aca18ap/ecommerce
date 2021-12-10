@@ -13,10 +13,20 @@
 #
 FactoryBot.define do
   factory :faq do
-    question { "MyText" }
-    answer { "MyText" }
+    question { "MyQuestion" }
+    answer { "MyAnswer" }
     clicks { 1 }
     hidden { false }
     usefulness { 1 }
+  end
+  trait :with_upvote do
+    after(:create) do |f|
+      create(:faq_vote, faq_id: f.id)
+    end
+  end
+  trait :with_downvote do
+    after(:create) do |f|
+      create(:faq_vote, faq_id: f.id, value: -1)
+    end
   end
 end
