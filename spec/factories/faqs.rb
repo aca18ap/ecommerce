@@ -13,10 +13,11 @@
 #
 FactoryBot.define do
   factory :faq do
+    id  { 1 }
     question { "MyText" }
     answer { "MyText" }
-    clicks { 1 }
+    clicks { 0 }
     hidden { false }
-    usefulness { 1 }
+    usefulness { 0 }
   end
 end

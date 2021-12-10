@@ -20,6 +20,10 @@ class PagesController < ApplicationController
     @current_nav_identifier = :welcome
   end
 
+  def thanks
+    @current_nav_identifier = :thanks
+  end
+
   def record_metrics
     head :ok
   end

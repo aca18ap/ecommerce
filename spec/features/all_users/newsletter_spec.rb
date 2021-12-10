@@ -7,36 +7,40 @@ describe 'Newsletters' do
       visit '/'
       click_link 'as a business'
       click_link 'Sign up'
+      expect(page).to have_current_path(new_newsletter_path(type: 'Business'))
       fill_in 'newsletter[email]', with: 'test@example.com'
       click_button 'Register Interest'
-      expect(page).to have_content "Vocation: Business"
+      expect(page).to have_content "Thanks for signing up"
     end
 
     specify 'I can register my interest as a free customer' do
       visit '/'
       click_link 'as a customer'
       click_link 'free'
+      expect(page).to have_current_path(new_newsletter_path(tier: 'Free', type: 'Customer'))
       fill_in 'newsletter[email]', with: 'test@example.com'
       click_button 'Register Interest'
-      expect(page).to have_content "Vocation: Customer"
+      expect(page).to have_content "Thanks for signing up"
     end
 
     specify 'I can register my interest as a solo customer' do
       visit '/'
       click_link 'as a customer'
       click_link 'solo'
+      expect(page).to have_current_path(new_newsletter_path(tier: 'Solo', type: 'Customer'))
       fill_in 'newsletter[email]', with: 'test@example.com'
       click_button 'Register Interest'
-      expect(page).to have_content "Vocation: Customer"
+      expect(page).to have_content "Thanks for signing up"
     end
 
     specify 'I can register my interest as a family customer' do
       visit '/'
       click_link 'as a customer'
       click_link 'family'
+      expect(page).to have_current_path(new_newsletter_path(tier: 'Family', type: 'Customer'))
       fill_in 'newsletter[email]', with: 'test@example.com'
       click_button 'Register Interest'
-      expect(page).to have_content "Vocation: Customer"
+      expect(page).to have_content "Thanks for signing up"
     end
   end
 
