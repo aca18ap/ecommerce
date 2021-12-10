@@ -37,7 +37,7 @@ class CalculateMetrics
     return if @visits.nil? || @visits.empty?
 
     @visits.group_by { |visit| visit.session_identifier.itself }
-           .map { |k, v| { 'id' => k, 'flow' => v } }
+           .map { |k, v| { 'id' => k, 'flow' => v, 'registered' => flow_contains_registration(v) } }
   end
 
   # Calculates number of visits at each hour from the hour of the first visit
@@ -94,5 +94,13 @@ class CalculateMetrics
     end
 
     time_registrations_counts
+  end
+
+  def flow_contains_registration(flow)
+    flow.each do |f|
+      return true if f.path.match(/.*\/newsletters\/[0-9]+/)
+    end
+
+    false
   end
 end

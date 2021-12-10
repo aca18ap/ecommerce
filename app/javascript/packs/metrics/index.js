@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let row = document.createElement('tr');
             let column1 = document.createElement('td');
             let column2 = document.createElement('td');
-            // NEED TO WORK OUT A WAY TO GET WHETHER A USER REGISTERED
+            column1.innerText = s.registered;
             row.append(column1);
             column2.append(b);
             row.append(column2);
