@@ -6,9 +6,22 @@ function getTwitterLink(text){
     return tmp
 }
 
-function recordShare(social){
+$/* (function(){
+    $('.share').each((i)=>{
+        $(this).on(
+            'click',
+            function(){
+                sendData(this.id)
+            }
+        )
+    })
+})
+
+function sendData(social){
+    console.log(social)
     let metrics = new FormData();
+
     metrics.append('social', social)
     navigator.sendBeacon('/metrics', metrics);
 
-}
+} */
