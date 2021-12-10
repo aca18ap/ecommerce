@@ -184,7 +184,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let sessionsList = document.getElementById('sessions-list');
         for (let s of gon.sessionFlows) {
             let b = document.createElement('button');
-            b.innerText = s.id;
+            b.innerText = 'View Flow';
+            b.classList += 'btn btn-success';
             b.onclick = () => {
                 let flowList = document.getElementById('flow-list');
                 flowList.innerHTML = '';
