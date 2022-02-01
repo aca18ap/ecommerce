@@ -46,7 +46,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'is invalid without an email' do
-      subject.email = nil
+      subject.email = ''
       expect(subject).not_to be_valid
     end
 
@@ -57,6 +57,31 @@ RSpec.describe User, type: :model do
 
     it 'is invalid without a password' do
       subject.password = nil
+      expect(subject).not_to be_valid
+    end
+
+    it 'is invalid if the password is less than 8 characters' do
+      subject.password = 'Small1'
+      expect(subject).not_to be_valid
+    end
+
+    it 'is invalid if the password is longer than 128 characters' do
+      # Generate a 129 character string that meets the other password requirements
+      subject.password = "1A#{'a' * 127}"
+      expect(subject).not_to be_valid
+    end
+
+    it 'is invalid if the password does not contain at least one capital letter, one lower-case letter and one number' do
+      # No numbers
+      subject.password = 'NoNumbers'
+      expect(subject).not_to be_valid
+
+      # No upper-case
+      subject.password = 'nouppercase1'
+      expect(subject).not_to be_valid
+
+      # No lower-case
+      subject.password = 'NOLOWERCASE1'
       expect(subject).not_to be_valid
     end
 

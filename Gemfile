@@ -43,6 +43,8 @@ gem 'delayed_job_active_record'
 gem 'whenever'
 
 gem 'jquery-rails'
+gem 'devise-security'
+gem 'rails_email_validator'
 
 group :development, :test do
   gem 'byebug'
