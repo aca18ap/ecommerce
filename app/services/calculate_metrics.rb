@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # CalculateMetrics calculates the points to represent on the
 # D3 graphs represented on metrics/index
 class CalculateMetrics
@@ -12,7 +14,7 @@ class CalculateMetrics
     return if @visits.nil? || @visits.empty?
 
     @visits.group_by { |visit| visit.path.itself }
-           .map { |k, v| { 'page' => k, 'visits' => v.length } }
+           .map { |path, visits| { 'page' => path, 'visits' => visits.length } }
   end
 
   # Calculates the number of registrations for each vocation
@@ -20,7 +22,7 @@ class CalculateMetrics
     return if @registrations.nil? || @registrations.empty?
 
     @registrations.group_by { |registration| registration.vocation.itself }
-                  .map { |k, v| { 'vocation' => k, 'registrations' => v.length } }
+                  .map { |vocation, registrations| { 'vocation' => vocation, 'registrations' => registrations.length } }
   end
 
   # Calculates the number of customer registrations by tier
@@ -29,7 +31,7 @@ class CalculateMetrics
 
     @registrations.group_by { |registration| registration.vocation.itself }['Customer']
                   .group_by { |registration| registration.tier.itself }
-                  .map { |k, v| { 'tier' => k, 'registrations' => v.length } }
+                  .map { |tier, registrations| { 'tier' => tier, 'registrations' => registrations.length } }
   end
 
   # Calculates all pages visited using a specific session cookie in order of time to build a site path
@@ -37,7 +39,9 @@ class CalculateMetrics
     return if @visits.nil? || @visits.empty?
 
     @visits.group_by { |visit| visit.session_identifier.itself }
-           .map { |k, v| { 'id' => k, 'flow' => v, 'registered' => flow_contains_registration(v) } }
+           .map do |session_id, visits|
+      { 'id' => session_id, 'flow' => visits, 'registered' => flow_contains_registration?(visits) }
+    end
   end
 
   # Calculates number of visits at each hour from the hour of the first visit
@@ -58,31 +62,32 @@ class CalculateMetrics
       time_visit_counts[DateTime.parse(visit.from.to_s).change({ min: 0, sec: 0 }).to_i] += 1
     end
 
-    time_visit_counts.map { |k, v| { 'time' => k, 'visits' => v } }
+    time_visit_counts.map { |time, visits| { 'time' => time, 'visits' => visits } }
   end
 
-  # Calculates number of registrations at each hour, for each vocation (and total) from the hour of the first registration
+  # Calculates number of registrations at each hour, for each vocation and total from the hour of the first registration
   def time_registrations
     return if @registrations.nil? || @registrations.empty?
 
     # Need to create a dict of all hours between start and now to display 0 values correctly
     earliest_hour = DateTime.parse(@registrations[0].created_at.to_s).change({ min: 0, sec: 0 })
     time_regs = calculate_time_counts(@registrations, earliest_hour)
-                  .map { |time, regs| { 'vocation' => 'Total', 'time' => time, 'registrations' => regs } }
+                .map { |time, regs| { 'vocation' => 'Total', 'time' => time, 'registrations' => regs } }
 
-    @registrations.group_by { |registration| registration.vocation.itself }.each do |k, v|
-      time_regs.concat(calculate_time_counts(v, earliest_hour)
-                         .map { |time, regs| { 'vocation' => k, 'time' => time, 'registrations' => regs } })
+    @registrations.group_by { |registration| registration.vocation.itself }.each do |vocation, registrations|
+      time_regs.concat(calculate_time_counts(registrations, earliest_hour)
+                         .map { |time, regs| { 'vocation' => vocation, 'time' => time, 'registrations' => regs } })
     end
 
     time_regs
   end
 
+  # Calculates the number of times each feature was shared
   def feature_shares
     return if @shares.nil? || @shares.empty?
 
     @shares.group_by { |share| share.feature.itself }
-           .map { |k, v| { 'feature' => k, 'shares' => v.length } }
+           .map { |feature, shares| { 'feature' => feature, 'shares' => shares.length } }
   end
 
   private
@@ -104,14 +109,15 @@ class CalculateMetrics
   end
 
   # Identifies whether a session led to a registration by checking for /newsletters/# in path
-  def flow_contains_registration(flow)
+  def flow_contains_registration?(flow)
     flow.each do |f|
-      return true if f.path.match(/.*\/newsletters\/[0-9]+/)
+      return true if f.path.match(%r{.*/newsletters/[0-9]+})
     end
 
     false
   end
 
+  # TODO: MOVE THIS FROM THIS SERVICE CLASS - DOESN'T FIT HERE
   def record_share_feature(social)
     @share = Share.where(social: social)
     @share.count += 1
