@@ -11,12 +11,12 @@
         %td= u.email
         %td{'id': "user-#{i}-role"}= u.role
         - unless u.unlock_token.nil?
-          %td= link_to 'Unlock', unlock_user_path(u), method: :patch, class: 'btn btn-xs'
+          %td= link_to 'Unlock', unlock_user_path(u), method: :patch, class: 'btn btn-xs', data: { confirm: 'Are you sure you want to unlock this account?'}
         - else
           %td
         %td= link_to 'Edit user', edit_admin_user_path(u), class: 'ajax-modal btn btn-xs', id: "edit-user-#{i}"
 
         - if u != current_user
-          %td= link_to 'Delete', { action: :destroy, id: u.id }, method: :delete, class: 'btn btn-default btn-xs', data: { confirm: 'Are you sure?'}
+          %td= link_to 'Delete', { action: :destroy, id: u.id }, method: :delete, class: 'btn btn-default btn-xs', data: { confirm: 'Are you sure you want to delete this account?'}
 
 

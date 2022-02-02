@@ -103,19 +103,29 @@ describe 'Managing accounts' do
       end
     end
 
-    context 'If a users account is locked' do
+    context 'If a user\'s account is locked' do
       let!(:locked) { FactoryBot.create :locked }
 
-      specify 'I can manually unlock it' do
+      specify 'I can manually unlock it', js: true do
         visit '/admin/users'
-        click_link 'Unlock'
-
+        accept_confirm do
+          within(:css, '#user-1') { click_link 'Unlock' }
+        end
         within(:css, '#user-1') { expect(page).not_to have_content 'Unlock' }
 
         locked.reload
         expect(locked.unlock_token).to eq(nil)
         expect(locked.failed_attempts).to eq(0)
         expect(locked.locked_at).to eq(nil)
+      end
+    end
+
+    context 'If a user\'s account is not locked' do
+      let!(:customer) { FactoryBot.create :customer }
+
+      specify 'I do not see the option to unlock it' do
+        visit '/admin/users'
+        within(:css, '#user-1') { expect(page).not_to have_content 'Unlock' }
       end
     end
   end
