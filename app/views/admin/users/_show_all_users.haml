@@ -1,18 +1,22 @@
-
 %table.table
-    %thead
-        %tr
-            %th Email
-            %th Role
+  %thead
+    %tr
+      %th Email
+      %th Role
+      %th Locked
 
-    %tbody#show_all_users
-        - @users.each_with_index do |u, i|
-            %tr{'id': "user-#{i}"}
-                %td= u.email
-                %td{'id': "user-#{i}-role"}= u.role
-                %td= link_to 'Edit user', edit_admin_user_path(u), class: 'ajax-modal', class: 'btn btn-xs', id: "edit-user-#{i}"
+  %tbody#show_all_users
+    - @users.each_with_index do |u, i|
+      %tr{'id': "user-#{i}"}
+        %td= u.email
+        %td{'id': "user-#{i}-role"}= u.role
+        - unless u.unlock_token.nil?
+          %td True
+        - else
+          %td
+        %td= link_to 'Edit user', edit_admin_user_path(u), class: 'ajax-modal', class: 'btn btn-xs', id: "edit-user-#{i}"
 
-                - if u != current_user
-                    %td= link_to 'Delete', { action: :destroy, id: u.id }, method: :delete, class: 'btn btn-default btn-xs', data: { confirm: 'Are you sure?'}
+        - if u != current_user
+          %td= link_to 'Delete', { action: :destroy, id: u.id }, method: :delete, class: 'btn btn-default btn-xs', data: { confirm: 'Are you sure?'}
 
 
