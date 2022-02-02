@@ -28,6 +28,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def unlock
+    @user = User.find_by_id(params[:id])
+    @user.unlock_access!
+    redirect_back fallback_location: '/'
+  end
+
   private
 
   def find_user

@@ -62,5 +62,13 @@ FactoryBot.define do
       email { 'business@team04.com' }
       role { 'customer' }
     end
+
+    factory :locked do
+      email { 'locked@team04.com' }
+      role { 'customer' }
+      locked_at { '2021-11-27 16:39:22' }
+      unlock_token { 'UnlockToken' }
+      failed_attempts { 5 }
+    end
   end
 end

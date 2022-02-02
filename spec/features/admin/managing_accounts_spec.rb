@@ -63,7 +63,7 @@ describe 'Managing accounts' do
         accept_confirm do
           within(:css, '#user-1') { click_link 'Delete' }
         end
-        within(:css, '.table') { expect(page).to_not have_content 'customer@team04.com' }
+        within(:css, '.table') { expect(page).to_not have_content customer.email }
       end
 
       specify 'I can edit a user\'s role' do
@@ -100,6 +100,22 @@ describe 'Managing accounts' do
         fill_in 'user[email]', with: 'customer@team04.com'
         click_button 'Send an invitation'
         expect(page).to have_content 'Email has already been taken'
+      end
+    end
+
+    context 'If a users account is locked' do
+      let!(:locked) { FactoryBot.create :locked }
+
+      specify 'I can manually unlock it' do
+        visit '/admin/users'
+        click_link 'Unlock'
+
+        within(:css, '#user-1') { expect(page).not_to have_content 'Unlock' }
+
+        locked.reload
+        expect(locked.unlock_token).to eq(nil)
+        expect(locked.failed_attempts).to eq(0)
+        expect(locked.locked_at).to eq(nil)
       end
     end
   end
