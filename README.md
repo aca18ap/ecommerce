@@ -53,11 +53,12 @@ TODO: Fail if RSpec / Jest tests fail or if Brakeman finds a "medium" issue.
 
 ### Style Guide
 The standard [Ruby Style Guide](https://rubystyle.guide/) is employed and enforced using RuboCop. Most common standards are:
-1) Two-space indentations
-2) Maximum line length of 80 
-3) One expression per line
-4) No trailing whitespaces
-5) Indentation alignment for multiline statements (e.g. as hashmap declarations) that overrun 80 characters
+1) Symbols, Methods and Variables using `snake_case` format
+2) Two-space indentations
+3) Maximum line length of 80 
+4) One expression per line
+5) No trailing whitespaces
+6) Indentation alignment for multiline statements (e.g. as hashmap declarations) that overrun 80 characters
 
 ### Deployment with the Epi-Deploy Gem
 More detailed instructions can be found [here](https://info.shefcompsci.org.uk/genesys/demos/team04.html)

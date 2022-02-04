@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const pageVisitedFrom = Date.now();
   const CSRFToken = document.querySelector("meta[name='csrf-token']").getAttribute('content');
-  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   var latitude; // Declare, but undefined so needs handling
   var longitude; // Declare, but undefined so needs handling
 
@@ -39,8 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (typeof latitude !== 'undefined') {
         metrics.append('latitude', latitude)
         metrics.append('longitude', longitude)
-      } else {
-        metrics.append('location', timezone)
       }
 
       // navigator.sendBeacon is the easist way to send a request to the server when a page is unloading.

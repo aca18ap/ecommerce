@@ -23,8 +23,8 @@ class MetricsController < ApplicationController
   end
 
   def create
-    from = Time.at(params["pageVisitedFrom"].to_i / 1000).to_datetime
-    to = Time.at(params["pageVisitedTo"].to_i / 1000).to_datetime
+    from = Time.at(params['pageVisitedFrom'].to_i / 1000).to_datetime
+    to = Time.at(params['pageVisitedTo'].to_i / 1000).to_datetime
 
     # Call to service class to find the longitude and latitude for a visit
     location = RetrieveLocation.new(params, request.remote_ip).get_location
