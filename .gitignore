@@ -16,3 +16,4 @@ coverage/.resultset.json
 coverage/index.html
 public/packs-test/manifest.json
 config/database.yml
+.idea/*
