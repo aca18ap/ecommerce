@@ -7,7 +7,7 @@ RSpec.describe '/admin/users', type: :request do
 
   describe 'GET /admin/users' do
     it 'Shows a list of all users in the system, their roles and some actions to perform' do
-      100.times do |idx|
+      10.times do |idx|
         User.create(email: "user#{idx}@team04.com",
                     password: 'Password123',
                     password_confirmation: 'Password123',
@@ -17,8 +17,8 @@ RSpec.describe '/admin/users', type: :request do
       get admin_users_path
       expect(response).to be_successful
 
-      100.times do |idx|
-        expect(response.body).to include("user#{idx}@team04.com")
+      10.times do |idx|
+        expect(response.body).to include "user#{idx}@team04.com"
       end
     end
   end

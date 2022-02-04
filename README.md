@@ -35,7 +35,7 @@ Additionally, we partner with environmentally sustainable brands to suggest alte
 Clone the project, then:
 1) `rvm install <ruby-version>` (see `.ruby-version`)
 2) `gem install bundler`
-3) `cp config/database_sample.yml config/database.yml` and change credentials as appropriate.
+3) `cp config/database_sample-pg.yml config/database.yml` and change credentials as appropriate.
 4) `rails db:create db:migrate`
 5) `rails db:seed`
 6) `rails s`

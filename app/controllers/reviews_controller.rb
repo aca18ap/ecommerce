@@ -11,12 +11,10 @@ class ReviewsController < ApplicationController
   end
 
   # GET /reviews/1
-  def show
-  end
+  def show; end
 
   # GET /created/
-  def created
-  end
+  def created; end
 
   # GET /reviews/new
   def new
@@ -45,14 +43,14 @@ class ReviewsController < ApplicationController
 
   # PATCH/PUT /reviews/1
   def update
-    if review_params[:hidden].to_i == 0 && review_params[:rank].to_i==0
+    if review_params[:hidden].to_i.zero? && review_params[:rank].to_i.zero?
       @error_msg = 2
       render :edit
-    elsif review_params[:hidden].to_i != 0 && review_params[:rank].to_i>0
-        @error_msg = 1
-        render :edit
+    elsif review_params[:hidden].to_i != 0 && review_params[:rank].to_i.positive?
+      @error_msg = 1
+      render :edit
     elsif @review.update(review_params)
-      redirect_to @review, notice: "Review was successfully updated."
+      redirect_to @review, notice: 'Review was successfully updated.'
     else
       render :edit
     end
@@ -65,13 +63,14 @@ class ReviewsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_review
-      @review = Review.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def review_params
-      params.require(:review).permit(:description, :clicks, :rating, :hidden, :rank)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_review
+    @review = Review.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def review_params
+    params.require(:review).permit(:description, :clicks, :rating, :hidden, :rank)
+  end
 end
