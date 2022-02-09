@@ -32,8 +32,8 @@ class MetricsController < ApplicationController
     # Create instance of visit object
     Visit.create(from: from,
                  to: to,
-                 longitude: location['longitude'],
-                 latitude: location['latitude'],
+                 longitude: location[:longitude],
+                 latitude: location[:latitude],
                  path: params['path'],
                  csrf_token: params['csrf_token'],
                  session_identifier: session.id)

@@ -12,12 +12,12 @@ class RetrieveLocation
   # Gets location. Defaults to params and uses IP if the params do not contain
   # latitude and longitude values
   def get_location
-    if !(@params.nil? && @params.key?(:latitude) && @params.key?(:longitude))
-      latitude = @params['latitude']
-      longitude = @params['longitude']
+    if !@params.nil? && @params.include?(:latitude) && @params.include?(:longitude)
+      latitude = @params[:latitude]
+      longitude = @params[:longitude]
     else
       # IP = '90.204.36.252' if localhost to test on dev server
-      geocode = Geocoder.search(@ip == '127.0.0.1' ? '90.204.36.252' : @ip).first
+      geocode = Geocoder.search(@ip == '127.0.0.1' ? '1.1.1.1' : @ip).first
 
       begin
         latitude = geocode.latitude
@@ -28,6 +28,6 @@ class RetrieveLocation
       end
     end
 
-    { 'longitude' => longitude, 'latitude' => latitude }
+    { longitude: longitude, latitude: latitude }
   end
 end
