@@ -44,7 +44,7 @@ class User < ApplicationRecord
 
   ROLES = [:customer, :reporter, :admin]
   after_initialize :set_default_role, if: :new_record?
-  devise :invitable, :database_authenticatable, :registerable,
+  devise :invitable, :database_authenticatable, :registerable, :password_archivable,
          :recoverable, :rememberable, :secure_validatable, :lockable, invite_for: 2.weeks
 
 

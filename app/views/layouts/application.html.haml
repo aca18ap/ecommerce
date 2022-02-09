@@ -57,6 +57,7 @@
                   = link_to 'Profile', users_show_path, :class => 'dropdown-link'
                   -# %a.dropdown-item{:href => users_show_path} Profile
                 %li
+                  = link_to 'Account Settings', users_edit_path, :class => 'dropdown-link'
                   %hr.dropdown-divider
                 %li
                   = link_to 'Sign Out', destroy_user_session_path, method: :delete, :class => "dropdown-link"

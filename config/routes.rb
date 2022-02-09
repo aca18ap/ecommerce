@@ -19,7 +19,6 @@ Rails.application.routes.draw do
   match '/404', to: 'errors#error_404', via: :all
   match '/422', to: 'errors#error_422', via: :all
   match '/500', to: 'errors#error_500', via: :all
-  get 'users/show'
 
   namespace :admin do
     resources :users do
@@ -28,7 +27,6 @@ Rails.application.routes.draw do
   end
 
   devise_for :users
-
   devise_scope :user do
     delete '/users/sign_out' => 'devise/sessions#destroy'
   end
@@ -36,6 +34,9 @@ Rails.application.routes.draw do
   resources :users do
     patch :unlock, on: :member
   end
+
+  get 'users/show'
+  get 'users/edit'
 
   resources :newsletters
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'Logging in' do
@@ -23,7 +25,7 @@ describe 'Logging in' do
       expect(page).not_to have_current_path('/users/show')
     end
 
-    specify '5 times, I will be warned that I have one failed password check remaining' do
+    specify '4 times, I will be warned that I have one failed password check remaining' do
       visit '/users/sign_in'
       4.times do
         fill_in 'user[email]', with: customer.email
