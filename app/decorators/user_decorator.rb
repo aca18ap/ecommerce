@@ -10,4 +10,14 @@ class UserDecorator < Draper::Decorator
   #     end
   #   end
 
+  def unlock_button?
+    if unlock_token.nil?
+      ''
+    else
+      h.link_to 'Unlock', h.unlock_user_path(id),
+                method: :patch, class: 'btn btn-xs',
+                data: { confirm: 'Are you sure you want to unlock this account?' }
+    end
+  end
+
 end
