@@ -34,13 +34,11 @@ Additionally, we partner with environmentally sustainable brands to suggest alte
 ### Getting Started
 Clone the project, then:
 1) `rvm install <ruby-version>` (see `.ruby-version`)
-2) `gem install bundler`
-3) `cp config/database_sample-pg.yml config/database.yml` and change credentials as appropriate.
-4) `rails db:create db:migrate`
-5) `rails db:seed`
-6) `rails s`
-7) `bin/webpack-dev-server` for live reloading.
-8) Visit `127.0.0.1:3000` to view the site
+2) `bin/setup`
+3) `bin/start`
+4) `rails s`
+5) `bin/webpack-dev-server` for live reloading.
+6) Visit `127.0.0.1:3000` to view the site
 
 ### Testing
 * Run specs with `rspec`
