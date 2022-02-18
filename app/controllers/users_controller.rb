@@ -1,13 +1,9 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
 
- 
-
   def create
     @user = User.create(user_params)
-    if @user.save
-        redirect_to :back
-    end
+    redirect_to :back if @user.save
   end
 
   def show
@@ -18,34 +14,34 @@ class UsersController < ApplicationController
     end
   end
 
-
   def delete
     @user = User.find_by_id(params[:id])
     if @user
+      @user.delete
       if current_user == @user
-        @user.delete
         redirect_to root_path
       else
-        @user.delete
         redirect_to(request.referer)
       end
     else
       redirect_to(request.referer)
     end
   end
-  
+
+  def unlock
+    @user = User.find_by_id(params[:id])
+    @user.unlock_access!
+    redirect_back fallback_location: '/'
+  end
 
   private
 
-    def find_user
-      @user = find_by_id(params[:id])
-    end
+  def find_user
+    @user = find_by_id(params[:id])
+  end
 
-
-    def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation)
-    end
-
-    
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation)
+  end
 
 end

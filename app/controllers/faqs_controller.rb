@@ -19,21 +19,19 @@ class FaqsController < ApplicationController
   end
 
   # GET /faqs/1/edit
-  def edit
-  end
+  def edit; end
 
   # GET /faqs/1/answer
-  def answer
-  end
+  def answer; end
 
-  #POST /faqs/1/like
+  # POST /faqs/1/like
   def like
     @faq_vote = FaqVote.find_or_create_by(ipAddress: request.remote_ip.to_s, faq_id: @faq.id)
-    if @faq_vote.value == 1
-      @faq_vote.value = 0
-    else
-      @faq_vote.value = 1
-    end
+    @faq_vote.value = if @faq_vote.value == 1
+                        0
+                      else
+                        1
+                      end
     if @faq_vote.save
       redirect_to faqs_url, notice: 'Thank you for your feedback!'
     else
@@ -41,14 +39,14 @@ class FaqsController < ApplicationController
     end
   end
 
-  #POST /faqs/1/dislike
+  # POST /faqs/1/dislike
   def dislike
     @faq_vote = FaqVote.find_or_create_by(ipAddress: request.remote_ip.to_s, faq_id: @faq.id)
-    if @faq_vote.value == -1
-      @faq_vote.value = 0
-    else
-      @faq_vote.value = -1
-    end
+    @faq_vote.value = if @faq_vote.value == -1
+                        0
+                      else
+                        -1
+                      end
     if @faq_vote.save
       redirect_to faqs_url, notice: 'Thank you for your feedback!'
     else
@@ -83,13 +81,14 @@ class FaqsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_faq
-      @faq = Faq.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def faq_params
-      params.require(:faq).permit(:question, :answer, :clicks, :hidden, :usefulness)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_faq
+    @faq = Faq.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def faq_params
+    params.require(:faq).permit(:question, :answer, :clicks, :hidden, :usefulness)
+  end
 end

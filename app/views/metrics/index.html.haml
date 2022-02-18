@@ -23,7 +23,7 @@
     %svg#visits-geo-plot.d-block.m-auto{width: "500px", height: "800px"}
 
   #registrations-geo-div.justify-content-center.bg-light-green.col-xl-6
-    %h2#registrations-geo-title.text-center Site Registrations By UK County
+    %h2#registrations-geo-title.text-center Site Visits By UK County
     .container
       %table#registrations-geo-table.table.w-75.m-5.d-block.overflow-scroll{'height': '600px'}
         %thead
@@ -63,31 +63,35 @@
         %tbody#county-registrations-list
 
 .row.m-3
-  #feature-shares-div.justify-content-center.bg-light-green.col-xl-12
+  %h1.mt-5.mb-3.text-center Feature Interest Statistics
+  #feature-shares-div.justify-content-center.bg-light-green.col-xl-6
     %h2#feature-shares-barchart-title.text-center Shares By Feature (Total: #{@shares.size})
     %svg#feature-shares-barchart-plot.d-block.m-auto
 
-#flow-report-div.justify-content-center.bg-light-green.m-3
-  %h2#flow-report-title.text-center User Flow Report
-  .row.m-3
-    .container.col-xl-4.overflow-scroll
-      %table#registrations-geo-table.table.d-block.overflow-scroll{'height': '600px'}
-        %thead
-          %tr
-            %th Registered?
-            %th Session
-        %tbody#sessions-list
+  #feature-shares-div.justify-content-center.bg-light-green.col-xl-6
+    %h2#feature-views-barchart-title.text-center Views By Feature (Total: NEEDS IMPLEMENTING)
+    %svg#feature-views-barchart-plot.d-block.m-auto
 
-    .container.col-xl-8.overflow-scroll
-      %table#registrations-geo-table.table.d-block.overflow-scroll{'height': '600px'}
-        %thead
-          %tr
-            %th State
-            %th Page
-            %th Time Spent
+.row.m-3
+  %h1#flow-report-title.text-center User Flow Report
+  #flow-report-div.justify-content-center.bg-light-green
+    .row.m-3
+      .container.col-xl-4.overflow-scroll
+        %table#registrations-geo-table.table.d-block.overflow-scroll{'height': '600px'}
+          %thead
+            %tr
+              %th Registered?
+              %th Session
+          %tbody#sessions-list
 
-        %tbody#flow-list
+      .container.col-xl-8.overflow-scroll
+        %table#registrations-geo-table.table.d-block.overflow-scroll{'height': '600px'}
+          %thead
+            %tr
+              %th State
+              %th Page
+              %th Time Spent
 
-  %svg#flow-report-plot.d-block.m-auto.col-xl-12
+          %tbody#flow-list
 
-
+    %svg#flow-report-plot.d-block.m-auto.col-xl-12

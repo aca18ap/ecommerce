@@ -63,8 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .data(uk.features)
         .enter()
         .append("path")
-        .attr("id", d => `visits-${d.properties.NAME_2}` )
-        .attr("fill", d => colour(10* normalise(visitsPlotData[d.properties.NAME_2], visits_min, visits_max)))
+        .attr("id", d => `visits-${d.properties.NAME_2}`)
+        .attr("fill", d => colour(10 * normalise(visitsPlotData[d.properties.NAME_2], visits_min, visits_max)))
         .attr("stroke", "black")
         .attr("stroke-width", 0.4)
         .attr("d", d3.geoPath(projection))
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }));
 
     let countyVisits = document.getElementById('county-visits-list');
-    Object.keys(visitsPlotData).forEach( county => {
+    Object.keys(visitsPlotData).forEach(county => {
         let row = document.createElement('tr');
         let countyCol = document.createElement('td');
         countyCol.innerText = county;
@@ -150,16 +150,21 @@ document.addEventListener('DOMContentLoaded', () => {
         .data(uk.features)
         .enter()
         .append("path")
-        .attr("id", d => `regs-${d.properties.NAME_2}` )
-        .attr("fill", d => colour(10* normalise(regsPlotData[d.properties.NAME_2], regs_min, regs_max)))
+        .attr("id", d => `regs-${d.properties.NAME_2}`)
+        .attr("fill", d => colour(10 * normalise(regsPlotData[d.properties.NAME_2], regs_min, regs_max)))
         .attr("stroke", "black")
         .attr("stroke-width", 0.4)
         .attr("d", d3.geoPath(projection))
         .append('title')
         .text(d => `${d.properties.NAME_2}\nRegistrations: ${!regsPlotData[d.properties.NAME_2] ? 0 : regsPlotData[d.properties.NAME_2]}`);
 
+    document.getElementById('registrations-geo-plot').append(Legend(d3.scaleSequential([], d3.interpolateGreens), {
+        title: 'Visitors',
+        width: 250,
+    }));
+
     let countyRegistration = document.getElementById('county-registrations-list');
-    Object.keys(regsPlotData).forEach( county => {
+    Object.keys(regsPlotData).forEach(county => {
         let row = document.createElement('tr');
         let countyCol = document.createElement('td');
         countyCol.innerText = county;
@@ -186,8 +191,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     } else {
         emptyCharts.push(
-            document.getElementById('feature-interest-barchart-plot'),
-            document.getElementById('feature-shares-barchart-plot'),
+            document.getElementById('feature-shares-barchart-plot')
+        )
+    }
+
+    // TODO: Update to views once the feature has been implemented
+    if (gon.shares.length > 0) {
+        console.log(gon.shares);
+        let featureViewsChart = HorizontalBarChart(gon.shares, {
+            x: d => d.shares,
+            y: d => d.feature,
+            yDomain: d3.groupSort(gon.shares, ([d]) => -d.shares, d => d.feature), // sort by descending frequency
+            width,
+            height,
+            color: 'green',
+            marginLeft: 80,
+            marginRight: 10,
+            xLabel: 'Views',
+            svgElement: document.getElementById('feature-views-barchart-plot')
+        });
+    } else {
+        emptyCharts.push(
+            document.getElementById('feature-views-barchart-plot')
         )
     }
 
@@ -201,12 +226,12 @@ document.addEventListener('DOMContentLoaded', () => {
             b.onclick = () => {
                 let flowList = document.getElementById('flow-list');
                 flowList.innerHTML = '';
-                for (let i=0; i<s.flow.length; i++) {
+                for (let i = 0; i < s.flow.length; i++) {
                     let row = document.createElement('tr');
                     let indexCol = document.createElement('td');
                     let pathCol = document.createElement('td');
                     let timeCol = document.createElement('td');
-                    indexCol.innerText = (i+1).toString();
+                    indexCol.innerText = (i + 1).toString();
                     pathCol.innerText = s.flow[i].path;
                     timeCol.innerText = `${(Date.parse(s.flow[i].to) - Date.parse(s.flow[i].from)) / 1000}s`;
                     row.append(indexCol);
@@ -239,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
 
         let g = svg.append("g")
-            .attr("transform", function(d, i) {
+            .attr("transform", function (d, i) {
                 return "translate(0,0)";
             });
 
@@ -263,7 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 function create_feature_dict(features, data) {
     let featureDict = {}
-    features.forEach( f => featureDict[f.properties.NAME_2] = 0 );
+    features.forEach(f => featureDict[f.properties.NAME_2] = 0);
     for (let d of data) {
         if (!d.latitude || !d.longitude) {
             continue;
@@ -284,7 +309,7 @@ function create_feature_dict(features, data) {
  * @returns {*} smallest value in array
  */
 function get_min(arr) {
-    return arr.reduce(function(a, b) {
+    return arr.reduce(function (a, b) {
         return Math.min(a, b);
     }, 0);
 }
@@ -295,7 +320,7 @@ function get_min(arr) {
  * @returns {*} largest value in array
  */
 function get_max(arr) {
-    return arr.reduce(function(a, b) {
+    return arr.reduce(function (a, b) {
         return Math.max(a, b);
     }, 0);
 }
@@ -319,7 +344,7 @@ function normalise(value, min, max) {
  * @returns {*} dict: key is the specified key's value, value is an array of dicts with the specified key's value
  */
 function groupBy(arr, key) {
-    return arr.reduce(function(rec_var, x) {
+    return arr.reduce(function (rec_var, x) {
         (rec_var[x[key]] = rec_var[x[key]] || []).push(x);
         return rec_var;
     }, {});
@@ -338,7 +363,7 @@ function groupByHour(arr, key, startTime) {
 
     // Create an dict of every hour between the start and end hour
     let hoursDict = {}
-    for (let hour = startHour; hour <= endHour; hour += (60*60*1000)) {
+    for (let hour = startHour; hour <= endHour; hour += (60 * 60 * 1000)) {
         hoursDict[hour] = [];
     }
 
@@ -409,7 +434,11 @@ function Legend(color, {
     else if (color.interpolator) {
         x = Object.assign(color.copy()
                 .interpolator(d3.interpolateRound(marginLeft, width - marginRight)),
-            {range() { return [marginLeft, width - marginRight]; }});
+            {
+                range() {
+                    return [marginLeft, width - marginRight];
+                }
+            });
 
         svg.append("image")
             .attr("x", marginLeft)
@@ -477,7 +506,8 @@ function Legend(color, {
             .attr("height", height - marginTop - marginBottom)
             .attr("fill", color);
 
-        tickAdjust = () => {};
+        tickAdjust = () => {
+        };
     }
 
     svg.append("g")
@@ -711,7 +741,8 @@ function LineChart(data, {
         .attr("transform", `translate(${marginLeft},0)`)
         .call(yAxis)
         .call(g => g.select(".domain").remove())
-        .call(voronoi ? () => {} : g => g.selectAll(".tick line").clone()
+        .call(voronoi ? () => {
+        } : g => g.selectAll(".tick line").clone()
             .attr("x2", width - marginLeft - marginRight)
             .attr("stroke-opacity", 0.1))
         .call(g => g.append("text")

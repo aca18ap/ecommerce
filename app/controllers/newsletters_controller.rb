@@ -28,8 +28,8 @@ class NewslettersController < ApplicationController
     @newsletter = Newsletter.new(
       email: newsletter_params['email'],
       vocation: newsletter_params['vocation'],
-      longitude: location['longitude'],
-      latitude: location['latitude']
+      longitude: location[:longitude],
+      latitude: location[:latitude]
     )
 
     # Check if user adding newsletter is admin
