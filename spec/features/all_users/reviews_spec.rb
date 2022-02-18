@@ -4,12 +4,20 @@ require 'rails_helper'
 
 describe 'Reviews' do
   context 'Viewing reviews' do
-    let!(:review) { FactoryBot.create(:review) }
-    let!(:hidden_review) { FactoryBot.create(:hidden_review) }
+    let!(:review) { FactoryBot.create(:review).decorate }
+    let!(:hidden_review) { FactoryBot.create(:hidden_review).decorate }
+    let!(:long_review) { FactoryBot.create(:review, id: 2, description: 'a' * 121).decorate }
 
     specify 'I can view shown reviews on the landing page' do
       visit '/'
       within(:css, '.table') { expect(page).to have_content 'MyText' }
+    end
+
+    context 'If a review has more than 120 characters in the description' do
+      specify 'The review description is truncated' do
+        visit '/'
+        within(:css, '.table') { expect(page).to have_content "#{'a' * 117}..." }
+      end
     end
 
     specify 'I cannot view hidden posts on the landing page' do

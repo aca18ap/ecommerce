@@ -6,8 +6,7 @@ class ReviewsController < ApplicationController
 
   # GET /reviews
   def index
-    @reviews = Review.all
-    @reviews = @reviews.order! 'created_at DESC'
+    @reviews = Review.order('created_at DESC').all.decorate
   end
 
   # GET /reviews/1

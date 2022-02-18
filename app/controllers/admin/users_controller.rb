@@ -8,7 +8,7 @@ module Admin
 
 
     def index
-      @users = User.all
+      @users = User.all.decorate
     end
 
     def destroy
@@ -55,7 +55,7 @@ module Admin
     end
 
     def find_user
-      @user = User.find_by_id(params[:id])
+      @user = User.find_by_id(params[:id]).decorate
     end
 
     def user_params

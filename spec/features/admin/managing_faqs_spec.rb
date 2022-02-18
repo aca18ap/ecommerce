@@ -12,23 +12,22 @@ require 'rails_helper'
  # of tools you can use to make these specs even more expressive, but we're
  # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-
 describe 'Managing FAQs' do
   context 'As an administator' do
     before { login_as(FactoryBot.create(:admin)) }
 
-    context 'Given that an FAQ already exists' do
+    context 'Given that an FAQ already exists and it is not hidden' do
+      let!(:faq) { FactoryBot.create(:faq).decorate }
+
       specify 'I can delete it', js: true do
-        FactoryBot.create :faq
         visit '/faqs'
         accept_confirm do
           within(:css, '#table') { click_link 'Destroy' }
         end
-        within(:css, '#table') { expect(page).to_not have_content 'MyQuestion'}
+        within(:css, '#table') { expect(page).to_not have_content faq.question }
       end
 
       specify 'I can edit it' do
-        FactoryBot.create :faq
         visit '/faqs'
         within(:css, '#table') { click_link 'Edit' }
         fill_in 'Question', with: 'Updated question'
@@ -37,36 +36,37 @@ describe 'Managing FAQs' do
       end
 
       specify 'I can answer it' do
-        FactoryBot.create :faq
         visit '/faqs'
         within(:css, '#table') { click_link 'Answer' }
         fill_in 'Answer', with: 'Updated answer'
         click_button 'Submit Answer'
         expect(page).to have_content 'Updated answer'
       end
-      
-    specify 'I can hide it' do
-      FactoryBot.create :faq
-      visit '/faqs'
-      within(:css, '#table') { expect(page).to have_content "MyQuestion"}
-      within(:css, '#table') { expect(page).to_not have_content "Hidden"}
-      within(:css, '#table') { click_link 'Answer' }
-      check 'faq_hidden'
-      click_button 'Submit Answer'
-      visit '/faqs'
-      within(:css, '#table') { expect(page).to have_content "Hidden"}
+
+      specify 'I can hide it' do
+        visit '/faqs'
+        within(:css, '#table') { expect(page).to have_content faq.question }
+        within(:css, '#table') { expect(page).to_not have_content 'Hidden' }
+        within(:css, '#table') { click_link 'Answer' }
+        check 'faq_hidden'
+        click_button 'Submit Answer'
+        visit '/faqs'
+        within(:css, '#table') { expect(page).to have_content 'Hidden'}
+      end
     end
 
+    context 'Given that an FAQ already exists and it is hidden' do
+      let!(:hidden_faq) { FactoryBot.create(:faq, hidden: true).decorate }
+
       specify 'I can unhide it' do
-        FactoryBot.create(:faq, hidden: true)
         visit '/faqs'
-        within(:css, '#table') { expect(page).to have_content "MyQuestion"}
-        within(:css, '#table') { expect(page).to have_content "Hidden"}
+        within(:css, '#table') { expect(page).to have_content hidden_faq.question }
+        within(:css, '#table') { expect(page).to have_content 'Hidden' }
         within(:css, '#table') { click_link 'Answer' }
         uncheck 'faq_hidden'
         click_button 'Submit Answer'
         visit '/faqs'
-        within(:css, '#table') { expect(page).to_not have_content "Hidden"}
+        within(:css, '#table') { expect(page).to_not have_content 'Hidden' }
       end
     end
   end
