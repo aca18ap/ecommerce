@@ -19,7 +19,7 @@ describe 'Regression test for index dropdown bug' do
   end
 
   context 'When I click the account dropdown on the homepage' do
-    specify 'it should display account options' do
+    specify 'it should display account options', js: true do
       visit '/'
       aria_expanded = page.find('#dropdownUser1')['aria-expanded']
       within(:css, '#dropdownUser1') { expect(aria_expanded).to eq 'false' }

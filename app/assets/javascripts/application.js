@@ -1,5 +1,6 @@
 //= require jquery
 //= require jquery_ujs
+//= require turbolinks
 //= require ajax_setup
 //= require ajax_modal
 //= require bootstrap
@@ -9,7 +10,6 @@
 //= require select2
 //= require select2_init
 //= require admin.js
-//= require turbolinks
 //= require d3
 //= require d3-geo
 //= require ../../javascript/packs/metrics
