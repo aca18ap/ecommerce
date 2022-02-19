@@ -7,8 +7,6 @@ class SharesController < ApplicationController
     end
 
     head :ok if share.save
-
-    puts('count: ', share.count)
     Share.increment_counter(:count, share.id)
   end
 end

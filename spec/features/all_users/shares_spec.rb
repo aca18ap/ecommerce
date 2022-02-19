@@ -5,24 +5,27 @@ require 'rails_helper'
 describe 'Shares' do
   context 'When I visit the homepage' do
     context 'I can share the carbon footprint viewer' do
-      specify 'by email' do
-        expect(Share.count).to eq 0
+      specify 'by email', js: true do
+        skip 'Feature needs fixing'
         visit '/'
-        within(:css, '#carbon-footprint-feature') {  }
+        within(:css, '#carbon-footprint-feature') { find('#email').click }
       end
 
-      specify 'to twitter' do
+      specify 'to twitter', js: true do
+        skip 'Feature needs fixing'
         visit '/'
-
+        within(:css, '#carbon-footprint-feature') { find('#twitter').click }
       end
 
-      specify 'to facebook' do
+      specify 'to facebook', js: true do
+        skip 'Feature needs fixing'
         visit '/'
+        within(:css, '#carbon-footprint-feature') { find('#facebook').click }
       end
     end
   end
 
-  context 'I can share the browser extension feature' do
+  context 'When I visit the pricing plans page' do
 
   end
 end

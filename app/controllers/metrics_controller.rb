@@ -20,6 +20,7 @@ class MetricsController < ApplicationController
     gon.sessionFlows = metrics_calculator.session_flows
     gon.timeVisits = metrics_calculator.time_visits
     gon.timeRegistrations = metrics_calculator.time_registrations
+    gon.featureShares = metrics_calculator.feature_shares
   end
 
   def create

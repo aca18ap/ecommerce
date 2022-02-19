@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if (gon.shares.length > 0) {
-        console.log(gon.shares);
+        console.log(gon.featureShares);
         let featureSharesChart = HorizontalBarChart(gon.shares, {
             x: d => d.shares,
             y: d => d.feature,
@@ -197,7 +197,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // TODO: Update to views once the feature has been implemented
     if (gon.shares.length > 0) {
-        console.log(gon.shares);
         let featureViewsChart = HorizontalBarChart(gon.shares, {
             x: d => d.shares,
             y: d => d.feature,

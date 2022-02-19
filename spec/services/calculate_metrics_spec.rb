@@ -12,6 +12,8 @@ describe 'Calculating metrics' do
   let(:family_customer_newsletter) { FactoryBot.create(:family_customer_newsletter) }
   let(:business_newsletter) { FactoryBot.create(:business_newsletter) }
 
+  let(:email_share)
+
   let(:calculate_metrics) do
     CalculateMetrics.new(
       [visit_root, visit_reviews, visit_newsletters],
