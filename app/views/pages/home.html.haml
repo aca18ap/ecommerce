@@ -13,13 +13,6 @@
 
   .row.pad-edge.w-75.mx-auto 
     = render 'carousel'
-    -# .col-lg 
-    -#   %img{:alt => "...", :src => "../images/screenshot.svg"}/
-    -# .col-lg.my-auto
-    -#   %ul.feature-list.p-0.mb-4
-    -#     %li Eco-friendly online shopping suggestions as you browse
-    -#     %li Check retailer eco-scores
-    -#     %li See your carbon footprint
   .row.pad-edge.pt-5.text-center
     %h3 Click below to learn more!
   .row.pad-edge
@@ -30,7 +23,6 @@
       .btn-custom.clearfix
         = link_to ("as a business"), business_info_url, method: :get
 
-  
   .row.transition-wrapper
     .custom-shape-divider-top-1637446340
       %svg{"data-name" => "Layer 1", :preserveaspectratio => "none", :viewbox => "0 0 1200 120", :xmlns => "http://www.w3.org/2000/svg"}
@@ -58,9 +50,8 @@
           .h3.pb-2 Why is the solution a good solution?
           .p We know it’s not as simple as redirecting traffic to alternative retailers. That’s why we ensure all our eco-approved suppliers conform to ISO 14000. Not only this, but we ask all affiliates to provide us with information about where they manufacture their products. We also know that life is busy and finding the time and energy to solve a problem that seems far off in the distance can be a challenge. That’s why we’ve made it as easy as possible to use. Simply download and install the browser extension, do your shopping as normal, and alternative suggestions will be one click away!
 
-
   .row.text-feldgrau.text-center.pad-edge.pb-3
-    .col-lg.m-autoA
+    .col-lg.m-autoA#carbon-footprint-feature
       .m-auto.card-transparent{:style => "width: 75%;"}
         %img.card-img-top{:alt => "...", :src => "images/image-business.svg"}/
         .card-body
@@ -68,7 +59,7 @@
             %h3.card-title#features-links Carbon Footprint Viewer
           %p.card-text Subscribers can view an estimate of their online carbon footprint, helping them to understand their impact.
           = render 'share_icons'
-    .col-lg.m-auto 
+    .col-lg.m-auto#extension-feature
       .m-auto.card-transparent{:style => "width: 75%;"}
         %img.card-img-top{:alt => "...", :src => "images/image-customer.svg"}/
         .card-body
@@ -76,7 +67,7 @@
             %h3.card-title#features-links Browser Extension
           %p.card-text Get eco-friendly product alternatives at the click of a button when shopping online.
           = render 'share_icons'
-    .col-lg.m-auto
+    .col-lg.m-auto#crowdsourced-feature
       .m-auto.card-transparent{ :style => "width: 75%;" }
         %img.card-img-top{:alt => "...", :src => "Volunteering-bro.png"}/
         .card-body
@@ -84,8 +75,6 @@
             %h3.card-title#features-links Crowdsourced Data
           %p.card-text The data is collected thanks to you! This means a constantly updated database and a lot of options to choose from!
           = render 'share_icons'
-
-
 
   .row.text-center.text-feldgrau.py-5.grabber
     %h2 Tell us what you think!
@@ -107,29 +96,3 @@
             %td{:style => "display: inline-block", 'id': "review-#{i}"}= "\"#{review.truncated_description}\""
           %tr{:height => "90px", :style => "border-color: #f8f9fa"}
             %td= link_to "Rate it useful", review_usefulness_path(id: review.id), class: 'css_class', style: 'font-size:90%; color:#419967; border:none'
-
-
-
-
-
-  -#  .w-75.m-auto.text-center.text-white.text-shadow.fixed-padding-top
-  -#       -# %img.w-75.wcard-img-top{:alt => "...", :src => "images/image-customer.svg"}/
-  -#       %h2 I'm a consumer
-  -#       %p 
-  -#         Online shopping is a jungle of unsustainable products. 
-  -#         %br
-  -#         Sign up now to make eco-friendly buying a breeze. 
-  -#       //= link_to "View Our Pricing Plans", new_newsletter_path, class:"btn btn-primary btn-lg rounded-pill my-3" 
-  -#       .input-group.w-75.m-auto
-  -#         -# %input.form-control.form-control-lg{"aria-label" => ".form-control-lg example", :placeholder => "e.g. yourname@example.com", :type => "text"}/
-  -#         %button.m-auto.btn.btn-primary.btn-lg
-  -#           = link_to ("View our plans"), pricing_plans_url, method: :get
-
-
-
--# .my-5.py-5.text-center(style = "backdrop-filter: blur(3px)")
-
--# #(style = "background: url('bg-placeholder.png')")
-    
-
-  

@@ -19,12 +19,9 @@ $(function(){
 })
 
 function sendData(social, feature){
-    console.log(social)
     let share = new FormData();
 
     share.append('social', social)
     share.append('feature', feature)
-    console.log(social + "  " + feature) 
     navigator.sendBeacon('/shares', share);
-
 } 
