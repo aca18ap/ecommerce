@@ -1,0 +1,15 @@
+.container-fluid.pad-edge
+  .row.justify-content-center.pt-3.my-auto
+    .col-sm-6.col-lg-4
+      .card.card-light
+        = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+          .card-header
+            Reset your password
+          .card-body
+            = f.error_notification
+            = f.input :email, required: true, autofocus: true, input_html: { autocomplete: "email" }
+          .card-footer
+            %button.btn.btn-primary{ type: :submit }
+              Reset password
+            .mt-3
+              = render "devise/shared/links"
