@@ -13,7 +13,7 @@ RSpec.describe '/metrics', type: :request do
 
   describe 'POST /metrics' do
     it 'should create a new visit from non-staff only pages' do
-      expect(Visit.count).to eq(0)
+      expect(Visit.count).to eq 0
 
       post '/metrics', params: {
         pageVisitedFrom: '1643892998084',
@@ -22,7 +22,8 @@ RSpec.describe '/metrics', type: :request do
         csrf_token: ''
       }
 
-      expect(Visit.count).to eq(1)
+      expect(Visit.count).to eq 1
+      expect(Visit.last.path).to eq '/'
     end
 
     it 'should create a new visit from staff only pages' do
@@ -36,7 +37,8 @@ RSpec.describe '/metrics', type: :request do
         csrf_token: ''
       }
 
-      expect(Visit.count).to eq(0)
+      expect(Visit.count).to eq 0
+      expect(Visit.last.path).to eq '/admin/users'
     end
   end
 end
