@@ -1,4 +1,5 @@
 - content_for :title, "Team 4 - Pricing plans"
+
 #fb-root
 %script{:async => "", :crossorigin => "anonymous", :defer => "defer", :nonce => "04pcKjuC", :src => "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0"}
 %script{:src => "https://platform.linkedin.com/in.js", :type => "text/javascript"}
@@ -68,13 +69,7 @@
                           %h5= 'Find what you like'
                           %h5= 'Get greener alternatives suggested to you!'
                           = render 'share_icons'
-                          //.d-flex.justify-content-center
-                          //  %a.twitter-share-button{ :href => "https://twitter.com/intent/tweet?text=Unlimited%20shopping%20suggestions%20in%20all%20plans!!%20@ecommerce_team04"}
-                          //    %i.fa.fa-twitter
-                          //  .fb-share-button{"data-href" => "https://team04.demo1.genesys.shefcompsci.org.uk/#", "data-layout" => "button_count", "data-size" => "small"}
-                          //    %a.fb-xfbml-parse-ignore{:href => "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fteam04.demo1.genesys.shefcompsci.org.uk%2F%23&src=sdkpreparse", :target => "_blank"}
-                          //      %i.fa.fa-facebook
-                          //  %a{ :href => "mailto:"}
+
                     %li 
                       %span#headingOne
                         One-click
@@ -121,7 +116,6 @@
                 / //FEATURE LIST END
                 / BUTTON START
                 .generic_price_btn.clearfix
-                  -# %a{:href => "/newsletters/new", :vocation => "Customer"} Sign up
                   = link_to 'Sign up', new_newsletter_path(@newsletters, :type => "Customer", :tier => "Free"), id: 'free'
                 / //BUTTON END
               / //PRICE CONTENT END

@@ -84,10 +84,11 @@ class CalculateMetrics
 
   # Calculates the number of times each feature was shared
   def feature_shares
+    # {feature: '', Email: '', Twitter: '', Facebook: '', ...}
     return if @shares.nil? || @shares.empty?
 
-    @shares.group_by { |share| share.feature.itself }
-           .map { |feature, shares| { 'feature' => feature, 'shares' => shares.length } }
+    @shares.group_by { |share| [share.feature, share.social] }
+           .map { |feature, shares| { 'feature' => feature, 'shares' => shares } }
   end
 
   private
