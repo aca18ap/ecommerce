@@ -19,7 +19,9 @@ class CalculateMetrics
 
       # { vocation: vocation_type, registrations: num_registrations }
       registrations_arr.group_by { |registration| registration.vocation.itself }
-                       .map { |vocation, registrations| { 'vocation' => vocation, 'registrations' => registrations.length } }
+                       .map do |vocation, registrations|
+        { 'vocation' => vocation, 'registrations' => registrations.length }
+      end
     end
 
     # Calculates the number of customer registrations by tier

@@ -20,7 +20,7 @@ RSpec.describe '/faqs', type: :request do
 
   describe 'POST /faqs' do
     it 'Creates a new faq' do
-      expect(Faq.count).to eq(0)
+      expect(Faq.count).to eq 0
 
       post faqs_path, params: {
         faq: {
@@ -28,24 +28,139 @@ RSpec.describe '/faqs', type: :request do
         }
       }
 
-      expect(Faq.count).to eq(1)
+      expect(Faq.count).to eq 1
     end
   end
 
   describe 'PATCH /faq/:id' do
-    it 'Updates the contents of the faq' do
-      skip 'Can\'t get this to work for the time being. Coming back later'
-      faq = Faq.create(question: 'A question')
+    context 'If authenticated as an admin' do
+      before { login_as(FactoryBot.create(:admin)) }
 
-      patch faq_path(faq), params: {
-        id: faq,
-        faq: {
-          answer: 'An answer'
+      it 'Updates the contents of the faq' do
+        faq = Faq.create(question: 'A question')
+
+        patch faq_path(faq), params: {
+          faq: {
+            answer: 'An answer'
+          }
         }
-      }
 
-      faq.reload
-      expect(faq.answer).to eq('An answer')
+        faq.reload
+        expect(faq.answer).to eq 'An answer'
+      end
+    end
+
+    context 'If not authenticated as an admin' do
+      it 'Does not update the contents of an faq' do
+        faq = Faq.create(question: 'A question')
+
+        patch faq_path(faq), params: {
+          faq: {
+            answer: 'An answer'
+          }
+        }
+
+        faq.reload
+        expect(faq.answer).to eq nil
+      end
+    end
+  end
+
+  describe 'PUT /faq/:id' do
+    context 'If authenticated as an admin' do
+      before { login_as(FactoryBot.create(:admin)) }
+
+      it 'Updates the contents of the faq' do
+        faq = Faq.create(question: 'A question')
+
+        put faq_path(faq), params: {
+          faq: {
+            answer: 'An answer'
+          }
+        }
+
+        faq.reload
+        expect(faq.answer).to eq 'An answer'
+      end
+    end
+
+    context 'If not authenticated as an admin' do
+      it 'Does not update the contents of an faq' do
+        faq = Faq.create(question: 'A question')
+
+        put faq_path(faq), params: {
+          faq: {
+            answer: 'An answer'
+          }
+        }
+
+        faq.reload
+        expect(faq.answer).to eq nil
+      end
+    end
+  end
+
+  describe 'DELETE /faq/:id' do
+    context 'If authenticated as an admin' do
+      before { login_as(FactoryBot.create(:admin)) }
+
+      it 'Updates removes the faq' do
+        faq = Faq.create(question: 'A question')
+        expect(Faq.count).to eq 1
+
+        delete faq_path(faq)
+        expect(Faq.count).to eq 0
+      end
+    end
+
+    context 'If not authenticated as an admin' do
+      it 'Does not remove the faq' do
+        faq = Faq.create(question: 'A question')
+        expect(Faq.count).to eq 1
+
+        delete faq_path(faq)
+
+        faq.reload
+        expect(Faq.count).to eq 1
+      end
+    end
+  end
+
+  describe 'GET /faq/:id/answer' do
+    context 'If authenticated as an admin' do
+      before { login_as(FactoryBot.create(:admin)) }
+
+      it 'Retrieves the page to answer an faq' do
+        faq = Faq.create(question: 'A question', answer: 'An answer')
+
+        get answer_faq_path(faq)
+        expect(response).to be_successful
+        expect(response.body).to include 'An answer'
+      end
+    end
+
+    context 'If not authenticated as an admin' do
+      it 'Does not retrieve the page to answer an faq' do
+        faq = Faq.create(question: 'A question', answer: 'An answer')
+
+        get answer_faq_path(faq)
+        expect(response).to_not be_successful
+
+        expect(response.body).to_not include 'An answer'
+      end
+    end
+  end
+
+  describe 'POST /faq/:id/like' do
+    context 'If not authenticated as an admin' do
+      it 'Does not retrieve the page to answer an faq' do
+        faq = Faq.create(question: 'A question')
+
+        post like_faq_path(faq)
+
+        expect(response).to be_successful
+
+      end
     end
   end
 end
