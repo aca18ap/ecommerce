@@ -152,15 +152,12 @@ RSpec.describe '/faqs', type: :request do
   end
 
   describe 'POST /faq/:id/like' do
-    context 'If not authenticated as an admin' do
-      it 'Does not retrieve the page to answer an faq' do
-        faq = Faq.create(question: 'A question')
+    it 'Does not retrieve the page to answer an faq' do
+      faq = Faq.create(question: 'A question')
 
-        post like_faq_path(faq)
+      post like_faq_path(faq)
 
-        expect(response).to be_successful
-
-      end
+      expect(FaqVote.first.faq_id).to eq faq.id
     end
   end
 end
