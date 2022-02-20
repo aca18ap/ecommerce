@@ -24,26 +24,28 @@ describe 'Calculating metrics' do
   let(:regs) { [free_newsletter, solo_newsletter, family_newsletter, business_newsletter] }
 
   it 'Calculates visits to each site page' do
-    expect(CalculateMetrics.page_visits(visits)).to eq([{ 'page' => '/', 'visits' => 1 },
-                                                        { 'page' => '/reviews', 'visits' => 1 },
-                                                        { 'page' => '/newsletters/1', 'visits' => 1 }])
+    expect(CalculateMetrics.page_visits(visits)).to match_array([{ 'page' => '/', 'visits' => 1 },
+                                                                 { 'page' => '/reviews', 'visits' => 1 },
+                                                                 { 'page' => '/newsletters/1', 'visits' => 1 }])
   end
 
   it 'Calculates the number of registrations by vocation' do
-    expect(CalculateMetrics.vocation_registrations(regs)).to eq([{ 'vocation' => 'Customer', 'registrations' => 3 },
-                                                                 { 'vocation' => 'Business', 'registrations' => 1 }])
+    expect(CalculateMetrics.vocation_registrations(regs)).to match_array(
+      [{ 'vocation' => 'Customer', 'registrations' => 3 },
+       { 'vocation' => 'Business', 'registrations' => 1 }]
+    )
   end
 
   it 'Calculates the number of customer registrations by tier' do
-    expect(CalculateMetrics.tier_registrations(regs)).to eq(
+    expect(CalculateMetrics.tier_registrations(regs)).to match_array(
       [{ 'tier' => free_newsletter.tier, 'registrations' => 1 },
        { 'tier' => solo_newsletter.tier, 'registrations' => 1 },
        { 'tier' => family_newsletter.tier, 'registrations' => 1 }]
-   )
+    )
   end
 
   it 'Calculates the session flows for a user session' do
-    expect(CalculateMetrics.session_flows(visits)).to eq(
+    expect(CalculateMetrics.session_flows(visits)).to match_array(
       [{ 'id' => visit_root.session_identifier, 'flow' => [visit_root], 'registered' => false },
        { 'id' => visit_reviews.session_identifier, 'flow' => [visit_reviews], 'registered' => false },
        { 'id' => visit_newsletters.session_identifier, 'flow' => [visit_newsletters], 'registered' => true }]
@@ -80,7 +82,26 @@ describe 'Calculating metrics' do
   end
 
   it 'gets the number of times a feature shares' do
-    skip 'DIDNT HAVE TIME'
+    10.times do
+      FactoryBot.create(:share, feature: 'Feature2', social: 'email')
+      FactoryBot.create(:share, feature: 'Feature1', social: 'twitter')
+      FactoryBot.create(:share, feature: 'Feature2', social: 'facebook')
+    end
+
+    5.times do
+      FactoryBot.create(:share, feature: 'Feature1', social: 'email')
+      FactoryBot.create(:share, feature: 'Feature2', social: 'twitter')
+      FactoryBot.create(:share, feature: 'Feature1', social: 'facebook')
+    end
+
+    expect(CalculateMetrics.feature_shares(Share.all)).to match_array(
+      [{ 'feature' => 'Feature1', 'social' => 'email', 'count' => 5 },
+       { 'feature' => 'Feature1', 'social' => 'twitter', 'count' => 10 },
+       { 'feature' => 'Feature1', 'social' => 'facebook', 'count' => 5 },
+       { 'feature' => 'Feature2', 'social' => 'email', 'count' => 10 },
+       { 'feature' => 'Feature2', 'social' => 'twitter', 'count' => 5 },
+       { 'feature' => 'Feature2', 'social' => 'facebook', 'count' => 10 }]
+    )
   end
 
   it 'Returns nil if there are no visits in the system' do
