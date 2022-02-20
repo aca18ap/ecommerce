@@ -12,6 +12,6 @@
 #  updated_at :datetime         not null
 #
 class Faq < ApplicationRecord
-    validates :question, :presence => true
-    has_many :faq_vote
+  validates :question, presence: true
+  has_many :faq_vote
 end

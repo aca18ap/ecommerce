@@ -107,19 +107,27 @@ describe 'Calculating metrics' do
   it 'Returns nil if there are no visits in the system' do
     expect(CalculateMetrics.page_visits(nil)).to eq(nil)
     expect(CalculateMetrics.page_visits([])).to eq(nil)
+
     expect(CalculateMetrics.time_visits(nil)).to eq(nil)
     expect(CalculateMetrics.time_visits([])).to eq(nil)
+
     expect(CalculateMetrics.session_flows(nil)).to eq(nil)
     expect(CalculateMetrics.session_flows([])).to eq(nil)
   end
 
-  it 'Returns nil if there are no visits in the system' do
+  it 'Returns nil if there are no registrations in the system' do
     expect(CalculateMetrics.vocation_registrations(nil)).to eq(nil)
     expect(CalculateMetrics.vocation_registrations([])).to eq(nil)
+
     expect(CalculateMetrics.tier_registrations(nil)).to eq(nil)
     expect(CalculateMetrics.tier_registrations([])).to eq(nil)
+
     expect(CalculateMetrics.time_registrations(nil)).to eq(nil)
     expect(CalculateMetrics.time_registrations([])).to eq(nil)
   end
 
+  it 'Returns nil if there are no shares in the system' do
+    expect(CalculateMetrics.feature_shares(nil)).to eq(nil)
+    expect(CalculateMetrics.feature_shares([])).to eq(nil)
+  end
 end
