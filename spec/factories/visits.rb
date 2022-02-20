@@ -20,19 +20,7 @@ FactoryBot.define do
     to { '2021-11-27 16:39:22' }
     csrf_token { 'MyString' }
     user_id { 1 }
-
-    factory :visit_root do
-      path { '/' }
-      session_identifier { 'session_1' }
-    end
-
-    factory :visit_reviews do
-      path { '/reviews' }
-      session_identifier { 'session_2' }
-    end
-
-    factory :visit_newsletters_new
-    path { '/newsletters/1' }
-    session_identifier { 'session_3' }
+    path { '/' }
+    session_identifier { 'session_1' }
   end
 end

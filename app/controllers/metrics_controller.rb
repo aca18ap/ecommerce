@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MetricsController < ApplicationController
   before_action :authenticate_user!
   authorize_resource :class => false, :only => [:index]
@@ -8,19 +10,17 @@ class MetricsController < ApplicationController
     @registrations = Newsletter.all
     @shares = Share.all
 
-    # Passes metrics calculated in service class to metrics/index.js using gon gem
-    metrics_calculator = CalculateMetrics.new(@visits, @registrations, @shares)
     gon.visits = @visits
     gon.registrations = @registrations
     gon.shares = @shares
-    gon.pageVisits = metrics_calculator.page_visits
-    gon.timeVisits = metrics_calculator.time_visits
-    gon.vocationRegistrations = metrics_calculator.vocation_registrations
-    gon.tierRegistrations = metrics_calculator.tier_registrations
-    gon.sessionFlows = metrics_calculator.session_flows
-    gon.timeVisits = metrics_calculator.time_visits
-    gon.timeRegistrations = metrics_calculator.time_registrations
-    gon.featureShares = metrics_calculator.feature_shares
+    gon.pageVisits = CalculateMetrics.page_visits(@visits)
+    gon.timeVisits = CalculateMetrics.time_visits(@visits)
+    gon.vocationRegistrations = CalculateMetrics.vocation_registrations(@registrations)
+    gon.tierRegistrations = CalculateMetrics.tier_registrations(@registrations)
+    gon.sessionFlows = CalculateMetrics.session_flows(@visits)
+    gon.timeVisits = CalculateMetrics.time_visits(@visits)
+    gon.timeRegistrations = CalculateMetrics.time_registrations(@registrations)
+    gon.featureShares = CalculateMetrics.feature_shares(@shares)
   end
 
   def create
