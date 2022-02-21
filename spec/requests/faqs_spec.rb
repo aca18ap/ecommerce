@@ -32,7 +32,17 @@ RSpec.describe '/faqs', type: :request do
     end
   end
 
-  describe 'PATCH /faq/:id' do
+  describe 'GET /faq' do
+    it 'Shows the selected faq' do
+      faq = Faq.create(question: 'A question')
+
+      get faq_path(faq)
+      expect(response).to be_successful
+      expect(response.body).to include 'A question'
+    end
+  end
+
+  describe 'PATCH /faqs/:id' do
     context 'If authenticated as an admin' do
       before { login_as(FactoryBot.create(:admin)) }
 
@@ -66,7 +76,7 @@ RSpec.describe '/faqs', type: :request do
     end
   end
 
-  describe 'PUT /faq/:id' do
+  describe 'PUT /faqs/:id' do
     context 'If authenticated as an admin' do
       before { login_as(FactoryBot.create(:admin)) }
 
@@ -100,7 +110,7 @@ RSpec.describe '/faqs', type: :request do
     end
   end
 
-  describe 'DELETE /faq/:id' do
+  describe 'DELETE /faqs/:id' do
     context 'If authenticated as an admin' do
       before { login_as(FactoryBot.create(:admin)) }
 
@@ -126,7 +136,7 @@ RSpec.describe '/faqs', type: :request do
     end
   end
 
-  describe 'GET /faq/:id/answer' do
+  describe 'GET /faqs/:id/answer' do
     context 'If authenticated as an admin' do
       before { login_as(FactoryBot.create(:admin)) }
 
@@ -151,13 +161,53 @@ RSpec.describe '/faqs', type: :request do
     end
   end
 
-  describe 'POST /faq/:id/like' do
-    it 'Does not retrieve the page to answer an faq' do
+  describe 'POST /faqs/:id/like' do
+    it 'Adds an faq vote entry for the faq' do
       faq = Faq.create(question: 'A question')
 
       post like_faq_path(faq)
 
       expect(FaqVote.first.faq_id).to eq faq.id
+      expect(FaqVote.first.value).to eq 1
+      expect(FaqVote.count).to eq 1
+    end
+  end
+
+  context 'If an faq is liked more than once by the same ip' do
+    it 'only creates one faq vote entry for the faq and updates the value' do
+      faq = Faq.create(question: 'A question')
+
+      post like_faq_path(faq)
+      post like_faq_path(faq)
+
+      expect(FaqVote.first.faq_id).to eq faq.id
+      expect(FaqVote.first.value).to eq 0
+      expect(FaqVote.count).to eq 1
+    end
+  end
+
+  describe 'POST /faqs/:id/dislike' do
+    it 'Adds an faq vote entry for the faq' do
+      faq = Faq.create(question: 'A question')
+
+      post dislike_faq_path(faq)
+
+      expect(FaqVote.first.faq_id).to eq faq.id
+      expect(FaqVote.first.value).to eq(-1)
+      expect(FaqVote.count).to eq 1
+    end
+  end
+
+  context 'If an faq is disliked more than once by the same ip' do
+    it 'only creates one faq vote entry for the faq and updates the value' do
+      faq = Faq.create(question: 'A question')
+
+      post dislike_faq_path(faq)
+      post dislike_faq_path(faq)
+
+      expect(FaqVote.first.faq_id).to eq faq.id
+      expect(FaqVote.first.value).to eq 0
+      expect(FaqVote.count).to eq 1
     end
   end
 end
