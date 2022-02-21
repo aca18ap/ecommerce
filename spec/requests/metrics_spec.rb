@@ -21,6 +21,7 @@ RSpec.describe '/metrics', type: :request do
         expect(Visit.last.path).to eq '/'
       end
     end
+
     context 'From staff-only pages' do
       it 'should not create a new visit' do
         skip 'FEATURE NEEDS IMPLEMENTING'
