@@ -6,9 +6,12 @@ describe 'Logging in' do
   let!(:customer) { FactoryBot.create :customer }
   let!(:reporter) { FactoryBot.create :reporter }
 
+  before do
+    visit new_user_session_path
+  end
+
   context 'If I enter the correct credentials' do
     specify 'I can log into my account' do
-      visit '/users/sign_in'
       fill_in 'user[email]', with: customer.email
       fill_in 'user[password]', with: customer.password
       click_button 'Log in'
@@ -18,7 +21,6 @@ describe 'Logging in' do
 
   context 'If I enter incorrect credentials' do
     specify 'I cannot login to my account' do
-      visit '/users/sign_in'
       fill_in 'user[email]', with: customer.email
       fill_in 'user[password]', with: 'incorrect_password'
       click_button 'Log in'
@@ -26,7 +28,6 @@ describe 'Logging in' do
     end
 
     specify '4 times, I will be warned that I have one failed password check remaining' do
-      visit '/users/sign_in'
       4.times do
         fill_in 'user[email]', with: customer.email
         fill_in 'user[password]', with: 'incorrect_password'
@@ -37,7 +38,6 @@ describe 'Logging in' do
     end
 
     specify '5 or more times, my account will be locked' do
-      visit '/users/sign_in'
       5.times do
         fill_in 'user[email]', with: customer.email
         fill_in 'user[password]', with: 'incorrect_password'
@@ -54,7 +54,6 @@ describe 'Logging in' do
 
   context 'Security' do
     specify 'I cannot login via an SQL injection attack', js: true do
-      visit '/users/sign_in'
       fill_in 'user[email]', with: customer.email
       fill_in 'user[password]', with: "incorrect_password') OR '1'--"
       click_button 'Log in'

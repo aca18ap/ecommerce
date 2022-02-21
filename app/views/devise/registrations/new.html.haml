@@ -1,0 +1,23 @@
+- content_for :title, 'Sign up'
+
+.container-fluid.pad-edge
+  .row.w-50.mx-auto.pt-5.text-center
+    .col.mx-auto
+      %img{:alt => "mdo", :height => "200", :src => "../images/logo-icon.png", :width => "200"}
+      .h1.p-3 Create a better tomorrow, today.
+  .row.justify-content-center.pt-3
+    .col-sm-6.col-lg-4
+      .card.card-light
+        = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+          .card-header 
+            Sign Up
+          .card-body
+            = f.error_notification
+            = f.input :email, required: true, autofocus: true, input_html: { autocomplete: "email" }
+            = f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), input_html: { autocomplete: "new-password" }
+            = f.input :password_confirmation, required: true, input_html: { autocomplete: "new-password" }
+          .card-footer
+            %button.btn.btn-primary{ type: :submit }
+              Sign up
+            .mt-3
+              = render "devise/shared/links"

@@ -27,6 +27,12 @@ gem 'draper'
 gem 'ransack'
 gem 'simple_form'
 
+gem 'bootstrap'
+gem 'sassc-rails'
+gem 'sassc'
+gem 'font-awesome-sass'
+gem "font-awesome-rails"
+
 gem 'bootstrap-will_paginate'
 gem 'will_paginate'
 
@@ -35,7 +41,6 @@ gem 'devise'
 gem 'devise_invitable', '~> 2.0.0'
 gem 'devise_cas_authenticatable'
 gem 'devise_ldap_authenticatable'
-gem "font-awesome-rails"
 
 gem 'daemons'
 gem 'delayed_job'
