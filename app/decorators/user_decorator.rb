@@ -2,7 +2,7 @@ class UserDecorator < Draper::Decorator
   delegate_all
 
   def unlock_button?
-    return if unlock_token.nil?
+    return unless access_locked?
 
     h.link_to 'Unlock', h.unlock_user_path(id),
               method: :patch, class: 'btn btn-xs',
