@@ -179,7 +179,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Get all unique social media types from arrays
         let socials = new Set()
         gon.featureShares.forEach(featureShare => socials.add(featureShare['social']))
-        console.log(socials)
+        // TODO: Make this more dynamic for if new socials get added
+        let colour_map = {'facebook': '#3B5998', 'twitter': '#00ACEE', 'email': '#DB4437'}
 
         let featureSharesChart = StackedBarChart(gon.featureShares, {
             x: d => d.count,
@@ -188,8 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
             xLabel: "No. Shares",
             yDomain: d3.groupSort(gon.featureShares, D => d3.sum(D, d => d.count), d => d.feature), // sort y by x
             zDomain: socials,
-            // TODO: Add set colours for different social types
-            color_map: {'twitter': '#00ACEE', 'facebook': '#3B5998', 'email': '#DB4437'},
+            color_map: colour_map,
             colors: d3.schemeSpectral[socials.length],
             width,
             height,
@@ -677,8 +677,7 @@ function StackedBarChart(data, {
     order = d3.stackOrderNone, // stack order method
     xFormat, // a format specifier string for the x-axis
     xLabel, // a label for the x-axis
-    color_map,
-    colors = d3.schemeTableau10, // array of colors
+    color_map, // Predefined map of colours for different stacks on the bar
     svgElement
 } = {}) {
     // Compute values.
@@ -718,7 +717,6 @@ function StackedBarChart(data, {
     // Construct scales, axes, and formats.
     const xScale = xType(xDomain, xRange);
     const yScale = d3.scaleBand(yDomain, yRange).paddingInner(yPadding);
-    const color = d3.scaleOrdinal(zDomain, colors);
     const xAxis = d3.axisTop(xScale).ticks(width / 80, xFormat);
     const yAxis = d3.axisLeft(yScale).tickSizeOuter(0);
 
@@ -756,7 +754,7 @@ function StackedBarChart(data, {
         .selectAll("g")
         .data(series)
         .join("g")
-        .attr("fill", ([{i}]) => color(Z[i]))
+        .attr("fill", ([{i}]) => color_map[Z[i]])
         .selectAll("rect")
         .data(d => d)
         .join("rect")
@@ -772,7 +770,7 @@ function StackedBarChart(data, {
         .attr("transform", `translate(${xScale(0)},0)`)
         .call(yAxis);
 
-    return Object.assign(svg.node(), {scales: {color}});
+    return Object.assign(svg.node(), color_map);
 }
 
 // Copyright 2021 Observable, Inc.
