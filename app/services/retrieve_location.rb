@@ -17,7 +17,7 @@ class RetrieveLocation
       longitude = @params[:longitude]
     else
       # IP = '90.204.36.252' if localhost to test on dev server
-      geocode = Geocoder.search(@ip == '127.0.0.1' ? '1.1.1.1' : @ip).first
+      geocode = Geocoder.search(@ip == '127.0.0.1' ? '94.3.89.188' : @ip).first
 
       begin
         latitude = geocode.latitude
