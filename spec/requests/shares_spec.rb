@@ -8,9 +8,13 @@ RSpec.describe 'Shares', type: :request do
       expect(Share.count).to eq 0
 
       post shares_path, params: {
-        social: 'MySocial',
-        feature: 'MyFeature'
+        share: {
+          social: 'MySocial',
+          feature: 'MyFeature'
+        }
       }
+
+      expect(response).to be_successful
 
       expect(Share.count).to eq 1
       expect(Share.last.social).to eq 'MySocial'

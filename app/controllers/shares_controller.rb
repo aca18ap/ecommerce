@@ -2,11 +2,13 @@ class SharesController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create
-    share = Share.where(feature: params[:feature], social: params[:social]).first_or_initialize do |f|
-      f.count = 0
-    end
+    @share = Share.new(share_params)
+    head :ok if @share.save
+  end
 
-    head :ok if share.save
-    Share.increment_counter(:count, share.id)
+  private
+
+  def share_params
+    params.require(:share).permit(:feature, :social)
   end
 end
