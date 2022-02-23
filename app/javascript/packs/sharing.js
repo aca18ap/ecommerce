@@ -25,12 +25,5 @@ function sendData(social, feature){
 
     share.append('social', social)
     share.append('feature', feature)
-<<<<<<< HEAD
     navigator.sendBeacon('/shares', share);
 } 
-=======
-    //console.log(social + "  " + feature) 
-    navigator.sendBeacon('/shares', share);
-
-} 
->>>>>>> Correct shared feature now reported rather than page path
