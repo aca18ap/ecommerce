@@ -12,7 +12,9 @@ $(function(){
         $(e).on(
             'click',
             function(){
-                sendData(e.id, window.location.pathname)
+                let mainCard = (e.parentNode.parentNode.parentNode.parentNode);
+                let f = mainCard.getElementsByClassName("featureName")[0].textContent.replace(/(\r\n|\n|\r)/gm," ").trim()
+                sendData(e.id, f);
             }
         )
     })
@@ -23,5 +25,12 @@ function sendData(social, feature){
 
     share.append('social', social)
     share.append('feature', feature)
+<<<<<<< HEAD
     navigator.sendBeacon('/shares', share);
 } 
+=======
+    //console.log(social + "  " + feature) 
+    navigator.sendBeacon('/shares', share);
+
+} 
+>>>>>>> Correct shared feature now reported rather than page path
