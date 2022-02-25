@@ -5,7 +5,7 @@ require 'devise'
 
 RSpec.describe '/users', type: :request do
   describe 'PATCH /users/:id/unlock' do
-    let!(:user) { User.create(email: 'test@team04.com', password: 'Password123') }
+    let!(:user) { User.create(email: 'test@team04.com', password: 'Password123', admin: false) }
 
     before do
       user.lock_access!
@@ -29,6 +29,20 @@ RSpec.describe '/users', type: :request do
 
         user.reload
         expect(user.access_locked?).to eq true
+      end
+    end
+
+    context 'Security' do
+      it 'does not allow the user to become an admin via mass assignment' do
+        expect(user.admin).to be false
+        patch user_path(user), params: {
+          user: {
+            admin: true
+          }
+        }
+
+        expect(response).to_not be_successful
+        expect(user.reload.admin).to be false
       end
     end
   end

@@ -6,9 +6,12 @@ describe 'User' do
   let!(:customer) { FactoryBot.create(:customer) }
   before { login_as(customer) }
 
+  before do
+    visit users_edit_path
+  end
+
   context 'When I change my password' do
     it 'requires me to enter my old password' do
-      visit users_edit_path
       fill_in 'user[password]', with: 'NewPassword123'
       fill_in 'user[password_confirmation]', with: 'NewPassword12'
       click_button 'Update'
@@ -17,7 +20,6 @@ describe 'User' do
     end
 
     it 'requires my old password to be correct' do
-      visit users_edit_path
       fill_in 'user[password]', with: 'NewPassword123'
       fill_in 'user[password_confirmation]', with: 'NewPassword123'
       fill_in 'user[current_password]', with: 'WrongPassword123'
@@ -27,7 +29,6 @@ describe 'User' do
     end
 
     it 'requires my new password to meet the minimum specifications' do
-      visit users_edit_path
       fill_in 'user[password]', with: 'a'
       fill_in 'user[password_confirmation]', with: 'a'
       fill_in 'user[current_password]', with: customer.password
@@ -39,7 +40,6 @@ describe 'User' do
     end
 
     it 'cannot be the same as the current password' do
-      visit users_edit_path
       fill_in 'user[password]', with: 'Password123'
       fill_in 'user[password_confirmation]', with: 'Password123'
       fill_in 'user[current_password]', with: customer.password
@@ -65,6 +65,30 @@ describe 'User' do
       fill_in 'user[current_password]', with: customer.password
       click_button 'Update'
       expect(page).to have_content 'Password was used previously.'
+    end
+  end
+
+  context 'If I no longer want to have an account' do
+    specify 'I can delete my account', js: true do
+      accept_confirm do
+        click_link 'Cancel my account'
+      end
+
+      expect(page).to have_current_path '/'
+      visit '/users/sign_in'
+      fill_in 'user[email]', with: customer.email
+      fill_in 'user[password]', with: customer.password
+      click_button 'Log in'
+      expect(page).to have_content 'Invalid Email or password.'
+    end
+  end
+
+  context 'Security' do
+    specify 'I cannot change my role via mass assignment', js: true do
+      expect(customer.admin).to be false
+      page.execute_script '$(\'#edit_user\').append("<input value=\'t\' name=\'user[admin]\'>")'
+      sleep 1
+      expect { click_button('Update') }.to raise_error ActionController::UnpermittedParameters
     end
   end
 end
