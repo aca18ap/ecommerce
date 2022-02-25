@@ -87,5 +87,4 @@ function sendData(social, feature) {
 
     const blob = new Blob([JSON.stringify(share)], headers);
     navigator.sendBeacon('/shares', blob);
-}
-
+} 
