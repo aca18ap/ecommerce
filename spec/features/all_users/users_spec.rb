@@ -82,13 +82,4 @@ describe 'User' do
       expect(page).to have_content 'Invalid Email or password.'
     end
   end
-
-  context 'Security' do
-    specify 'I cannot change my role via mass assignment', js: true do
-      expect(customer.admin).to be false
-      page.execute_script '$(\'#edit_user\').append("<input value=\'t\' name=\'user[admin]\'>")'
-      sleep 1
-      expect { click_button('Update') }.to raise_error ActionController::UnpermittedParameters
-    end
-  end
 end

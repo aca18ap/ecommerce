@@ -31,11 +31,15 @@ RSpec.describe '/users', type: :request do
         expect(user.access_locked?).to eq true
       end
     end
+  end
+
+  describe 'PUT /users/:id' do
+    let!(:user) { User.create(email: 'test@team04.com', password: 'Password123', admin: false) }
 
     context 'Security' do
       it 'does not allow the user to become an admin via mass assignment' do
         expect(user.admin).to be false
-        patch user_path(user), params: {
+        put users_path(user), params: {
           user: {
             admin: true
           }
