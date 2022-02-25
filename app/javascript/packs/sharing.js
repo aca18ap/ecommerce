@@ -10,7 +10,14 @@ function getQueryText(text){
 }
 
 
-
+fetch("posts.json")
+    .then(response.json())
+    .then(json => {
+        json.forEach(p => {
+            let posts = $('#'+p).children
+            
+        })
+    })
 
 
 $(function(){
@@ -20,22 +27,14 @@ $(function(){
             'click',
             function(){
                 let mainCard = (e.parentNode.parentNode.parentNode.parentNode);
-                let f = mainCard.getElementsByClassName("featureName")[0].textContent.replace(/(\r\n|\n|\r)/gm," ").trim()
-                sendData(e.id, f);
+                //let f = mainCard.getElementsByClassName("featureName")[0].textContent.replace(/(\r\n|\n|\r)/gm," ").trim()
+                sendData(e.id, mainCard.getElementsByClassName("featureName")[0].id);
             }
         )
     })
 })
 
 function sendData(social, feature){
-    let share = new FormData();
-
-<<<<<<< Updated upstream
-    share.append('social', social)
-    share.append('feature', feature)
-    navigator.sendBeacon('/shares', share);
-} 
-=======
     const share = {
         social,
         feature,
@@ -48,4 +47,3 @@ function sendData(social, feature){
 
     navigator.sendBeacon('/shares', blob );
 } 
->>>>>>> Stashed changes
