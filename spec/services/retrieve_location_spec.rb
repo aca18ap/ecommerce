@@ -23,8 +23,8 @@ Geocoder::Lookup::Test.add_stub(
 Geocoder::Lookup::Test.set_default_stub(
   [
     {
-      :latitude => 10,
-      :longitude => 10,
+      :latitude => -1.488707,
+      :longitude => 53.3705604,
       'address' => 'Test Address',
       'state' => 'Test State',
       'state_code' => 'TS',

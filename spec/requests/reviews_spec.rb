@@ -26,13 +26,13 @@ RSpec.describe '/reviews', type: :request do
     it 'Should be redirected' do
       get reviews_path
 
-      expect(response.status).to eq(302)
+      expect(response.status).to eq 302
     end
   end
 
   describe 'POST /reviews' do
     it 'creates a new review' do
-      expect(Review.count).to eq(0)
+      expect(Review.count).to eq 0
 
       post reviews_path, params: {
         review: {
@@ -40,7 +40,7 @@ RSpec.describe '/reviews', type: :request do
         }
       }
 
-      expect(Review.count).to eq(1)
+      expect(Review.count).to eq 1
     end
   end
 end

@@ -80,9 +80,9 @@ describe 'Managing accounts' do
         specify 'I can edit a user\'s email' do
           visit '/admin/users'
           page.find('#edit-user-1').click
-          fill_in 'user[email]', with: 'newemail@email.com'
+          fill_in 'user[email]', with: 'newemail@team04.com'
           click_button 'Update User'
-          within(:css, '#user-1') { expect(page).to have_content 'newemail@email.com' }
+          within(:css, '#user-1') { expect(page).to have_content 'newemail@team04.com' }
         end
       end
 
