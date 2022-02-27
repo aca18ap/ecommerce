@@ -39,6 +39,7 @@
           - if can?(:manage, :metrics)
             %li
               %a.nav-link.px-2{:href => "/admin/users"} Admin Panel
+              = link_to 'Admin Panel', staffs_show_path
           - if can?(:manage, Newsletter)
             %li
               %a.nav-link.px-2{:href => "/newsletters"} Newsletters
@@ -47,25 +48,25 @@
         .dropdown.text-end
           %a#dropdownUser1.d-block.custom-nav-fonts.text-decoration-none.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#"}
             -# %img.rounded-circle{:alt => "mdo", :height => "32", :src => "https://github.com/epigenesys.png", :width => "32"}
-            -if user_signed_in?
+            -if customer_signed_in?
               #{current_user.email}
               %img.rounded-circle.filter-white{:alt => "user icon", :height => "32", :src => "/images/person.svg", :width => "32"}
             -else
               Account
           %ul.dropdown-menu.text-small{"aria-labelledby" => "dropdownUser1", :style => ""}
-            -if user_signed_in?
+            -if customer_signed_in?
               %li
-                = link_to 'Profile', users_show_path, :class => 'dropdown-link'
+                = link_to 'Profile', customer_show_path, :class => 'dropdown-link'
                 -# %a.dropdown-item{:href => users_show_path} Profile
               %li
-                = link_to 'Account Settings', users_edit_path, :class => 'dropdown-link'
+                = link_to 'Account Settings', customer_edit_path, :class => 'dropdown-link'
                 %hr.dropdown-divider
               %li
-                = link_to 'Sign Out', destroy_user_session_path, method: :delete, :class => "dropdown-link"
+                = link_to 'Sign Out', destroy_customer_session_path, method: :delete, :class => "dropdown-link"
 
             -else
               %li
-                = link_to 'Sign In', new_user_session_path, method: :post, :class => "dropdown-link"
+                = link_to 'Sign In', new_customer_session_path, method: :post, :class => "dropdown-link"
 
   %main
     - if !notice.nil? then

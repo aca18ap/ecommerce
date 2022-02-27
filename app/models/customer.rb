@@ -31,6 +31,6 @@ class Customer < ApplicationRecord
   validates :username, presence: true
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :invitable, :database_authenticatable, :registerable, :password_archivable, :recoverable, 
+  devise :database_authenticatable, :registerable, :password_archivable, :recoverable, 
     :rememberable, :secure_validatable, :lockable, invite_for: 2.weeks
 end
