@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   devise_for :customers
   devise_for :staffs
 
-  
   resources :reviews
   get :review_created, to: 'reviews#created'
 

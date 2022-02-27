@@ -54,7 +54,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'is invalid if an email is already being used' do
-      subject.email = 'reporter@team04.com'
+      subject.email = reporter.email
       expect(subject).not_to be_valid
     end
 

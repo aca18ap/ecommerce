@@ -43,27 +43,6 @@ FactoryBot.define do
     password { 'Password123' }
     admin { false }
 
-    factory :admin do
-      email { 'admin@team04.com' }
-      role { 'admin' }
-      admin { true }
-    end
-
-    factory :reporter do
-      email { 'reporter@team04.com' }
-      role { 'reporter' }
-    end
-
-    factory :customer do
-      email { 'customer@team04.com' }
-      role { 'customer' }
-    end
-
-    factory :business do
-      email { 'business@team04.com' }
-      role { 'customer' }
-    end
-
     factory :locked do
       email { 'locked@team04.com' }
       role { 'customer' }
