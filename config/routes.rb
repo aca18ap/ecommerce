@@ -2,6 +2,11 @@
 
 Rails.application.routes.draw do
 
+  devise_for :businesses
+  devise_for :customers
+  devise_for :staffs
+
+  
   resources :reviews
   get :review_created, to: 'reviews#created'
 
@@ -25,6 +30,7 @@ Rails.application.routes.draw do
       patch '/:id/edit', to: 'admin/users#update'
     end
   end
+
 
   devise_for :users
   devise_scope :user do
