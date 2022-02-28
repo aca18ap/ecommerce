@@ -3,14 +3,27 @@
 Rails.application.routes.draw do
   devise_for :businesses
   resources :businesses
+  get '/businesses/show'
+  get '/businesses/edit'
+  devise_scope :business do
+    delete '/businesses/sign_out' => 'devise/sessions#destroy'
+  end
 
   devise_for :customers
   resources :customers
   get '/customers/show'
   get '/customers/edit'
+  devise_scope :customer do
+    delete '/customers/sign_out' => 'devise/sessions#destroy'
+  end
 
   devise_for :staffs
   resources :staffs
+  get '/staffs/show'
+  get '/staffs/edit'
+  devise_scope :staff do
+    delete '/staffs/sign_out' => 'devise/sessions#destroy'
+  end
 
   resources :reviews
   get :review_created, to: 'reviews#created'
