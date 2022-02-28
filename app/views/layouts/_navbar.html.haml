@@ -2,26 +2,26 @@
   .container-fluid.pad-edge
     .d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-lg-start
       %a.d-flex.align-items-center.mb-2.mr-5.mb-lg-0.text-decoration-none{:href => "/"}
-        %img{:alt => "mdo", :height => "48", :src => "/images/logo.png", :width => "160"}
-      .nav.col-12.col-lg-auto.me-lg-auto.justify-content-center.my-auto.mx-5.custom-nav-fonts
-        %li
-          = link_to 'Home', root_path, title: 'Go to the home page', class: 'nav-link px-2 link-secondary'
-        %li
-          %a.nav-link.px-2.ml-5{:href => "/faqs"} FAQs
-        - if can?(:manage, Review)
-          %li
-            %a.nav-link.px-2.link-dark{:href => "/reviews"} Reviews
-          -# Hide unless user is admin
-        - if can?(:read, :metrics)
-          %li
-            %a.nav-link.px-2{:href => "/metrics"} Metrics
-        - if can?(:manage, :metrics)
-          %li
-            %a.nav-link.px-2{:href => "/admin/users"} Admin Panel
-            = link_to 'Admin Panel', staffs_show_path
-        - if can?(:manage, Newsletter)
-          %li
-            %a.nav-link.px-2{:href => "/newsletters"} Newsletters
+      -#  %img{:alt => "mdo", :height => "48", :src => "/images/logo.png", :width => "160"}
+      -#.nav.col-12.col-lg-auto.me-lg-auto.justify-content-center.my-auto.mx-5.custom-nav-fonts
+      -#  %li
+      -#    = link_to 'Home', root_path, title: 'Go to the home page', class: 'nav-link px-2 link-secondary'
+      -#  %li
+      -#    %a.nav-link.px-2.ml-5{:href => "/faqs"} FAQs
+      -#  - if can?(:manage, Review)
+      -#    %li
+      -#      %a.nav-link.px-2.link-dark{:href => "/reviews"} Reviews
+      -#    -# Hide unless user is admin
+      -#  - if can?(:read, :metrics)
+      -#    %li
+      -#      %a.nav-link.px-2{:href => "/metrics"} Metrics
+      -#  - if can?(:manage, :metrics)
+      -#    %li
+      -#      %a.nav-link.px-2{:href => "/admin/users"} Admin Panel
+      -#      = link_to 'Admin Panel', staffs_show_path
+      -#  - if can?(:manage, Newsletter)
+      -#    %li
+      -#      %a.nav-link.px-2{:href => "/newsletters"} Newsletters
       .dropdown.text-end
         %a#dropdownUser1.d-block.custom-nav-fonts.text-decoration-none.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#"}
           -if customer_signed_in?

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :businesses, path: 'businesses', controllers: { sessions: 'businesses/sessions' }
-  resources :businesses
+  devise_for :businesses, path: 'businesses', controllers: { sessions: 'businesses/sessions', registrations: 'businesses/registrations'  }
+  resources :businesses, except: :create
   get '/businesses/show'
   get '/businesses/edit'
 
@@ -11,8 +11,8 @@ Rails.application.routes.draw do
   get '/customers/show'
   get '/customers/edit'
 
-  devise_for :staffs, path: 'staffs', controllers: { sessions: 'staffs/sessions' }
-  resources :staffs
+  devise_for :staffs, path: 'staffs', controllers: { sessions: 'staffs/sessions', registrations: 'staffs/registrations' }
+  resources :staffs, except: :new
   get '/staffs/show'
   get '/staffs/edit'
 
@@ -30,23 +30,23 @@ Rails.application.routes.draw do
   resources :metrics, only: %i[index create]
   post 'shares', to: 'shares#create'
 
-  namespace :admin do
-    resources :users do
-      patch '/:id/edit', to: 'admin/users#update'
-    end
-  end
+  # namespace :admin do
+  #   resources :users do
+  #     patch '/:id/edit', to: 'admin/users#update'
+  #   end
+  # end
 
-  devise_for :users
-  devise_scope :user do
-    delete '/users/sign_out' => 'devise/sessions#destroy'
-  end
+  # devise_for :users
+  # devise_scope :user do
+  #   delete '/users/sign_out' => 'devise/sessions#destroy'
+  # end
 
-  resources :users do
-    patch :unlock, on: :member
-  end
-
-  get 'users/show'
-  get 'users/edit'
+  # resources :users do
+  #   patch :unlock, on: :member
+  # end
+  #
+  # get 'users/show'
+  # get 'users/edit'
 
   resources :newsletters
 

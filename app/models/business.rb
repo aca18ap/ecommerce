@@ -36,6 +36,6 @@
 class Business < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :invitable, :database_authenticatable, :password_archivable, :recoverable, 
-    :rememberable, :secure_validatable, :lockable, invite_for: 2.weeks
+  devise :invitable, :database_authenticatable, :password_archivable, :recoverable,
+         :rememberable, :secure_validatable, :lockable, :registerable, invite_for: 2.weeks
 end

@@ -37,7 +37,7 @@ class Staff < ApplicationRecord
   after_initialize :set_default_role, if: :new_record?
 
   devise :invitable, :database_authenticatable, :password_archivable, :recoverable,
-         :rememberable, :secure_validatable, :lockable, invite_for: 2.weeks
+         :rememberable, :secure_validatable, :lockable, :registerable, invite_for: 2.weeks
 
   def set_default_role
     self.role ||= :reporter
