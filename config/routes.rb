@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-
   devise_for :businesses
+  resources :businesses
+
   devise_for :customers
+  resources :customers
+
   devise_for :staffs
+  resources :staffs
 
   resources :reviews
   get :review_created, to: 'reviews#created'
@@ -17,7 +21,7 @@ Rails.application.routes.draw do
     end
   end
   resources :newsletters
-  resources :metrics, only: [:index, :create]
+  resources :metrics, only: %i[index create]
   post 'shares', to: 'shares#create'
   match '/403', to: 'errors#error_403', via: :all
   match '/404', to: 'errors#error_404', via: :all
@@ -29,7 +33,6 @@ Rails.application.routes.draw do
       patch '/:id/edit', to: 'admin/users#update'
     end
   end
-
 
   devise_for :users
   devise_scope :user do
