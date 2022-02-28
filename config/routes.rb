@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :businesses
+  devise_for :businesses, path: 'businesses', controllers: { sessions: 'businesses/sessions' }
   resources :businesses
   get '/businesses/show'
   get '/businesses/edit'
@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     delete '/businesses/sign_out' => 'devise/sessions#destroy'
   end
 
-  devise_for :customers
+  devise_for :customers, path: 'customers', controllers: { sessions: 'customers/sessions' }
   resources :customers
   get '/customers/show'
   get '/customers/edit'
@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     delete '/customers/sign_out' => 'devise/sessions#destroy'
   end
 
-  devise_for :staffs
+  devise_for :staffs, path: 'staffs', controllers: { sessions: 'staffs/sessions' }
   resources :staffs
   get '/staffs/show'
   get '/staffs/edit'
