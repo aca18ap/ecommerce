@@ -36,7 +36,7 @@ require 'rails_helper'
 
 RSpec.describe Staff, type: :model do
   let!(:admin) { FactoryBot.create(:admin) }
-  subject { described_class.new(email: 'new_reporter@team04.com', password: 'Password123', role: 'reporter') }
+  subject { described_class.new(email: 'new_reporter@team04.com', password: 'Password123') }
 
   describe 'Validates' do
     it 'is valid with valid attributes' do
@@ -54,7 +54,6 @@ RSpec.describe Staff, type: :model do
     end
 
     it 'is valid without a role and defaults to "reporter"' do
-      subject.role = nil
       expect(subject).to be_valid
       expect(subject.role).to eq 'reporter'
     end

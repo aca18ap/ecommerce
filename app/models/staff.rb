@@ -33,11 +33,11 @@
 #  index_staffs_on_unlock_token          (unlock_token) UNIQUE
 #
 class Staff < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  ROLES = [:admin, :reporter]
-  devise :invitable, :database_authenticatable, :password_archivable, :recoverable, 
-    :rememberable, :secure_validatable, :lockable, invite_for: 2.weeks
+  ROLES = %i[admin reporter].freeze
+  after_initialize :set_default_role, if: :new_record?
+
+  devise :invitable, :database_authenticatable, :password_archivable, :recoverable,
+         :rememberable, :secure_validatable, :lockable, invite_for: 2.weeks
 
   def set_default_role
     self.role ||= :reporter
