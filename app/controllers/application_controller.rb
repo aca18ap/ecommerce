@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :update_headers_to_disable_caching
   before_action :ie_warning
+  before_action :current_ability
 
   # Catch NotFound exceptions and handle them neatly, when URLs are mistyped or mislinked
   rescue_from ActiveRecord::RecordNotFound do
@@ -44,4 +45,15 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     resource
   end
+
+  def current_ability
+    @current_ability ||= if staff_signed_in?
+                           Ability.new(current_staff)
+                         elsif business_signed_in?
+                           Ability.new(current_business)
+                         else
+                           Ability.new(current_customer)
+                         end
+  end
+
 end

@@ -5,23 +5,20 @@ class Ability
 
   def initialize(user)
     # Define abilities for the passed in user here. For example:
-    #
-    user ||= User.new # guest user (not logged in)
-    if user.admin?
-      can :manage, User
-      can :manage, Review
-      can :manage, Visit
-      can :manage, Newsletter
-      can :read, :all
-      can :manage, Faq
-      can :manage, :metrics
-    elsif user.role == 'reporter'
-      can :read, :all
-      cannot :manage, Review
-      can :read, :metrics
-      can :create, Faq
-      can :like, Faq
-      can :dislike, Faq
+
+    case user
+    when Staff
+      case user.role
+      when 'admin'
+        can :manage, [Staff, Customer, Business, Review, Visit, Newsletter, Faq, :metrics]
+        can :read, :all
+      else # Currently only reporter. Add another when clause for other staff roles
+        can :read, :metrics
+        cannot :manage, Review
+        can :create, Faq
+        can :like, Faq
+        can :dislike, Faq
+      end
     else
       can :new, Review
       can :create, Review

@@ -11,10 +11,6 @@ module Accessible
 
   def check_user
 
-    puts '========================='
-    puts 'GOT HERE'
-    puts '========================='
-
     if current_staff
       flash.clear
       redirect_to staffs_show_path and return
