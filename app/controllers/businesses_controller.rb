@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class BusinessesController < ApplicationController
-  #before_action :authenticate_business!
   before_action :set_business, only: %i[show edit update destroy]
 
   # GET /businesses/1

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class StaffsController < ApplicationController
-  #before_action authenticate_staff!
   before_action :set_staff, only: %i[show edit update destroy]
 
   # GET /staffs/1

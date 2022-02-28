@@ -1,5 +1,4 @@
 class CustomersController < ApplicationController
-  #before_action authenticate_customer!
   before_action :set_customer, only: %i[show edit update destroy]
 
   def create
@@ -13,6 +12,7 @@ class CustomersController < ApplicationController
     redirect_back fallback_location: '/' unless customer_signed_in?
   end
 
+  # GET /customers/1/edit
   def edit; end
 
   # PATCH/PUT /customers/1

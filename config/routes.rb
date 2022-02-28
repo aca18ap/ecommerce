@@ -29,10 +29,6 @@ Rails.application.routes.draw do
   resources :newsletters
   resources :metrics, only: %i[index create]
   post 'shares', to: 'shares#create'
-  match '/403', to: 'errors#error_403', via: :all
-  match '/404', to: 'errors#error_404', via: :all
-  match '/422', to: 'errors#error_422', via: :all
-  match '/500', to: 'errors#error_500', via: :all
 
   namespace :admin do
     resources :users do
