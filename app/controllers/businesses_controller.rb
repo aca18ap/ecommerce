@@ -39,7 +39,7 @@ class BusinessesController < ApplicationController
   private
 
   def set_business
-    @business = find_by_id(params[:id])
+    @business = Business.find_by_id(params[:id])
   end
 
   def business_params

@@ -39,7 +39,7 @@ class StaffsController < ApplicationController
   private
 
   def set_staff
-    @staff = find_by_id(params[:id])
+    @staff = Staff.find_by_id(params[:id])
   end
 
   def staff_params

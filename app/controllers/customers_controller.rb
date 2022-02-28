@@ -1,5 +1,5 @@
 class CustomersController < ApplicationController
-  before_action authenticate_customer!
+  #before_action authenticate_customer!
   before_action :set_customer, only: %i[show edit update destroy]
 
   def create
@@ -42,7 +42,7 @@ class CustomersController < ApplicationController
   private
 
   def set_customer
-    @customer = find_by_id(params[:id])
+    @customer = Customer.find_by_id(params[:id])
   end
 
   def customer_params

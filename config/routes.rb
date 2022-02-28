@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   devise_for :customers
   resources :customers
+  get '/customers/show'
+  get '/customers/edit'
 
   devise_for :staffs
   resources :staffs
