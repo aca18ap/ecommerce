@@ -18,71 +18,16 @@
 
   %body.bg-light
 
-  %header.p-2.border-bottom.custom-nav
-    .container-fluid.pad-edge
-      .d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-lg-start
-        %a.d-flex.align-items-center.mb-2.mr-5.mb-lg-0.text-decoration-none{:href => "/"}
-          %img{:alt => "mdo", :height => "48", :src => "/images/logo.png", :width => "160"}
-        .nav.col-12.col-lg-auto.me-lg-auto.justify-content-center.my-auto.mx-5.custom-nav-fonts
-          -#   = link_to 'Home', root_path, title: 'Go to the home page', class: 'nav-link px-2 link-secondary'
-          %li
-            = link_to 'Home', root_path, title: 'Go to the home page', class: 'nav-link px-2 link-secondary'
-          %li
-            %a.nav-link.px-2.ml-5{:href => "/faqs"} FAQs
-          - if can?(:manage, Review)
-            %li
-              %a.nav-link.px-2.link-dark{:href => "/reviews"} Reviews
-          -# Hide unless user is admin
-          - if can?(:read, :metrics)
-            %li
-              %a.nav-link.px-2{:href => "/metrics"} Metrics
-          - if can?(:manage, :metrics)
-            %li
-              %a.nav-link.px-2{:href => "/admin/users"} Admin Panel
-              = link_to 'Admin Panel', staffs_show_path
-          - if can?(:manage, Newsletter)
-            %li
-              %a.nav-link.px-2{:href => "/newsletters"} Newsletters
-        -# %form.col-12.col-lg-auto.mb-3.mb-lg-0.me-lg-3
-        -#   %input.form-control{"aria-label" => "Search", :placeholder => "Search...", :type => "search"}
-        .dropdown.text-end
-          %a#dropdownUser1.d-block.custom-nav-fonts.text-decoration-none.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#"}
-            -# %img.rounded-circle{:alt => "mdo", :height => "32", :src => "https://github.com/epigenesys.png", :width => "32"}
-            -if customer_signed_in?
-              #{current_customer.email}
-              %img.rounded-circle.filter-white{:alt => "user icon", :height => "32", :src => "/images/person.svg", :width => "32"}
-            -else
-              Account
-          %ul.dropdown-menu.text-small{"aria-labelledby" => "dropdownUser1", :style => ""}
-            -if customer_signed_in?
-              %li
-                = link_to 'Profile', customers_show_path, :class => 'dropdown-link'
-                -# %a.dropdown-item{:href => users_show_path} Profile
-              %li
-                = link_to 'Account Settings', customers_edit_path, :class => 'dropdown-link'
-                %hr.dropdown-divider
-              %li
-                = link_to 'Sign Out', destroy_customer_session_path, method: :delete, :class => "dropdown-link"
-
-            -else
-              %li
-                = link_to 'Sign In', new_customer_session_path, method: :post, :class => "dropdown-link"
+  = render partial: 'layouts/navbar'
 
   %main
-    - if !notice.nil? then
-      .alert.alert-secondary#notice= notice
-    - if !alert.nil? then
-      .alert.alert-secondary#notice= alert
+    .text-center
+      - if !notice.nil? then
+        .alert.alert-secondary#notice= notice
+      - if !alert.nil? then
+        .alert.alert-secondary#notice= alert
     = yield
 
-  %footer.mt-auto.my-5.pt-5.text-muted.text-center.text-small.custom-footer
-    %p.mb-1 &copy; Team 4 #{Date.today.year}
-    %ul.list-inline
-      %li.list-inline-item
-        = link_to 'epiGenesys', 'https://www.epigenesys.org.uk', target: '_blank', title: 'Go to the epiGenesys website'
-      %li.list-inline-item
-        %a{:href => "#"} Terms
-      %li.list-inline-item
-        %a{:href => "#"} Support
+  = render partial: 'layouts/footer'
 
 
