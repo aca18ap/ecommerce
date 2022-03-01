@@ -10,7 +10,6 @@ module Accessible
   protected
 
   def check_user
-
     if current_staff
       flash.clear
       redirect_to staffs_show_path and return

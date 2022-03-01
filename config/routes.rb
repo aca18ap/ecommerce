@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :businesses, path: 'businesses', controllers: { sessions: 'businesses/sessions', registrations: 'businesses/registrations'  }
-  resources :businesses, except: :create
+  devise_for :businesses, path: 'businesses', controllers: { sessions: 'businesses/sessions', registrations: 'businesses/registrations' }
+  resources :businesses
   get '/businesses/show'
   get '/businesses/edit'
 
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get '/customers/edit'
 
   devise_for :staffs, path: 'staffs', controllers: { sessions: 'staffs/sessions', registrations: 'staffs/registrations' }
-  resources :staffs, except: :new
+  resources :staffs
   get '/staffs/show'
   get '/staffs/edit'
 
