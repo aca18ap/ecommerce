@@ -66,14 +66,14 @@ describe 'staff logging in in' do
       login_as(FactoryBot.create(:customer))
 
       visit new_staff_session_path
-      expect(page).to_not have_current_path new_staff_session_path
+      expect(page).to have_current_path customers_show_path
     end
 
     specify 'as a business' do
       login_as(FactoryBot.create(:business))
 
       visit new_staff_session_path
-      expect(page).to_not have_current_path new_staff_session_path
+      expect(page).to have_current_path businesses_show_path
     end
   end
 end

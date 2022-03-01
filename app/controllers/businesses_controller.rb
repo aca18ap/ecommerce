@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class BusinessesController < ApplicationController
-  before_action :set_business, only: %i[show edit update destroy]
+  before_action :authenticate_staff!, only: :unlock
+  before_action :set_business, only: %i[show edit update destroy unlock]
 
   # GET /businesses/1
   def show
@@ -35,6 +36,12 @@ class BusinessesController < ApplicationController
     end
   end
 
+  # PATCH /businesses/1/unlock
+  def unlock
+    @business.unlock_access!
+    redirect_back fallback_location: root_path
+  end
+
   private
 
   def set_business
@@ -44,5 +51,4 @@ class BusinessesController < ApplicationController
   def business_params
     params.require(:business).permit(:email, :password, :password_confirmation, :name, :description)
   end
-
 end

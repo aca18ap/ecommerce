@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class CustomersController < ApplicationController
-  before_action :set_customer, only: %i[show edit update destroy]
+  before_action :authenticate_staff!, only: :unlock
+  before_action :set_customer, only: %i[show edit update destroy unlock]
 
   def create
   end
@@ -39,6 +40,12 @@ class CustomersController < ApplicationController
     else
       redirect_to request.referer
     end
+  end
+
+  # PATCH /customers/1/unlock
+  def unlock
+    @customer.unlock_access!
+    redirect_back fallback_location: root_path
   end
 
   private

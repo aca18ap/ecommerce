@@ -1,21 +1,30 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :businesses, path: 'businesses', controllers: { sessions: 'businesses/sessions', registrations: 'businesses/registrations' }
-  resources :businesses
-  get '/businesses/show'
-  get '/businesses/edit'
 
+  ## System users and accounts routes
   devise_for :customers, path: 'customers', controllers: { sessions: 'customers/sessions' }
   resources :customers
+  resources :customers do
+    patch :unlock, on: :member
+  end
   get '/customers/show'
   get '/customers/edit'
 
   devise_for :staffs, path: 'staffs', controllers: { sessions: 'staffs/sessions', registrations: 'staffs/registrations' }
-  resources :staffs
+  resources :staffs, only: %i[show edit update destroy]
   get '/staffs/show'
   get '/staffs/edit'
 
+  devise_for :businesses, path: 'businesses', controllers: { sessions: 'businesses/sessions', registrations: 'businesses/registrations' }
+  resources :businesses, only: %i[show edit update destroy]
+  resources :businesses do
+    patch :unlock, on: :member
+  end
+  get '/businesses/show'
+  get '/businesses/edit'
+
+  ## Everything else for now
   resources :reviews
   get :review_created, to: 'reviews#created'
 
