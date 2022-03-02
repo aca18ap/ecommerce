@@ -57,18 +57,6 @@ Rails.application.routes.draw do
   #   end
   # end
 
-  # devise_for :users
-  # devise_scope :user do
-  #   delete '/users/sign_out' => 'devise/sessions#destroy'
-  # end
-
-  # resources :users do
-  #   patch :unlock, on: :member
-  # end
-  #
-  # get 'users/show'
-  # get 'users/edit'
-
   resources :newsletters
 
   match '/403', to: 'errors#error_403', via: :all
