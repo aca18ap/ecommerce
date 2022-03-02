@@ -9,15 +9,15 @@ class CustomersController < ApplicationController
 
   def new; end
 
-  # GET /customers/1
+  # GET /customer/1
   def show
     redirect_back fallback_location: '/' unless customer_signed_in?
   end
 
-  # GET /customers/1/edit
+  # GET /customer/1/edit
   def edit; end
 
-  # PATCH/PUT /customers/1
+  # PATCH/PUT /customer/1
   def update
     if @customer.update(customer_params)
       redirect_to @customer, notice: 'Your details were successfully updated.'
@@ -41,7 +41,7 @@ class CustomersController < ApplicationController
     end
   end
 
-  # PATCH /customers/1/unlock
+  # PATCH /customer/1/unlock
   def unlock
     @customer.unlock_access!
     redirect_back fallback_location: root_path

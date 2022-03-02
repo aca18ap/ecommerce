@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'staff', type: :request do
   describe 'GET /staff/show' do
-    before { login_as(FactoryBot.create(:staff), scope: :staff) }
+    before { login_as(FactoryBot.create(:admin), scope: :staff) }
 
     it 'shows the current staff\' dashboard' do
       get '/staff/show'
@@ -39,14 +39,12 @@ RSpec.describe 'staff', type: :request do
     context 'Security' do
       it 'does not allow the reporter to become an admin via mass assignment' do
         expect(reporter.admin?).to be false
-        expect do
-          put staff_path(reporter), params: {
-            staff: {
-              role: 'admin'
-            }
+        put staff_path(reporter), params: {
+          staff: {
+            role: 'admin'
           }
-        end.to raise_error ActionController::UnpermittedParameters
-
+        }
+        expect(response).to_not be_successful
         expect(reporter.reload.admin?).to be false
       end
     end

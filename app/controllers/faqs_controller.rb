@@ -1,6 +1,6 @@
 class FaqsController < ApplicationController
   authorize_resource
-  before_action :set_faq, only: [:show, :edit, :answer, :update, :destroy, :like, :dislike]
+  before_action :set_faq, only: %i[show edit answer update destroy like dislike]
 
   # GET /faqs
   def index

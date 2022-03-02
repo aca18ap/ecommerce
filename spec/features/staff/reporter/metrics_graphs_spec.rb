@@ -12,7 +12,7 @@ describe 'Metrics management', js: true do
   end
 
   context 'If there is no data in the system' do
-    before { login_as(FactoryBot.create(:reporter)) }
+    before { login_as(FactoryBot.create(:reporter), scope: :staff) }
 
     specify 'The graphs should show an appropriate message' do
       visit '/metrics'
@@ -38,7 +38,7 @@ describe 'Metrics management', js: true do
   end
 
   context 'If there is data in the system' do
-    before { login_as(FactoryBot.create(:reporter)) }
+    before { login_as(FactoryBot.create(:reporter), scope: :staff) }
 
     specify 'If there are visitor statistics' do
       FactoryBot.create :visit
@@ -92,11 +92,11 @@ describe 'Metrics management', js: true do
       visit '/metrics'
       within(:css, '.nav') { expect(page).not_to have_content 'Metrics' }
       expect(page).not_to have_content 'Metrics Summary'
-      expect(page).to have_current_path('/users/sign_in')
+      expect(page).to have_current_path new_customer_session_path
     end
 
     context 'If I am an admin' do
-      before { login_as(FactoryBot.create(:admin)) }
+      before { login_as(FactoryBot.create(:admin), scope: :staff) }
       specify 'I can view metrics' do
         visit '/metrics'
         within(:css, '.nav') { expect(page).to have_content 'Metrics' }
@@ -105,7 +105,7 @@ describe 'Metrics management', js: true do
     end
 
     context 'If I am an reporter' do
-      before { login_as(FactoryBot.create(:reporter)) }
+      before { login_as(FactoryBot.create(:reporter), scope: :staff) }
       specify 'I can view metrics' do
         visit '/metrics'
         within(:css, '.nav') { expect(page).to have_content 'Metrics' }
@@ -114,7 +114,7 @@ describe 'Metrics management', js: true do
     end
 
     context 'If I am not an admin or reporter' do
-      before { login_as(FactoryBot.create(:customer)) }
+      before { login_as(FactoryBot.create(:customer), scope: :customer) }
       specify ', I cannot view metrics' do
         visit '/metrics'
         within(:css, '.nav') { expect(page).not_to have_content 'Metrics' }

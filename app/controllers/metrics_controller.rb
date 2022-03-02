@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class MetricsController < ApplicationController
-  before_action :authenticate_user!
-  authorize_resource class: false, only: [:index]
+  before_action :authenticate_staff!, only: :index
+  authorize_resource class: false, only: :index
 
   def index
     @current_nav_identifier = :metrics
