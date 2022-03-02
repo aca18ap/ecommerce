@@ -63,7 +63,7 @@ describe 'Customer logging in in' do
 
   context 'I cannot log in as a customer if I am logged in as' do
     specify 'a staff member' do
-      login_as(FactoryBot.create(:admin))
+      login_as(FactoryBot.create(:admin), scope: :staff)
 
       visit new_customer_session_path
       expect(page).to have_current_path staffs_show_path
@@ -71,7 +71,7 @@ describe 'Customer logging in in' do
 
     specify 'as a business' do
       logout(:user)
-      login_as(FactoryBot.create(:business))
+      login_as(FactoryBot.create(:business), scope: :business)
 
       visit new_customer_session_path
       expect(page).to have_current_path businesses_show_path

@@ -3,26 +3,38 @@
 Rails.application.routes.draw do
 
   ## System users and accounts routes
-  devise_for :customers, path: 'customers', controllers: { sessions: 'customers/sessions' }
+  devise_for :customers, path: 'customer', controllers: { sessions: 'customers/sessions' }
+  authenticated :customer_user do
+    root to: "customer/dashboard#show", as: :authenticated_customer_root
+  end
   resources :customers
   resources :customers do
     patch :unlock, on: :member
   end
-  get '/customers/show'
-  get '/customers/edit'
+  get '/customer/show'
+  get '/customer/edit'
 
-  devise_for :staffs, path: 'staffs', controllers: { sessions: 'staffs/sessions', registrations: 'staffs/registrations' }
+  devise_for :staffs, path: 'staff', controllers: { sessions: 'staffs/sessions', registrations: 'staffs/registrations' }
+  authenticated :staff, ->(u) { u.admin? } do
+    root to: 'staff/dashboard#show', as: :authenticated_admin_root
+  end
+  authenticated :staff, ->(u) { u.reporter? } do
+    root to: "staff/dashboard#show", as: :authenticated_reporter_root
+  end
   resources :staffs, only: %i[show edit update destroy]
-  get '/staffs/show'
-  get '/staffs/edit'
+  get '/staff/show'
+  get '/staff/edit'
 
   devise_for :businesses, path: 'businesses', controllers: { sessions: 'businesses/sessions', registrations: 'businesses/registrations' }
+  authenticated :business do
+    root to: "business/dashboard#show", as: :authenticated_business_root
+  end
   resources :businesses, only: %i[show edit update destroy]
   resources :businesses do
     patch :unlock, on: :member
   end
-  get '/businesses/show'
-  get '/businesses/edit'
+  get '/business/show'
+  get '/business/edit'
 
   ## Everything else for now
   resources :reviews

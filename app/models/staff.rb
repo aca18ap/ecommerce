@@ -42,4 +42,12 @@ class Staff < ApplicationRecord
   def set_default_role
     self.role ||= :reporter
   end
+
+  def admin?
+    role == 'admin'
+  end
+
+  def reporter?
+    role == 'reporter'
+  end
 end

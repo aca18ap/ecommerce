@@ -92,4 +92,28 @@ RSpec.describe Staff, type: :model do
       expect(subject.encrypted_password).not_to eq('Password123')
     end
   end
+
+  describe '.admin?' do
+    it 'should return true if the user is an admin' do
+      subject.role = 'admin'
+      expect(subject.admin?).to eq true
+    end
+
+    it 'should return false if the user is not an admin' do
+      subject.role = 'reporter'
+      expect(subject.admin?).to eq false
+    end
+  end
+
+  describe '.reporter?' do
+    it 'should return true if the user is an reporter' do
+      subject.role = 'reporter'
+      expect(subject.reporter?).to eq true
+    end
+
+    it 'should return false if the user is not an reporter' do
+      subject.role = 'admin'
+      expect(subject.reporter?).to eq false
+    end
+  end
 end
