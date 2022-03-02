@@ -2,6 +2,7 @@
 
 class BusinessesController < ApplicationController
   before_action :authenticate_staff!, only: :unlock
+  before_action :authenticate_business!, except: :unlock
   before_action :set_business, only: %i[show edit update destroy unlock]
 
   # GET /businesses/1

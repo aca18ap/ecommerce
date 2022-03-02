@@ -15,7 +15,7 @@ describe 'Customer logging in in' do
       fill_in 'customer[email]', with: customer.email
       fill_in 'customer[password]', with: customer.password
       click_button 'Log in'
-      expect(page).to have_current_path customers_show_path
+      expect(page).to have_current_path authenticated_customer_root_path
     end
   end
 
@@ -24,7 +24,7 @@ describe 'Customer logging in in' do
       fill_in 'customer[email]', with: customer.email
       fill_in 'customer[password]', with: 'incorrect_password'
       click_button 'Log in'
-      expect(page).not_to have_current_path customers_show_path
+      expect(page).not_to have_current_path authenticated_customer_root_path
     end
 
     specify '4 times, I will be warned that I have one failed password check remaining' do
@@ -57,7 +57,7 @@ describe 'Customer logging in in' do
       fill_in 'customer[email]', with: customer.email
       fill_in 'customer[password]', with: "incorrect_password') OR '1'--"
       click_button 'Log in'
-      expect(page).not_to have_current_path customers_show_path
+      expect(page).not_to have_current_path customer_show_path
     end
   end
 
@@ -66,7 +66,7 @@ describe 'Customer logging in in' do
       login_as(FactoryBot.create(:admin), scope: :staff)
 
       visit new_customer_session_path
-      expect(page).to have_current_path staffs_show_path
+      expect(page).to have_current_path authenticated_admin_root_path
     end
 
     specify 'as a business' do
@@ -74,7 +74,7 @@ describe 'Customer logging in in' do
       login_as(FactoryBot.create(:business), scope: :business)
 
       visit new_customer_session_path
-      expect(page).to have_current_path businesses_show_path
+      expect(page).to have_current_path authenticated_business_root_path
     end
   end
 end

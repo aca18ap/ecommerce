@@ -17,7 +17,7 @@
         -# TODO: change staffs_show_path to manage users path
         - if can?(:manage, Staff)
           %li
-            = link_to 'Manage Users', staffs_show_path, class: 'nav-link px-2', title: 'Manage accounts'
+            = link_to 'Manage Users', staff_show_path, class: 'nav-link px-2', title: 'Manage accounts'
         - if can?(:manage, Newsletter)
           %li
             = link_to 'Manage Newsletters', newsletters_path, class: 'nav-link px-2', title: 'Manage newsletters'
@@ -35,27 +35,27 @@
         %ul.dropdown-menu.text-small{"aria-labelledby" => "dropdownUser1", :style => ""}
           -if customer_signed_in?
             %li
-              = link_to 'Profile', customers_show_path, :class => 'dropdown-link'
+              = link_to 'Profile', customer_show_path, :class => 'dropdown-link'
             %li
-              = link_to 'Account Settings', customers_edit_path, :class => 'dropdown-link'
+              = link_to 'Account Settings', customer_edit_path, :class => 'dropdown-link'
               %hr.dropdown-divider
             %li
               = link_to 'Sign Out', destroy_customer_session_path, method: :delete, :class => "dropdown-link"
 
           -elsif business_signed_in?
             %li
-              = link_to 'Profile', businesses_show_path, :class => 'dropdown-link'
+              = link_to 'Profile', business_show_path, :class => 'dropdown-link'
             %li
-              = link_to 'Account Settings', businesses_edit_path, :class => 'dropdown-link'
+              = link_to 'Account Settings', business_edit_path, :class => 'dropdown-link'
               %hr.dropdown-divider
             %li
               = link_to 'Sign Out', destroy_business_session_path, method: :delete, :class => "dropdown-link"
 
           -elsif staff_signed_in?
             %li
-              = link_to 'Profile', staffs_show_path, :class => 'dropdown-link'
+              = link_to 'Profile', staff_show_path, :class => 'dropdown-link'
             %li
-              = link_to 'Account Settings', staffs_edit_path, :class => 'dropdown-link'
+              = link_to 'Account Settings', staff_edit_path, :class => 'dropdown-link'
               %hr.dropdown-divider
             %li
               = link_to 'Sign Out', destroy_staff_session_path, method: :delete, :class => "dropdown-link"

@@ -5,10 +5,10 @@ Rails.application.routes.draw do
   ## System users and accounts routes
   devise_for :customers, path: 'customer', controllers: { sessions: 'customers/sessions' }
   authenticated :customer_user do
-    root to: "customer/dashboard#show", as: :authenticated_customer_root
+    root to: 'customers#show', as: :authenticated_customer_root
   end
-  resources :customers
-  resources :customers do
+  resources :customers, path: 'customer'
+  resources :customers, path: 'customer' do
     patch :unlock, on: :member
   end
   get '/customer/show'
@@ -16,21 +16,21 @@ Rails.application.routes.draw do
 
   devise_for :staffs, path: 'staff', controllers: { sessions: 'staffs/sessions', registrations: 'staffs/registrations' }
   authenticated :staff, ->(u) { u.admin? } do
-    root to: 'staff/dashboard#show', as: :authenticated_admin_root
+    root to: 'staffs#show', as: :authenticated_admin_root
   end
   authenticated :staff, ->(u) { u.reporter? } do
-    root to: "staff/dashboard#show", as: :authenticated_reporter_root
+    root to: 'staffs#show', as: :authenticated_reporter_root
   end
-  resources :staffs, only: %i[show edit update destroy]
+  resources :staffs, path: 'staff', only: %i[show edit update destroy]
   get '/staff/show'
   get '/staff/edit'
 
-  devise_for :businesses, path: 'businesses', controllers: { sessions: 'businesses/sessions', registrations: 'businesses/registrations' }
+  devise_for :businesses, path: 'business', controllers: { sessions: 'businesses/sessions', registrations: 'businesses/registrations' }
   authenticated :business do
-    root to: "business/dashboard#show", as: :authenticated_business_root
+    root to: 'businesses#show', as: :authenticated_business_root
   end
-  resources :businesses, only: %i[show edit update destroy]
-  resources :businesses do
+  resources :businesses, path: 'business', only: %i[show edit update destroy]
+  resources :businesses, path: 'business' do
     patch :unlock, on: :member
   end
   get '/business/show'

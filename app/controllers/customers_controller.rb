@@ -2,13 +2,12 @@
 
 class CustomersController < ApplicationController
   before_action :authenticate_staff!, only: :unlock
+  before_action :authenticate_customer!, except: :unlock
   before_action :set_customer, only: %i[show edit update destroy unlock]
 
-  def create
-  end
+  def create; end
 
-  def new
-  end
+  def new; end
 
   # GET /customers/1
   def show

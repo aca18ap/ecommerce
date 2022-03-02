@@ -10,17 +10,21 @@ module Accessible
   protected
 
   def check_user
-    if current_staff
+    if current_staff&.admin?
       flash.clear
-      redirect_to staffs_show_path and return
+      redirect_to authenticated_admin_root_path and return
+
+    elsif current_staff&.reporter
+      flash.clear
+      redirect_to authenticated_reporter_root_path and return
 
     elsif current_business
       flash.clear
-      redirect_to businesses_show_path and return
+      redirect_to authenticated_business_root_path and return
 
     elsif current_customer
       flash.clear
-      redirect_to customers_show_path and return
+      redirect_to authenticated_customer_root_path and return
     end
   end
 end
