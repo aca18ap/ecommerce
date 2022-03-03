@@ -1,7 +1,11 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+<<<<<<< HEAD
   before_action :authenticate_customer! || :authenticate_staff!, only: [:new, :create]
   before_action :authenticate_staff!, except: [:show, :index, :new, :create]
+=======
+  before_action :authenticate_user!, except: [:show, :index]
+>>>>>>> Added authentication check to creating products, refactored column type to category due to rails complaining
   # GET /products
   def index
     @products = Product.order('created_at DESC').all.decorate
@@ -67,6 +71,10 @@ class ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
+<<<<<<< HEAD
       params.require(:product).permit(:name, :description, :mass, :category, :url, :manufacturer,  :manufacturer_country, :co2_produced, :material_ids => [])
+=======
+      params.require(:product).permit(:name, :description, :mass, :category, :url, :manufacturer, :manufacturer_country, :co2_produced)
+>>>>>>> Added authentication check to creating products, refactored column type to category due to rails complaining
     end
 end

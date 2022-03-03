@@ -7,20 +7,12 @@
     = f.input :name
     = f.input :description
     = f.input :mass
-<<<<<<< HEAD
     = f.input :category
     = f.input :url
     = f.input :manufacturer
     = f.input :manufacturer_country
     //= f.input :co2_produced
     = f.collection_check_boxes(:material_ids, Material.all, :id, :name, {}, {:multiple => true, :id => 'material_select'})
-=======
-    = f.input :type
-    = f.input :url
-    = f.input :manufacturer
-    = f.input :manufacturer_country
-    = f.input :co2_produced
->>>>>>> Scaffolding for products
 
   .form-actions
     = f.button :submit

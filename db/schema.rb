@@ -11,10 +11,14 @@
 # It's strongly recommended that you check this file into your version control system.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2022_03_04_182049) do
 =======
 ActiveRecord::Schema.define(version: 2022_03_03_112918) do
 >>>>>>> Scaffolding for products
+=======
+ActiveRecord::Schema.define(version: 2022_03_03_115430) do
+>>>>>>> Added authentication check to creating products, refactored column type to category due to rails complaining
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -136,10 +140,14 @@ ActiveRecord::Schema.define(version: 2022_03_03_112918) do
     t.string "description"
     t.float "mass"
 <<<<<<< HEAD
+<<<<<<< HEAD
     t.string "category"
 =======
     t.string "type"
 >>>>>>> Scaffolding for products
+=======
+    t.string "category"
+>>>>>>> Added authentication check to creating products, refactored column type to category due to rails complaining
     t.string "url"
     t.string "manufacturer"
     t.string "manufacturer_country"
