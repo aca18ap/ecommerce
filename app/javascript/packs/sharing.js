@@ -16,7 +16,6 @@ const posts = {
 
 const website_url = "team04.demo1.genesys.shefcompsciorg.uk"
 
-<<<<<<< HEAD
 
 /**
  * Given a social and a feature, this function visits that social with prefilled text
@@ -42,18 +41,9 @@ function socialFormatter(social, feature) {
     }
     //The generated post link replaces the current website page (mainly to aid testing)
     window.location.href = url
-=======
-fetch("posts.json")
-    .then(response.json())
-    .then(json => {
-        json.forEach(p => {
-            let posts = $('#'+p).children
-            
-        })
-    })
->>>>>>> test2
 
 }
+
 
 /**
  * Listener for clicks on share icons. On click the feature and social are extracted
@@ -66,7 +56,6 @@ $(function () {
             'click',
             function () {
                 let mainCard = (e.parentNode.parentNode.parentNode.parentNode);
-<<<<<<< HEAD
                 let feature = mainCard.getElementsByClassName("featureName")[0].textContent.replace(/(\r\n|\n|\r)/gm, " ").trim()
                 let social = e.id
 
@@ -75,16 +64,12 @@ $(function () {
 
                 //Opening social page with prefilled feature text
                 socialFormatter(social, feature)
-=======
-                //let f = mainCard.getElementsByClassName("featureName")[0].textContent.replace(/(\r\n|\n|\r)/gm," ").trim()
-                sendData(e.id, mainCard.getElementsByClassName("featureName")[0].id);
->>>>>>> test2
+
             }
         )
     })
 })
 
-<<<<<<< HEAD
 
 /**
  * Given a social and a feature, this function sends this data to the rails server
@@ -93,9 +78,7 @@ $(function () {
  * @param feature
  */
 function sendData(social, feature) {
-=======
-function sendData(social, feature){
->>>>>>> test2
+
 
     const share = {
         social,
@@ -106,11 +89,8 @@ function sendData(social, feature){
     };
 
     const blob = new Blob([JSON.stringify(share)], headers);
-<<<<<<< HEAD
+
     navigator.sendBeacon('/shares', blob);
 } 
-=======
 
-    navigator.sendBeacon('/shares', blob );
-} 
->>>>>>> test2
+
