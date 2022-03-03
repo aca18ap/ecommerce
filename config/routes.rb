@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     root to: 'staffs#show', as: :authenticated_admin_root
   end
   namespace :admin do
+    get '/users', to: '/admin/admins#index'
+
     resources :customers, path: 'customer' do
       patch '/:id/edit', to: 'admin/customer#update'
     end
