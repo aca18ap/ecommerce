@@ -20,6 +20,19 @@ Rails.application.routes.draw do
   authenticated :staff, ->(u) { u.admin? } do
     root to: 'staffs#show', as: :authenticated_admin_root
   end
+  namespace :admin do
+    resources :customers, path: 'customer' do
+      patch '/:id/edit', to: 'admin/customer#update'
+    end
+
+    resources :businesses, path: 'business' do
+      patch '/:id/edit', to: 'admin/business#update'
+    end
+
+    resources :staffs, path: 'staff' do
+      patch '/:id/edit', to: 'admin/staff#update'
+    end
+  end
   authenticated :staff, ->(u) { u.reporter? } do
     root to: 'staffs#show', as: :authenticated_reporter_root
   end
@@ -53,12 +66,6 @@ Rails.application.routes.draw do
   resources :newsletters
   resources :metrics, only: %i[index create]
   post 'shares', to: 'shares#create'
-
-  # namespace :admin do
-  #   resources :users do
-  #     patch '/:id/edit', to: 'admin/users#update'
-  #   end
-  # end
 
   resources :newsletters
 

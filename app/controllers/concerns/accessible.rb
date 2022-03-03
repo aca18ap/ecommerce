@@ -14,7 +14,7 @@ module Accessible
       flash.clear
       redirect_to authenticated_admin_root_path and return
 
-    elsif current_staff&.reporter
+    elsif current_staff&.reporter?
       flash.clear
       redirect_to authenticated_reporter_root_path and return
 

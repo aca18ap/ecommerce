@@ -14,7 +14,6 @@
         - if can?(:manage, Review)
           %li
             = link_to 'Manage Reviews', reviews_path, class: 'nav-link px-2', title: 'Manage reviews'
-        -# TODO: change staffs_show_path to manage users path
         - if can?(:manage, Staff)
           %li
             = link_to 'Manage Users', staff_show_path, class: 'nav-link px-2', title: 'Manage accounts'
