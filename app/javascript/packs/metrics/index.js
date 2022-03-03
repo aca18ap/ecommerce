@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let emptyCharts = [];
 
     // Only update graphs if there are any site tracking metrics in the system
-    if (gon.visits.length > 0) {
+    if (gon.visits && gon.visits.length > 0) {
         // Gets pageVisits from gon gem - calculated in CalculateMetrics service class
         let pageVisitCountsChart = HorizontalBarChart(gon.pageVisits, {
             x: d => d.visits,
@@ -63,8 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .data(uk.features)
         .enter()
         .append("path")
-        .attr("id", d => `visits-${d.properties.NAME_2}` )
-        .attr("fill", d => colour(10* normalise(visitsPlotData[d.properties.NAME_2], visits_min, visits_max)))
+        .attr("id", d => `visits-${d.properties.NAME_2}`)
+        .attr("fill", d => colour(10 * normalise(visitsPlotData[d.properties.NAME_2], visits_min, visits_max)))
         .attr("stroke", "black")
         .attr("stroke-width", 0.4)
         .attr("d", d3.geoPath(projection))
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }));
 
     let countyVisits = document.getElementById('county-visits-list');
-    Object.keys(visitsPlotData).forEach( county => {
+    Object.keys(visitsPlotData).forEach(county => {
         let row = document.createElement('tr');
         let countyCol = document.createElement('td');
         countyCol.innerText = county;
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // Only update graphs if there are any registrations in the system
-    if (gon.registrations.length > 0) {
+    if (gon.registrations && gon.registrations.length > 0) {
         // Gets pageVisits from gon gem - calculated in CalculateMetrics service class
         let vocationRegsCountsChart = HorizontalBarChart(gon.vocationRegistrations, {
             x: d => d.registrations,
@@ -150,16 +150,21 @@ document.addEventListener('DOMContentLoaded', () => {
         .data(uk.features)
         .enter()
         .append("path")
-        .attr("id", d => `regs-${d.properties.NAME_2}` )
-        .attr("fill", d => colour(10* normalise(regsPlotData[d.properties.NAME_2], regs_min, regs_max)))
+        .attr("id", d => `regs-${d.properties.NAME_2}`)
+        .attr("fill", d => colour(10 * normalise(regsPlotData[d.properties.NAME_2], regs_min, regs_max)))
         .attr("stroke", "black")
         .attr("stroke-width", 0.4)
         .attr("d", d3.geoPath(projection))
         .append('title')
         .text(d => `${d.properties.NAME_2}\nRegistrations: ${!regsPlotData[d.properties.NAME_2] ? 0 : regsPlotData[d.properties.NAME_2]}`);
 
+    document.getElementById('registrations-geo-plot').append(Legend(d3.scaleSequential([], d3.interpolateGreens), {
+        title: 'Visitors',
+        width: 250,
+    }));
+
     let countyRegistration = document.getElementById('county-registrations-list');
-    Object.keys(regsPlotData).forEach( county => {
+    Object.keys(regsPlotData).forEach(county => {
         let row = document.createElement('tr');
         let countyCol = document.createElement('td');
         countyCol.innerText = county;
@@ -170,8 +175,36 @@ document.addEventListener('DOMContentLoaded', () => {
         countyRegistration.append(row);
     });
 
-    if (gon.shares.length > 0) {
-        console.log(gon.shares);
+    if (gon.featureShares && gon.featureShares.length > 0) {
+        // Get all unique social media types from arrays
+        let socials = new Set()
+        gon.featureShares.forEach(featureShare => socials.add(featureShare['social']))
+        // TODO: Make this more dynamic for if new socials get added
+        let colour_map = {'facebook': '#3B5998', 'twitter': '#00ACEE', 'email': '#DB4437'}
+
+        let featureSharesChart = StackedBarChart(gon.featureShares, {
+            x: d => d.count,
+            y: d => d.feature,
+            z: d => d.social,
+            xLabel: "No. Shares",
+            yDomain: d3.groupSort(gon.featureShares, D => d3.sum(D, d => d.count), d => d.feature), // sort y by x
+            zDomain: socials,
+            color_map: colour_map,
+            colors: d3.schemeSpectral[socials.length],
+            width,
+            height,
+            marginLeft: 80,
+            marginRight: 10,
+            svgElement: document.getElementById('feature-shares-barchart-plot')
+        });
+    } else {
+        emptyCharts.push(
+            document.getElementById('feature-shares-barchart-plot')
+        )
+    }
+
+    // TODO: Update to views once the feature has been implemented
+    if (gon.shares && gon.shares.length > 0) {
         let featureSharesChart = HorizontalBarChart(gon.shares, {
             x: d => d.shares,
             y: d => d.feature,
@@ -182,16 +215,15 @@ document.addEventListener('DOMContentLoaded', () => {
             marginLeft: 80,
             marginRight: 10,
             xLabel: 'Shares',
-            svgElement: document.getElementById('feature-shares-barchart-plot')
+            svgElement: document.getElementById('feature-views-barchart-plot')
         });
     } else {
         emptyCharts.push(
-            document.getElementById('feature-interest-barchart-plot'),
-            document.getElementById('feature-shares-barchart-plot'),
+            document.getElementById('feature-views-barchart-plot')
         )
     }
 
-    if (gon.visits.length > 0) {
+    if (gon.visits && gon.visits.length > 0) {
         // Gets sessionFlows from gon gem - calculated in CalculateMetrics service class
         let sessionsList = document.getElementById('sessions-list');
         for (let s of gon.sessionFlows) {
@@ -201,12 +233,12 @@ document.addEventListener('DOMContentLoaded', () => {
             b.onclick = () => {
                 let flowList = document.getElementById('flow-list');
                 flowList.innerHTML = '';
-                for (let i=0; i<s.flow.length; i++) {
+                for (let i = 0; i < s.flow.length; i++) {
                     let row = document.createElement('tr');
                     let indexCol = document.createElement('td');
                     let pathCol = document.createElement('td');
                     let timeCol = document.createElement('td');
-                    indexCol.innerText = (i+1).toString();
+                    indexCol.innerText = (i + 1).toString();
                     pathCol.innerText = s.flow[i].path;
                     timeCol.innerText = `${(Date.parse(s.flow[i].to) - Date.parse(s.flow[i].from)) / 1000}s`;
                     row.append(indexCol);
@@ -239,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
 
         let g = svg.append("g")
-            .attr("transform", function(d, i) {
+            .attr("transform", function (d, i) {
                 return "translate(0,0)";
             });
 
@@ -259,11 +291,11 @@ document.addEventListener('DOMContentLoaded', () => {
  *
  * @param features UK county features
  * @param data Data to be grouped into county
- * @returns {{}} Dictionary of counties and the nuber of points bounded within them
+ * @returns {{}} Dictionary of counties and the number of points bounded within them
  */
 function create_feature_dict(features, data) {
     let featureDict = {}
-    features.forEach( f => featureDict[f.properties.NAME_2] = 0 );
+    features.forEach(f => featureDict[f.properties.NAME_2] = 0);
     for (let d of data) {
         if (!d.latitude || !d.longitude) {
             continue;
@@ -284,7 +316,7 @@ function create_feature_dict(features, data) {
  * @returns {*} smallest value in array
  */
 function get_min(arr) {
-    return arr.reduce(function(a, b) {
+    return arr.reduce(function (a, b) {
         return Math.min(a, b);
     }, 0);
 }
@@ -295,7 +327,7 @@ function get_min(arr) {
  * @returns {*} largest value in array
  */
 function get_max(arr) {
-    return arr.reduce(function(a, b) {
+    return arr.reduce(function (a, b) {
         return Math.max(a, b);
     }, 0);
 }
@@ -319,7 +351,7 @@ function normalise(value, min, max) {
  * @returns {*} dict: key is the specified key's value, value is an array of dicts with the specified key's value
  */
 function groupBy(arr, key) {
-    return arr.reduce(function(rec_var, x) {
+    return arr.reduce(function (rec_var, x) {
         (rec_var[x[key]] = rec_var[x[key]] || []).push(x);
         return rec_var;
     }, {});
@@ -338,7 +370,7 @@ function groupByHour(arr, key, startTime) {
 
     // Create an dict of every hour between the start and end hour
     let hoursDict = {}
-    for (let hour = startHour; hour <= endHour; hour += (60*60*1000)) {
+    for (let hour = startHour; hour <= endHour; hour += (60 * 60 * 1000)) {
         hoursDict[hour] = [];
     }
 
@@ -409,7 +441,11 @@ function Legend(color, {
     else if (color.interpolator) {
         x = Object.assign(color.copy()
                 .interpolator(d3.interpolateRound(marginLeft, width - marginRight)),
-            {range() { return [marginLeft, width - marginRight]; }});
+            {
+                range() {
+                    return [marginLeft, width - marginRight];
+                }
+            });
 
         svg.append("image")
             .attr("x", marginLeft)
@@ -477,7 +513,8 @@ function Legend(color, {
             .attr("height", height - marginTop - marginBottom)
             .attr("fill", color);
 
-        tickAdjust = () => {};
+        tickAdjust = () => {
+        };
     }
 
     svg.append("g")
@@ -617,6 +654,127 @@ function HorizontalBarChart(data, {
 
 // Copyright 2021 Observable, Inc.
 // Released under the ISC license.
+// https://observablehq.com/@d3/stacked-horizontal-bar-chart
+function StackedBarChart(data, {
+    x = d => d, // given d in data, returns the (quantitative) x-value
+    y = (d, i) => i, // given d in data, returns the (ordinal) y-value
+    z = () => 1, // given d in data, returns the (categorical) z-value
+    title, // given d in data, returns the title text
+    marginTop = 30, // top margin, in pixels
+    marginRight = 0, // right margin, in pixels
+    marginBottom = 0, // bottom margin, in pixels
+    marginLeft = 40, // left margin, in pixels
+    width = 640, // outer width, in pixels
+    height, // outer height, in pixels
+    xType = d3.scaleLinear, // type of x-scale
+    xDomain, // [xmin, xmax]
+    xRange = [marginLeft, width - marginRight], // [left, right]
+    yDomain, // array of y-values
+    yRange, // [bottom, top]
+    yPadding = 0.1, // amount of y-range to reserve to separate bars
+    zDomain, // array of z-values
+    offset = d3.stackOffsetDiverging, // stack offset method
+    order = d3.stackOrderNone, // stack order method
+    xFormat, // a format specifier string for the x-axis
+    xLabel, // a label for the x-axis
+    color_map, // Predefined map of colours for different stacks on the bar
+    svgElement
+} = {}) {
+    // Compute values.
+    const X = d3.map(data, x);
+    const Y = d3.map(data, y);
+    const Z = d3.map(data, z);
+
+    // Compute default y- and z-domains, and unique them.
+    if (yDomain === undefined) yDomain = Y;
+    if (zDomain === undefined) zDomain = Z;
+    yDomain = new d3.InternSet(yDomain);
+    zDomain = new d3.InternSet(zDomain);
+
+    // Omit any data not present in the y- and z-domains.
+    const I = d3.range(X.length).filter(i => yDomain.has(Y[i]) && zDomain.has(Z[i]));
+
+    // If the height is not specified, derive it from the y-domain.
+    if (height === undefined) height = yDomain.size * 25 + marginTop + marginBottom;
+    if (yRange === undefined) yRange = [height - marginBottom, marginTop];
+
+    // Compute a nested array of series where each series is [[x1, x2], [x1, x2],
+    // [x1, x2], …] representing the x-extent of each stacked rect. In addition,
+    // each tuple has an i (index) property so that we can refer back to the
+    // original data point (data[i]). This code assumes that there is only one
+    // data point for a given unique y- and z-value.
+    const series = d3.stack()
+        .keys(zDomain)
+        .value(([, I], z) => X[I.get(z)])
+        .order(order)
+        .offset(offset)
+        (d3.rollup(I, ([i]) => i, i => Y[i], i => Z[i]))
+        .map(s => s.map(d => Object.assign(d, {i: d.data[1].get(s.key)})));
+
+    // Compute the default y-domain. Note: diverging stacks can be negative.
+    if (xDomain === undefined) xDomain = d3.extent(series.flat(2));
+
+    // Construct scales, axes, and formats.
+    const xScale = xType(xDomain, xRange);
+    const yScale = d3.scaleBand(yDomain, yRange).paddingInner(yPadding);
+    const xAxis = d3.axisTop(xScale).ticks(width / 80, xFormat);
+    const yAxis = d3.axisLeft(yScale).tickSizeOuter(0);
+
+    // Compute titles.
+    if (title === undefined) {
+        const formatValue = xScale.tickFormat(100, xFormat);
+        title = i => `${Y[i]}\n${Z[i]}\n${formatValue(X[i])}`;
+    } else {
+        const O = d3.map(data, d => d);
+        const T = title;
+        title = i => T(O[i], i, data);
+    }
+
+    const svg = d3.select(svgElement)
+        .attr("width", width)
+        .attr("height", height)
+        .attr("viewBox", [0, 0, width, height])
+        .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
+
+    svg.append("g")
+        .attr("transform", `translate(0,${marginTop})`)
+        .call(xAxis)
+        .call(g => g.select(".domain").remove())
+        .call(g => g.selectAll(".tick line").clone()
+            .attr("y2", height - marginTop - marginBottom)
+            .attr("stroke-opacity", 0.1))
+        .call(g => g.append("text")
+            .attr("x", width - marginRight)
+            .attr("y", -22)
+            .attr("fill", "currentColor")
+            .attr("text-anchor", "end")
+            .text(xLabel));
+
+    const bar = svg.append("g")
+        .selectAll("g")
+        .data(series)
+        .join("g")
+        .attr("fill", ([{i}]) => color_map[Z[i]])
+        .selectAll("rect")
+        .data(d => d)
+        .join("rect")
+        .attr("x", ([x1, x2]) => Math.min(xScale(x1), xScale(x2)))
+        .attr("y", ({i}) => yScale(Y[i]))
+        .attr("width", ([x1, x2]) => Math.abs(xScale(x1) - xScale(x2)))
+        .attr("height", yScale.bandwidth());
+
+    if (title) bar.append("title")
+        .text(({i}) => title(i));
+
+    svg.append("g")
+        .attr("transform", `translate(${xScale(0)},0)`)
+        .call(yAxis);
+
+    return Object.assign(svg.node(), color_map);
+}
+
+// Copyright 2021 Observable, Inc.
+// Released under the ISC license.
 // https://observablehq.com/@d3/multi-line-chart
 // Modified
 function LineChart(data, {
@@ -711,7 +869,8 @@ function LineChart(data, {
         .attr("transform", `translate(${marginLeft},0)`)
         .call(yAxis)
         .call(g => g.select(".domain").remove())
-        .call(voronoi ? () => {} : g => g.selectAll(".tick line").clone()
+        .call(voronoi ? () => {
+        } : g => g.selectAll(".tick line").clone()
             .attr("x2", width - marginLeft - marginRight)
             .attr("stroke-opacity", 0.1))
         .call(g => g.append("text")

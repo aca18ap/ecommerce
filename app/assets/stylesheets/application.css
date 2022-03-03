@@ -1,55 +1,13 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require home
- *= require pricing_plans
  *= require_tree.
  *= require_self
- *= require font-awesome
+ *= require font_awesome_setup
+ *= require font_setup
+ *= require layout
+ *= require home
+ *= require pricing_plans
  *= require buttons
  *= require nav
  *= require footer
  *= require features
- *= @import url('https://fonts.googleapis.com/css2?family=Outfit&family=Quicksand&display=swap')
  */
-
-
-@font-face {
-  font-family: 'Fredericka the Great';
-  src: url('../assets/fonts/Fredericka_the_Great/FrederickatheGreat-Regular.ttf') format("truetype");
-}
-
-@font-face {
-  font-family: 'Montserrat-Medium';
-  src: url('../assets/fonts/Montserrat/Montserrat-Medium.ttf') format("truetype");
-}
-
-@font-face {
-  font-family: 'Quicksand';
-  src: url('../assets/fonts/Quicksand/Quicksand-VariableFont_wght.ttf') format("truetype");
-}
-
-@font-face {
-  font-family: 'Outfit';
-  src: url('../assets/fonts/Outfit/Outfit-VariableFont_wght.ttf') format("truetype");
-}
-
-@font-face {
-  font-family: 'Patua One';
-  src: url('../assets/fonts/Patua_One/PatuaOne-Regular.ttf') format("truetype");
-}
-
-body {
-  font-family: 'Outfit';
-  font-weight: 200;
-  font-size: 1.2em;
-}

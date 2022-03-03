@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'Creating FAQs' do
@@ -26,7 +28,7 @@ describe 'Viewing FAQs' do
     specify 'I cannot see it' do
       FactoryBot.create(:faq, hidden: true)
       visit '/faqs'
-      within(:css, '#table') { expect(page).to_not have_content "MyQuestion"}
+      within(:css, '#table') { expect(page).to_not have_content 'MyQuestion' }
     end
   end
 end

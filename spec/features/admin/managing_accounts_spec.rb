@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'Managing accounts' do
@@ -63,7 +65,7 @@ describe 'Managing accounts' do
         accept_confirm do
           within(:css, '#user-1') { click_link 'Delete' }
         end
-        within(:css, '.table') { expect(page).to_not have_content 'customer@team04.com' }
+        within(:css, '.table') { expect(page).to_not have_content customer.email }
       end
 
       specify 'I can edit a user\'s role' do
@@ -78,9 +80,9 @@ describe 'Managing accounts' do
         specify 'I can edit a user\'s email' do
           visit '/admin/users'
           page.find('#edit-user-1').click
-          fill_in 'user[email]', with: 'newemail@email.com'
+          fill_in 'user[email]', with: 'newemail@team04.com'
           click_button 'Update User'
-          within(:css, '#user-1') { expect(page).to have_content 'newemail@email.com' }
+          within(:css, '#user-1') { expect(page).to have_content 'newemail@team04.com' }
         end
       end
 
@@ -90,7 +92,7 @@ describe 'Managing accounts' do
           page.find('#edit-user-1').click
           fill_in 'user[email]', with: 'invalid_email'
           click_button 'Update User'
-          expect(page).to have_content 'Email is invalid'
+          expect(page).to have_content 'Check the user\'s details again!'
         end
       end
 
@@ -100,6 +102,32 @@ describe 'Managing accounts' do
         fill_in 'user[email]', with: 'customer@team04.com'
         click_button 'Send an invitation'
         expect(page).to have_content 'Email has already been taken'
+      end
+    end
+
+    context 'If a user\'s account is locked' do
+      let!(:locked) { FactoryBot.create :locked }
+
+      specify 'I can manually unlock it', js: true do
+        visit '/admin/users'
+        accept_confirm do
+          within(:css, '#user-1') { click_link 'Unlock' }
+        end
+        within(:css, '#user-1') { expect(page).not_to have_content 'Unlock' }
+
+        locked.reload
+        expect(locked.unlock_token).to eq(nil)
+        expect(locked.failed_attempts).to eq(0)
+        expect(locked.locked_at).to eq(nil)
+      end
+    end
+
+    context 'If a user\'s account is not locked' do
+      let!(:customer) { FactoryBot.create :customer }
+
+      specify 'I do not see the option to unlock it' do
+        visit '/admin/users'
+        within(:css, '#user-1') { expect(page).not_to have_content 'Unlock' }
       end
     end
   end

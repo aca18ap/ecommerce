@@ -10,4 +10,7 @@ class ReviewDecorator < Draper::Decorator
   #     end
   #   end
 
+  def truncated_description
+    description.truncate(120, separator: /\w+/)
+  end
 end

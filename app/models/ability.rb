@@ -35,7 +35,6 @@ class Ability
       can :create, Newsletter
       can :created, Newsletter
       cannot :manage, Visit
-      cannot :all, :metrics
     end
     #
     # The first argument to `can` is the action you are giving the user

@@ -1,0 +1,18 @@
+- content_for :title, 'Unlock account'
+
+.container-fluid.pad-edge
+  .row.justify-content-center.pt-3
+    .col-sm-6.col-lg-4
+      .card.card-light
+        = simple_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
+          .card-header 
+            Resend unlock instructions
+          .card-body
+            = f.error_notification
+            = f.full_error :unlock_token
+            = f.input :email, required: true, autofocus: true, input_html: { autocomplete: "email" }
+          .card-footer
+            %button.btn.btn-primary{ type: :submit }
+              Resend unlock instructions
+            .mt-3
+              = render "devise/shared/links"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_10_133128) do
+ActiveRecord::Schema.define(version: 2022_02_22_140116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,14 @@ ActiveRecord::Schema.define(version: 2021_12_10_133128) do
     t.float "latitude"
   end
 
+  create_table "old_passwords", force: :cascade do |t|
+    t.string "encrypted_password", null: false
+    t.string "password_archivable_type", null: false
+    t.integer "password_archivable_id", null: false
+    t.datetime "created_at"
+    t.index ["password_archivable_type", "password_archivable_id"], name: "index_password_archivable"
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.text "description", null: false
     t.integer "rating", default: 0, null: false
@@ -79,11 +87,10 @@ ActiveRecord::Schema.define(version: 2021_12_10_133128) do
   end
 
   create_table "shares", force: :cascade do |t|
-    t.integer "count"
-    t.string "social"
+    t.string "social", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "feature"
+    t.string "feature", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -109,6 +116,9 @@ ActiveRecord::Schema.define(version: 2021_12_10_133128) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
+    t.datetime "locked_at"
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "unlock_token"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"

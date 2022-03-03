@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'Managing reviews' do
   context 'As an administrator' do
     before { login_as(FactoryBot.create(:admin)) }
-    let!(:review) { FactoryBot.create(:review) }
-    let!(:second_review) { FactoryBot.create(:second_review) }
-    let!(:hidden_review) { FactoryBot.create(:hidden_review) }
+    let!(:review) { FactoryBot.create(:review).decorate }
+    let!(:second_review) { FactoryBot.create(:second_review).decorate }
+    let!(:hidden_review) { FactoryBot.create(:hidden_review).decorate }
 
     specify 'The reviews button appears in the nav bar' do
       visit '/'

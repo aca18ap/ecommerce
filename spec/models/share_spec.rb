@@ -1,33 +1,32 @@
+# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: shares
 #
 #  id         :bigint           not null, primary key
-#  count      :integer
-#  feature    :string
-#  social     :string
+#  feature    :string           not null
+#  social     :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 require 'rails_helper'
 
 RSpec.describe Share, type: :model do
-  subject { described_class.new(count: 0, social: 'Twitter') }
+  subject { described_class.new(feature: 'feature1', social: 'twitter') }
 
   describe 'Validates' do
-    it 'is valid wit valid attributes' do
+    it 'is valid with valid attributes' do
       expect(subject).to be_valid
     end
 
-    it 'is valid if count is not present' do
-      subject.count = nil
-      expect(subject).to be_valid
+    it 'is not valid if feature is not present' do
+      subject.feature = nil
+      expect(subject).to_not be_valid
     end
 
-    it 'is valid if social is not present' do
+    it 'is not valid if social is not present' do
       subject.social = nil
-      expect(subject).to be_valid
+      expect(subject).to_not be_valid
     end
   end
-
 end

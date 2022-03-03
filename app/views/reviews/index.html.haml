@@ -16,7 +16,7 @@
   %tbody
     - @reviews.each_with_index do |review, i|
       %tr
-        %td= truncate review.description, length: 120, separator: /\w+/ 
+        %td= review.truncated_description
         %td.text-center{'id': "review-#{i}-rating"}= review.rating
         - if review.hidden
           %td.text-center= "Yes"

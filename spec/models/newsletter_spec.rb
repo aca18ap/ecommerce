@@ -17,7 +17,9 @@ require 'rails_helper'
 
 RSpec.describe Newsletter, type: :model do
   let!(:newsletter) { FactoryBot.create(:newsletter) }
-  subject { described_class.new(email: 'email@email.com', latitude: 0, longitude: 0, tier: 'Free', vocation: 'Customer') }
+  subject do
+    described_class.new(email: 'email@email.com', latitude: 0, longitude: 0, tier: 'Free', vocation: 'Customer')
+  end
 
   describe 'Validation' do
     it 'is valid with valid attributes' do
@@ -30,7 +32,7 @@ RSpec.describe Newsletter, type: :model do
     end
 
     it 'is invalid if the email is not unique' do
-      subject.email = 'customer@team04.com'
+      subject.email = newsletter.email
       expect(subject).not_to be_valid
     end
 

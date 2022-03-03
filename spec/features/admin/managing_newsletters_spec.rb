@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'Managing newsletters' do
   context 'As an admin' do
     before { login_as(FactoryBot.create(:admin)) }
-    let(:newsletter) { FactoryBot.create(:newsletter) }
-    let!(:free_customer_newsletter) { FactoryBot.create(:free_customer_newsletter) }
+    let!(:newsletter) { FactoryBot.create(:newsletter) }
 
     specify 'I can see the newsletters button in the nav bar' do
       visit '/newsletters'
@@ -13,7 +14,7 @@ describe 'Managing newsletters' do
 
     specify 'I can view a list of emails provided' do
       visit '/newsletters'
-      expect(page).to have_content 'freecustomer@team04.com'
+      expect(page).to have_content newsletter.email
     end
   end
 

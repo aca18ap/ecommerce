@@ -8,6 +8,7 @@
 #  current_sign_in_ip     :string
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
+#  failed_attempts        :integer          default(0), not null
 #  invitation_accepted_at :datetime
 #  invitation_created_at  :datetime
 #  invitation_limit       :integer
@@ -17,11 +18,13 @@
 #  invited_by_type        :string
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string
+#  locked_at              :datetime
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
 #  role                   :string           default("customer"), not null
 #  sign_in_count          :integer          default(0), not null
+#  unlock_token           :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  invited_by_id          :bigint
@@ -46,7 +49,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'is invalid without an email' do
-      subject.email = nil
+      subject.email = ''
       expect(subject).not_to be_valid
     end
 
@@ -57,6 +60,31 @@ RSpec.describe User, type: :model do
 
     it 'is invalid without a password' do
       subject.password = nil
+      expect(subject).not_to be_valid
+    end
+
+    it 'is invalid if the password is less than 8 characters' do
+      subject.password = 'Small1'
+      expect(subject).not_to be_valid
+    end
+
+    it 'is invalid if the password is longer than 128 characters' do
+      # Generate a 129 character string that meets the other password requirements
+      subject.password = "1A#{'a' * 127}"
+      expect(subject).not_to be_valid
+    end
+
+    it 'is invalid if the password does not contain at least one capital letter, one lower-case letter and one number' do
+      # No numbers
+      subject.password = 'NoNumbers'
+      expect(subject).not_to be_valid
+
+      # No upper-case
+      subject.password = 'nouppercase1'
+      expect(subject).not_to be_valid
+
+      # No lower-case
+      subject.password = 'NOLOWERCASE1'
       expect(subject).not_to be_valid
     end
 
