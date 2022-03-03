@@ -27,6 +27,7 @@ describe 'Shares' do
 
   context 'When I visit the pricing plans page' do
     context 'I can share the unlimited suggestions feature' do
+
       specify 'to facebook', js: true do
         visit '/pricing_plans'
         within(:css, '.unlimited-suggestions') { find('.btn').click }
@@ -63,6 +64,14 @@ describe 'Shares' do
         find('#twitter').click
         response.should have_content 'Easy access to green providers when shopping online on @ecommerce'
       end
+
+      specify 'One click visit retailer', js: true do
+        visit '/pricing_plans'
+        within(:css, '.one-click-access') { find('.btn').click }
+        find('#twitter').click
+        response.should have_content 'Easy access to green providers when shopping online on @ecommerce'
+      end
+
     end
   end
 end
