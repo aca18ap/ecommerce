@@ -31,7 +31,7 @@ describe 'Shares' do
       specify 'to facebook', js: true do
         visit '/pricing_plans'
         within(:css, '.unlimited-suggestions') { find('.btn').click }
-        expect(page).to have_content('#facebook')
+        find('#facebook').click
       end
 
       specify 'to email', js: true do
@@ -51,6 +51,7 @@ describe 'Shares' do
 
       #testing these requires to be logged in to twitter
       specify 'Unlimited suggestions', js: true do
+        skip
         visit '/pricing_plans'
         within(:css, '.unlimited-suggestions') { find('.btn').click }
         find('#twitter').click
@@ -58,6 +59,7 @@ describe 'Shares' do
       end
 
       specify 'One click visit retailer', js: true do
+        skip
         visit '/pricing_plans'
         within(:css, '.one-click-access') { find('.btn').click }
         find('#twitter').click
