@@ -1,12 +1,28 @@
 .container-fluid.pad-edge
 
-    %h1.pt-5 Admin Dashboard
-    - if flash[:alert]
-        .alert=flash[:alert]
-    .row
-        .card-col6
-            .card-header
-                = render 'show_all_users'
+  %h1.pt-5 Manage System Users
+  - if flash[:alert]
+    .alert=flash[:alert]
 
-    .card-col6
-        = link_to 'Invite new user', new_user_invitation_path, class: 'btn btn-xl'
+  %ul.nav.nav-tabs.mb-2
+    %li.active
+      = link_to 'Customers', '#customers-tab', { 'data-toggle': 'tab', class: 'btn'}
+    %li
+      = link_to 'Businesses', '#businesses-tab', { 'data-toggle': 'tab', class: 'btn' }
+    %li
+      = link_to 'Staff', '#staff-tab', { 'data-toggle': 'tab', class: 'btn' }
+
+  .container.tab-content
+    .container.tab-pane.active#customers-tab
+      %h2.d-inline Customers
+      = render 'show_all_customers'
+
+    .container.tab-pane.mb-2#businesses-tab
+      %h2.d-inline Businesses
+      = link_to 'Invite new business', new_business_invitation_path, class: 'btn btn-success d-inline m-4'
+      = render 'show_all_businesses'
+
+    .container.tab-pane#staff-tab
+      %h2.d-inline Staff
+      = link_to 'Invite new staff', new_staff_invitation_path, class: 'btn btn-success d-inline m-4'
+      = render 'show_all_staff'

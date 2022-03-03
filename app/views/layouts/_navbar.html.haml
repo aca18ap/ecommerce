@@ -16,7 +16,7 @@
             = link_to 'Manage Reviews', reviews_path, class: 'nav-link px-2', title: 'Manage reviews'
         - if can?(:manage, Staff)
           %li
-            = link_to 'Manage Users', staff_show_path, class: 'nav-link px-2', title: 'Manage accounts'
+            = link_to 'Manage Users', admin_users_path, class: 'nav-link px-2', title: 'Manage accounts'
         - if can?(:manage, Newsletter)
           %li
             = link_to 'Manage Newsletters', newsletters_path, class: 'nav-link px-2', title: 'Manage newsletters'

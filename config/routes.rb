@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     root to: 'staffs#show', as: :authenticated_admin_root
   end
   namespace :admin do
-    get '/users', to: '/admin/admins#index'
+    get '/users', to: '/admin/users#index'
 
     resources :customers, path: 'customer' do
       patch '/:id/edit', to: 'admin/customer#update'
@@ -39,6 +39,9 @@ Rails.application.routes.draw do
     root to: 'staffs#show', as: :authenticated_reporter_root
   end
   resources :staffs, path: 'staff', only: %i[show edit update destroy]
+  resources :staffs, path: 'staff' do
+    patch :unlock, on: :member
+  end
   get '/staff/show'
   get '/staff/edit'
 

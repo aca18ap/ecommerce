@@ -1,0 +1,18 @@
+%table.table
+  %thead
+    %tr
+      %th Email
+      %th Role
+      %th Unlock
+      %th Actions
+
+  %tbody#show_all_users
+    - @staff.each_with_index do |staff, i|
+      %tr
+        %td= staff.email
+        %td= staff.role
+        %td= staff.unlock_button?
+        -if current_staff == staff
+          %td
+        -else
+          %td= link_to 'Edit user', edit_admin_staff_path(staff), class: 'ajax-modal btn btn-xs'

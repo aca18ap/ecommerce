@@ -4,12 +4,6 @@ module Admin
   class AdminsController < StaffsController
     before_action :authorise_admin!
 
-    def index
-      @staff = Staff.all.decorate
-      @customers = Customer.all.decorate
-      @businesses = Business.all.decorate
-    end
-
     private
 
     def authorise_admin!

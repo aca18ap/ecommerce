@@ -1,0 +1,15 @@
+%table.table
+  %thead
+    %tr
+      %th Email
+      %th Name
+      %th Unlock
+      %th Actions
+
+  %tbody#show_all_users
+    - @businesses.each_with_index do |business, i|
+      %tr
+        %td= business.email
+        %td= business.name
+        %td= business.unlock_button?
+        %td= link_to 'Edit user', edit_admin_business_path(business), class: 'ajax-modal btn btn-xs'
