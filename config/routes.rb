@@ -3,7 +3,8 @@
 Rails.application.routes.draw do
 
   ## System users and accounts routes
-  devise_for :customers, path: 'customer', controllers: { sessions: 'customers/sessions' }
+  devise_for :customers, path: 'customer',
+                         controllers: { sessions: 'customers/sessions', registrations: 'customers/registrations' }
   authenticated :customer_user do
     root to: 'customers#show', as: :authenticated_customer_root
   end
@@ -14,7 +15,8 @@ Rails.application.routes.draw do
   get '/customer/show'
   get '/customer/edit'
 
-  devise_for :staffs, path: 'staff', controllers: { sessions: 'staffs/sessions', registrations: 'staffs/registrations' }
+  devise_for :staffs, path: 'staff',
+                      controllers: { sessions: 'staffs/sessions', registrations: 'staffs/registrations' }
   authenticated :staff, ->(u) { u.admin? } do
     root to: 'staffs#show', as: :authenticated_admin_root
   end
@@ -25,7 +27,8 @@ Rails.application.routes.draw do
   get '/staff/show'
   get '/staff/edit'
 
-  devise_for :businesses, path: 'business', controllers: { sessions: 'businesses/sessions', registrations: 'businesses/registrations' }
+  devise_for :businesses, path: 'business',
+                          controllers: { sessions: 'businesses/sessions', registrations: 'businesses/registrations' }
   authenticated :business do
     root to: 'businesses#show', as: :authenticated_business_root
   end
