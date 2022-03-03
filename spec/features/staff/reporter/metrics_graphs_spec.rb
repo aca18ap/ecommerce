@@ -92,7 +92,7 @@ describe 'Metrics management', js: true do
       visit '/metrics'
       within(:css, '.nav') { expect(page).not_to have_content 'Metrics' }
       expect(page).not_to have_content 'Metrics Summary'
-      expect(page).to have_current_path new_customer_session_path
+      expect(page).to have_current_path new_staff_session_path
     end
 
     context 'If I am an admin' do
