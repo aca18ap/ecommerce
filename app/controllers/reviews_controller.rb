@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReviewsController < ApplicationController
   before_action :set_review, only: %i[show edit update destroy]
   before_action :authenticate_staff!, except: %i[new create show created]

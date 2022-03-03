@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FaqsController < ApplicationController
   authorize_resource
   before_action :set_faq, only: %i[show edit answer update destroy like dislike]
