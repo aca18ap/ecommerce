@@ -3,52 +3,37 @@
 module Admin
   class CustomersController < AdminsController
     protect_from_forgery with: :null_session
+    before_action :set_customer, only: %i[edit update destroy]
 
-    def index
-      @customers = Customer.all.decorate
-    end
+    # GET /admin/customer/1/edit
+    def edit; end
 
-    def destroy
-      @customer = Customer.find_by_id(params[:id])
-      if @customer.destroy
-        redirect_back fallback_location: admin_customer_path, notice: 'Customer deleted'
-      else
-        render action: 'index'
-        flash[:error] = 'Customer couldn\'t be deleted'
-      end
-    end
-
-    def create
-      if Customer.exists?(params[:email])
-        redirect_to admin_customer_path, alert: 'Customer already exists'
-      else
-        Customer.invite!(email: params[:email])
-        redirect_to admin_customer_path
-      end
-    end
-
-    def edit
-      @customer = Customer.find_by_id(params[:id])
-    end
-
+    # PATCH/PUT /admin/customer/1
     def update
-      @customer = Customer.find_by_id(params[:id])
       if @customer.update(customer_params)
-        @customers = Customer.all
-        redirect_to admin_customer_path, alert: 'Role successfully updated'
+        redirect_to admin_users_path, alert: 'Customer successfully updated'
       else
-        redirect_to edit_admin_customer_path, alert: 'Check the customer\'s details again!'
+        redirect_to edit_admin_customer_path, alert: @customer.errors.full_messages.first
+      end
+    end
+
+    # DELETE /admin/customer/1
+    def destroy
+      if @customer.destroy
+        redirect_to admin_users_path, notice: 'Customer deleted'
+      else
+        redirect_to edit_admin_customer_path, alert: @customer.errors.full_messages.first
       end
     end
 
     private
 
-    def find_customer
-      @customer = Customer.find_by_id(params[:id]).decorate
+    def set_customer
+      @customer = Customer.find_by_id(params[:id])
     end
 
     def customer_params
-      params.require(:customer).permit(:email, :role)
+      params.require(:customer).permit(:email, :username)
     end
   end
 end

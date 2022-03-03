@@ -1,4 +1,4 @@
-%table.table
+%table.table#list-businesses-table
   %thead
     %tr
       %th Email
@@ -6,10 +6,11 @@
       %th Unlock
       %th Actions
 
-  %tbody#show_all_users
-    - @businesses.each_with_index do |business, i|
-      %tr
+  %tbody
+    - @businesses.each do |business|
+      %tr{id: "business-#{business.id}"}
         %td= business.email
         %td= business.name
         %td= business.unlock_button?
         %td= link_to 'Edit user', edit_admin_business_path(business), class: 'ajax-modal btn btn-xs'
+        %td= link_to 'Delete user', admin_business_path(business), method: :delete, class: 'btn btn-xs', data: { confirm: 'Are you sure you want to delete this business?' }
