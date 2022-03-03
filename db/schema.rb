@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2022_03_04_182049) do
+=======
+ActiveRecord::Schema.define(version: 2022_03_03_112918) do
+>>>>>>> Scaffolding for products
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,7 +135,11 @@ ActiveRecord::Schema.define(version: 2022_03_04_182049) do
     t.string "name"
     t.string "description"
     t.float "mass"
+<<<<<<< HEAD
     t.string "category"
+=======
+    t.string "type"
+>>>>>>> Scaffolding for products
     t.string "url"
     t.string "manufacturer"
     t.string "manufacturer_country"
@@ -140,6 +148,7 @@ ActiveRecord::Schema.define(version: 2022_03_04_182049) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+<<<<<<< HEAD
   create_table "products_materials", force: :cascade do |t|
     t.bigint "product_id", null: false
     t.bigint "material_id", null: false
@@ -149,6 +158,8 @@ ActiveRecord::Schema.define(version: 2022_03_04_182049) do
     t.index ["product_id"], name: "index_products_materials_on_product_id"
   end
 
+=======
+>>>>>>> Scaffolding for products
   create_table "reviews", force: :cascade do |t|
     t.text "description", null: false
     t.integer "rating", default: 0, null: false
