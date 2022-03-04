@@ -8,11 +8,15 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Admin accounts
-Staff.where(email: "admin@team04.com").first_or_create(password: "Password123", password_confirmation:"Password123", role: 'admin')
-Staff.where(email: "reporter@team04.com").first_or_create(password: "Password123", password_confirmation:"Password123")
+Staff.where(email: 'admin@team04.com').first_or_create(password: 'Password123', password_confirmation: 'Password123',
+                                                       role: 0)
+Staff.where(email: 'reporter@team04.com').first_or_create(password: 'Password123', password_confirmation: 'Password123')
 
 # Customer accounts
-Customer.where(email: "customer@team04.com").first_or_create(username: "customer01", password: "Password123", password_confirmation:"Password123")
+Customer.where(email: 'customer@team04.com').first_or_create(username: 'customer01', password: 'Password123',
+                                                             password_confirmation: 'Password123')
 
 # Business accounts
-Business.where(email: "business@team04.com").first_or_create(name: "genesys", description: "my description", password: "Password123", password_confirmation:"Password123")
+Business.where(email: 'business@team04.com').first_or_create(name: 'genesys', description: 'my description',
+                                                             password: 'Password123',
+                                                             password_confirmation: 'Password123')

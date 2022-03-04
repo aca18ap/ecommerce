@@ -28,6 +28,13 @@ class ApplicationController < ActionController::Base
     super(file, opts)
   end
 
+  protected
+
+  # Allows staff to invite businesses using devise
+  def authenticate_inviter!
+    redirect_back fallback_location: root_path unless current_staff&.admin?
+  end
+
   private
 
   def update_headers_to_disable_caching

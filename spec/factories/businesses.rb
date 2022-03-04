@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
 # Table name: businesses
 #
 #  id                     :bigint           not null, primary key

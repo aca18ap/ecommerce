@@ -198,6 +198,16 @@ describe 'Managing businesses' do
       within(:css, "#business-#{business.id}") { expect(page).to_not have_content 'Unlock' }
     end
   end
+
+  specify 'I can invite a new business' do
+    find('#invite-business-button').click
+    fill_in 'business[email]', with: 'newbusiness@team04.com'
+    fill_in 'business[name]', with: 'NewName'
+    click_link_or_button 'Invite Business'
+
+    new_business = Business.find_by_email('newbusiness@team04.com')
+    within(:css, "#business-#{new_business.id}") { expect(page).to have_content 'newbusiness@team04.com' }
+  end
 end
 
 describe 'Managing staff' do
@@ -220,7 +230,7 @@ describe 'Managing staff' do
 
     specify 'I can change a staff member\'s role' do
       within(:css, "#staff-#{reporter.id}") { click_link 'Edit user' }
-      select 'admin', from: 'staff[role]'
+      select 'Admin', from: 'staff[role]'
       click_button 'Update Staff'
       within(:css, "#staff-#{reporter.id}") { expect(page).to have_content 'admin' }
     end
@@ -285,7 +295,23 @@ describe 'Managing staff' do
     end
   end
 
-  context 'I can invite a new staff member' do
-    skip "COME BACK"
+  specify 'I can invite a new staff member as admin' do
+    find('#invite-staff-button').click
+    fill_in 'staff[email]', with: 'newadmin@team04.com'
+    select 'Admin', from: 'staff[role]'
+    click_link_or_button 'Invite Staff'
+
+    new_admin = Staff.find_by_email('newadmin@team04.com')
+    within(:css, "#staff-#{new_admin.id}") { expect(page).to have_content 'admin' }
+  end
+
+  specify 'I can invite a new staff member as reporter' do
+    find('#invite-staff-button').click
+    fill_in 'staff[email]', with: 'newreporter@team04.com'
+    select 'Reporter', from: 'staff[role]'
+    click_link_or_button 'Invite Staff'
+
+    new_reporter = Staff.find_by_email('newreporter@team04.com')
+    within(:css, "#staff-#{new_reporter.id}") { expect(page).to have_content 'reporter' }
   end
 end

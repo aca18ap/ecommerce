@@ -1,8 +1,5 @@
 .container-fluid.pad-edge
-
   %h1.pt-5 Manage System Users
-  - if flash[:alert]
-    .alert=flash[:alert]
 
   %ul.nav.nav-tabs.mb-2
     %li.active
@@ -19,10 +16,10 @@
 
     .container.tab-pane.mb-2#businesses-tab
       %h2.d-inline Businesses
-      = link_to 'Invite new business', new_business_invitation_path, class: 'btn btn-success d-inline m-4'
+      = link_to 'Invite new business', new_business_invitation_path, class: 'btn btn-success d-inline m-4', id: 'invite-business-button'
       = render 'show_all_businesses'
 
     .container.tab-pane#staff-tab
       %h2.d-inline Staff
-      = link_to 'Invite new staff', new_staff_invitation_path, class: 'btn btn-success d-inline m-4'
+      = link_to 'Invite new staff', new_staff_invitation_path, class: 'btn btn-success d-inline m-4', id: 'invite-staff-button'
       = render 'show_all_staff'

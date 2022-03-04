@@ -34,7 +34,6 @@
 #  index_businesses_on_unlock_token          (unlock_token) UNIQUE
 #
 class Business < ApplicationRecord
-
   devise :invitable, :database_authenticatable, :password_archivable, :recoverable,
          :rememberable, :secure_validatable, :lockable, :registerable, invite_for: 2.weeks
 end

@@ -17,7 +17,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
-#  role                   :string           default("reporter"), not null
+#  role                   :integer          default(1)
 #  unlock_token           :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
@@ -38,12 +38,12 @@ FactoryBot.define do
 
     factory :admin do
       email { 'admin@team04.com' }
-      role { 'admin' }
+      role { 0 }
     end
 
     factory :reporter do
       email { 'reporter@team04.com' }
-      role { 'reporter' }
+      role { 1 }
     end
   end
 end

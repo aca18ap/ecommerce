@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   get '/customer/edit'
 
   devise_for :staffs, path: 'staff',
-                      controllers: { sessions: 'staffs/sessions', registrations: 'staffs/registrations' }
+                      controllers: { sessions: 'staffs/sessions', registrations: 'staffs/registrations', invitations: 'staffs/invitations' }
   authenticated :staff, ->(u) { u.admin? } do
     root to: 'staffs#show', as: :authenticated_admin_root
   end
@@ -46,7 +46,7 @@ Rails.application.routes.draw do
   get '/staff/edit'
 
   devise_for :businesses, path: 'business',
-                          controllers: { sessions: 'businesses/sessions', registrations: 'businesses/registrations' }
+                          controllers: { sessions: 'businesses/sessions', registrations: 'businesses/registrations', invitations: 'businesses/invitations'  }
   authenticated :business do
     root to: 'businesses#show', as: :authenticated_business_root
   end

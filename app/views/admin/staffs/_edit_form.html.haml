@@ -1,15 +1,15 @@
 = simple_form_for @staff, url: admin_staff_path do |f|
   .modal-header
-    %h4.modal-title Editing Customer
+    %h4.modal-title Editing Staff Member
     = link_to 'Back', admin_users_path
   .modal-body
     .card-body
       .email= f.input :email, validate: true, id: 'email', type: 'email'
     .card-body
-      = f.select :role, [:admin, :reporter], id: 'role'
+      = f.select :role, options_for_select(Staff.roles.map { |key, value| [key.humanize, key] }), id: 'role'
   .modal-footer
     .pull-left
 
-    = f.button :submit, method: :update , id:'submit_button' , class: 'btn btn-outline-dark'
+    = f.button :submit, method: :update, id:'submit_button', class: 'btn btn-outline-dark'
 
 = link_to 'Delete Staff Member', admin_staff_path(@staff), method: :delete, data: { confirm: 'Are you sure you want to delete this staff member?' }

@@ -8,11 +8,10 @@ class Ability
 
     case user
     when Staff
-      case user.role
-      when 'admin'
+      if user.admin?
         can :manage, [Staff, Customer, Business, Review, Visit, Newsletter, Faq, :metrics]
         can :read, :all
-      else # Currently only reporter. Add another when clause for other staff roles
+      elsif user.reporter?
         can :read, :metrics
         cannot :manage, Review
         can :create, Faq

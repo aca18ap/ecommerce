@@ -156,7 +156,7 @@ ActiveRecord::Schema.define(version: 2022_02_27_173107) do
     t.datetime "locked_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "role", default: "reporter", null: false
+    t.integer "role", default: 1
     t.string "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
