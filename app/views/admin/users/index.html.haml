@@ -6,11 +6,11 @@
 
   %ul.nav.nav-tabs.mb-2
     %li.active
-      = link_to 'Customers', '#customers-tab', { 'data-toggle': 'tab', class: 'btn'}
+      = link_to 'Customers', '#customers-tab', { 'data-toggle': 'tab', class: 'btn', id: 'open-customers-tab' }
     %li
-      = link_to 'Businesses', '#businesses-tab', { 'data-toggle': 'tab', class: 'btn' }
+      = link_to 'Businesses', '#businesses-tab', { 'data-toggle': 'tab', class: 'btn', id: 'open-businesses-tab' }
     %li
-      = link_to 'Staff', '#staff-tab', { 'data-toggle': 'tab', class: 'btn' }
+      = link_to 'Staff', '#staff-tab', { 'data-toggle': 'tab', class: 'btn', id: 'open-staff-tab' }
 
   .container.tab-content
     .container.tab-pane.active#customers-tab

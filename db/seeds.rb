@@ -16,9 +16,3 @@ Customer.where(email: "customer@team04.com").first_or_create(username: "customer
 
 # Business accounts
 Business.where(email: "business@team04.com").first_or_create(name: "genesys", description: "my description", password: "Password123", password_confirmation:"Password123")
-
-# User accounts (Deprecated)
-User.where(email: "admin@team04.com").first_or_create(password: "Password123", password_confirmation:"Password123", admin: true, role: 'admin')
-User.where(email: "reporter@team04.com").first_or_create(password: "Password123", password_confirmation:"Password123", admin: false, role: 'reporter')
-User.where(email: "customer@team04.com").first_or_create(password: "Password123", password_confirmation:"Password123", admin: false, role: 'customer')
-User.where(email: "business@team04.com").first_or_create(password: "Password123", password_confirmation:"Password123", admin: false, role: 'customer')
