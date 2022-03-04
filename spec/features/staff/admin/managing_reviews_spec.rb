@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe 'Managing reviews' do
   context 'As an administrator' do
-    before { login_as(FactoryBot.create(:admin)) }
+    before { login_as(FactoryBot.create(:admin), scope: :staff) }
     let!(:review) { FactoryBot.create(:review).decorate }
     let!(:second_review) { FactoryBot.create(:second_review).decorate }
     let!(:hidden_review) { FactoryBot.create(:hidden_review).decorate }

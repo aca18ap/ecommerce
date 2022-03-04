@@ -159,6 +159,7 @@ describe 'Managing businesses' do
       accept_confirm do
         within(:css, "#business-#{business.id}") { click_link 'Delete user' }
       end
+      find('#open-businesses-tab').click
       within(:css, '#list-businesses-table') { expect(page).to_not have_content business.email }
     end
 
@@ -167,6 +168,7 @@ describe 'Managing businesses' do
       accept_confirm do
         click_link 'Delete Business'
       end
+      find('#open-businesses-tab').click
       within(:css, '#list-businesses-table') { expect(page).to_not have_content business.email }
     end
   end
@@ -175,6 +177,7 @@ describe 'Managing businesses' do
     before { business.lock_access! }
     specify 'I can manually unlock it', js: true do
       visit admin_users_path
+      find('#open-businesses-tab').click
 
       expect(business.access_locked?).to eq true
       within(:css, "#business-#{business.id}") { expect(page).to have_content 'Unlock' }
@@ -183,6 +186,7 @@ describe 'Managing businesses' do
         within(:css, "#business-#{business.id}") { click_link 'Unlock' }
       end
 
+      find('#open-businesses-tab').click
       within(:css, "#business-#{business.id}") { expect(page).to_not have_content 'Unlock' }
       expect(business.reload.access_locked?).to eq false
     end
@@ -196,52 +200,92 @@ describe 'Managing businesses' do
   end
 end
 
+describe 'Managing staff' do
+  let!(:reporter) { FactoryBot.create(:reporter) }
+  let!(:admin) { FactoryBot.create(:admin) }
+  before { login_as(admin, scope: :staff) }
 
-  #   context 'If a user\'s account is locked' do
-  #     let!(:locked) { FactoryBot.create :locked }
-  #
-  #     specify 'I can manually unlock it', js: true do
-  #       visit '/admin/users'
-  #       accept_confirm do
-  #         within(:css, '#user-1') { click_link 'Unlock' }
-  #       end
-  #       within(:css, '#user-1') { expect(page).not_to have_content 'Unlock' }
-  #
-  #       locked.reload
-  #       expect(locked.unlock_token).to eq(nil)
-  #       expect(locked.failed_attempts).to eq(0)
-  #       expect(locked.locked_at).to eq(nil)
-  #     end
-  #   end
-  #
-  #   context 'If a user\'s account is not locked' do
-  #     let!(:customer) { FactoryBot.create :customer }
-  #
-  #     specify 'I do not see the option to unlock it' do
-  #       visit '/admin/users'
-  #       within(:css, '#user-1') { expect(page).not_to have_content 'Unlock' }
-  #     end
-  #   end
-  # end
-  #
-  # context 'security' do
-  #   context 'If I am a reporter' do
-  #     before { login_as(FactoryBot.create(:reporter)) }
-  #
-  #     specify 'I cannot access the accounts management system' do
-  #       visit '/admin/users'
-  #       expect(page).not_to have_content 'Admin Dashboard'
-  #       expect(page).to have_current_path('/')
-  #     end
-  #   end
-  #
-  #   context 'If I am a customer' do
-  #     before { login_as(FactoryBot.create(:customer)) }
-  #
-  #     specify 'I cannot access the accounts management system' do
-  #       visit '/admin/users'
-  #       expect(page).not_to have_content 'Admin Dashboard'
-  #       expect(page).to have_current_path('/')
-  #     end
-  #   end
-  # end
+  before do
+    visit admin_users_path
+    find('#open-staff-tab').click
+  end
+
+  context 'If I provide valid credentials' do
+    specify 'I can edit a staff member\'s email' do
+      within(:css, "#staff-#{reporter.id}") { click_link 'Edit user' }
+      fill_in 'staff[email]', with: 'newemail@team04.com'
+      click_button 'Update Staff'
+      within(:css, '#list-staff-table') { expect(page).to have_content 'newemail@team04.com' }
+    end
+
+    specify 'I can change a staff member\'s role' do
+      within(:css, "#staff-#{reporter.id}") { click_link 'Edit user' }
+      select 'admin', from: 'staff[role]'
+      click_button 'Update Staff'
+      within(:css, "#staff-#{reporter.id}") { expect(page).to have_content 'admin' }
+    end
+  end
+
+  context 'If I provide invalid credentials' do
+    specify 'I will be shown an error when I try to edit a business\'s email' do
+      within(:css, "#staff-#{reporter.id}") { click_link 'Edit user' }
+      fill_in 'staff[email]', with: 'invalid_email'
+      click_button 'Update Staff'
+      expect(page).to have_content 'Email is invalid'
+    end
+  end
+
+  specify 'I cannot edit or delete my own details from this page' do
+    within(:css, "#staff-#{admin.id}") { expect(page).to_not have_content 'Edit user' }
+    within(:css, "#staff-#{admin.id}") { expect(page).to_not have_content 'Delete user' }
+  end
+
+  context 'I can delete a staff member', js: true do
+    specify 'from the user management page' do
+      accept_confirm do
+        within(:css, "#staff-#{reporter.id}") { click_link 'Delete user' }
+      end
+      find('#open-staff-tab').click
+      within(:css, '#list-staff-table') { expect(page).to_not have_content reporter.email }
+    end
+
+    specify 'from the edit staff page' do
+      within(:css, "#staff-#{reporter.id}") { click_link 'Edit user' }
+      accept_confirm do
+        click_link 'Delete Staff'
+      end
+      find('#open-staff-tab').click
+      within(:css, '#list-staff-table') { expect(page).to_not have_content reporter.email }
+    end
+  end
+
+  context 'If a staff member\'s account is locked' do
+    before { reporter.lock_access! }
+    specify 'I can manually unlock it', js: true do
+      visit admin_users_path
+      find('#open-staff-tab').click
+
+      expect(reporter.access_locked?).to eq true
+      within(:css, "#staff-#{reporter.id}") { expect(page).to have_content 'Unlock' }
+
+      accept_confirm do
+        within(:css, "#staff-#{reporter.id}") { click_link 'Unlock' }
+      end
+
+      find('#open-staff-tab').click
+      within(:css, "#staff-#{reporter.id}") { expect(page).to_not have_content 'Unlock' }
+      expect(reporter.reload.access_locked?).to eq false
+    end
+  end
+
+  context 'If a staff member\'s account is not locked' do
+    specify 'I cannot unlock it' do
+      expect(reporter.access_locked?).to_not eq true
+      within(:css, "#staff-#{reporter.id}") { expect(page).to_not have_content 'Unlock' }
+    end
+  end
+
+  context 'I can invite a new staff member' do
+    skip "COME BACK"
+  end
+end

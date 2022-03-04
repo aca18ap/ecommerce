@@ -2,7 +2,7 @@
 
 class StaffsController < ApplicationController
   before_action :authenticate_staff!
-  before_action :set_staff, only: %i[show edit update destroy]
+  before_action :set_staff, only: %i[show edit update destroy unlock]
 
   # GET /staffs/1
   def show
@@ -34,6 +34,12 @@ class StaffsController < ApplicationController
     else
       redirect_to request.referer
     end
+  end
+
+  # PATCH /businesses/1/unlock
+  def unlock
+    @staff.unlock_access!
+    redirect_back fallback_location: root_path
   end
 
   private

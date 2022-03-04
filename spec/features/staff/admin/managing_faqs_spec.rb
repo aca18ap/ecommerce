@@ -14,7 +14,7 @@ require 'rails_helper'
 
 describe 'Managing FAQs' do
   context 'As an administator' do
-    before { login_as(FactoryBot.create(:admin)) }
+    before { login_as(FactoryBot.create(:admin), scope: :staff) }
 
     context 'Given that an FAQ already exists and it is not hidden' do
       let!(:faq) { FactoryBot.create(:faq).decorate }
