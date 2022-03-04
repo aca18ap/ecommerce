@@ -23,7 +23,6 @@ describe 'Security' do
   end
 end
 
-
 describe 'Managing customers' do
   let!(:customer) { FactoryBot.create(:customer) }
   let!(:customer2) { FactoryBot.create(:customer, email: 'customer2@team04.com', username: 'taken') }
@@ -84,7 +83,20 @@ describe 'Managing customers' do
       within(:css, '#list-customers-table') { expect(page).to_not have_content customer.email }
     end
   end
+
+  context 'If a customer\'s account is locked' do
+    specify 'I can manually unlock it', js: true do
+      customer.lock_access!
+      visit admin_users_path
+      accept_confirm do
+        within(:css, "#customer-#{customer.id}") { click_link 'Unlock' }
+      end
+      expect(customer.reload.access_locked?).to eq false
+    end
+  end
 end
+
+
   #   context 'If a user\'s account is locked' do
   #     let!(:locked) { FactoryBot.create :locked }
   #
