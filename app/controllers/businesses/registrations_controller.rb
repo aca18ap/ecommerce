@@ -13,7 +13,7 @@ class Businesses::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    head :unauthorized
+    head :forbidden
   end
 
   # GET /resource/edit

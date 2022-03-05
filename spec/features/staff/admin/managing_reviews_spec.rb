@@ -11,7 +11,7 @@ describe 'Managing reviews' do
 
     specify 'The reviews button appears in the nav bar' do
       visit '/'
-      within(:css, '.nav') { expect(page).to have_content 'Reviews' }
+      within(:css, '.nav') { expect(page).to have_content 'Manage Reviews' }
     end
 
     specify 'I can see a list of all reviews' do

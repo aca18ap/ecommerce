@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   authenticated :customer_user do
     root to: 'customers#show', as: :authenticated_customer_root
   end
-  resources :customers, path: 'customer'
   resources :customers, path: 'customer' do
     patch :unlock, on: :member
   end
@@ -16,42 +15,42 @@ Rails.application.routes.draw do
   get '/customer/edit'
 
   devise_for :staffs, path: 'staff',
-                      controllers: { sessions: 'staffs/sessions', registrations: 'staffs/registrations', invitations: 'staffs/invitations' }
+                      controllers: { sessions: 'staffs/sessions', registrations: 'staffs/registrations',
+                                     invitations: 'staffs/invitations' }
   authenticated :staff, ->(u) { u.admin? } do
     root to: 'staffs#show', as: :authenticated_admin_root
   end
   namespace :admin do
     get '/users', to: '/admin/users#index'
 
-    resources :customers, path: 'customer' do
+    resources :customers, path: 'customer', only: %i[edit update destroy] do
       patch '/:id/edit', to: 'admin/customer#update'
     end
 
-    resources :businesses, path: 'business' do
+    resources :businesses, path: 'business', only: %i[edit update destroy] do
       patch '/:id/edit', to: 'admin/business#update'
     end
 
-    resources :staffs, path: 'staff' do
+    resources :staffs, path: 'staff', only: %i[edit update destroy] do
       patch '/:id/edit', to: 'admin/staff#update'
     end
   end
   authenticated :staff, ->(u) { u.reporter? } do
     root to: 'staffs#show', as: :authenticated_reporter_root
   end
-  resources :staffs, path: 'staff', only: %i[show edit update destroy]
-  resources :staffs, path: 'staff' do
+  resources :staffs, path: 'staff', only: %i[show edit update destroy] do
     patch :unlock, on: :member
   end
   get '/staff/show'
   get '/staff/edit'
 
   devise_for :businesses, path: 'business',
-                          controllers: { sessions: 'businesses/sessions', registrations: 'businesses/registrations', invitations: 'businesses/invitations'  }
+                          controllers: { sessions: 'businesses/sessions', registrations: 'businesses/registrations',
+                                         invitations: 'businesses/invitations' }
   authenticated :business do
     root to: 'businesses#show', as: :authenticated_business_root
   end
-  resources :businesses, path: 'business', only: %i[show edit update destroy]
-  resources :businesses, path: 'business' do
+  resources :businesses, path: 'business', only: %i[show edit update destroy] do
     patch :unlock, on: :member
   end
   get '/business/show'
@@ -74,6 +73,7 @@ Rails.application.routes.draw do
 
   resources :newsletters
 
+  match '/401', to: 'errors#error_401', via: :all
   match '/403', to: 'errors#error_403', via: :all
   match '/404', to: 'errors#error_404', via: :all
   match '/422', to: 'errors#error_422', via: :all

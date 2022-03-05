@@ -31,7 +31,7 @@ RSpec.describe 'Business', type: :request do
         }
       }
 
-      expect(response).to have_http_status 401
+      assert_response :forbidden
     end
   end
 
