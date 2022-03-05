@@ -7,7 +7,7 @@ RSpec.describe 'Business', type: :request do
     before { login_as(FactoryBot.create(:business), scope: :business) }
 
     it 'shows the current business\' dashboard' do
-      get '/business/show'
+      get business_show_path
       expect(response).to be_successful
     end
   end
@@ -15,7 +15,7 @@ RSpec.describe 'Business', type: :request do
   describe 'GET /business/registration' do
     it 'redirects to the sign in page' do
       get '/business/registration'
-      expect(response).to have_http_status 302
+      assert_response 302
     end
   end
 

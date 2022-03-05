@@ -8,12 +8,12 @@ describe 'Managing newsletters' do
     let!(:newsletter) { FactoryBot.create(:newsletter) }
 
     specify 'I can see the newsletters button in the nav bar' do
-      visit '/newsletters'
+      visit newsletters_path
       within(:css, 'header') { expect(page).to have_content 'Newsletters' }
     end
 
     specify 'I can view a list of emails provided' do
-      visit '/newsletters'
+      visit newsletters_path
       expect(page).to have_content newsletter.email
     end
   end
@@ -25,13 +25,13 @@ describe 'Managing newsletters' do
         expect(page).to have_content 'Access Denied'
       end
 
-      before { login_as(FactoryBot.create(:reporter)) }
+      before { login_as(FactoryBot.create(:reporter), scope: :customer) }
       specify 'If I am a reporter' do
         visit newsletters_path
         expect(page).to have_content 'Access Denied'
       end
 
-      before { login_as(FactoryBot.create(:customer)) }
+      before { login_as(FactoryBot.create(:customer), scope: :customer) }
       specify 'If I am a customer' do
         visit newsletters_path
         expect(page).to have_content 'Access Denied'
@@ -41,19 +41,19 @@ describe 'Managing newsletters' do
 
   context 'I cannot see the newsletters button in the nav bar' do
     specify 'If I am not logged in' do
-      visit '/'
+      visit root_path
       within(:css, 'header') { expect(page).not_to have_content('Newsletters') }
     end
 
-    before { login_as(FactoryBot.create(:reporter)) }
+    before { login_as(FactoryBot.create(:reporter), scope: :staff) }
     specify 'If I am a reporter' do
-      visit '/'
+      visit root_path
       within(:css, 'header') { expect(page).not_to have_content('Newsletters') }
     end
 
-    before { login_as(FactoryBot.create(:user)) }
+    before { login_as(FactoryBot.create(:customer), scope: :customer) }
     specify 'If I am a customer' do
-      visit '/'
+      visit root_path
       within(:css, 'header') { expect(page).not_to have_content('Newsletters') }
     end
   end

@@ -25,7 +25,7 @@ RSpec.describe 'staff', type: :request do
         staff: {
           email: 'new_staff@team04.com',
           password: 'Password123',
-          password_confirmation: 'Password123',
+          password_confirmation: 'Password123'
         }
       }
 
