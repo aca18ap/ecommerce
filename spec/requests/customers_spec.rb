@@ -7,15 +7,8 @@ RSpec.describe 'customer', type: :request do
     before { login_as(FactoryBot.create(:customer), scope: :customer) }
 
     it 'shows the current customer\' dashboard' do
-      get '/customer/show'
+      get customer_show_path
       expect(response).to be_successful
-    end
-  end
-
-  describe 'GET /customer/registration' do
-    it 'redirects to the sign in page' do
-      get '/customer/registration'
-      expect(response).to have_http_status 302
     end
   end
 
@@ -41,6 +34,36 @@ RSpec.describe 'customer', type: :request do
         patch unlock_customer_path(customer)
         expect(customer.reload.access_locked?).to eq true
       end
+    end
+  end
+
+  describe 'If I am not logged in as a customer' do
+    let(:customer) { FactoryBot.create(:customer) }
+
+    def check_routes
+      get customer_show_path
+      assert_response 302
+
+      get customer_path(customer)
+      assert_response 302
+    end
+
+    it 'does not let me access the routes if I am not logged in' do
+      check_routes
+    end
+
+    it 'does not let me access the routes if I am logged in as a staff member' do
+      login_as(FactoryBot.create(:admin), scope: :staff)
+      check_routes
+      post customer_registration_path
+      assert_response 302
+    end
+
+    it 'does not let me access the routes if I am logged in as a business' do
+      login_as(FactoryBot.create(:business), scope: :business)
+      check_routes
+      post customer_registration_path
+      assert_response 302
     end
   end
 end

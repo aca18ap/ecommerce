@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
 
-  ## System users and accounts routes
+  ## ===== System Users and Accounts Routes ===== ##
   devise_for :customers, path: 'customer',
                          controllers: { sessions: 'customers/sessions', registrations: 'customers/registrations' }
   authenticated :customer_user do
@@ -56,10 +56,11 @@ Rails.application.routes.draw do
   get '/business/show'
   get '/business/edit'
 
-  ## Everything else for now
+  ## ===== Reviews ===== ##
   resources :reviews
   get :review_created, to: 'reviews#created'
 
+  ## ===== FAQs ===== ##
   resources :faqs do
     member do
       get 'answer'
@@ -67,12 +68,17 @@ Rails.application.routes.draw do
       post 'dislike'
     end
   end
+
+  ## ===== Newsletters ===== ##
   resources :newsletters
+
+  ## ===== Metrics ===== ##
   resources :metrics, only: %i[index create]
+
+  ## ===== Shares ===== ##
   post 'shares', to: 'shares#create'
 
-  resources :newsletters
-
+  ## ===== Errors ===== ##
   match '/401', to: 'errors#error_401', via: :all
   match '/403', to: 'errors#error_403', via: :all
   match '/404', to: 'errors#error_404', via: :all
@@ -80,17 +86,18 @@ Rails.application.routes.draw do
   match '/500', to: 'errors#error_500', via: :all
 
   get :ie_warning, to: 'errors#ie_warning'
+
+  ## ===== Pages ===== ##
   get :pricing_plans, to: 'pages#pricing_plans'
   get :review_usefulness, to: 'pages#review_usefulness'
-
   get :carbon_footprint_viewer, to: 'pages#carbon_footprint_viewer'
   get :extension_features, to: 'pages#extension_features'
   get :crowdsourced_feature, to: 'pages#crowdsourced_feature'
-
   get :business_info, to: 'pages#business_info'
   get :welcome, to: 'pages#welcome'
   get :thanks, to: 'pages#thanks'
 
+  ## ===== Root ===== ##
   root to: 'pages#home'
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

@@ -27,37 +27,21 @@
             %img.rounded-circle.filter-white{:alt => "user icon", :height => "32", :src => "/images/person.svg", :width => "32"}
           -elsif business_signed_in?
             #{current_business.email}
+            %img.rounded-circle.filter-white{:alt => "user icon", :height => "32", :src => "/images/person.svg", :width => "32"}
           -elsif staff_signed_in?
             #{current_staff.email}
+            %img.rounded-circle.filter-white{:alt => "user icon", :height => "32", :src => "/images/person.svg", :width => "32"}
           -else
             Account
-        %ul.dropdown-menu.text-small{"aria-labelledby" => "dropdownUser1", :style => ""}
+        %ul.dropdown-menu.text-small{"aria-labelledby" => "dropdownUser1"}
           -if customer_signed_in?
-            %li
-              = link_to 'Profile', customer_show_path, :class => 'dropdown-link'
-            %li
-              = link_to 'Account Settings', customer_edit_path, :class => 'dropdown-link'
-              %hr.dropdown-divider
-            %li
-              = link_to 'Sign Out', destroy_customer_session_path, method: :delete, :class => "dropdown-link"
+            = render partial: 'layouts/customer_nav_dropdown'
 
           -elsif business_signed_in?
-            %li
-              = link_to 'Profile', business_show_path, :class => 'dropdown-link'
-            %li
-              = link_to 'Account Settings', business_edit_path, :class => 'dropdown-link'
-              %hr.dropdown-divider
-            %li
-              = link_to 'Sign Out', destroy_business_session_path, method: :delete, :class => "dropdown-link"
+            = render partial: 'layouts/business_nav_dropdown'
 
           -elsif staff_signed_in?
-            %li
-              = link_to 'Profile', staff_show_path, :class => 'dropdown-link'
-            %li
-              = link_to 'Account Settings', staff_edit_path, :class => 'dropdown-link'
-              %hr.dropdown-divider
-            %li
-              = link_to 'Sign Out', destroy_staff_session_path, method: :delete, :class => "dropdown-link"
+            = render partial: 'layouts/staff_nav_dropdown'
 
           -else
             %li

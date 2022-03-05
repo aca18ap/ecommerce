@@ -14,14 +14,14 @@ RSpec.describe 'Business', type: :request do
 
   describe 'GET /business/registration' do
     it 'redirects to the sign in page' do
-      get '/business/registration'
+      get new_business_registration_path
       assert_response 302
     end
   end
 
   describe 'POST /business' do
     it 'does not allow a new business to be registered' do
-      post '/business', params: {
+      post business_registration_path, params: {
         business: {
           email: 'new_business@team04.com',
           password: 'Password123',
@@ -58,6 +58,41 @@ RSpec.describe 'Business', type: :request do
         patch unlock_business_path(business)
         expect(business.reload.access_locked?).to eq true
       end
+    end
+  end
+
+  describe 'If I am not logged in as a business' do
+    let(:business) { FactoryBot.create(:business) }
+
+    def check_routes
+      get business_show_path
+      assert_response 302
+
+      get new_business_registration_path
+      assert_response 302
+
+      get business_path(business)
+      assert_response 302
+    end
+
+    it 'does not let me access the routes if I am not logged in' do
+      check_routes
+      post business_registration_path
+      assert_response 403
+    end
+
+    it 'does not let me access the routes if I am logged in as a staff member' do
+      login_as(FactoryBot.create(:admin), scope: :staff)
+      check_routes
+      post business_registration_path
+      assert_response 302
+    end
+
+    it 'does not let me access the routes if I am logged in as a customer' do
+      login_as(FactoryBot.create(:customer), scope: :customer)
+      check_routes
+      post business_registration_path
+      assert_response 302
     end
   end
 end

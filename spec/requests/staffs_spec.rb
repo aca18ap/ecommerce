@@ -7,21 +7,21 @@ RSpec.describe 'staff', type: :request do
     before { login_as(FactoryBot.create(:admin), scope: :staff) }
 
     it 'shows the current staff\' dashboard' do
-      get '/staff/show'
+      get staff_show_path
       expect(response).to be_successful
     end
   end
 
   describe 'GET /staff/registration' do
     it 'redirects to the sign in page' do
-      get '/staff/registration'
+      get new_staff_registration_path
       expect(response).to have_http_status 302
     end
   end
 
   describe 'POST /staff' do
     it 'does not allow a new staff to be registered' do
-      post '/staff', params: {
+      post staff_registration_path, params: {
         staff: {
           email: 'new_staff@team04.com',
           password: 'Password123',
@@ -47,6 +47,41 @@ RSpec.describe 'staff', type: :request do
         expect(response).to_not be_successful
         expect(reporter.reload.admin?).to be false
       end
+    end
+  end
+
+  describe 'If I am not logged in as a staff member' do
+    let(:reporter) { FactoryBot.create(:reporter) }
+
+    def check_routes
+      get staff_show_path
+      assert_response 302
+
+      get new_staff_registration_path
+      assert_response 302
+
+      put staff_path(reporter)
+      assert_response 302
+    end
+
+    it 'does not let me access the routes if I am not logged in' do
+      check_routes
+      post staff_registration_path
+      assert_response 403
+    end
+
+    it 'does not let me access the routes if I am logged in as a business' do
+      login_as(FactoryBot.create(:business), scope: :business)
+      check_routes
+      post staff_registration_path
+      assert_response 302
+    end
+
+    it 'does not let me access the routes if I am logged in as a customer' do
+      login_as(FactoryBot.create(:customer), scope: :customer)
+      check_routes
+      post staff_registration_path
+      assert_response 302
     end
   end
 end
