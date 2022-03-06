@@ -52,6 +52,11 @@ class ProductsController < ApplicationController
   end
 
 
+<<<<<<< HEAD
+=======
+
+  ##helper_method :get_materials
+>>>>>>> Managing products and materials is now functional
   private
     # Set user authorization
     def validate_user
@@ -72,9 +77,13 @@ class ProductsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def product_params
 <<<<<<< HEAD
+<<<<<<< HEAD
       params.require(:product).permit(:name, :description, :mass, :category, :url, :manufacturer,  :manufacturer_country, :co2_produced, :material_ids => [])
 =======
       params.require(:product).permit(:name, :description, :mass, :category, :url, :manufacturer, :manufacturer_country, :co2_produced)
 >>>>>>> Added authentication check to creating products, refactored column type to category due to rails complaining
+=======
+      params.require(:product).permit(:name, :description, :mass, :category, :url, :manufacturer,  :manufacturer_country, :co2_produced, :material_ids => [])
+>>>>>>> Managing products and materials is now functional
     end
 end

@@ -22,25 +22,12 @@ describe 'Products' do
     end
 
     let!(:product){ FactoryBot.create :product}
-<<<<<<< HEAD
     specify 'I cannot edit a product' do
       visit '/products'
       expect(page).to have_content 'TestName'
       expect(page).not_to have_content 'Edit'
     end
 
-=======
-    specify 'I can edit a product' do
-      visit '/products'
-      expect(page).to have_content 'TestName'
-      click_link 'Edit'
-      fill_in 'product[name]', with: 'UpdatedTestName'
-      select 'Italy', :from => 'Manufacturer country' ##factory bot not setting country correctly and makes test fail
-      click_button 'Update Product'
-      expect(page).to have_content 'UpdatedTestName'
-      expect(page).to have_content 'Product was successfully updated.'
-    end
->>>>>>> Tests for products
   end
 
 

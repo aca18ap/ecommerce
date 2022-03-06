@@ -86,22 +86,14 @@ RSpec.describe "/materials", type: :request do
   describe "PATCH /update" do
     context "with valid parameters" do
       let(:new_attributes) {
-<<<<<<< HEAD
         {name: 'NameUpdate', co2_per_kg: 10}
-=======
-        skip("Add a hash of attributes valid for your model")
->>>>>>> 7e18af449e015ab2de8707d5ca7bdcaedbf75eca
       }
 
       it "updates the requested material" do
         material = Material.create! valid_attributes
         patch material_url(material), params: { material: new_attributes }
         material.reload
-<<<<<<< HEAD
         expect(material.name).to eq 'NameUpdate' 
-=======
-        skip("Add assertions for updated state")
->>>>>>> 7e18af449e015ab2de8707d5ca7bdcaedbf75eca
       end
 
       it "redirects to the material" do

@@ -10,4 +10,8 @@ class ProductDecorator < Draper::Decorator
   #     end
   #   end
 
+  def get_materials(product)
+    materials = Material.find(product.material_ids)
+    materials.pluck(:name, :co2_per_kg)
+  end
 end
