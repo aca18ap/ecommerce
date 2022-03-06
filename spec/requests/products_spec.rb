@@ -16,13 +16,10 @@ RSpec.describe "/products", type: :request do
   
   # Product. As you add validations to Product, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+  let(:valid_attributes) { { name: 'Product', category: 'Category', manufacturer: 'rht', mass: '45', url: 'test.com', manufacturer_country: 'Country' }}
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:invalid_attributes) { { name: 'Product', category: 'Category', manufacturer: '', mass: '', url: 'test.com', manufacturer_country: 'Country'}}
+  before { login_as(FactoryBot.create(:admin)) }
 
   describe "GET /index" do
     it "renders a successful response" do
@@ -86,14 +83,14 @@ RSpec.describe "/products", type: :request do
   describe "PATCH /update" do
     context "with valid parameters" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        { name: 'NewProduct', category: 'NewCategory', manufacturer: 'NewManufacturer', mass: '12', url: 'test2.com', manufacturer_country: 'Country2' }
       }
 
       it "updates the requested product" do
         product = Product.create! valid_attributes
         patch product_url(product), params: { product: new_attributes }
         product.reload
-        skip("Add assertions for updated state")
+        expect(product.name).to eq 'NewProduct'
       end
 
       it "redirects to the product" do
