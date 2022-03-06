@@ -3,10 +3,7 @@
 # Table name: products
 #
 #  id                   :bigint           not null, primary key
-<<<<<<< HEAD
 #  category             :string
-=======
->>>>>>> Tests for users interacting with products
 #  co2_produced         :float
 #  description          :string
 #  manufacturer         :string
