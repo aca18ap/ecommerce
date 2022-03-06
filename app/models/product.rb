@@ -15,17 +15,21 @@
 #  updated_at           :datetime         not null
 #
 class Product < ApplicationRecord
-  validates :name, :category, :url, :manufacturer, :manufacturer_country, :co2_produced, presence: true
+  validates :name, :category, :url, :manufacturer, :manufacturer_country, :mass, presence: true
   validates :url, uniqueness: true
+  before_update :calculate_co2
 
-  has_many :products_material
+  has_many :products_material, dependent: :destroy
   has_many :materials, through: :products_material
-  before_create calculate_co2
 
+  ##CO2 re-calculated every time it gets updated. To update to take country into account
   def calculate_co2
-    co2_produced = 1.5
+    tmp_co2 = 0
+    (Material.find(self.material_ids)).each do |m|
+      tmp_co2 += self.mass * m.co2_per_kg
+    end
+    self.co2_produced = tmp_co2.round(2)
+
   end
-
-
 
 end

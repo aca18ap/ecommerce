@@ -1,4 +1,4 @@
-class ProductDecorator < Draper::Decorator
+class MaterialDecorator < Draper::Decorator
   delegate_all
 
   # Define presentation-specific methods here. Helpers are accessed through
@@ -10,8 +10,4 @@ class ProductDecorator < Draper::Decorator
   #     end
   #   end
 
-  def get_materials(product)
-    materials = Material.find(product.material_ids)
-    materials.pluck(:name, :co2_per_kg)
-  end
 end

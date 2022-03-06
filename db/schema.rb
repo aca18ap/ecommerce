@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2022_02_27_173107) do
-=======
 ActiveRecord::Schema.define(version: 2022_03_03_115430) do
->>>>>>> Added authentication check to creating products, refactored column type to category due to rails complaining
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
