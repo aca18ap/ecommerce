@@ -1,0 +1,7 @@
+%li
+  = link_to 'Profile', staff_show_path, :class => 'dropdown-link'
+  %li
+    = link_to 'Account Settings', staff_edit_path, :class => 'dropdown-link'
+    %hr.dropdown-divider
+  %li
+    = link_to 'Sign Out', destroy_staff_session_path, method: :delete, :class => "dropdown-link"

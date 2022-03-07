@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class ReviewsController < ApplicationController
-  before_action :set_review, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:new, :create, :show, :created]
+  before_action :set_review, only: %i[show edit update destroy]
+  before_action :authenticate_staff!, except: %i[new create show created]
 
   authorize_resource
 
@@ -30,7 +32,7 @@ class ReviewsController < ApplicationController
     @review = Review.new(review_params)
 
     if @review.save
-      if current_user && current_user.admin?
+      if current_staff&.admin?
         redirect_to @review, notice: 'Review was successfully created.'
       else
         redirect_to review_created_path, notice: 'Review was successfully created.'
