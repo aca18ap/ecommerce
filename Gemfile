@@ -4,6 +4,10 @@ source 'https://rubygems.org'
 ruby '2.7.4'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}.git" }
 
+# Gitlab CI gems
+gem 'bundler-audit'
+gem 'brakeman'
+
 gem 'sentry-raven'
 
 gem 'activerecord-session_store'
