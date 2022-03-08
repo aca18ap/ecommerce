@@ -1,4 +1,3 @@
-#inherit_from: .rubocop_todo.yml
 require:
   - rubocop/cop/internal_affairs
   #- rubocop-performance
@@ -10,13 +9,17 @@ AllCops:
   Exclude:
     - 'vendor/**/*'
     - 'spec/fixtures/**/*'
+    - 'spec/*_helper.rb'
     - 'tmp/**/*'
     - '.git/**/*'
     - 'bin/*'
-    - 'db/*'
-    - 'config/*'
+    - 'db/**/*'
+    - 'config/**/*'
   TargetRubyVersion: 2.7.4
   SuggestExtensions: false
+
+Style/Documentation:
+  Enabled: false
 
 Naming/PredicateName:
   # Method define macros for dynamically generated method.
@@ -41,6 +44,9 @@ Style/IpAddresses:
   # The test for this cop includes strings that would cause offenses
   Exclude:
     - spec/rubocop/cop/style/ip_addresses_spec.rb
+
+Style/ClassAndModuleChildren:
+  Enabled: false
 
 Layout/EndOfLine:
   EnforcedStyle: lf
@@ -67,9 +73,11 @@ Layout/HashAlignment:
     - table
 
 Layout/LineLength:
-  Max: 100
+  Max: 120
   IgnoredPatterns:
-    - !ruby/regexp /\A +(it|describe|context|shared_examples|include_examples|it_behaves_like) ["']/
+    - !ruby/regexp /\A +(it|describe|context|specify|shared_examples|include_examples|it_behaves_like) ["']/
+  Exclude:
+    - 'spec/**/*.rb'
 
 Lint/InterpolationCheck:
   Exclude:
@@ -94,6 +102,11 @@ Metrics/ClassLength:
     - lib/rubocop/config_obsoletion.rb
 
 Metrics/ModuleLength:
+  Exclude:
+    - 'spec/**/*.rb'
+
+Metrics/MethodLength:
+  Max: 20
   Exclude:
     - 'spec/**/*.rb'
 

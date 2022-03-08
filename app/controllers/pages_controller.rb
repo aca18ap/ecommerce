@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class PagesController < ApplicationController
-
   def home
     @current_nav_identifier = :home
     @reviews = Review.all.where(hidden: false).decorate
@@ -45,5 +44,4 @@ class PagesController < ApplicationController
     review_rating = @review.rating
     @review.update_attribute(:rating, review_rating + 1)
   end
-
 end

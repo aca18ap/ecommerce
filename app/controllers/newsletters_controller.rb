@@ -70,5 +70,4 @@ class NewslettersController < ApplicationController
   def newsletter_params
     params.require(:newsletter).permit(:email, :vocation, :tier, :latitude, :longitude)
   end
-
 end

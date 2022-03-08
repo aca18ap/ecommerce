@@ -9,6 +9,5 @@ module Admin
       @customers = Customer.all.decorate
       @businesses = Business.all.decorate
     end
-
   end
 end

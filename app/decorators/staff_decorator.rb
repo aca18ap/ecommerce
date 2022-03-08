@@ -10,5 +10,4 @@ class StaffDecorator < Draper::Decorator
               method: :patch, class: 'btn btn-xs',
               data: { confirm: 'Are you sure you want to unlock this account?' }
   end
-
 end
