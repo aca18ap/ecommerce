@@ -3,7 +3,7 @@
 class ApplicationController < ActionController::Base
   # Ensure that CanCanCan is correctly configured
   # and authorising actions on each controller
-  #check_authorization
+  # check_authorization
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.

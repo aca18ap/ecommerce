@@ -332,6 +332,8 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.16.0)
       parser (>= 3.1.1.0)
+    rubocop-rspec (2.9.0)
+      rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
@@ -456,6 +458,7 @@ DEPENDENCIES
   responders
   rspec-rails
   rubocop (~> 1.23)
+  rubocop-rspec
   sassc
   sassc-rails
   sentry-raven

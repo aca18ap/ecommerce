@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe '/metrics', type: :request do
-  before { login_as(FactoryBot.create(:admin)) }
+  before { login_as(create(:admin), scope: :staff) }
 
   def post_to_metrics(path)
     post '/metrics', params: {
@@ -15,8 +15,8 @@ RSpec.describe '/metrics', type: :request do
   end
 
   describe 'POST /metrics' do
-    context 'From non-staff-only pages' do
-      it 'should create a new visit' do
+    context 'when accessing non-staff-only pages' do
+      it 'creates a new visit' do
         expect(Visit.count).to eq 0
         post_to_metrics('/')
 
@@ -25,8 +25,8 @@ RSpec.describe '/metrics', type: :request do
       end
     end
 
-    context 'Should not create a new visit' do
-      it 'from admin-only pages' do
+    context 'when accessing staff only pages' do
+      it 'does not create a new visit' do
         expect(Visit.count).to eq 0
         post_to_metrics('/admin/users')
 
