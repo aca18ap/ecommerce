@@ -22,7 +22,6 @@ class NewslettersController < ApplicationController
 
   # POST /newsletters
   def create
-
     location = RetrieveLocation.new(newsletter_params, request.remote_ip).get_location
 
     @newsletter = Newsletter.new(
@@ -34,10 +33,10 @@ class NewslettersController < ApplicationController
 
     # Check if user adding newsletter is admin
     if @newsletter.save
-      if !staff_signed_in?
-        redirect_to '/thanks'
-      else
+      if staff_signed_in?
         redirect_to @newsletter, notice: 'Newsletter was successfully created.'
+      else
+        redirect_to '/thanks'
       end
     else
       render :new

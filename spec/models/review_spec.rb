@@ -38,7 +38,7 @@ RSpec.describe Review, type: :model do
     end
 
     it 'is invalid if description is not present' do
-      subject.description = nil 
+      subject.description = nil
       expect(subject).not_to be_valid
     end
   end

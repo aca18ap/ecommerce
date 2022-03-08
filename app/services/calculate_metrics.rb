@@ -74,7 +74,7 @@ class CalculateMetrics
       # Need to create a dict of all hours between start and now to display 0 values correctly
       earliest_hour = DateTime.parse(registrations_arr[0].created_at.to_s).change({ min: 0, sec: 0 })
       time_regs = calculate_time_counts(registrations_arr, earliest_hour)
-                    .map { |time, regs| { 'vocation' => 'Total', 'time' => time, 'registrations' => regs } }
+                  .map { |time, regs| { 'vocation' => 'Total', 'time' => time, 'registrations' => regs } }
 
       registrations_arr.group_by { |registration| registration.vocation.itself }.each do |vocation, registrations|
         time_regs.concat(calculate_time_counts(registrations, earliest_hour)

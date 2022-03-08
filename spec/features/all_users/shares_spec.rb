@@ -3,5 +3,4 @@
 require 'rails_helper'
 
 describe 'Shares' do
-
 end

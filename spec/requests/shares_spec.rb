@@ -7,12 +7,7 @@ RSpec.describe 'Shares', type: :request do
     it 'creates a new share' do
       expect(Share.count).to eq 0
 
-      post shares_path, params: {
-        share: {
-          social: 'MySocial',
-          feature: 'MyFeature'
-        }
-      }
+      post shares_path, params: { share: { social: 'MySocial', feature: 'MyFeature' } }
 
       expect(response).to be_successful
 

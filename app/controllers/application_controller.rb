@@ -58,7 +58,8 @@ class ApplicationController < ActionController::Base
                            Ability.new(current_staff)
                          elsif business_signed_in?
                            Ability.new(current_business)
-                         else customer_signed_in?
+                         else
+                           customer_signed_in?
                            Ability.new(current_customer)
                          end
   end

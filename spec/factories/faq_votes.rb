@@ -22,7 +22,7 @@
 #
 FactoryBot.define do
   factory :faq_vote do
-    ipAddress { "1.2.3.4" }
+    ipAddress { '1.2.3.4' }
     faq { nil }
     value { 1 }
   end

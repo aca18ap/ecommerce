@@ -2,9 +2,7 @@
 
 require 'rails_helper'
 
-Geocoder.configure(
-  ip_lookup: :test
-)
+Geocoder.configure(ip_lookup: :test)
 
 Geocoder::Lookup::Test.add_stub(
   '1.1.1.1', [
@@ -35,7 +33,6 @@ Geocoder::Lookup::Test.set_default_stub(
 )
 
 describe 'Retrieve location', js: true do
-
   let(:all_data) { RetrieveLocation.new({ longitude: 53.958332, latitude: -1.080278 }, '') }
   let(:no_location) { RetrieveLocation.new({}, '1.1.1.1') }
   let(:localhost) { RetrieveLocation.new({}, '127.0.0.1') }
