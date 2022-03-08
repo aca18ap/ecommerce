@@ -30,6 +30,7 @@ FactoryBot.define do
       id { 3 }
       description { 'MyHiddenText' }
       hidden { true }
+      rank { 0 }
     end
   end
 end

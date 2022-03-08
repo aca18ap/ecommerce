@@ -14,6 +14,8 @@
 #
 class Review < ApplicationRecord
   validates :description, presence: true
+  validates :rank, numericality: { greater_than_or_equal_to: 0 }
+  validates :rating, numericality: { greater_than_or_equal_to: 0 }
   validate :hidden_and_rank
 
   private
