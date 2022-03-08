@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Decorator class for customer view logic
 class CustomerDecorator < Draper::Decorator
   delegate_all
 

@@ -1,8 +1,5 @@
 require:
   - rubocop/cop/internal_affairs
-  #- rubocop-performance
-  #- rubocop-rspec
-  #- rubocop-rake
 
 AllCops:
   NewCops: enable
@@ -18,9 +15,6 @@ AllCops:
   TargetRubyVersion: 2.7.4
   SuggestExtensions: false
 
-Style/Documentation:
-  Enabled: false
-
 Naming/PredicateName:
   # Method define macros for dynamically generated method.
   MethodDefinitionMacros:
@@ -31,8 +25,8 @@ Naming/PredicateName:
 
 Style/AccessorGrouping:
   Exclude:
-    - lib/rubocop/formatter/base_formatter.rb
-    - lib/rubocop/cop/offense.rb
+    - 'lib/rubocop/formatter/base_formatter.rb'
+    - 'lib/rubocop/cop/offense.rb'
 
 Style/FormatStringToken:
   # Because we parse a lot of source codes from strings. Percent arrays
@@ -43,13 +37,18 @@ Style/FormatStringToken:
 Style/IpAddresses:
   # The test for this cop includes strings that would cause offenses
   Exclude:
-    - spec/rubocop/cop/style/ip_addresses_spec.rb
+    - 'spec/rubocop/cop/style/ip_addresses_spec.rb'
 
 Style/ClassAndModuleChildren:
   Enabled: false
 
+Style/Documentation:
+  Enabled: true
+  Exclude:
+    - 'app/models/application_record.rb'
+
 Layout/EndOfLine:
-  EnforcedStyle: lf
+  Enabled: false
 
 Layout/ClassStructure:
   Enabled: true
@@ -99,7 +98,7 @@ Metrics/BlockLength:
 
 Metrics/ClassLength:
   Exclude:
-    - lib/rubocop/config_obsoletion.rb
+    - 'lib/rubocop/config_obsoletion.rb'
 
 Metrics/ModuleLength:
   Exclude:
@@ -109,6 +108,13 @@ Metrics/MethodLength:
   Max: 20
   Exclude:
     - 'spec/**/*.rb'
+    - 'app/models/ability.rb'
+
+Metrics/AbcSize:
+  Exclude:
+    # Skipped as these are required functionality and cannot be reduced
+    - 'app/controllers/concerns/accessible.rb'
+    - 'app/models/ability.rb'
 
 Naming/InclusiveLanguage:
   FlaggedTerms:
@@ -116,41 +122,11 @@ Naming/InclusiveLanguage:
       Suggestions:
         - offense
   Exclude:
-    - lib/rubocop/cop/naming/inclusive_language.rb
+    - 'lib/rubocop/cop/naming/inclusive_language.rb'
 
-#RSpec/FilePath:
-#  Exclude:
-#    - spec/rubocop/cop/internal_affairs/redundant_let_rubocop_config_new_spec.rb
-#    - spec/rubocop/formatter/junit_formatter_spec.rb
-#
-#RSpec/PredicateMatcher:
-#  EnforcedStyle: explicit
-#
-#RSpec/MessageSpies:
-#  EnforcedStyle: receive
-#
-#RSpec/NestedGroups:
-#  Max: 7
-#
-#RSpec/MultipleMemoizedHelpers:
-#  Enabled: false
-#
-#RSpec/MultipleExpectations:
-#  Enabled: false
-
-#Performance/CollectionLiteralInLoop:
-#  Exclude:
-#    - 'Rakefile'
-#    - 'spec/**/*.rb'
-
-#Performance/EndWith:
-#  SafeMultiline: false
-
-#Performance/StartWith:
-#  SafeMultiline: false
-
-#RSpec/StubbedMock:
-#  Enabled: false
+Naming/VariableNumber:
+  Exclude:
+    - 'app/controllers/errors_controller.rb'
 
 InternalAffairs/ExampleDescription:
   Include:

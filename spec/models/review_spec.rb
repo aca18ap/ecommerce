@@ -42,4 +42,18 @@ RSpec.describe Review, type: :model do
       expect(subject).not_to be_valid
     end
   end
+
+  describe 'hidden_and_rank' do
+    it 'should be invalid if hidden is false and rank is zero' do
+      subject.hidden = false
+      subject.rank = 0
+      expect(subject).not_to be_valid
+    end
+
+    it 'should be invalid if hidden is true and rank is positive' do
+      subject.hidden = true
+      subject.rank = 1
+      expect(subject).not_to be_valid
+    end
+  end
 end

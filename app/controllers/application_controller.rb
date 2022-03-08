@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Main parent controller for the project from which all (indirectly) inherit
 class ApplicationController < ActionController::Base
   # Ensure that CanCanCan is correctly configured
   # and authorising actions on each controller
@@ -44,9 +45,9 @@ class ApplicationController < ActionController::Base
   end
 
   def ie_warning
-    if request.user_agent.to_s =~ /MSIE [6-7]/ && request.user_agent.to_s !~ %r{Trident/7.0}
-      redirect_to(ie_warning_path)
-    end
+    return unless request.user_agent.to_s =~ /MSIE [6-7]/ && request.user_agent.to_s !~ %r{Trident/7.0}
+
+    redirect_to(ie_warning_path)
   end
 
   def after_sign_in_path_for(_resource)

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Decorator class for staff view logic
 class StaffDecorator < Draper::Decorator
   delegate_all
 

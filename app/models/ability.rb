@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Handles access rights for different user groups throughout the system
 class Ability
   include CanCan::Ability
 

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Reviews controller handles all functionality relating to reviews
 class ReviewsController < ApplicationController
   before_action :set_review, only: %i[show edit update destroy]
   before_action :authenticate_staff!, except: %i[new create show created]
@@ -20,9 +21,7 @@ class ReviewsController < ApplicationController
   end
 
   # GET /reviews/1/edit
-  def edit
-    @error_msg = 0
-  end
+  def edit; end
 
   # POST /reviews
   def create
@@ -41,16 +40,10 @@ class ReviewsController < ApplicationController
 
   # PATCH/PUT /reviews/1
   def update
-    if review_params[:hidden].to_i.zero? && review_params[:rank].to_i.zero?
-      @error_msg = 2
-      render :edit
-    elsif review_params[:hidden].to_i != 0 && review_params[:rank].to_i.positive?
-      @error_msg = 1
-      render :edit
-    elsif @review.update(review_params)
+    if @review.update(review_params)
       redirect_to @review, notice: 'Review was successfully updated.'
     else
-      render :edit
+      redirect_to edit_review_path, alert: @review.errors.full_messages.first
     end
   end
 

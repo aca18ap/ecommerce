@@ -8,7 +8,6 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}.git" }
 gem 'brakeman'
 gem 'bundler-audit'
 gem 'rubocop', '~> 1.23', require: false
-gem 'rubocop-rspec'
 
 gem 'sentry-raven'
 

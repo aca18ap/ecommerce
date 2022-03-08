@@ -67,7 +67,8 @@ class CalculateMetrics
       time_visit_counts.map { |time, visits| { 'time' => time, 'visits' => visits } }
     end
 
-    # Calculates number of registrations at each hour, for each vocation and total from the hour of the first registration
+    # Calculates number of registrations at each hour, for each vocation and total from the hour of the first
+    # registration
     def time_registrations(registrations_arr)
       return if registrations_arr.nil? || registrations_arr.empty?
 

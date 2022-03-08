@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Shares controller handles the correct creation of shares of system features
 class SharesController < ApplicationController
   skip_before_action :verify_authenticity_token
 

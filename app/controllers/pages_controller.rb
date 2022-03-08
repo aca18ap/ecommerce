@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Pages controller handles all static pages
 class PagesController < ApplicationController
   def home
     @current_nav_identifier = :home

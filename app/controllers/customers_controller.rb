@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Customer controller for managing customer only actions
 class CustomersController < ApplicationController
   before_action :authenticate_staff!, only: :unlock
   before_action :authenticate_customer!, except: :unlock
