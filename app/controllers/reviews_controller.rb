@@ -14,9 +14,6 @@ class ReviewsController < ApplicationController
   # GET /reviews/1
   def show; end
 
-  # GET /created/
-  def created; end
-
   # GET /reviews/new
   def new
     @review = Review.new

@@ -71,6 +71,11 @@ rspec:
   script:
     - bundle exec rspec
 
+rubocop:
+  stage: test
+  script:
+    - rubocop --force-exclusion
+
 # jest:
 #   stage: test
 #   except:
