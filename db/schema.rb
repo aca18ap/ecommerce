@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2022_02_27_173107) do
+=======
+ActiveRecord::Schema.define(version: 2022_03_03_112918) do
+>>>>>>> Scaffolding for products
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,6 +122,19 @@ ActiveRecord::Schema.define(version: 2022_02_27_173107) do
     t.integer "password_archivable_id", null: false
     t.datetime "created_at"
     t.index ["password_archivable_type", "password_archivable_id"], name: "index_password_archivable"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.float "mass"
+    t.string "type"
+    t.string "url"
+    t.string "manufacturer"
+    t.string "manufacturer_country"
+    t.float "co2_produced"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "reviews", force: :cascade do |t|
