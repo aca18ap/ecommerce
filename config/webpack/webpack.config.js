@@ -1,4 +1,4 @@
-const { webpackConfig: baseWebpackConfig, merge } = require('shakapacker')
+const {webpackConfig: baseWebpackConfig, merge} = require('shakapacker')
 const options = {
     resolve: {
         extensions: ['.css', '.scss']

@@ -2,6 +2,7 @@
 
 # Main parent controller for the project from which all (indirectly) inherit
 class ApplicationController < ActionController::Base
+  include ApplicationHelper
   # Ensure that CanCanCan is correctly configured
   # and authorising actions on each controller
   # check_authorization
