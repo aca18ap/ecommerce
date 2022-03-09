@@ -17,7 +17,7 @@ gem 'bootsnap'
 gem 'ed25519'
 gem 'geocoder', '~> 1.3'
 gem 'puma'
-gem 'rails', '~> 6.1', '>= 6.1.4'
+gem 'rails', '~> 6.1', '>= 6.1.4.7'
 gem 'responders'
 gem 'webpacker'
 
