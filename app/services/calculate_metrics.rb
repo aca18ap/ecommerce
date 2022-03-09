@@ -49,19 +49,7 @@ class CalculateMetrics
     def time_visits(visits_arr)
       return if visits_arr.nil? || visits_arr.empty?
 
-      time_visit_counts = {}
-
-      # Need to create a dict of all hours between start and now to display 0 values correctly
-      earliest_hour = DateTime.parse(visits_arr[0].from.to_s).change({ min: 0, sec: 0 })
-      latest_hour = DateTime.now.change({ min: 0, sec: 0 })
-
-      (earliest_hour.to_i..latest_hour.to_i).step(1.hour) do |date|
-        time_visit_counts[date] = 0
-      end
-
-      visits_arr.each do |visit|
-        time_visit_counts[DateTime.parse(visit.from.to_s).change({ min: 0, sec: 0 }).to_i] += 1
-      end
+      time_visit_counts = calculate_time_counts(visits_arr)
 
       # { time: time_by_hour, visits: num_visits_at_hour }
       time_visit_counts.map { |time, visits| { 'time' => time, 'visits' => visits } }
@@ -72,13 +60,11 @@ class CalculateMetrics
     def time_registrations(registrations_arr)
       return if registrations_arr.nil? || registrations_arr.empty?
 
-      # Need to create a dict of all hours between start and now to display 0 values correctly
-      earliest_hour = DateTime.parse(registrations_arr[0].created_at.to_s).change({ min: 0, sec: 0 })
-      time_regs = calculate_time_counts(registrations_arr, earliest_hour)
+      time_regs = calculate_time_counts(registrations_arr)
                   .map { |time, regs| { 'vocation' => 'Total', 'time' => time, 'registrations' => regs } }
 
       registrations_arr.group_by { |registration| registration.vocation.itself }.each do |vocation, registrations|
-        time_regs.concat(calculate_time_counts(registrations, earliest_hour)
+        time_regs.concat(calculate_time_counts(registrations)
                            .map { |time, regs| { 'vocation' => vocation, 'time' => time, 'registrations' => regs } })
       end
 
@@ -105,23 +91,26 @@ class CalculateMetrics
 
     private
 
-    # Calculates the number of registrations per hour for a subset of all registrations
-    def calculate_time_counts(vocation_group, earliest_hour)
-      time_registrations_counts = {}
+    # Calculates the number of elements in an array that occur at each hour between a start and end time
+    def calculate_time_counts(element_array)
+      time_counts = {}
 
+      # Need to create a dict of all hours between start and now to display 0 values correctly
+      earliest_hour = element_array.first.hour
       latest_hour = DateTime.now.change({ min: 0, sec: 0 })
       (earliest_hour.to_i..latest_hour.to_i).step(1.hour) do |date|
-        time_registrations_counts[date] = 0
+        time_counts[date] = 0
       end
 
-      vocation_group.each do |registration|
-        time_registrations_counts[DateTime.parse(registration.created_at.to_s).change({ min: 0, sec: 0 }).to_i] += 1
+      element_array.each do |element|
+        time_counts[element.hour.to_i] += 1
       end
 
-      time_registrations_counts
+      time_counts
     end
 
     # Identifies whether a session led to a registration by checking for /newsletters/# in path
+    # TODO: update to use signups instead of newsletters
     def flow_contains_registration?(flow)
       flow.each do |f|
         return true if f.path.match(%r{.*/newsletters/[0-9]+})

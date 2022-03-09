@@ -115,6 +115,8 @@ Metrics/AbcSize:
     # Skipped as these are required functionality and cannot be reduced
     - 'app/controllers/concerns/accessible.rb'
     - 'app/models/ability.rb'
+    # TEMPORARILY SKIPPED UNTIL METRICS FEATURE IS UPGRADED TO BE MORE PERFORMANT
+    - 'app/controllers/metrics_controller.rb'
 
 Naming/InclusiveLanguage:
   FlaggedTerms:

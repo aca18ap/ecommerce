@@ -450,7 +450,7 @@ DEPENDENCIES
   listen
   pg
   puma
-  rails (~> 6.1, >= 6.1.4.7)
+  rails (~> 6.1.4, >= 6.1.4.7)
   rails_email_validator
   ransack
   responders

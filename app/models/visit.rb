@@ -17,4 +17,8 @@
 #  user_id            :integer
 #
 class Visit < ApplicationRecord
+  # Gets the 'from' time truncated to the nearest hour
+  def hour
+    DateTime.parse(from.to_s).change({ min: 0, sec: 0 })
+  end
 end
