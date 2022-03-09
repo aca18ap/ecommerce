@@ -73,7 +73,12 @@ rspec:
 
 rubocop:
   stage: test
+  except:
+    - tags
+  dependencies:
+    - bundler
   script:
+    - bundle check --path vendor/gems
     - bundle exec rubocop --force-exclusion
 
 # jest:
