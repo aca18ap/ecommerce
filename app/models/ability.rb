@@ -10,7 +10,7 @@ class Ability
     case user
     when Staff
       if user.admin?
-        can :manage, [Staff, Customer, Business, Review, Visit, Newsletter, Faq, :metrics]
+        can :manage, [Staff, Customer, Business, Review, Visit, Newsletter, Faq, :metrics, Product, Material]
         can :read, :all
       elsif user.reporter?
         can :read, :metrics
@@ -32,6 +32,8 @@ class Ability
       can :create, Newsletter
       can :created, Newsletter
       cannot :manage, Visit
+      can :read, Product
+      can :new, Product
     end
     #
     # The first argument to `can` is the action you are giving the user

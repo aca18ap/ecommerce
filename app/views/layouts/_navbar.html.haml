@@ -20,6 +20,9 @@
         - if can?(:manage, Newsletter)
           %li
             = link_to 'Manage Newsletters', newsletters_path, class: 'nav-link px-2', title: 'Manage newsletters'
+        - if can?(:read, Product)
+          %li
+            = link_to 'View Products', products_path, class: 'nav-link px-2', title: 'View products'
       .dropdown.text-end
         %a#dropdownUser1.d-block.custom-nav-fonts.text-decoration-none.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#"}
           -if customer_signed_in?
