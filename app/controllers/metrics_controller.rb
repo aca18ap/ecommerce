@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class MetricsController < ApplicationController
-  before_action :authenticate_user!
-  authorize_resource class: false, only: [:index]
+  before_action :authenticate_staff!, only: :index
 
   def index
     @current_nav_identifier = :metrics
@@ -24,19 +23,19 @@ class MetricsController < ApplicationController
   end
 
   def create
-    from = Time.at(params['pageVisitedFrom'].to_i / 1000).to_datetime
-    to = Time.at(params['pageVisitedTo'].to_i / 1000).to_datetime
+    # Don't track staff only pages
+    return if params[:path].match(/admin|reporter|staff/)
 
     # Call to service class to find the longitude and latitude for a visit
     location = RetrieveLocation.new(params, request.remote_ip).get_location
 
     # Create instance of visit object
-    Visit.create(from: from,
-                 to: to,
+    Visit.create(from: Time.at(params[:pageVisitedFrom].to_i / 1000).to_datetime,
+                 to: Time.at(params[:pageVisitedTo].to_i / 1000).to_datetime,
                  longitude: location[:longitude],
                  latitude: location[:latitude],
-                 path: params['path'],
-                 csrf_token: params['csrf_token'],
+                 path: params[:path],
+                 csrf_token: params[:csrf_token],
                  session_identifier: session.id)
 
     head :ok

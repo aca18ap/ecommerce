@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe '/reviews', type: :request do
   describe 'GET /reviews' do
-    before { login_as(FactoryBot.create(:admin)) }
+    before { login_as(FactoryBot.create(:admin), scope: :staff) }
 
     describe 'If the user is logged in as an admin' do
       it 'Shows a list of all the reviews in the system' do

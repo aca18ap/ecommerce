@@ -2,7 +2,7 @@
 
 class NewslettersController < ApplicationController
   authorize_resource
-  before_action :set_newsletter, only: [:show, :edit, :update, :destroy]
+  before_action :set_newsletter, only: %i[show edit update destroy]
 
   # GET /newsletters
   def index
@@ -34,7 +34,7 @@ class NewslettersController < ApplicationController
 
     # Check if user adding newsletter is admin
     if @newsletter.save
-      if !user_signed_in?
+      if !staff_signed_in?
         redirect_to '/thanks'
       else
         redirect_to @newsletter, notice: 'Newsletter was successfully created.'

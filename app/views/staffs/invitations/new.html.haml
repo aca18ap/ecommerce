@@ -1,0 +1,8 @@
+%h2= 'Send Invitation'
+= simple_form_for(resource, as: resource_name, url: staff_invitation_path) do |f|
+  .form-inputs
+    .email= f.input :email, validate: true, id: 'email', type: 'email'
+  .form-inputs
+    = f.select :role, options_for_select(Staff.roles.map { |key, value| [key.humanize, key] })
+  .form-actions
+    = f.button :submit, 'Invite Staff', method: :post, class: 'btn'
