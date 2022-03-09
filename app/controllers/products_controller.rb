@@ -1,6 +1,8 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_staff!, except: [:show, :index]
+  before_action :authenticate_staff!, except: [:show, :index, :new, :create]
+  before_action :authenticate_customer!, only: [:new, :create]
+
   # GET /products
   def index
     @products = Product.order('created_at DESC').all.decorate

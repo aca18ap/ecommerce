@@ -19,6 +19,9 @@ class Ability
         can :like, Faq
         can :dislike, Faq
       end
+    when Customer
+      can :new, Product
+      can :read, Product
     else
       can :new, Review
       can :create, Review
@@ -33,7 +36,6 @@ class Ability
       can :created, Newsletter
       cannot :manage, Visit
       can :read, Product
-      can :new, Product
     end
     #
     # The first argument to `can` is the action you are giving the user

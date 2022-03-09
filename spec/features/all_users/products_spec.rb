@@ -22,16 +22,12 @@ describe 'Products' do
     end
 
     let!(:product){ FactoryBot.create :product}
-    specify 'I can edit a product' do
+    specify 'I cannot edit a product' do
       visit '/products'
       expect(page).to have_content 'TestName'
-      click_link 'Edit'
-      fill_in 'product[name]', with: 'UpdatedTestName'
-      select 'Italy', :from => 'Manufacturer country' ##factory bot not setting country correctly and makes test fail
-      click_button 'Update Product'
-      expect(page).to have_content 'UpdatedTestName'
-      expect(page).to have_content 'Product was successfully updated.'
+      expect(page).not_to have_content 'Edit'
     end
+
   end
 
 
@@ -45,6 +41,27 @@ describe 'Products' do
     specify 'I cannot add new products unless I register' do
       visit '/products/new'
       expect(page).to have_content('You need to sign in or sign up before continuing.')
+    end
+  end
+
+  context 'As an admin' do
+    let!(:product) { FactoryBot.create(:product)}
+    before { login_as(FactoryBot.create(:admin), scope: :staff) }
+    specify 'I can edit a product' do
+      visit '/products'
+      click_link 'Edit'
+      expect(page).to have_content 'Editing product'
+      fill_in 'product[name]', with: 'UpdatedTestName'
+      select 'Italy', :from => 'Manufacturer country' ##factory bot not setting country correctly and makes test fail
+      click_button 'Update Product'
+      expect(page).to have_content 'Product was successfully updated.'
+    end
+    specify 'I can delete a product', js: true do
+      visit '/products'
+      accept_alert do
+        click_link 'Destroy'
+      end
+      expect(page).not_to have_content 'TestName'
     end
   end
 end
