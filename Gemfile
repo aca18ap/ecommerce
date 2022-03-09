@@ -7,7 +7,7 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}.git" }
 # Gitlab CI gems
 gem 'brakeman'
 gem 'bundler-audit'
-gem 'rubocop', '~> 1.23', require: false
+gem 'rubocop', '~> 1.23'
 
 gem 'sentry-raven'
 
