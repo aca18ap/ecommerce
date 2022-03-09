@@ -2,7 +2,6 @@
 
 Rails.application.routes.draw do
 
-<<<<<<< HEAD
   ## ===== System Users and Accounts Routes ===== ##
   devise_for :customers, path: 'customer',
                          controllers: { sessions: 'customers/sessions', registrations: 'customers/registrations' }
@@ -58,10 +57,6 @@ Rails.application.routes.draw do
   get '/business/edit'
 
   ## ===== Reviews ===== ##
-=======
-  resources :products
-  resources :materials
->>>>>>> Managing products and materials is now functional
   resources :reviews
   get :review_created, to: 'reviews#created'
   
