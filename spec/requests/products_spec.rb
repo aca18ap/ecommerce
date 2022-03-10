@@ -19,7 +19,8 @@ RSpec.describe "/products", type: :request do
   let(:valid_attributes) { { name: 'Product', category: 'Category', manufacturer: 'rht', mass: '45', url: 'test.com', manufacturer_country: 'Country' }}
 
   let(:invalid_attributes) { { name: 'Product', category: 'Category', manufacturer: '', mass: '', url: 'test.com', manufacturer_country: 'Country'}}
-  before { login_as(FactoryBot.create(:admin)) }
+  before { login_as(FactoryBot.create(:admin), scope: :staff) }
+
 
   describe "GET /index" do
     it "renders a successful response" do

@@ -15,7 +15,7 @@
 #  updated_at           :datetime         not null
 #
 FactoryBot.define do
-  factory :product do
+  factory :product, class: Product do
     name { "TestName" }
     description { "A piece of clothing" }
     mass { "14" }
@@ -23,6 +23,9 @@ FactoryBot.define do
     url { "clothes.com" }
     manufacturer { "Me" }
     manufacturer_country { "Italy" }
+    after(:create) do |product|
+      product.materials ||= create(:material, :product => product)
+    end
   end
   factory :invalid_product do
     name { "" }

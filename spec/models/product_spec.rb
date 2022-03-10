@@ -17,32 +17,45 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-  let!(:product) { FactoryBot.create(:product)}
-  subject{described_class.new(name: 'Product', category: 'Category', manufacturer: 'Me', mass: '10', url: 'test.com', manufacturer_country: 'Country')}
+  let!(:material) { FactoryBot.create(:material, name: 'material', co2_per_kg: 4)}
+  let!(:product) { FactoryBot.create(:product, name: 'Product', category: 'Category', manufacturer: 'Me', mass: '10', url: 'test.com', manufacturer_country: 'Country')}
+  #product{described_class.new(name: 'Product', category: 'Category', manufacturer: 'Me', mass: '10', url: 'test.com', manufacturer_country: 'Country')}
+  let!(:products_material) { FactoryBot.create(:products_material, product: product, material: material)}
+
   describe 'Validates' do
     it 'is valid with valid attributes' do
-      expect(subject).to be_valid
+      expect(product).to be_valid
     end
 
     it 'is invalid without name' do
-      subject.name = ''
-      expect(subject).not_to be_valid
+      product.name = ''
+      expect(product).not_to be_valid
     end
     it 'is invalid without category' do
-      subject.category = ''
-      expect(subject).not_to be_valid
+      product.category = ''
+      expect(product).not_to be_valid
     end
     it 'is invalid without manufacturer' do
-      subject.manufacturer = ''
-      expect(subject).not_to be_valid
+      product.manufacturer = ''
+      expect(product).not_to be_valid
     end
     it 'is invalid without mass' do
-      subject.mass = ''
-      expect(subject).not_to be_valid
+      product.mass = ''
+      expect(product).not_to be_valid
     end
     it 'is invalid without manufacturer country' do
-      subject.manufacturer_country = ''
-      expect(subject).not_to be_valid
+      product.manufacturer_country = ''
+      expect(product).not_to be_valid
+    end
+  end
+
+  describe 'Calculates' do
+    before { stub_const("Material", Material)}
+    it 'CO2 produced by product' do
+      ## factorybot creates association with material of 4co2/kg
+      product.mass = 10     
+      product.calculate_co2
+      expect(product.co2_produced).to eq(40)
     end
   end
 end

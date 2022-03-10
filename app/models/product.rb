@@ -25,10 +25,10 @@ class Product < ApplicationRecord
   ##CO2 re-calculated every time it gets updated. To update to take country into account
   def calculate_co2
     tmp_co2 = 0
-    (Material.find(self.material_ids)).each do |m|
-      tmp_co2 += self.mass * m.co2_per_kg
+    self.materials.each do |m|
+      tmp_co2 += m.co2_per_kg
     end
-    self.co2_produced = tmp_co2.round(2)
+    self.co2_produced = ( self.mass * tmp_co2).round(2)
 
   end
 
