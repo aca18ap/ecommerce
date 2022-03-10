@@ -1,8 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_customer! || :authenticate_staff!, only: [:new, :create]
   before_action :authenticate_staff!, except: [:show, :index, :new, :create]
-  before_action :authenticate_customer!, only: [:new, :create]
-
   # GET /products
   def index
     @products = Product.order('created_at DESC').all.decorate
@@ -49,9 +48,18 @@ class ProductsController < ApplicationController
   end
 
 
-
-  ##helper_method :get_materials
   private
+    # Set user authorization
+    def validate_user
+      if customer?
+        before_action :authenticate_customer!, only: [:new, :create, :index]
+      elsif admin? 
+        before_action :authenticate_staff!
+      end
+    end
+
+        
+
     # Use callbacks to share common setup or constraints between actions.
     def set_product
       @product = Product.find(params[:id])

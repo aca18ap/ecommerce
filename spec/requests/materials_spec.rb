@@ -17,11 +17,11 @@ RSpec.describe "/materials", type: :request do
   # Material. As you add validations to Material, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {name: 'Name', co2_per_kg: 5}
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {name: '', co2_per_kg: ''}
   }
 
   describe "GET /index" do
@@ -86,14 +86,14 @@ RSpec.describe "/materials", type: :request do
   describe "PATCH /update" do
     context "with valid parameters" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {name: 'NameUpdate', co2_per_kg: 10}
       }
 
       it "updates the requested material" do
         material = Material.create! valid_attributes
         patch material_url(material), params: { material: new_attributes }
         material.reload
-        skip("Add assertions for updated state")
+        expect(material.name).to eq 'NameUpdate' 
       end
 
       it "redirects to the material" do

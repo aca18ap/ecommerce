@@ -62,6 +62,7 @@ Rails.application.routes.draw do
   
   ## ===== Products ===== ## 
   resources :products
+  resources :materials
 
   ## ===== FAQs ===== ##
   resources :faqs do
