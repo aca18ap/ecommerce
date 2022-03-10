@@ -1,5 +1,6 @@
 class MaterialsController < ApplicationController
   before_action :set_material, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_staff!
 
   # GET /materials
   def index
