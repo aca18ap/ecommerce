@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
+# Main parent controller for the project from which all (indirectly) inherit
 class ApplicationController < ActionController::Base
+  include ApplicationHelper
   # Ensure that CanCanCan is correctly configured
   # and authorising actions on each controller
-  #check_authorization
+  # check_authorization
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -44,12 +46,12 @@ class ApplicationController < ActionController::Base
   end
 
   def ie_warning
-    if request.user_agent.to_s =~ /MSIE [6-7]/ && request.user_agent.to_s !~ %r{Trident/7.0}
-      redirect_to(ie_warning_path)
-    end
+    return unless request.user_agent.to_s =~ /MSIE [6-7]/ && request.user_agent.to_s !~ %r{Trident/7.0}
+
+    redirect_to(ie_warning_path)
   end
 
-  def after_sign_in_path_for(resource)
+  def after_sign_in_path_for(_resource)
     root_path
   end
 
@@ -58,9 +60,9 @@ class ApplicationController < ActionController::Base
                            Ability.new(current_staff)
                          elsif business_signed_in?
                            Ability.new(current_business)
-                         else customer_signed_in?
+                         else
+                           customer_signed_in?
                            Ability.new(current_customer)
                          end
   end
-
 end

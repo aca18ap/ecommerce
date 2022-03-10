@@ -33,7 +33,6 @@ describe 'Reviews' do
   end
 
   context 'Creating reviews' do
-
     before do
       visit root_path
     end
@@ -65,7 +64,6 @@ describe 'Reviews' do
   end
 
   context 'Security', js: true do
-
     before do
       visit root_path
     end

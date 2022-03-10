@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Business controller for managing business only actions
 class BusinessesController < ApplicationController
   before_action :authenticate_staff!, only: :unlock
   before_action :authenticate_business!, except: :unlock

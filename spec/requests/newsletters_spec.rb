@@ -24,12 +24,7 @@ RSpec.describe '/newsletters', type: :request do
     it 'Creates a new newsletter' do
       expect(Newsletter.count).to eq 0
 
-      post newsletters_path, params: {
-        newsletter: {
-          email: 'customer@team04.com',
-          vocation: 'Customer'
-        }
-      }
+      post newsletters_path, params: { newsletter: { email: 'customer@team04.com', vocation: 'Customer' } }
 
       expect(Newsletter.count).to eq 1
     end

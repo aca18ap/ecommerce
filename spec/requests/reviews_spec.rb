@@ -34,11 +34,7 @@ RSpec.describe '/reviews', type: :request do
     it 'creates a new review' do
       expect(Review.count).to eq 0
 
-      post reviews_path, params: {
-        review: {
-          description: 'A new review'
-        }
-      }
+      post reviews_path, params: { review: { description: 'A new review' } }
 
       expect(Review.count).to eq 1
     end

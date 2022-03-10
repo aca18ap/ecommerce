@@ -39,11 +39,7 @@ RSpec.describe 'staff', type: :request do
     context 'Security' do
       it 'does not allow the reporter to become an admin via mass assignment' do
         expect(reporter.admin?).to be false
-        put staff_path(reporter), params: {
-          staff: {
-            role: 'admin'
-          }
-        }
+        put staff_path(reporter), params: { staff: { role: 'admin' } }
         expect(response).to_not be_successful
         expect(reporter.reload.admin?).to be false
       end

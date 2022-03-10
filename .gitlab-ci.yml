@@ -1,0 +1,134 @@
+image: epigenesys/rails:ruby2.7.4
+
+services:
+  - postgres:13
+
+variables:
+  POSTGRES_DB: ci_test
+  POSTGRES_USER: runner
+  POSTGRES_PASSWORD: "runner"
+
+## List of files to cache between subsequent runs
+cache:
+  # Change this to the name of your project
+  key: "project"
+  paths:
+    - vendor/gems
+    - node_modules
+
+## Every defind job belongs to a stage, these stages run in order.
+stages:
+  - setup
+  - test
+  - security
+  - deploy
+
+#### JOBS - These run in stage order, but asynchronously within a given stage ####
+
+### Setup ###
+
+bundler:
+  stage: setup
+  except:
+    - tags
+  artifacts:
+    paths:
+      - vendor/gems
+  script:
+    - bundle check --path vendor/gems || bundle install --path vendor/gems
+    - bundle clean
+
+yarn:
+  stage: setup
+  except:
+    - tags
+  artifacts:
+    paths:
+      - node_modules
+  script:
+    - yarn check --integrity || yarn install
+
+### Test ###
+
+.rspec-setup:
+  stage: test
+  except:
+    - tags
+  dependencies:
+    - bundler
+    - yarn
+  before_script:
+    - "echo -e \"test:\n  adapter: postgresql\n  host: postgres\n  database: ci_test\n  username: runner\n  password: runner\" > config/database.yml"
+    - bundle check --path vendor/gems
+    - RAILS_ENV=test bundle exec rails db:test:prepare
+
+rspec:
+  extends: .rspec-setup
+  artifacts:
+    paths:
+      - coverage
+    when: always
+  script:
+    - bundle exec rspec
+
+rubocop:
+  stage: test
+  except:
+    - tags
+  dependencies:
+    - bundler
+  script:
+    - bundle check --path vendor/gems
+    - bundle exec rubocop --force-exclusion
+
+# jest:
+#   stage: test
+#   except:
+#     - tags
+#   dependencies:
+#     - yarn
+#   script:
+#     - yarn check --integrity
+#     - yarn test
+
+### Security ###
+
+brakeman:
+  stage: security
+  when: always
+  except:
+    - tags
+  dependencies:
+    - bundler
+  artifacts:
+    paths:
+      - brakeman
+    when: always
+  allow_failure: false
+  script:
+    - bundle check --path vendor/gems
+    - bundle exec brakeman -o brakeman/index.html
+
+bundler-audit:
+  stage: security
+  when: always
+  except:
+    - tags
+  dependencies:
+    - bundler
+  allow_failure: false
+  script:
+    - bundle check --path vendor/gems
+    - bundle exec bundler-audit --update
+
+yarn-audit:
+  stage: security
+  when: always
+  except:
+    - tags
+  dependencies:
+    - yarn
+  allow_failure: false
+  script:
+    - yarn check --integrity
+    - yarn audit
