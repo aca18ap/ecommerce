@@ -1,11 +1,8 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-<<<<<<< HEAD
-  before_action :authenticate_customer! || :authenticate_staff!, only: [:new, :create]
+  #before_action :authenticate_customer! || :authenticate_staff!, only: [:new, :create]
   before_action :authenticate_staff!, except: [:show, :index, :new, :create]
-=======
-  before_action :authenticate_user!, except: [:show, :index]
->>>>>>> Added authentication check to creating products, refactored column type to category due to rails complaining
+  #before_action :validate_user
   # GET /products
   def index
     @products = Product.order('created_at DESC').all.decorate
@@ -18,7 +15,11 @@ class ProductsController < ApplicationController
 
   # GET /products/new
   def new
-    @product = Product.new
+    if current_customer || current_staff
+      @product = Product.new
+    else
+      redirect_to new_customer_registration_path, alert: 'You need to sign up before adding a new product!'
+    end
   end
 
   # GET /products/1/edit
@@ -52,22 +53,7 @@ class ProductsController < ApplicationController
   end
 
 
-<<<<<<< HEAD
-=======
-
-  ##helper_method :get_materials
->>>>>>> Managing products and materials is now functional
   private
-    # Set user authorization
-    def validate_user
-      if customer?
-        before_action :authenticate_customer!, only: [:new, :create, :index]
-      elsif admin? 
-        before_action :authenticate_staff!
-      end
-    end
-
-        
 
     # Use callbacks to share common setup or constraints between actions.
     def set_product
@@ -76,14 +62,6 @@ class ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-<<<<<<< HEAD
-<<<<<<< HEAD
       params.require(:product).permit(:name, :description, :mass, :category, :url, :manufacturer,  :manufacturer_country, :co2_produced, :material_ids => [])
-=======
-      params.require(:product).permit(:name, :description, :mass, :category, :url, :manufacturer, :manufacturer_country, :co2_produced)
->>>>>>> Added authentication check to creating products, refactored column type to category due to rails complaining
-=======
-      params.require(:product).permit(:name, :description, :mass, :category, :url, :manufacturer,  :manufacturer_country, :co2_produced, :material_ids => [])
->>>>>>> Managing products and materials is now functional
     end
 end

@@ -132,7 +132,6 @@ ActiveRecord::Schema.define(version: 2022_03_04_182049) do
     t.string "description"
     t.float "mass"
     t.string "category"
-    t.string "type"
     t.string "url"
     t.string "manufacturer"
     t.string "manufacturer_country"

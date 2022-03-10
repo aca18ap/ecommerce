@@ -40,7 +40,7 @@ describe 'Products' do
 
     specify 'I cannot add new products unless I register' do
       visit '/products/new'
-      expect(page).to have_content('You need to sign in or sign up before continuing.')
+      expect(page).to have_content('You need to sign up before adding a new product!')
     end
   end
 
