@@ -117,25 +117,11 @@ document.addEventListener('DOMContentLoaded', () => {
             svgElement: document.getElementById('registrations-linechart-plot')
         });
 
-        let tierRegsCountsChart = HorizontalBarChart(gon.tierRegistrations, {
-            x: d => d.registrations,
-            y: d => d.tier,
-            yDomain: d3.groupSort(gon.tierRegistrations, ([d]) => -d.registrations, d => d.tier), // sort by descending frequency
-            width,
-            height,
-            color: 'green',
-            marginLeft: 70,
-            marginRight: 10,
-            xLabel: 'Registrations',
-            svgElement: document.getElementById('registrations-by-type-barchart-plot')
-        });
-
     } else {
         // Set text of chart areas to indicate that there is no data
         emptyCharts.push(
             document.getElementById('registrations-barchart-plot'),
             document.getElementById('registrations-linechart-plot'),
-            document.getElementById('registrations-by-type-barchart-plot'),
         );
     }
 
@@ -159,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .text(d => `${d.properties.NAME_2}\nRegistrations: ${!regsPlotData[d.properties.NAME_2] ? 0 : regsPlotData[d.properties.NAME_2]}`);
 
     document.getElementById('registrations-geo-plot').append(Legend(d3.scaleSequential([], d3.interpolateGreens), {
-        title: 'Visitors',
+        title: 'Registrations',
         width: 250,
     }));
 

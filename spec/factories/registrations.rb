@@ -15,6 +15,14 @@ FactoryBot.define do
   factory :registration do
     longitude { 1.5 }
     latitude { 1.5 }
-    vocation { 1 }
+    created_at { '2021-11-27 16:39:22' }
+
+    factory :customer_registration do
+      vocation { 0 }
+    end
+
+    factory :business_registration do
+      vocation { 1 }
+    end
   end
 end

@@ -8,20 +8,13 @@ describe 'Calculating metrics' do
   let(:visit_reviews) { FactoryBot.create(:visit, path: '/reviews', session_identifier: 'Session2') }
   let(:visit_newsletters) { FactoryBot.create(:visit, path: '/newsletters/1', session_identifier: 'Session3') }
 
-  # Newsletters
-  let(:free_newsletter) do
-    FactoryBot.create(:newsletter, email: 'free_customer@team04.com', vocation: 'Customer', tier: 'Free')
-  end
-  let(:solo_newsletter) do
-    FactoryBot.create(:newsletter, email: 'solo_customer@team04.com', vocation: 'Customer', tier: 'Solo')
-  end
-  let(:family_newsletter) do
-    FactoryBot.create(:newsletter, email: 'family_customer@team04.com', vocation: 'Customer', tier: 'Family')
-  end
-  let(:business_newsletter) { FactoryBot.create(:newsletter, email: 'business@team04.com', vocation: 'Business') }
+  # Registrations
+  let(:customer_registration) { FactoryBot.create(:customer_registration) }
+  let(:customer_registration2) { FactoryBot.create(:customer_registration) }
+  let(:business_registration) { FactoryBot.create(:business_registration) }
 
   let(:visits) { [visit_root, visit_reviews, visit_newsletters] }
-  let(:regs) { [free_newsletter, solo_newsletter, family_newsletter, business_newsletter] }
+  let(:regs) { [customer_registration, customer_registration2, business_registration] }
 
   it 'Calculates visits to each site page' do
     expect(CalculateMetrics.page_visits(visits)).to match_array([{ 'page' => '/', 'visits' => 1 },
@@ -31,16 +24,8 @@ describe 'Calculating metrics' do
 
   it 'Calculates the number of registrations by vocation' do
     expect(CalculateMetrics.vocation_registrations(regs)).to match_array(
-      [{ 'vocation' => 'Customer', 'registrations' => 3 },
-       { 'vocation' => 'Business', 'registrations' => 1 }]
-    )
-  end
-
-  it 'Calculates the number of customer registrations by tier' do
-    expect(CalculateMetrics.tier_registrations(regs)).to match_array(
-      [{ 'tier' => free_newsletter.tier, 'registrations' => 1 },
-       { 'tier' => solo_newsletter.tier, 'registrations' => 1 },
-       { 'tier' => family_newsletter.tier, 'registrations' => 1 }]
+      [{ 'vocation' => 'customer', 'registrations' => 2 },
+       { 'vocation' => 'business', 'registrations' => 1 }]
     )
   end
 
@@ -67,10 +52,10 @@ describe 'Calculating metrics' do
       if time_registrations['time'] == DateTime.parse('2021-11-27 16:39:22').change({ min: 0, sec: 0 }).to_i
         case time_registrations['vocation']
         when 'Total'
-          expect(time_registrations['registrations']).to eq(4)
-        when 'Customer'
           expect(time_registrations['registrations']).to eq(3)
-        when 'Business'
+        when 'customer'
+          expect(time_registrations['registrations']).to eq(2)
+        when 'business'
           expect(time_registrations['registrations']).to eq(1)
         else
           raise 'Unexpected vocation'
@@ -118,9 +103,6 @@ describe 'Calculating metrics' do
   it 'Returns nil if there are no registrations in the system' do
     expect(CalculateMetrics.vocation_registrations(nil)).to eq(nil)
     expect(CalculateMetrics.vocation_registrations([])).to eq(nil)
-
-    expect(CalculateMetrics.tier_registrations(nil)).to eq(nil)
-    expect(CalculateMetrics.tier_registrations([])).to eq(nil)
 
     expect(CalculateMetrics.time_registrations(nil)).to eq(nil)
     expect(CalculateMetrics.time_registrations([])).to eq(nil)

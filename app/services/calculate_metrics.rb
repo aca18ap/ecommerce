@@ -24,16 +24,6 @@ class CalculateMetrics
       end
     end
 
-    # Calculates the number of customer registrations by tier
-    def tier_registrations(registrations_arr)
-      return if registrations_arr.nil? || registrations_arr.empty?
-
-      # { tier: customer_vocation_tier, registrations: num_registrations }
-      registrations_arr.group_by { |registration| registration.vocation.itself }['Customer']
-                       .group_by { |registration| registration.tier.itself }
-                       .map { |tier, registrations| { 'tier' => tier, 'registrations' => registrations.length } }
-    end
-
     # Calculates all pages visited using a specific session cookie in order of time to build a site path
     def session_flows(visits_arr)
       return if visits_arr.nil? || visits_arr.empty?
