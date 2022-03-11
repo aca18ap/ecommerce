@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_04_182049) do
+ActiveRecord::Schema.define(version: 2022_03_11_135224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,6 +125,14 @@ ActiveRecord::Schema.define(version: 2022_03_04_182049) do
     t.integer "password_archivable_id", null: false
     t.datetime "created_at"
     t.index ["password_archivable_type", "password_archivable_id"], name: "index_password_archivable"
+  end
+
+  create_table "registrations", force: :cascade do |t|
+    t.float "longitude"
+    t.float "latitude"
+    t.integer "vocation", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "products", force: :cascade do |t|

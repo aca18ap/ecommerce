@@ -61,4 +61,13 @@ RSpec.describe Visit, type: :model do
       expect(subject).to be_valid
     end
   end
+
+  describe '.hour' do
+    it 'returns the "from" time, truncated by hour' do
+      time = Time.now
+      subject.created_at = time
+
+      expect(subject.hour).to eq time.change({ min: 0, sec: 0 })
+    end
+  end
 end
