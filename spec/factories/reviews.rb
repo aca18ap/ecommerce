@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: reviews
@@ -28,6 +30,7 @@ FactoryBot.define do
       id { 3 }
       description { 'MyHiddenText' }
       hidden { true }
+      rank { 0 }
     end
   end
 end

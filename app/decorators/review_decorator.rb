@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Decorator class for review view logic
 class ReviewDecorator < Draper::Decorator
   delegate_all
 

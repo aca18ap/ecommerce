@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Errors controller handles http errors for the system
 class ErrorsController < ApplicationController
   skip_before_action :ie_warning
   skip_before_action :verify_authenticity_token, only: [:error_422]

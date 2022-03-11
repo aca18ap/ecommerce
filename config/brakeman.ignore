@@ -1,0 +1,26 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "33f1889114f3a5725e3e1c094ce0b7194171a6adc8cb08d648b9c9e44097bb91",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/admin/staffs_controller.rb",
+      "line": 42,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:staff).permit(:email, :role)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Admin::StaffsController",
+        "method": "staff_params"
+      },
+      "user_input": ":role",
+      "confidence": "Medium",
+      "note": "Action is in the AdminsController which authenticates that the user is an admin so the mass assignment will not work"
+    }
+  ],
+  "updated": "2022-03-08 16:08:29 +0000",
+  "brakeman_version": "5.2.1"
+}

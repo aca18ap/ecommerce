@@ -1,6 +1,6 @@
 // For some reason the Gem won't fetch the package
 import * as d3 from 'd3';
-import * as uk from './uk-geo.json';
+const uk = require('./uk-geo.json');
 
 document.addEventListener('DOMContentLoaded', () => {
     // Create charts to display on metrics page

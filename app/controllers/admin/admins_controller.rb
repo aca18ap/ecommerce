@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Admins Controller use to ensure that any child controller is only accessible to admins
 class Admin::AdminsController < StaffsController
   before_action :authorise_admin!
 

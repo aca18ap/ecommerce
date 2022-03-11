@@ -22,11 +22,7 @@ RSpec.describe '/faqs', type: :request do
     it 'Creates a new faq' do
       expect(Faq.count).to eq 0
 
-      post faqs_path, params: {
-        faq: {
-          question: 'A new faq'
-        }
-      }
+      post faqs_path, params: { faq: { question: 'A new faq' } }
 
       expect(Faq.count).to eq 1
     end
@@ -49,11 +45,7 @@ RSpec.describe '/faqs', type: :request do
       it 'Updates the contents of the faq' do
         faq = Faq.create(question: 'A question')
 
-        patch faq_path(faq), params: {
-          faq: {
-            answer: 'An answer'
-          }
-        }
+        patch faq_path(faq), params: { faq: { answer: 'An answer' } }
 
         faq.reload
         expect(faq.answer).to eq 'An answer'
@@ -64,11 +56,7 @@ RSpec.describe '/faqs', type: :request do
       it 'Does not update the contents of an faq' do
         faq = Faq.create(question: 'A question')
 
-        patch faq_path(faq), params: {
-          faq: {
-            answer: 'An answer'
-          }
-        }
+        patch faq_path(faq), params: { faq: { answer: 'An answer' } }
 
         faq.reload
         expect(faq.answer).to eq nil
@@ -83,11 +71,7 @@ RSpec.describe '/faqs', type: :request do
       it 'Updates the contents of the faq' do
         faq = Faq.create(question: 'A question')
 
-        put faq_path(faq), params: {
-          faq: {
-            answer: 'An answer'
-          }
-        }
+        put faq_path(faq), params: { faq: { answer: 'An answer' } }
 
         faq.reload
         expect(faq.answer).to eq 'An answer'
@@ -98,11 +82,7 @@ RSpec.describe '/faqs', type: :request do
       it 'Does not update the contents of an faq' do
         faq = Faq.create(question: 'A question')
 
-        put faq_path(faq), params: {
-          faq: {
-            answer: 'An answer'
-          }
-        }
+        put faq_path(faq), params: { faq: { answer: 'An answer' } }
 
         faq.reload
         expect(faq.answer).to eq nil

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Handles the creation of new visit objects and the generation of metrics data for display
 class MetricsController < ApplicationController
   before_action :authenticate_staff!, only: :index
 
@@ -27,7 +28,7 @@ class MetricsController < ApplicationController
     return if params[:path].match(/admin|reporter|staff/)
 
     # Call to service class to find the longitude and latitude for a visit
-    location = RetrieveLocation.new(params, request.remote_ip).get_location
+    location = RetrieveLocation.new(params, request.remote_ip).location
 
     # Create instance of visit object
     Visit.create(from: Time.at(params[:pageVisitedFrom].to_i / 1000).to_datetime,

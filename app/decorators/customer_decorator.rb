@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Decorator class for customer view logic
 class CustomerDecorator < Draper::Decorator
   delegate_all
 
@@ -10,5 +11,4 @@ class CustomerDecorator < Draper::Decorator
               method: :patch, class: 'btn btn-xs',
               data: { confirm: 'Are you sure you want to unlock this account?' }
   end
-
 end

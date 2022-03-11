@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Overridden devise controller to manage registration functionality for businesses
 class Businesses::RegistrationsController < Devise::RegistrationsController
   include Accessible
   skip_before_action :check_user, except: %i[new create]

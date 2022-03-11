@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# DEPRECATED Handles the functionality of registering interest in the system
 class NewslettersController < ApplicationController
   authorize_resource
   before_action :set_newsletter, only: %i[show edit update destroy]
@@ -22,8 +23,7 @@ class NewslettersController < ApplicationController
 
   # POST /newsletters
   def create
-
-    location = RetrieveLocation.new(newsletter_params, request.remote_ip).get_location
+    location = RetrieveLocation.new(newsletter_params, request.remote_ip).location
 
     @newsletter = Newsletter.new(
       email: newsletter_params['email'],
@@ -34,11 +34,7 @@ class NewslettersController < ApplicationController
 
     # Check if user adding newsletter is admin
     if @newsletter.save
-      if !staff_signed_in?
-        redirect_to '/thanks'
-      else
-        redirect_to @newsletter, notice: 'Newsletter was successfully created.'
-      end
+      redirect_to thanks_path
     else
       render :new
     end
@@ -70,5 +66,4 @@ class NewslettersController < ApplicationController
   def newsletter_params
     params.require(:newsletter).permit(:email, :vocation, :tier, :latitude, :longitude)
   end
-
 end

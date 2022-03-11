@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: faq_votes
@@ -48,5 +50,4 @@ RSpec.describe FaqVote, type: :model do
   describe 'Associations' do
     it { should belong_to(:faq).without_validating_presence }
   end
-
 end

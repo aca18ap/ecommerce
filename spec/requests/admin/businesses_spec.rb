@@ -16,11 +16,7 @@ RSpec.describe '/admin/business', type: :request do
 
     describe 'PATCH /admin/business/:id' do
       it 'updates the data for a business' do
-        patch admin_business_path(business), params: {
-          business: {
-            email: 'new_email@team04.com'
-          }
-        }
+        patch admin_business_path(business), params: { business: { email: 'new_email@team04.com' } }
 
         expect(business.reload.email).to eq 'new_email@team04.com'
       end
@@ -28,11 +24,7 @@ RSpec.describe '/admin/business', type: :request do
 
     describe 'PUT /admin/business/:id' do
       it 'updates the data for a business' do
-        put admin_business_path(business), params: {
-          business: {
-            email: 'new_email@team04.com'
-          }
-        }
+        put admin_business_path(business), params: { business: { email: 'new_email@team04.com' } }
 
         expect(business.reload.email).to eq 'new_email@team04.com'
       end

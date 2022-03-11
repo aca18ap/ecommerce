@@ -16,11 +16,7 @@ RSpec.describe '/admin/customer', type: :request do
 
     describe 'PATCH /admin/customer/:id' do
       it 'updates the data for a customer' do
-        patch admin_customer_path(customer), params: {
-          customer: {
-            email: 'new_email@team04.com'
-          }
-        }
+        patch admin_customer_path(customer), params: { customer: { email: 'new_email@team04.com' } }
 
         expect(customer.reload.email).to eq 'new_email@team04.com'
       end
@@ -28,11 +24,7 @@ RSpec.describe '/admin/customer', type: :request do
 
     describe 'PUT /admin/customer/:id' do
       it 'updates the data for a customer' do
-        put admin_customer_path(customer), params: {
-          customer: {
-            email: 'new_email@team04.com'
-          }
-        }
+        put admin_customer_path(customer), params: { customer: { email: 'new_email@team04.com' } }
 
         expect(customer.reload.email).to eq 'new_email@team04.com'
       end

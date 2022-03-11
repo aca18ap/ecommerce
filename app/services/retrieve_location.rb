@@ -11,7 +11,7 @@ class RetrieveLocation
 
   # Gets location. Defaults to params and uses IP if the params do not contain
   # latitude and longitude values
-  def get_location
+  def location
     if !@params.nil? && @params.include?(:latitude) && @params.include?(:longitude)
       latitude = @params[:latitude]
       longitude = @params[:longitude]

@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe 'Newsletters' do
-
   context 'If I provide a valid email address' do
     specify 'I can register my interest as a business' do
       visit '/'

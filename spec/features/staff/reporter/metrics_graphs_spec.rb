@@ -32,8 +32,8 @@ describe 'Metrics management', js: true do
       plot_is_empty('#feature-shares-barchart-plot')
       within(:css, '#feature-shares-barchart-title') { expect(page).to have_content 'Shares By Feature (Total: 0)' }
 
-      #within(:css, '#feature-views-barchart-plot') { expect(page).to have_content 'There is no data for this metric yet' }
-      #within(:css, '#feature-views-barchart-title') { expect(page).to have_content 'Clicks By Feature (Total: 0)' }
+      # within(:css, '#feature-views-barchart-plot') { expect(page).to have_content 'There is no data for this metric yet' }
+      # within(:css, '#feature-views-barchart-title') { expect(page).to have_content 'Clicks By Feature (Total: 0)' }
     end
   end
 

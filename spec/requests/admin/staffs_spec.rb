@@ -16,11 +16,7 @@ RSpec.describe '/admin/staffs', type: :request do
 
     describe 'PATCH /admin/staff/:id' do
       it 'updates the data for a staff member' do
-        patch admin_staff_path(reporter), params: {
-          staff: {
-            email: 'new_email@team04.com'
-          }
-        }
+        patch admin_staff_path(reporter), params: { staff: { email: 'new_email@team04.com' } }
 
         expect(reporter.reload.email).to eq 'new_email@team04.com'
       end
@@ -28,11 +24,7 @@ RSpec.describe '/admin/staffs', type: :request do
 
     describe 'PUT /admin/staff/:id' do
       it 'updates the data for a staff member' do
-        put admin_staff_path(reporter), params: {
-          staff: {
-            email: 'new_email@team04.com'
-          }
-        }
+        put admin_staff_path(reporter), params: { staff: { email: 'new_email@team04.com' } }
 
         expect(reporter.reload.email).to eq 'new_email@team04.com'
       end

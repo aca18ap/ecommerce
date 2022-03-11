@@ -13,9 +13,7 @@ RSpec.describe '/admin/users', type: :request do
                         password: 'Password123',
                         password_confirmation: 'Password123')
 
-        Staff.create(email: "staff#{idx}@team04.com",
-                     password: 'Password123',
-                     password_confirmation: 'Password123')
+        Staff.create(email: "staff#{idx}@team04.com", password: 'Password123', password_confirmation: 'Password123')
 
         Business.create(email: "business#{idx}@team04.com",
                         name: "business#{idx}",

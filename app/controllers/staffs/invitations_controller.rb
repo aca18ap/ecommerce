@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Overridden devise controller to manage invitations functionality for staff members
 class Staffs::InvitationsController < Devise::InvitationsController
   before_action :configure_permitted_parameters
 
