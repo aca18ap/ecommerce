@@ -24,7 +24,6 @@ describe 'Metrics management', js: true do
 
       plot_is_empty('#registrations-barchart-plot')
       plot_is_empty('#registrations-linechart-plot')
-      plot_is_empty('#registrations-by-type-barchart-plot')
       within(:css, '#registrations-barchart-title') do
         expect(page).to have_content 'Site Registrations by Vocation (Total: 0)'
       end
@@ -54,7 +53,7 @@ describe 'Metrics management', js: true do
     end
 
     specify 'If there are registrations' do
-      FactoryBot.create :newsletter
+      FactoryBot.create :customer_registration
 
       visit '/metrics'
       expect(page).to have_current_path '/metrics'
@@ -62,7 +61,6 @@ describe 'Metrics management', js: true do
       plot_is_populated('#registrations-barchart-plot')
       plot_is_populated('#registrations-barchart-title')
       plot_is_populated('#registrations-linechart-plot')
-      plot_is_populated('#registrations-by-type-barchart-plot')
 
       within(:css, '#registrations-barchart-title') do
         expect(page).to have_content 'Site Registrations by Vocation (Total: 1)'

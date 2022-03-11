@@ -7,7 +7,7 @@ class MetricsController < ApplicationController
   def index
     @current_nav_identifier = :metrics
     @visits = Visit.all
-    @registrations = Newsletter.all
+    @registrations = Registration.all
     @shares = Share.all
 
     gon.visits = @visits
@@ -16,7 +16,6 @@ class MetricsController < ApplicationController
     gon.pageVisits = CalculateMetrics.page_visits(@visits)
     gon.timeVisits = CalculateMetrics.time_visits(@visits)
     gon.vocationRegistrations = CalculateMetrics.vocation_registrations(@registrations)
-    gon.tierRegistrations = CalculateMetrics.tier_registrations(@registrations)
     gon.sessionFlows = CalculateMetrics.session_flows(@visits)
     gon.timeVisits = CalculateMetrics.time_visits(@visits)
     gon.timeRegistrations = CalculateMetrics.time_registrations(@registrations)
