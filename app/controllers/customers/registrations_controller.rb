@@ -10,6 +10,14 @@ class Customers::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
 
   # POST /resource
+  def create
+    super
+    return unless resource.save
+
+    location = RetrieveLocation.new(nil, request.remote_ip).location
+    Registration.create(latitude: location[:latitude], longitude: location[:longitude],
+                        vocation: Registration.vocations[:customer])
+  end
 
   # GET /resource/edit
 
