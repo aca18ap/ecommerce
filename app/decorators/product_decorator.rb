@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProductDecorator < Draper::Decorator
   delegate_all
 
@@ -9,9 +11,4 @@ class ProductDecorator < Draper::Decorator
   #       object.created_at.strftime("%a %m/%d/%y")
   #     end
   #   end
-
-  def get_materials(product)
-    materials = Material.find(product.material_ids)
-    materials.pluck(:name, :co2_per_kg)
-  end
 end

@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
+# Materials Controller handles managing requests for materials that only admins can do
 class MaterialsController < ApplicationController
-  before_action :set_material, only: [:show, :edit, :update, :destroy]
+  before_action :set_material, only: %i[show edit update destroy]
 
   # GET /materials
   def index
@@ -7,8 +10,7 @@ class MaterialsController < ApplicationController
   end
 
   # GET /materials/1
-  def show
-  end
+  def show; end
 
   # GET /materials/new
   def new
@@ -16,8 +18,7 @@ class MaterialsController < ApplicationController
   end
 
   # GET /materials/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /materials
   def create
@@ -46,13 +47,14 @@ class MaterialsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_material
-      @material = Material.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def material_params
-      params.require(:material).permit(:name, :co2_per_kg)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_material
+    @material = Material.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def material_params
+    params.require(:material).permit(:name, :co2_per_kg)
+  end
 end

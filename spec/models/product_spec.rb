@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: products
@@ -17,10 +19,10 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-  let!(:material) { FactoryBot.create(:material, name: 'material', co2_per_kg: 4)}
-  let!(:product) { FactoryBot.create(:product, name: 'Product', category: 'Category', manufacturer: 'Me', mass: '10', url: 'test.com', manufacturer_country: 'Country')}
-  #product{described_class.new(name: 'Product', category: 'Category', manufacturer: 'Me', mass: '10', url: 'test.com', manufacturer_country: 'Country')}
-  let!(:products_material) { FactoryBot.create(:products_material, product: product, material: material)}
+  let!(:material) { FactoryBot.create(:material, name: 'material', co2_per_kg: 4) }
+  let!(:product) { FactoryBot.create(:product, name: 'Product', category: 'Category', manufacturer: 'Me', mass: '10', url: 'test.com', manufacturer_country: 'Country') }
+  # product{described_class.new(name: 'Product', category: 'Category', manufacturer: 'Me', mass: '10', url: 'test.com', manufacturer_country: 'Country')}
+  let!(:products_material) { FactoryBot.create(:products_material, product: product, material: material) }
 
   describe 'Validates' do
     it 'is valid with valid attributes' do
@@ -50,10 +52,10 @@ RSpec.describe Product, type: :model do
   end
 
   describe 'Calculates' do
-    before { stub_const("Material", Material)}
+    before { stub_const('Material', Material) }
     it 'CO2 produced by product' do
       ## factorybot creates association with material of 4co2/kg
-      product.mass = 10     
+      product.mass = 10
       product.calculate_co2
       expect(product.co2_produced).to eq(40)
     end

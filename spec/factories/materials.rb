@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: materials
@@ -10,7 +12,7 @@
 #
 FactoryBot.define do
   factory :material do
-    name { "Timber" }
+    name { 'Timber' }
     co2_per_kg { 4 }
   end
 end

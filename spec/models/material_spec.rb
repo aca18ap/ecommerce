@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: materials
@@ -11,8 +13,8 @@
 require 'rails_helper'
 
 RSpec.describe Material, type: :model do
-  let!(:material) { FactoryBot.create(:material)}
-  subject{described_class.new(name: 'Timber', co2_per_kg: '21')}
+  let!(:material) { FactoryBot.create(:material) }
+  subject { described_class.new(name: 'Timber', co2_per_kg: '21') }
   describe 'Validates' do
     it 'is valid with valid attributes' do
       expect(subject).to be_valid

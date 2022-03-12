@@ -1,17 +1,18 @@
+# frozen_string_literal: true
+
+# Product Controller handles management requests of products
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
-  #before_action :authenticate_customer! || :authenticate_staff!, only: [:new, :create]
-  before_action :authenticate_staff!, except: [:show, :index, :new, :create]
-  #before_action :validate_user
+  before_action :set_product, only: %i[show edit update destroy]
+  # before_action :authenticate_customer! || :authenticate_staff!, only: [:new, :create]
+  before_action :authenticate_staff!, except: %i[show index new create]
+  # before_action :validate_user
   # GET /products
   def index
     @products = Product.order('created_at DESC').all.decorate
   end
 
   # GET /products/1
-  def show
-
-  end
+  def show; end
 
   # GET /products/new
   def new
@@ -23,8 +24,7 @@ class ProductsController < ApplicationController
   end
 
   # GET /products/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /products
   def create
@@ -52,16 +52,16 @@ class ProductsController < ApplicationController
     redirect_to products_url, notice: 'Product was successfully destroyed.'
   end
 
-
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_product
-      @product = Product.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_product
+    @product = Product.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def product_params
-      params.require(:product).permit(:name, :description, :mass, :category, :url, :manufacturer,  :manufacturer_country, :co2_produced, :material_ids => [])
-    end
+  # Only allow a list of trusted parameters through.
+  def product_params
+    params.require(:product).permit(:name, :description, :mass, :category, :url, :manufacturer,
+                                    :manufacturer_country, :co2_produced, material_ids: [])
+  end
 end
