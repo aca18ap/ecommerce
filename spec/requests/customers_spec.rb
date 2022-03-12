@@ -3,6 +3,29 @@
 require 'rails_helper'
 
 RSpec.describe 'customer', type: :request do
+  describe 'POST /customer' do
+    it 'creates a registration entry if a signup was successful' do
+      expect(Registration.count).to be 0
+
+      post customer_registration_path, params: {
+        customer: {
+          email: 'new_customer@team04.com',
+          username: 'new_username',
+          password: 'Password123',
+          password_confirmation: 'Password123'
+        }
+      }
+
+      expect(Registration.count).to be 1
+    end
+
+    it 'does not create a registration entry if a signup was unsuccessful' do
+      expect(Registration.count).to be 0
+      post customer_registration_path
+      expect(Registration.count).to be 0
+    end
+  end
+
   describe 'GET /customer/show' do
     before { login_as(FactoryBot.create(:customer), scope: :customer) }
 
