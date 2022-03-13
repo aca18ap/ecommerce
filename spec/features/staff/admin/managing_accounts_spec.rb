@@ -32,6 +32,7 @@ end
 describe 'Managing customers' do
   let!(:customer) { FactoryBot.create(:customer) }
   let!(:customer2) { FactoryBot.create(:customer, email: 'customer2@team04.com', username: 'taken') }
+  let!(:suspendedCustomer) { FactoryBot.create(:customer, email: 'customer3@team04.com', username: 'suspended', suspended: true) }
   before { login_as(FactoryBot.create(:admin), scope: :staff) }
 
   before do
@@ -117,18 +118,17 @@ describe 'Managing customers' do
       within(:css, "#customer-#{customer.id}") { click_link 'Edit user' }
       check("suspended")
       click_button 'Update Customer'
-      expect(customer.suspended?).to eq true
+      expect(customer.reload.suspended?).to eq true
     end
   end
 
   context 'If a customer\'s account is suspended' do
-    before { customer.suspend! }
     specify 'I can lift its suspension' do
-      expect(customer.suspended?).to eq true
-      within(:css, "#customer-#{customer.id}") { click_link 'Edit user' }
+      expect(suspendedCustomer.suspended?).to eq true
+      within(:css, "#customer-#{suspendedCustomer.id}") { click_link 'Edit user' }
       check("suspended")
       click_button 'Update Customer'
-      expect(customer.suspended?).to_not eq true
+      expect(suspendedCustomer.reload.suspended?).to_not eq true
     end
   end
 end
