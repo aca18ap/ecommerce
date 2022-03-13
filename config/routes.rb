@@ -59,6 +59,10 @@ Rails.application.routes.draw do
   ## ===== Reviews ===== ##
   resources :reviews
   get :review_created, to: 'reviews#created'
+  
+  ## ===== Products ===== ## 
+  resources :products
+  resources :materials
 
   ## ===== FAQs ===== ##
   resources :faqs do

@@ -41,6 +41,7 @@ gem 'bootstrap-will_paginate'
 gem 'will_paginate'
 
 gem 'cancancan'
+gem 'country_select'
 gem 'devise'
 gem 'devise_cas_authenticatable'
 gem 'devise_invitable', '~> 2.0.0'

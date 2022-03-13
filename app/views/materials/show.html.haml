@@ -1,0 +1,14 @@
+.container-fluid.pad-edge
+  .pt-5
+    %p#notice= notice
+
+    %p
+      %b Name:
+      = @material.name
+    %p
+      %b Description:
+      = @material.co2_per_kg
+
+    = link_to 'Edit', edit_material_path(@material)
+    \|
+    = link_to 'Back', materials_path
