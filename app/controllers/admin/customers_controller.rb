@@ -32,7 +32,13 @@ class Admin::CustomersController < Admin::AdminsController
     @customer = Customer.find_by_id(params[:id])
   end
 
+<<<<<<< HEAD
   def customer_params
     params.require(:customer).permit(:email, :username)
+=======
+    def customer_params
+      params.require(:customer).permit(:email, :username, :suspended)
+    end
+>>>>>>> Added Suspension Interface
   end
 end
