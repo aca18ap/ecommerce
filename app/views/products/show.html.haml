@@ -1,37 +1,39 @@
-%p#notice= notice
+.container-fluid.pad-edge
+  .pt-5 
+  %p#notice= notice
 
-%p
-  %b Name:
-  = @product.name
-%p
-  %b Description:
-  = @product.description
-%p
-  %b Mass:
-  = @product.mass
-%p
-  %b Type:
-  = @product.category
-%p
-  %b Url:
-  = @product.url
-%p
-  %b Manufacturer:
-  = @product.manufacturer
-%p
-  %b Manufacturer country:
-  = @product.manufacturer_country
-%p
-  %b Co2 produced:
-  = @product.co2_produced
-%p
-  %b Materials:
-  - @product.materials.each do |m|
-    = m.name
-    
+  %p
+    %b Name:
+    = @product.name
+  %p
+    %b Description:
+    = @product.description
+  %p
+    %b Mass:
+    = @product.mass
+  %p
+    %b Type:
+    = @product.category
+  %p
+    %b Url:
+    = @product.url
+  %p
+    %b Manufacturer:
+    = @product.manufacturer
+  %p
+    %b Manufacturer country:
+    = @product.manufacturer_country
+  %p
+    %b Co2 produced:
+    = @product.co2_produced
+  %p
+    %b Materials:
+    - @product.materials.each do |m|
+      = m.name
+      
 
 
-- if can?(:edit, Product)
-  = link_to 'Edit', edit_product_path(@product)
-  \|
-= link_to 'Back', products_path
+  - if can?(:edit, Product)
+    = link_to 'Edit', edit_product_path(@product)
+    \|
+  = link_to 'Back', products_path
