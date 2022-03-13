@@ -6,19 +6,19 @@ describe 'Shares' do
   context 'When I visit the homepage' do
     context 'I can share the carbon footprint viewer' do
       specify 'by email', js: true do
-        #skip 'Feature needs fixing'
+        # skip 'Feature needs fixing'
         visit '/'
         within(:css, '.carbon-footprint-feature') { find('#email').click }
       end
 
       specify 'to twitter', js: true do
-        #skip 'Feature needs fixing'
+        # skip 'Feature needs fixing'
         visit '/'
         within(:css, '.carbon-footprint-feature') { find('#twitter').click }
       end
 
       specify 'to facebook', js: true do
-        #skip 'Feature needs fixing'
+        # skip 'Feature needs fixing'
         visit '/'
         within(:css, '.carbon-footprint-feature') { find('#facebook').click }
       end
@@ -27,7 +27,6 @@ describe 'Shares' do
 
   context 'When I visit the pricing plans page' do
     context 'I can share the unlimited suggestions feature' do
-
       specify 'to facebook', js: true do
         visit '/pricing_plans'
         within(:css, '.unlimited-suggestions') { find('.btn').click }
@@ -48,8 +47,7 @@ describe 'Shares' do
     end
 
     context 'The post is prefilled with different text for different features' do
-
-      #testing these requires to be logged in to twitter
+      # testing these requires to be logged in to twitter
       specify 'Unlimited suggestions', js: true do
         skip
         visit '/pricing_plans'
@@ -65,7 +63,6 @@ describe 'Shares' do
         find('#twitter').click
         response.should have_content 'Easy access to green providers when shopping online on @ecommerce'
       end
-
     end
   end
 end
