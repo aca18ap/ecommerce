@@ -25,6 +25,8 @@ RSpec.describe '/materials', type: :request do
     { name: '', co2_per_kg: '' }
   end
 
+  before { login_as(FactoryBot.create(:admin), scope: :staff) }
+
   describe 'GET /index' do
     it 'renders a successful response' do
       Material.create! valid_attributes

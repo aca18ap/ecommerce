@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Materials Controller handles managing requests for materials that only admins can do
-class MaterialsController < ApplicationController
+class MaterialsController < Admin::AdminsController
   before_action :set_material, only: %i[show edit update destroy]
 
   # GET /materials
