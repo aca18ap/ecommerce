@@ -110,6 +110,27 @@ describe 'Managing customers' do
       within(:css, "#customer-#{customer.id}") { expect(page).to_not have_content 'Unlock' }
     end
   end
+
+  context 'If a customer\'s account is not suspended' do
+    specify 'I can suspend it', js: true do
+      expect(customer.suspended?).to_not eq true
+      within(:css, "#customer-#{customer.id}") { click_link 'Edit user' }
+      check("suspended")
+      click_button 'Update Customer'
+      expect(customer.suspended?).to eq true
+    end
+  end
+
+  context 'If a customer\'s account is suspended' do
+    before { customer.suspend! }
+    specify 'I can lift its suspension' do
+      expect(customer.suspended?).to eq true
+      within(:css, "#customer-#{customer.id}") { click_link 'Edit user' }
+      check("suspended")
+      click_button 'Update Customer'
+      expect(customer.suspended?).to_not eq true
+    end
+  end
 end
 
 describe 'Managing businesses' do
