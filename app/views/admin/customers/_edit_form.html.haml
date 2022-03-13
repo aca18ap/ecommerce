@@ -7,6 +7,8 @@
       .email= f.input :email, validate: true, id: 'email', type: 'email'
     .card-body
       = f.input :username, validate: true, id: 'username', type: 'text'
+    .card-body 
+      = f.input :suspended, id: 'suspended'
   .modal-footer
     .pull-left
 
