@@ -19,7 +19,7 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-  let!(:material) { FactoryBot.create(:material, name: 'material', co2_per_kg: 4) }
+  let!(:material) { FactoryBot.create(:material, name: 'material', kg_co2_per_kg: 4) }
   let!(:product) { FactoryBot.create(:product, name: 'Product', category: 'Category', manufacturer: 'Me', mass: '10', url: 'test.com', manufacturer_country: 'Country') }
   let!(:products_material) { FactoryBot.create(:products_material, product: product, material: material) }
 

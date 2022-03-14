@@ -20,3 +20,8 @@ Customer.where(email: 'customer@team04.com').first_or_create(username: 'customer
 Business.where(email: 'business@team04.com').first_or_create(name: 'genesys', description: 'my description',
                                                              password: 'Password123',
                                                              password_confirmation: 'Password123')
+
+# Materials
+# Cotton statistics based on conventional USA C02/kg
+# https://oecotextiles.blog/2011/01/19/estimating-the-carbon-footprint-of-a-fabric/
+Material.where(name: 'cotton')

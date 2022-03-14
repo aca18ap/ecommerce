@@ -5,7 +5,7 @@
     %thead
       %tr
         %th Name
-        %th CO2/kg
+        %th KgCO<sub>2</sub>/Kg
         %th
         %th
         %th
@@ -14,7 +14,7 @@
       - @materials.each do |material|
         %tr
           %td= material.name
-          %td= material.co2_per_kg
+          %td= material.kg_co2_per_kg
           %td= link_to 'Show', material
           %td= link_to 'Edit', edit_material_path(material)
           %td= link_to 'Destroy', material, :method => :delete, :data => { :confirm => 'Are you sure?' }

@@ -7,10 +7,11 @@ describe 'Managing newsletters' do
     before { login_as(FactoryBot.create(:admin), scope: :staff) }
     let!(:newsletter) { FactoryBot.create(:newsletter) }
 
-    specify 'I can see the newsletters button in the nav bar' do
-      visit newsletters_path
-      within(:css, 'header') { expect(page).to have_content 'Newsletters' }
-    end
+    # Deprecated
+    # specify 'I can see the newsletters button in the nav bar' do
+    #   visit newsletters_path
+    #   within(:css, 'header') { expect(page).to have_content 'Newsletters' }
+    # end
 
     specify 'I can view a list of emails provided' do
       visit newsletters_path

@@ -18,11 +18,11 @@ RSpec.describe '/materials', type: :request do
   # Material. As you add validations to Material, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    { name: 'Name', co2_per_kg: 5 }
+    { name: 'Name', kg_co2_per_kg: 5 }
   end
 
   let(:invalid_attributes) do
-    { name: '', co2_per_kg: '' }
+    { name: '', kg_co2_per_kg: '' }
   end
 
   before { login_as(FactoryBot.create(:admin), scope: :staff) }
@@ -89,7 +89,7 @@ RSpec.describe '/materials', type: :request do
   describe 'PATCH /update' do
     context 'with valid parameters' do
       let(:new_attributes) do
-        { name: 'NameUpdate', co2_per_kg: 10 }
+        { name: 'NameUpdate', kg_co2_per_kg: 10 }
       end
 
       it 'updates the requested material' do

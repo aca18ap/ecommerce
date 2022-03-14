@@ -17,9 +17,9 @@
         - if can?(:manage, Staff)
           %li
             = link_to 'Manage Users', admin_users_path, class: 'nav-link px-2', title: 'Manage accounts'
-        - if can?(:manage, Newsletter)
+        - if can?(:manage, Material)
           %li
-            = link_to 'Manage Newsletters', newsletters_path, class: 'nav-link px-2', title: 'Manage newsletters'
+            = link_to 'Manage Materials', materials_path, class: 'nav-link px-2', title: 'Manage materials'
         - if can?(:read, Product)
           %li
             = link_to 'View Products', products_path, class: 'nav-link px-2', title: 'View products'

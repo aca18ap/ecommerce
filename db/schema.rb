@@ -132,7 +132,7 @@ ActiveRecord::Schema.define(version: 2022_03_14_165119) do
 
   create_table "materials", force: :cascade do |t|
     t.string "name"
-    t.float "co2_per_kg"
+    t.float "kg_co2_per_kg"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
