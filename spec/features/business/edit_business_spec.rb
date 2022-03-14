@@ -70,7 +70,6 @@ describe 'business' do
 
   context 'When I modify my profile information' do
     it 'successfully updates' do
-      
       fill_in 'business[name]', with: 'Test business name'
       fill_in 'business[description]', with: 'Test business description'
       fill_in 'business[current_password]', with: business.password
@@ -82,12 +81,12 @@ describe 'business' do
 
   context 'When I upload a new company image' do
     it 'updates the existing company image' do
-    attach_file 'business[avatar]', "#{Rails.root}/spec/fixtures/images/test.png"
-    fill_in 'business[current_password]', with: business.password
-    click_button 'Update'
+      attach_file 'business[avatar]', "#{Rails.root}/spec/fixtures/images/test.png"
+      fill_in 'business[current_password]', with: business.password
+      click_button 'Update'
 
-    visit business_edit_path
-    expect(page).to have_selector("img[src$='test.png']")
+      visit business_edit_path
+      expect(page).to have_selector("img[src$='test.png']")
     end
   end
 

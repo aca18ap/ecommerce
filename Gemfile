@@ -12,11 +12,11 @@ gem 'rubocop', '~> 1.23'
 gem 'sentry-raven'
 
 gem 'activerecord-session_store'
-gem "image_processing"
 gem 'bcrypt_pbkdf'
 gem 'bootsnap'
 gem 'ed25519'
 gem 'geocoder', '~> 1.3'
+gem 'image_processing'
 gem 'puma'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.7'
 gem 'responders'
