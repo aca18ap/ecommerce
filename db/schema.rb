@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2022_03_11_135224) do
-=======
 ActiveRecord::Schema.define(version: 2022_03_13_161029) do
->>>>>>> Added Suspended Field to Customers
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
