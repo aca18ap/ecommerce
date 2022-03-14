@@ -7,20 +7,31 @@ class MetricsController < ApplicationController
   def index
     @current_nav_identifier = :metrics
     @visits = Visit.all
-    @registrations = Newsletter.all
+    @registrations = Registration.all
     @shares = Share.all
+    @products = Product.all
 
     gon.visits = @visits
     gon.registrations = @registrations
     gon.shares = @shares
+    gon.products = @products
+
+    # Visits
     gon.pageVisits = CalculateMetrics.page_visits(@visits)
     gon.timeVisits = CalculateMetrics.time_visits(@visits)
-    gon.vocationRegistrations = CalculateMetrics.vocation_registrations(@registrations)
-    gon.tierRegistrations = CalculateMetrics.tier_registrations(@registrations)
     gon.sessionFlows = CalculateMetrics.session_flows(@visits)
     gon.timeVisits = CalculateMetrics.time_visits(@visits)
+
+    # Registrations
+    gon.vocationRegistrations = CalculateMetrics.vocation_registrations(@registrations)
     gon.timeRegistrations = CalculateMetrics.time_registrations(@registrations)
+
+    # Shares
     gon.featureShares = CalculateMetrics.feature_shares(@shares)
+
+    # Products
+    gon.timeProducts = CalculateMetrics.time_products(@products)
+    gon.productCategories = CalculateMetrics.product_categories(@products)
   end
 
   def create

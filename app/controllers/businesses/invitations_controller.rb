@@ -9,6 +9,15 @@ class Businesses::InvitationsController < Devise::InvitationsController
     redirect_to admin_users_path, alert: 'Invite sent successfully!' if resource.errors.empty?
   end
 
+  def update
+    super
+    return unless resource.errors.empty?
+
+    location = RetrieveLocation.new(nil, request.remote_ip).location
+    Registration.create(latitude: location[:latitude], longitude: location[:longitude],
+                        vocation: Registration.vocations[:business])
+  end
+
   protected
 
   def configure_permitted_parameters

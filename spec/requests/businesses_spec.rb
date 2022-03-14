@@ -35,6 +35,41 @@ RSpec.describe 'Business', type: :request do
     end
   end
 
+  describe 'PUT /business/invitation' do
+    let!(:business) { Business.create(email: 'new_business@team04.com', name: 'A Business') }
+
+    before do
+      business.invite!
+      expect(Registration.count).to be 0
+
+      @raw_token = business.instance_variable_get(:@raw_invitation_token)
+    end
+
+    it 'creates a registration entry if the invitation was successfully accepted' do
+      put business_invitation_path, params: {
+        business: {
+          invitation_token: @raw_token,
+          password: 'Password123',
+          password_confirmation: 'Password123'
+        }
+      }
+
+      expect(Registration.count).to be 1
+    end
+
+    it 'does not create a registration entry if the invitation unsuccessful' do
+      put business_invitation_path, params: {
+        business: {
+          invitation_token: @raw_token,
+          password: 'invalid',
+          password_confirmation: 'invalid'
+        }
+      }
+
+      expect(Registration.count).to be 0
+    end
+  end
+
   describe 'PATCH /business/:id/unlock' do
     let!(:business) { Business.create(email: 'new_business@team04.com', password: 'Password123', name: 'A Business') }
 

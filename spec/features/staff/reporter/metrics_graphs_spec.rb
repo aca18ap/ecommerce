@@ -24,16 +24,16 @@ describe 'Metrics management', js: true do
 
       plot_is_empty('#registrations-barchart-plot')
       plot_is_empty('#registrations-linechart-plot')
-      plot_is_empty('#registrations-by-type-barchart-plot')
-      within(:css, '#registrations-barchart-title') do
-        expect(page).to have_content 'Site Registrations by Vocation (Total: 0)'
-      end
+      within(:css, '#registrations-barchart-title') { expect(page).to have_content 'Site Registrations by Vocation (Total: 0)' }
 
       plot_is_empty('#feature-shares-barchart-plot')
       within(:css, '#feature-shares-barchart-title') { expect(page).to have_content 'Shares By Feature (Total: 0)' }
-
       # within(:css, '#feature-views-barchart-plot') { expect(page).to have_content 'There is no data for this metric yet' }
       # within(:css, '#feature-views-barchart-title') { expect(page).to have_content 'Clicks By Feature (Total: 0)' }
+
+      plot_is_empty('#products-barchart-plot')
+      plot_is_empty('#products-linechart-plot')
+      within(:css, '#products-barchart-title') { expect(page).to have_content 'Product Additions By Category (Total: 0)' }
     end
   end
 
@@ -54,7 +54,7 @@ describe 'Metrics management', js: true do
     end
 
     specify 'If there are registrations' do
-      FactoryBot.create :newsletter
+      FactoryBot.create :customer_registration
 
       visit '/metrics'
       expect(page).to have_current_path '/metrics'
@@ -62,7 +62,6 @@ describe 'Metrics management', js: true do
       plot_is_populated('#registrations-barchart-plot')
       plot_is_populated('#registrations-barchart-title')
       plot_is_populated('#registrations-linechart-plot')
-      plot_is_populated('#registrations-by-type-barchart-plot')
 
       within(:css, '#registrations-barchart-title') do
         expect(page).to have_content 'Site Registrations by Vocation (Total: 1)'
@@ -84,6 +83,17 @@ describe 'Metrics management', js: true do
 
       visit '/metrics'
       expect(page).to have_current_path '/metrics'
+    end
+
+    specify 'If there are products' do
+      FactoryBot.create :product
+
+      visit '/metrics'
+      expect(page).to have_current_path '/metrics'
+
+      plot_is_populated('#products-barchart-plot')
+      plot_is_populated('#products-linechart-plot')
+      within(:css, '#products-barchart-title') { expect(page).to have_content 'Product Additions By Category (Total: 1)' }
     end
   end
 

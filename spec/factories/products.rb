@@ -29,13 +29,4 @@ FactoryBot.define do
       product.materials ||= create(:material, product: product)
     end
   end
-  factory :invalid_product do
-    name { '' }
-    description { 'A piece of clothing' }
-    mass { '14' }
-    category { 'Trousers' }
-    url { 'clothes.com' }
-    manufacturer { 'Me' }
-    manufacturer_country { 'Italy' }
-  end
 end

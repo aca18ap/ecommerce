@@ -4,8 +4,17 @@
 
 .container-fluid.pad-edge
   .pt-5
-    .h1 Metrics Summary
+    .h1 Metrics Summary For The System
 
+.row.m-3
+  %h1.m-3.text-center Products Statistics
+  #products-barchart-div.justify-content-center.bg-light-green.col-xl-6
+    %h2#products-barchart-title.text-center Product Additions By Category (Total: #{@products.size})
+    %svg#products-barchart-plot.d-block.m-auto
+
+  #products-linechart-div.justify-content-center.bg-light-green.col-xl-6
+    %h2#products-linechart-title.text-center Product Additions Over Time
+    %svg#products-linechart-plot.d-block.m-auto
 
 .row.m-3
   %h1.m-3.text-center Visitor Statistics
@@ -41,11 +50,6 @@
   #registrations-linechart-div.justify-content-center.bg-light-green.col-xl-6
     %h2#registrations-linechart-title.text-center Site Registrations Over Time
     %svg#registrations-linechart-plot.d-block.m-auto
-
-.row.m-3
-  #registrations-by-type-barchart-div.justify-content-center.bg-light-green.col-xl-12
-    %h2#registrations-by-type-barchart-title.text-center Registrations By Pricing Plan
-    %svg#registrations-by-type-barchart-plot.d-block.m-auto
 
 .row.m-3
   %h1.mt-5.mb-3.text-center Registration Geography Statistics

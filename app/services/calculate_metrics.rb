@@ -24,16 +24,6 @@ class CalculateMetrics
       end
     end
 
-    # Calculates the number of customer registrations by tier
-    def tier_registrations(registrations_arr)
-      return if registrations_arr.nil? || registrations_arr.empty?
-
-      # { tier: customer_vocation_tier, registrations: num_registrations }
-      registrations_arr.group_by { |registration| registration.vocation.itself }['Customer']
-                       .group_by { |registration| registration.tier.itself }
-                       .map { |tier, registrations| { 'tier' => tier, 'registrations' => registrations.length } }
-    end
-
     # Calculates all pages visited using a specific session cookie in order of time to build a site path
     def session_flows(visits_arr)
       return if visits_arr.nil? || visits_arr.empty?
@@ -61,7 +51,7 @@ class CalculateMetrics
       return if registrations_arr.nil? || registrations_arr.empty?
 
       time_regs = calculate_time_counts(registrations_arr)
-                  .map { |time, regs| { 'vocation' => 'Total', 'time' => time, 'registrations' => regs } }
+                  .map { |time, regs| { 'vocation' => 'total', 'time' => time, 'registrations' => regs } }
 
       registrations_arr.group_by { |registration| registration.vocation.itself }.each do |vocation, registrations|
         time_regs.concat(calculate_time_counts(registrations)
@@ -87,6 +77,25 @@ class CalculateMetrics
       return if shares_arr.nil? || shares_arr.empty?
 
       ''
+    end
+
+    # Calculates number of product entries over time
+    def time_products(products_arr)
+      return if products_arr.nil? || products_arr.empty?
+
+      time_product_counts = calculate_time_counts(products_arr)
+
+      # { time: time_by_hour, products: num_products_at_hour }
+      time_product_counts.map { |time, products| { 'time' => time, 'products' => products } }
+    end
+
+    # Calculates the number of products in each category
+    def product_categories(products_arr)
+      return if products_arr.nil? || products_arr.empty?
+
+      # { category: category_type, products: num_products }
+      products_arr.group_by { |product| product.category.itself }
+                  .map { |category, products| { 'category' => category, 'products' => products.length } }
     end
 
     private
