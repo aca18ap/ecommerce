@@ -22,6 +22,14 @@ Business.where(email: 'business@team04.com').first_or_create(name: 'genesys', de
                                                              password_confirmation: 'Password123')
 
 # Materials
-# Cotton statistics based on conventional USA C02/kg
-# https://oecotextiles.blog/2011/01/19/estimating-the-carbon-footprint-of-a-fabric/
-Material.where(name: 'cotton')
+# https://www.researchgate.net/publication/276193965_Carbon_Footprint_of_Textile_and_Clothing_Products Table 7.7
+Material.where(name: 'nylon').first_or_create(kg_co2_per_kg: 37)
+Material.where(name: 'acrylic').first_or_create(kg_co2_per_kg: 26)
+Material.where(name: 'polyester').first_or_create(kg_co2_per_kg: 19)
+Material.where(name: 'polypropylene').first_or_create(kg_co2_per_kg: 17)
+Material.where(name: 'viscose').first_or_create(kg_co2_per_kg: 15)
+Material.where(name: 'cotton').first_or_create(kg_co2_per_kg: 8)
+Material.where(name: 'wool').first_or_create(kg_co2_per_kg: 7)
+Material.where(name: 'hemp').first_or_create(kg_co2_per_kg: 3)
+
+
