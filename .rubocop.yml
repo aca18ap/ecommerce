@@ -32,7 +32,7 @@ Style/FormatStringToken:
   # Because we parse a lot of source codes from strings. Percent arrays
   # look like unannotated format string tokens to this cop.
   Exclude:
-    - spec/**/*
+    - 'spec/**/*'
 
 Style/IpAddresses:
   # The test for this cop includes strings that would cause offenses
@@ -86,6 +86,10 @@ Lint/UselessAccessModifier:
   MethodCreatingMethods:
     - 'def_matcher'
     - 'def_node_matcher'
+
+Lint/DuplicateBranch:
+  Exclude:
+    - 'app/models/ability.rb'
 
 Metrics/BlockLength:
   Max: 40
