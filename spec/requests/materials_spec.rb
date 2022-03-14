@@ -137,10 +137,10 @@ RSpec.describe '/materials', type: :request do
       get edit_material_url(material)
       expect(response).to_not be_successful
 
-      post materials_url
+      post materials_url, params: { material: valid_attributes }
       expect(response).to_not be_successful
 
-      patch material_url(material)
+      patch material_url(material), params: { material: valid_attributes }
       expect(response).to_not be_successful
 
       delete material_url(material)

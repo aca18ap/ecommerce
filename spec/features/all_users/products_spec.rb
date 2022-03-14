@@ -36,7 +36,7 @@ describe 'Products' do
 
     specify 'I cannot add new products unless I register' do
       visit '/products/new'
-      expect(page).to have_content('You need to sign up before adding a new product!')
+      expect(page).to have_content('Access Denied 403')
     end
   end
 

@@ -15,25 +15,26 @@ class Ability
       elsif user.reporter?
         can :read, :metrics
         cannot :manage, Review
-        can :create, Faq
+        can :create, [Faq, Product]
+        can :read, Product
         can :like, Faq
         can :dislike, Faq
       end
+    when Business
+      can :create, Product
+      can :read, Product
     when Customer
-      can :new, Product
+      can :create, Product
       can :read, Product
     else
       can :new, Review
-      can :create, Review
-      can :created, Review
+      can :create, [Review, Faq, Newsletter]
+      can :created, [Review, Newsletter]
       can :read, Faq, hidden: false
       can :read, Faq, hidden: nil
-      can :create, Faq
       can :like, Faq
       can :dislike, Faq
       can :new, Newsletter
-      can :create, Newsletter
-      can :created, Newsletter
       cannot :manage, Visit
       can :read, Product
     end

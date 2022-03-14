@@ -18,7 +18,6 @@ RSpec.describe '/products', type: :request do
   # Product. As you add validations to Product, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) { { name: 'Product', category: 'Category', manufacturer: 'rht', mass: '45', url: 'test.com', manufacturer_country: 'Country' } }
-
   let(:invalid_attributes) { { name: 'Product', category: 'Category', manufacturer: '', mass: '', url: 'test.com', manufacturer_country: 'Country' } }
   before { login_as(FactoryBot.create(:admin), scope: :staff) }
 
@@ -123,6 +122,66 @@ RSpec.describe '/products', type: :request do
       product = Product.create! valid_attributes
       delete product_url(product)
       expect(response).to redirect_to(products_url)
+    end
+  end
+
+  describe 'If I am not logged in as an admin' do
+    before { logout(:staff) }
+
+    def check_routes
+      product = Product.create! valid_attributes
+
+      get products_url
+      expect(response).to be_successful
+
+      get product_url(product)
+      expect(response).to be_successful
+
+      get edit_product_url(product)
+      expect(response).to_not be_successful
+
+      post products_url, params: { product: valid_attributes }
+      expect(response).to be_successful
+
+      patch product_url(product), params: { product: { name: 'new_name' } }
+      expect(response).to_not be_successful
+
+      delete product_url(product)
+      expect(response).to_not be_successful
+    end
+
+    it 'only allows me to access certain routes if I am not logged in' do
+      product = Product.create! valid_attributes
+
+      get products_url
+      expect(response).to be_successful
+
+      get product_url(product)
+      expect(response).to be_successful
+
+      post products_url, params: { product: valid_attributes }
+      expect(response).to_not be_successful
+
+      patch product_url(product), params: { product: { name: 'new_name' } }
+      expect(response).to_not be_successful
+
+      delete product_url(product)
+      expect(response).to_not be_successful
+    end
+
+    it 'only allows me to access certain routes if I am logged in as a customer' do
+      login_as(FactoryBot.create(:customer), scope: :customer)
+      check_routes
+    end
+
+    it 'only allows me to access certain routes if I am logged in as a business' do
+      login_as(FactoryBot.create(:business), scope: :business)
+      check_routes
+    end
+
+    it 'only allows me to access certain routes if I am logged in as a reporter' do
+      login_as(FactoryBot.create(:reporter), scope: :staff)
+      check_routes
     end
   end
 end
