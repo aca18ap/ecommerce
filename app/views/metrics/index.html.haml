@@ -6,6 +6,15 @@
   .pt-5
     .h1 Metrics Summary For The System
 
+.row.m-3
+  %h1.m-3.text-center Products Statistics
+  #products-barchart-div.justify-content-center.bg-light-green.col-xl-6
+    %h2#products-barchart-title.text-center Product Additions By Category (Total: #{@products.size})
+    %svg#products-barchart-plot.d-block.m-auto
+
+  #products-linechart-div.justify-content-center.bg-light-green.col-xl-6
+    %h2#products-linechart-title.text-center Product Additions Over Time
+    %svg#products-linechart-plot.d-block.m-auto
 
 .row.m-3
   %h1.m-3.text-center Visitor Statistics

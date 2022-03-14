@@ -1,5 +1,6 @@
 // For some reason the Gem won't fetch the package
 import * as d3 from 'd3';
+
 const uk = require('./uk-geo.json');
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -246,6 +247,38 @@ document.addEventListener('DOMContentLoaded', () => {
         emptyCharts.push(
             document.getElementById('flow-report-plot'),
         );
+    }
+
+    if (gon.products && gon.products.length > 0) {
+        // Gets productCategories from gon gem - calculated in CalculateMetrics service class
+        let productCategoriesCountChart = HorizontalBarChart(gon.productCategories, {
+            x: d => d.products,
+            y: d => d.category,
+            yDomain: d3.groupSort(gon.productCategories, ([d]) => -d.products, d => d.category), // sort by descending frequency
+            width,
+            height,
+            color: 'green',
+            marginLeft: 70,
+            marginRight: 10,
+            xLabel: 'Products',
+            svgElement: document.getElementById('products-barchart-plot')
+        });
+
+        // Gets timeProducts from gon gem - calculated in CalculateMetrics service class
+        let productsOverTimeChart = LineChart(gon.timeProducts, {
+            x: d => d.time,
+            y: d => d.products,
+            yLabel: 'Products',
+            width,
+            height,
+            color: 'green',
+            svgElement: document.getElementById('products-linechart-plot'),
+        });
+    } else {
+        // Set text of chart areas to indicate that there is no data
+        emptyCharts.push(
+            document.getElementById('products-barchart-plot'),
+            document.getElementById('products-linechart-plot'));
     }
 
     // Add missing data message to appropriate chart areas

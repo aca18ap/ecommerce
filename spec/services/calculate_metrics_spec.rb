@@ -13,8 +13,14 @@ describe 'Calculating metrics' do
   let(:customer_registration2) { FactoryBot.create(:customer_registration) }
   let(:business_registration) { FactoryBot.create(:business_registration) }
 
+  # Products
+  let(:product1) { FactoryBot.create(:product, created_at: '2021-11-27 16:39:22', category: 'shirt') }
+  let(:product2) { FactoryBot.create(:product, created_at: '2021-11-27 16:39:22', url: 'something.com', category: 'shirt') }
+  let(:product3) { FactoryBot.create(:product, created_at: Time.now, url: 'somethingelse.com', category: 'shoes') }
+
   let(:visits) { [visit_root, visit_reviews, visit_newsletters] }
   let(:regs) { [customer_registration, customer_registration2, business_registration] }
+  let(:products) { [product1, product2, product3] }
 
   it 'Calculates visits to each site page' do
     expect(CalculateMetrics.page_visits(visits)).to match_array([{ 'page' => '/', 'visits' => 1 },
@@ -51,7 +57,7 @@ describe 'Calculating metrics' do
     CalculateMetrics.time_registrations(regs).each do |time_registrations|
       if time_registrations['time'] == DateTime.parse('2021-11-27 16:39:22').change({ min: 0, sec: 0 }).to_i
         case time_registrations['vocation']
-        when 'Total'
+        when 'total'
           expect(time_registrations['registrations']).to eq(3)
         when 'customer'
           expect(time_registrations['registrations']).to eq(2)
@@ -66,7 +72,7 @@ describe 'Calculating metrics' do
     end
   end
 
-  it 'gets the number of times a feature shares' do
+  it 'gets the number of times a feature is share to which social network' do
     10.times do
       FactoryBot.create(:share, feature: 'Feature2', social: 'email')
       FactoryBot.create(:share, feature: 'Feature1', social: 'twitter')
@@ -86,6 +92,25 @@ describe 'Calculating metrics' do
        { 'feature' => 'Feature2', 'social' => 'email', 'count' => 10 },
        { 'feature' => 'Feature2', 'social' => 'twitter', 'count' => 5 },
        { 'feature' => 'Feature2', 'social' => 'facebook', 'count' => 10 }]
+    )
+  end
+
+  it 'gets the number of product additions per hour' do
+    CalculateMetrics.time_products(products).each do |time_products|
+      if time_products['time'] == product1.created_at.change({ min: 0, sec: 0 }).to_i
+        expect(time_products['products']).to eq 2
+      elsif time_products['time'] == product3.created_at.change({ min: 0, sec: 0 }).to_i
+        expect(time_products['products']).to eq 1
+      else
+        expect(time_products['products']).to eq(0)
+      end
+    end
+  end
+
+  it 'gets the number of products by category' do
+    expect(CalculateMetrics.product_categories(products)).to match_array(
+      [{ 'category' => 'shirt', 'products' => 2 },
+       { 'category' => 'shoes', 'products' => 1 }]
     )
   end
 
@@ -111,5 +136,10 @@ describe 'Calculating metrics' do
   it 'Returns nil if there are no shares in the system' do
     expect(CalculateMetrics.feature_shares(nil)).to eq(nil)
     expect(CalculateMetrics.feature_shares([])).to eq(nil)
+  end
+
+  it 'Returns nil if there are no products in the system' do
+    expect(CalculateMetrics.time_products(nil)).to eq(nil)
+    expect(CalculateMetrics.time_products([])).to eq(nil)
   end
 end

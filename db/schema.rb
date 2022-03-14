@@ -127,14 +127,6 @@ ActiveRecord::Schema.define(version: 2022_03_11_135224) do
     t.index ["password_archivable_type", "password_archivable_id"], name: "index_password_archivable"
   end
 
-  create_table "registrations", force: :cascade do |t|
-    t.float "longitude"
-    t.float "latitude"
-    t.integer "vocation", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -155,6 +147,14 @@ ActiveRecord::Schema.define(version: 2022_03_11_135224) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["material_id"], name: "index_products_materials_on_material_id"
     t.index ["product_id"], name: "index_products_materials_on_product_id"
+  end
+
+  create_table "registrations", force: :cascade do |t|
+    t.float "longitude"
+    t.float "latitude"
+    t.integer "vocation", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "reviews", force: :cascade do |t|
