@@ -13,6 +13,28 @@ describe 'Managing newsletters' do
       visit materials_path
       expect(page).to have_current_path materials_path
     end
+
+    specify 'I can edit a material\'s information' do
+      visit materials_path
+      within(:css, '.table') { click_link 'Edit' }
+      fill_in 'material[name]', with: 'new material'
+      click_button 'Update Material'
+
+      visit materials_path
+      within(:css, '.table') { expect(page).to have_content 'new material' }
+    end
+
+    specify 'I can destroy a material', js: true do
+      visit materials_path
+      within(:css, '.table') { expect(page).to have_content material.name }
+
+      accept_confirm do
+        within(:css, '.table') { click_link 'Destroy' }
+      end
+
+      visit materials_path
+      within(:css, '.table') { expect(page).to_not have_content material.name }
+    end
   end
 
   context 'When I am not an admin' do

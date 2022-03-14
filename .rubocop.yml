@@ -116,6 +116,7 @@ Metrics/MethodLength:
 
 Metrics/AbcSize:
   Exclude:
+    - 'spec/**/*.rb'
     # Skipped as these are required functionality and cannot be reduced
     - 'app/controllers/concerns/accessible.rb'
     - 'app/models/ability.rb'
