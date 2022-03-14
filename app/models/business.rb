@@ -38,4 +38,6 @@
 class Business < ApplicationRecord
   devise :invitable, :database_authenticatable, :password_archivable, :recoverable,
          :rememberable, :secure_validatable, :lockable, :registerable, invite_for: 2.weeks
+
+  has_one_attached :avatar
 end

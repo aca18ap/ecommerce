@@ -2,4 +2,4 @@
 
 bundle check || bundle install
 cp config/database_sample-pg.yml config/database.yml
-bundle exec rake db:create db:migrate db:seed
+bundle exec rake dp:drop db:create db:migrate db:seed

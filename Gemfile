@@ -12,6 +12,7 @@ gem 'rubocop', '~> 1.23'
 gem 'sentry-raven'
 
 gem 'activerecord-session_store'
+gem "image_processing"
 gem 'bcrypt_pbkdf'
 gem 'bootsnap'
 gem 'ed25519'
