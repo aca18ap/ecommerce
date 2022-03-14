@@ -116,7 +116,7 @@ describe 'Managing customers' do
     specify 'I can suspend it', js: true do
       expect(customer.suspended?).to_not eq true
       within(:css, "#customer-#{customer.id}") { click_link 'Edit user' }
-      check("Suspended")
+      check('Suspended')
       click_button 'Update Customer'
       expect(customer.reload.suspended?).to eq true
     end
@@ -126,7 +126,7 @@ describe 'Managing customers' do
     specify 'I can lift its suspension' do
       expect(suspendedCustomer.suspended?).to eq true
       within(:css, "#customer-#{suspendedCustomer.id}") { click_link 'Edit user' }
-      uncheck("Suspended")
+      uncheck('Suspended')
       click_button 'Update Customer'
       expect(suspendedCustomer.reload.suspended?).to_not eq true
     end
