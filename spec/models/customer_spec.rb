@@ -94,5 +94,10 @@ RSpec.describe Customer, type: :model do
     it 'does not store a plaintext password' do
       expect(subject.encrypted_password).not_to eq('Password123')
     end
+
+    it 'is valid without suspended status' do
+      subject.suspended = nil
+      expect(subject).to be_valid
+    end
   end
 end
