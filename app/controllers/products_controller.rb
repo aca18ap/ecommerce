@@ -3,9 +3,9 @@
 # Product Controller handles management requests of products
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[show edit update destroy]
-  # before_action :authenticate_customer! || :authenticate_staff!, only: [:new, :create]
   before_action :authenticate_staff!, except: %i[show index new create]
-  # before_action :validate_user
+  authorize_resource
+
   # GET /products
   def index
     @products = Product.order('created_at DESC').all.decorate

@@ -20,3 +20,16 @@ Customer.where(email: 'customer@team04.com').first_or_create(username: 'customer
 Business.where(email: 'business@team04.com').first_or_create(name: 'genesys', description: 'my description',
                                                              password: 'Password123',
                                                              password_confirmation: 'Password123')
+
+# Materials
+# https://www.researchgate.net/publication/276193965_Carbon_Footprint_of_Textile_and_Clothing_Products Table 7.7
+Material.where(name: 'nylon').first_or_create(kg_co2_per_kg: 37)
+Material.where(name: 'acrylic').first_or_create(kg_co2_per_kg: 26)
+Material.where(name: 'polyester').first_or_create(kg_co2_per_kg: 19)
+Material.where(name: 'polypropylene').first_or_create(kg_co2_per_kg: 17)
+Material.where(name: 'viscose').first_or_create(kg_co2_per_kg: 15)
+Material.where(name: 'cotton').first_or_create(kg_co2_per_kg: 8)
+Material.where(name: 'wool').first_or_create(kg_co2_per_kg: 7)
+Material.where(name: 'hemp').first_or_create(kg_co2_per_kg: 3)
+
+

@@ -55,6 +55,6 @@ class MaterialsController < Admin::AdminsController
 
   # Only allow a list of trusted parameters through.
   def material_params
-    params.require(:material).permit(:name, :co2_per_kg)
+    params.require(:material).permit(:name, :kg_co2_per_kg)
   end
 end

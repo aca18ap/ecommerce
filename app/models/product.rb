@@ -26,11 +26,8 @@ class Product < ApplicationRecord
 
   # CO2 re-calculated every time it gets updated. To update to take country into account
   def calculate_co2
-    tmp_co2 = 0
-    materials.each do |m|
-      tmp_co2 += m.co2_per_kg
-    end
-    self.co2_produced = (mass * tmp_co2).round(2)
+    material_co2 = materials.map(&:kg_co2_per_kg).sum
+    self.co2_produced = (mass * material_co2).round(2)
   end
 
   # Gets the 'created_at' time truncated to the nearest hour
