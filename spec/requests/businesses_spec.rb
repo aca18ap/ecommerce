@@ -8,7 +8,7 @@ RSpec.describe 'Business', type: :request do
 
     it 'shows the current business\' dashboard' do
       get business_show_path
-      expect(response).to be_successful
+      expect(response).to redirect_to(businesses_path)
     end
   end
 
@@ -96,24 +96,28 @@ RSpec.describe 'Business', type: :request do
     end
   end
 
-  describe 'If I am not logged in as a business' do
+  describe 'If I am not logged in' do
     let(:business) { FactoryBot.create(:business) }
 
     def check_routes
       get business_show_path
-      assert_response 302
+      expect(response).to redirect_to(businesses_path)
 
       get new_business_registration_path
       assert_response 302
 
       get business_path(business)
-      assert_response 302
+      assert_response 200
     end
 
-    it 'does not let me access the routes if I am not logged in' do
-      check_routes
-      post business_registration_path
-      assert_response 403
+    it 'I can view the directory of businesses' do
+      get business_show_path
+      expect(response).to redirect_to(businesses_path)
+    end
+
+    it 'I can view a business\' profile' do
+      get businesses_path(business)
+      expect(response).to be_successful
     end
 
     it 'does not let me access the routes if I am logged in as a staff member' do

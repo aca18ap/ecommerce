@@ -48,12 +48,12 @@ Rails.application.routes.draw do
                           controllers: { sessions: 'businesses/sessions', registrations: 'businesses/registrations',
                                          invitations: 'businesses/invitations' }
   authenticated :business do
-    root to: 'businesses#show', as: :authenticated_business_root
+    root to: 'businesses#index', as: :authenticated_business_root
   end
-  resources :businesses, path: 'business', only: %i[show edit update destroy] do
+  resources :businesses, path: 'business', only: %i[show index edit update destroy] do
     patch :unlock, on: :member
   end
-  get '/business/show'
+  get '/business/show', to: 'businesses#index'
   get '/business/edit'
 
   ## ===== Reviews ===== ##

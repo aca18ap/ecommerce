@@ -1,2 +1,10 @@
-%h1 Businesses#show
-%p Find me in app/views/businesses/show.html.haml
+.container-fluid.pad-edge
+  .pt-5 
+    - if @business.avatar.attached?
+      = image_tag @business.avatar.variant(resize: "100x100!")
+    %h1 
+      = @business.name
+    %p 
+      = @business.description
+
+    
