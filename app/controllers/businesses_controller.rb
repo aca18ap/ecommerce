@@ -14,9 +14,7 @@ class BusinessesController < ApplicationController
   end
 
   # GET /businesses/1
-  def show
- 
-  end
+  def show; end
 
   # GET /businesses/1/edit
   def edit; end

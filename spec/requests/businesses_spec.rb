@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Business', type: :request do
-
   describe 'GET /business/:id/' do
     let(:business) { FactoryBot.create(:business) }
     it 'If I visit the profile URL I see the profile' do
@@ -11,7 +10,7 @@ RSpec.describe 'Business', type: :request do
       expect(response).to be_successful
     end
   end
-  
+
   describe 'GET /business/show' do
     def login_as_business
       login_as(FactoryBot.create(:business), scope: :business)
@@ -151,5 +150,4 @@ RSpec.describe 'Business', type: :request do
       end
     end
   end
-
 end
