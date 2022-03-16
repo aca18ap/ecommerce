@@ -16,7 +16,7 @@ class ProductsController < ApplicationController
 
   # GET /products/new
   def new
-    if current_customer || current_staff
+    if current_customer || current_staff || current_business
       @product = Product.new
     else
       redirect_to new_customer_registration_path, alert: 'You need to sign up before adding a new product!'
