@@ -33,6 +33,6 @@ class Admin::CustomersController < Admin::AdminsController
   end
 
   def customer_params
-    params.require(:customer).permit(:email, :username)
+    params.require(:customer).permit(:email, :username, :suspended)
   end
 end

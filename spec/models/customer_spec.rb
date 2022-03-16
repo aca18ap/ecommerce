@@ -15,6 +15,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  suspended              :boolean          default(FALSE), not null
 #  unconfirmed_email      :string
 #  unlock_token           :string
 #  username               :string           not null
@@ -92,6 +93,11 @@ RSpec.describe Customer, type: :model do
 
     it 'does not store a plaintext password' do
       expect(subject.encrypted_password).not_to eq('Password123')
+    end
+
+    it 'is valid without suspended status' do
+      subject.suspended = nil
+      expect(subject).to be_valid
     end
   end
 end

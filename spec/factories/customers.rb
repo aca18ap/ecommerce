@@ -15,6 +15,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  suspended              :boolean          default(FALSE), not null
 #  unconfirmed_email      :string
 #  unlock_token           :string
 #  username               :string           not null
