@@ -10,6 +10,9 @@ gem 'bundler-audit'
 gem 'rubocop', '~> 1.23'
 
 gem 'sentry-raven'
+gem 'sentry-ruby'
+gem 'sentry-rails'
+gem 'airbrake'
 
 gem 'activerecord-session_store'
 gem 'bcrypt_pbkdf'

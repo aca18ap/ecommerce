@@ -80,6 +80,10 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
+    airbrake (13.0.0)
+      airbrake-ruby (~> 6.0)
+    airbrake-ruby (6.0.2)
+      rbtree3 (~> 0.5)
     airbrussh (1.4.0)
       sshkit (>= 1.6.1, != 1.7.0)
     annotate (3.2.0)
@@ -308,6 +312,7 @@ GEM
     rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    rbtree3 (0.7.0)
     rchardet (1.8.0)
     regexp_parser (2.2.1)
     request_store (1.5.1)
@@ -362,8 +367,16 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
     semantic_range (3.0.0)
+    sentry-rails (5.2.0)
+      railties (>= 5.0)
+      sentry-ruby-core (~> 5.2.0)
     sentry-raven (3.1.2)
       faraday (>= 1.0)
+    sentry-ruby (5.2.0)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      sentry-ruby-core (= 5.2.0)
+    sentry-ruby-core (5.2.0)
+      concurrent-ruby
     shakapacker (6.1.1)
       activesupport (>= 5.2)
       rack-proxy (>= 0.6.1)
@@ -429,6 +442,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-session_store
+  airbrake
   annotate
   bcrypt_pbkdf
   bootsnap
@@ -479,7 +493,9 @@ DEPENDENCIES
   rubocop (~> 1.23)
   sassc
   sassc-rails
+  sentry-rails
   sentry-raven
+  sentry-ruby
   shakapacker
   shoulda-matchers
   simple_form
