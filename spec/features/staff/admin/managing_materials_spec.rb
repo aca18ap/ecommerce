@@ -32,7 +32,6 @@ describe 'Managing newsletters' do
         within(:css, '.table') { click_link 'Destroy' }
       end
 
-      visit materials_path
       within(:css, '.table') { expect(page).to_not have_content material.name }
     end
   end

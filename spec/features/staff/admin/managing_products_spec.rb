@@ -32,7 +32,6 @@ describe 'Managing Products' do
         within(:css, '.table') { click_link 'Destroy' }
       end
 
-      visit products_path
       within(:css, '.table') { expect(page).to_not have_content product.name }
     end
   end
