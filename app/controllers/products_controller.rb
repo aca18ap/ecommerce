@@ -28,13 +28,7 @@ class ProductsController < ApplicationController
 
   # POST /products
   def create
-
-    # Create relationship only if added by business
-    if current_business
-      @product = current_business.products.new(product_params)
-    else
-      @product = Product.new(product_params)
-    end
+    @product = Product.new(product_params)
 
     if @product.save
       redirect_to @product, notice: 'Product was successfully created.'
@@ -67,7 +61,7 @@ class ProductsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def product_params
-    params.require(:product).permit(:name, :description, :mass, :category, :url, :manufacturer,
+    params.require(:product).permit(:name, :description, :business_id, :mass, :category, :url, :manufacturer,
                                     :manufacturer_country, :co2_produced, material_ids: [])
   end
 end

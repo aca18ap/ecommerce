@@ -24,6 +24,7 @@ class Product < ApplicationRecord
 
   has_many :products_material, dependent: :destroy
   has_many :materials, through: :products_material
+  belongs_to :business
 
   # CO2 re-calculated every time it gets updated. To update to take country into account
   def calculate_co2

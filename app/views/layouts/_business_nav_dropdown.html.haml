@@ -1,7 +1,9 @@
 %li
   = link_to 'View Profile', current_business, :class => 'dropdown-link'
-  %li
-    = link_to 'Account Settings', business_edit_path, :class => 'dropdown-link'
-    %hr.dropdown-divider
-  %li
-    = link_to 'Sign Out', destroy_business_session_path, method: :delete, :class => "dropdown-link"
+%li
+  = link_to 'Manage Products', products_path, :class => 'dropdown-link', title: 'Manage products'
+%li
+  = link_to 'Account Settings', business_edit_path, :class => 'dropdown-link'
+%hr.dropdown-divider
+%li
+  = link_to 'Sign Out', destroy_business_session_path, method: :delete, :class => "dropdown-link"

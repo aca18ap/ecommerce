@@ -6,6 +6,9 @@
     %b Name:
     = @product.name
   %p
+    %b Vendor:
+    = @product.business ? @product.business.name : 'Unknown'
+  %p
     %b Description:
     = @product.description
   %p
