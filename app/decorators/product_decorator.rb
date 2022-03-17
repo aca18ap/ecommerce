@@ -14,6 +14,6 @@ class ProductDecorator < Draper::Decorator
   #   end
 
   def business_name
-    product.business ? product.business.name : 'Unknown'
+    self.business ? self.business.name : 'Unknown'
   end
 end
