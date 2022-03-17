@@ -28,7 +28,13 @@ class ProductsController < ApplicationController
 
   # POST /products
   def create
-    @product = Product.new(product_params)
+
+    # Create relationship only if added by business
+    if current_business
+      @product = current_business.products.new(product_params)
+    else
+      @product = Product.new(product_params)
+    end
 
     if @product.save
       redirect_to @product, notice: 'Product was successfully created.'

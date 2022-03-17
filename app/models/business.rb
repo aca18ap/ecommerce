@@ -40,4 +40,5 @@ class Business < ApplicationRecord
          :rememberable, :secure_validatable, :lockable, :registerable, invite_for: 2.weeks
 
   has_one_attached :avatar
+  has_many :products
 end
