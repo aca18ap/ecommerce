@@ -30,7 +30,11 @@ class ProductsController < ApplicationController
 
   # POST /products
   def create
-    @product = Product.new(product_params)
+    @product = if current_business
+                 Product.new(product_params.merge(business_id: current_business.id))
+               else
+                 Product.new(product_params)
+               end
 
     if @product.save
       redirect_to @product, notice: 'Product was successfully created.'

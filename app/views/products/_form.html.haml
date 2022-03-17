@@ -12,6 +12,5 @@
     = f.input :manufacturer
     = f.input :manufacturer_country
     = f.collection_check_boxes(:material_ids, Material.all, :id, :name, {}, {:multiple => true, :id => 'material_select'})
-    = f.hidden_field :business_id, :value => ''
   .form-actions
     = f.button :submit
