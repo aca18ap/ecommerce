@@ -40,7 +40,7 @@ function socialFormatter(social, feature) {
         url = "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2F" + website_url + "%2F%23&src=sdkpreparse"
     }
     //The generated post link replaces the current website page (mainly to aid testing)
-    window.location.href = url
+    return window.open(url, '_blank')
 
 }
 
