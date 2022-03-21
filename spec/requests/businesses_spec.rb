@@ -3,12 +3,67 @@
 require 'rails_helper'
 
 RSpec.describe 'Business', type: :request do
-  describe 'GET /business/show' do
-    before { login_as(FactoryBot.create(:business), scope: :business) }
-
-    it 'shows the current business\' dashboard' do
-      get business_show_path
+  describe 'GET /business/:id/' do
+    let(:business) { FactoryBot.create(:business) }
+    it 'If I visit the profile URL I see the profile' do
+      get businesses_path(business)
       expect(response).to be_successful
+    end
+  end
+
+  describe 'GET /business/show' do
+    def login_as_business
+      login_as(FactoryBot.create(:business), scope: :business)
+    end
+
+    it 'If I am not logged in I see the directory' do
+      get business_show_path
+      expect(response).to redirect_to(businesses_path)
+    end
+
+    it 'If I am logged in as a business I see the directory' do
+      login_as_business
+      get business_show_path
+      expect(response).to redirect_to(businesses_path)
+    end
+  end
+
+  describe 'GET /business/show as roles' do
+    let(:business) { FactoryBot.create(:business) }
+
+    def check_routes
+      get business_show_path
+      expect(response).to redirect_to(businesses_path)
+
+      get new_business_registration_path
+      assert_response 302
+
+      get business_path(business)
+      assert_response 200
+    end
+
+    it 'I can view the directory of businesses' do
+      get business_show_path
+      expect(response).to redirect_to(businesses_path)
+    end
+
+    it 'I can view a business\' profile' do
+      get businesses_path(business)
+      expect(response).to be_successful
+    end
+
+    it 'does not let me access the routes if I am logged in as a staff member' do
+      login_as(FactoryBot.create(:admin), scope: :staff)
+      check_routes
+      post business_registration_path
+      assert_response 302
+    end
+
+    it 'does not let me access the routes if I am logged in as a customer' do
+      login_as(FactoryBot.create(:customer), scope: :customer)
+      check_routes
+      post business_registration_path
+      assert_response 302
     end
   end
 
@@ -93,41 +148,6 @@ RSpec.describe 'Business', type: :request do
         patch unlock_business_path(business)
         expect(business.reload.access_locked?).to eq true
       end
-    end
-  end
-
-  describe 'If I am not logged in as a business' do
-    let(:business) { FactoryBot.create(:business) }
-
-    def check_routes
-      get business_show_path
-      assert_response 302
-
-      get new_business_registration_path
-      assert_response 302
-
-      get business_path(business)
-      assert_response 302
-    end
-
-    it 'does not let me access the routes if I am not logged in' do
-      check_routes
-      post business_registration_path
-      assert_response 403
-    end
-
-    it 'does not let me access the routes if I am logged in as a staff member' do
-      login_as(FactoryBot.create(:admin), scope: :staff)
-      check_routes
-      post business_registration_path
-      assert_response 302
-    end
-
-    it 'does not let me access the routes if I am logged in as a customer' do
-      login_as(FactoryBot.create(:customer), scope: :customer)
-      check_routes
-      post business_registration_path
-      assert_response 302
     end
   end
 end

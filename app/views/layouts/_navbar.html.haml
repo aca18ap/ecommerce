@@ -6,7 +6,8 @@
       .nav.col-12.col-lg-auto.me-lg-auto.justify-content-center.my-auto.mx-5.custom-nav-fonts
         %li
           = link_to 'Home', root_path, title: 'Go to the home page', class: 'nav-link px-2 link-secondary'
-        %li
+        - if can?(:read, :faqs)
+          %li
           = link_to 'FAQs', faqs_path, class: 'nav-link px-2', title: 'Frequently asked questions'
         - if can?(:read, :metrics)
           %li
@@ -23,6 +24,9 @@
         - if can?(:read, Product)
           %li
             = link_to 'View Products', products_path, class: 'nav-link px-2', title: 'View products'
+        - if can?(:read, Business)
+          %li
+            = link_to 'Directory', businesses_path, class: 'nav-link px-2', title: 'Directory'
       .dropdown.text-end
         %a#dropdownUser1.d-block.custom-nav-fonts.text-decoration-none.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#"}
           -if customer_signed_in?

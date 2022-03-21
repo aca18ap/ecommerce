@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Decorator class for product view logic
 class ProductDecorator < Draper::Decorator
   delegate_all
 
@@ -11,4 +12,8 @@ class ProductDecorator < Draper::Decorator
   #       object.created_at.strftime("%a %m/%d/%y")
   #     end
   #   end
+
+  def business_name
+    business ? business.name : 'Unknown'
+  end
 end

@@ -12,11 +12,13 @@ class ProductsController < ApplicationController
   end
 
   # GET /products/1
-  def show; end
+  def show
+    @product = @product.decorate
+  end
 
   # GET /products/new
   def new
-    if current_customer || current_staff
+    if current_customer || current_staff || current_business
       @product = Product.new
     else
       redirect_to new_customer_registration_path, alert: 'You need to sign up before adding a new product!'
@@ -28,7 +30,11 @@ class ProductsController < ApplicationController
 
   # POST /products
   def create
-    @product = Product.new(product_params)
+    @product = if current_business
+                 Product.new(product_params.merge(business_id: current_business.id))
+               else
+                 Product.new(product_params)
+               end
 
     if @product.save
       redirect_to @product, notice: 'Product was successfully created.'
@@ -61,7 +67,7 @@ class ProductsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def product_params
-    params.require(:product).permit(:name, :description, :mass, :category, :url, :manufacturer,
+    params.require(:product).permit(:name, :description, :business_id, :mass, :category, :url, :manufacturer,
                                     :manufacturer_country, :co2_produced, material_ids: [])
   end
 end

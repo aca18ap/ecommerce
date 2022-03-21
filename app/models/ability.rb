@@ -23,9 +23,11 @@ class Ability
     when Business
       can :create, Product
       can :read, Product
+      can :read, Business
     when Customer
       can :create, Product
       can :read, Product
+      can :read, Business
     else
       can :new, Review
       can :create, [Review, Faq, Newsletter]
@@ -37,6 +39,7 @@ class Ability
       can :new, Newsletter
       cannot :manage, Visit
       can :read, Product
+      can :read, Business
     end
     #
     # The first argument to `can` is the action you are giving the user

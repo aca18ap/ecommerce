@@ -1,2 +1,47 @@
-%h1 Businesses#show
-%p Find me in app/views/businesses/show.html.haml
+.container-fluid.pad-edge
+  .pt-5
+    .text-center 
+      - if @business.avatar.attached?
+        = image_tag @business.avatar.variant(resize: "100x100!")
+      %h1 
+        = @business.name
+      %p 
+        = @business.description
+
+    %table.table
+      %thead
+        %tr
+          %th Name
+          %th Description
+          %th Mass
+          %th Category
+          %th Url
+          %th Manufacturer
+          %th Manufacturer country
+          %th Co2 produced
+          %th Materials
+          %th
+          %th
+          %th
+
+      %tbody
+        - @business.products.each do |product|
+          %tr
+            %td= product.name
+            %td= product.description
+            %td= product.mass
+            %td= product.category
+            %td= product.url
+            %td= product.manufacturer
+            %td= product.manufacturer_country
+            %td= product.co2_produced
+            - product.materials.each do |material|
+              %td= material.name
+              //%td= material[1]
+            %td= link_to 'Show', product
+            - if can?(:edit, Product)
+              %td= link_to 'Edit', edit_product_path(product)
+            - if can?(:delete, Product)
+              %td= link_to 'Destroy', product, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+    

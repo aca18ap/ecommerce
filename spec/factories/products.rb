@@ -15,6 +15,7 @@
 #  url                  :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  business_id          :bigint
 #
 FactoryBot.define do
   factory :product, class: Product do

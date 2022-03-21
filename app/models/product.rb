@@ -5,16 +5,17 @@
 # Table name: products
 #
 #  id                   :bigint           not null, primary key
+#  category             :string
 #  co2_produced         :float
 #  description          :string
 #  manufacturer         :string
 #  manufacturer_country :string
 #  mass                 :float
 #  name                 :string
-#  category             :string
 #  url                  :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  business_id          :bigint
 #
 class Product < ApplicationRecord
   validates :name, :category, :url, :manufacturer, :manufacturer_country, :mass, presence: true
@@ -23,6 +24,7 @@ class Product < ApplicationRecord
 
   has_many :products_material, dependent: :destroy
   has_many :materials, through: :products_material
+  belongs_to :business, optional: true
 
   # CO2 re-calculated every time it gets updated. To update to take country into account
   def calculate_co2
