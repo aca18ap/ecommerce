@@ -46,7 +46,6 @@ RSpec.describe 'staff', type: :request do
       patch unlock_staff_path(reporter)
       expect(reporter.reload.access_locked?).to eq false
     end
-
   end
 
   describe 'PATCH /staff/:id/invite' do
@@ -89,6 +88,7 @@ RSpec.describe 'staff', type: :request do
       put staff_path(reporter)
       assert_response 302
 
+      reporter.lock_access!
       patch unlock_staff_path(reporter)
       expect(reporter.reload.access_locked?).to eq true
 

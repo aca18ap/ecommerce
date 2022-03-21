@@ -28,7 +28,6 @@ RSpec.describe StaffDecorator do
       end
     end
 
-
     context 'If a staff member was added while seeding' do
       it 'returns nothing' do
         staff.invitation_accepted_at = nil

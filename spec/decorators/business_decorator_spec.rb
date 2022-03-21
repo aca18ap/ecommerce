@@ -54,7 +54,6 @@ RSpec.describe BusinessDecorator do
       end
     end
 
-
     context 'If a business was added while seeding' do
       it 'returns nothing' do
         business.invitation_accepted_at = nil
