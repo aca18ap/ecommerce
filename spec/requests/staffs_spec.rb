@@ -33,7 +33,7 @@ RSpec.describe 'staff', type: :request do
     end
   end
 
-  describe 'PATCH /business/:id/unlock' do
+  describe 'PATCH /staff/:id/unlock' do
     let!(:reporter) { Staff.create(email: 'new_business@team04.com', password: 'Password123', role: Staff.roles[:reporter]) }
     before { login_as(FactoryBot.create(:admin), scope: :staff) }
 

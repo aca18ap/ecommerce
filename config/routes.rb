@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   ## ===== System Users and Accounts Routes ===== ##
   devise_for :customers, path: 'customer',
                          controllers: { sessions: 'customers/sessions', registrations: 'customers/registrations' }
-  authenticated :customer_user do
+  authenticated :customer do
     root to: 'customers#show', as: :authenticated_customer_root
   end
   resources :customers, path: 'customer' do
