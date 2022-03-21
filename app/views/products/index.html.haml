@@ -1,12 +1,25 @@
 .container-fluid.pad-edge
-  %h1.pt-5 
-    - if not params[:query].blank? 
+  %h1.pt-5
+    - if not params[:search_term].blank? 
       Listing products related to 
-      = "'" + @query["query"] + "'"
+      = "'" + @query["search_term"] + "'"
     - else 
       Product Archive
-  %h2
-    = page_entries_info products, :model => 'product'
+
+  .d-flex
+    .me-auto
+      %h2
+        = page_entries_info products, :model => 'product'
+    Filters
+    -# = form_with url: products_path, method: :get do |form|
+    -#   .input-group
+    -#     .form-outline
+
+    -#       = form.select(:business_id) do
+    -#         - @business.each do |business|
+    -#           = content_tag(:option, business.name, value: business.id)
+    -#     = form.button :Apply, name: 'Submit', value: 'Apply', class: 'btn btn-outline-primary'
+
 
   - if products.size > 0
     %table.table

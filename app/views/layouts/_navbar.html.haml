@@ -31,7 +31,7 @@
       = form_with url: products_path, method: :get do |form|
         .input-group.mx-5
           .form-outline
-            = form.text_field :query, placeholder: 'Search products', class: 'form-control rounded'
+            = form.text_field :search_term, placeholder: 'Search products', class: 'form-control rounded'
           %button{:type => "submit", :class => "btn btn-secondary"}
             %i.fa.fa-search
 

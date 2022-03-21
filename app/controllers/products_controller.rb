@@ -9,6 +9,7 @@ class ProductsController < ApplicationController
 
   # GET /products
   def index
+    @business ||= Business.all
     @query = request.query_parameters
     @products = Product.where(nil)
     filtering_params(params).each do |key, value|
@@ -79,6 +80,6 @@ class ProductsController < ApplicationController
 
   # List of params that can be used to filter products if specified
   def filtering_params(params)
-    params.slice(:name, :similarity, :query)
+    params.slice(:name, :similarity, :search_term, :business_id)
   end
 end
