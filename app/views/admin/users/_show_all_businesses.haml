@@ -3,14 +3,18 @@
     %tr
       %th Email
       %th Name
+      %th Description
       %th Unlock
+      %th Invite
       %th Actions
 
   %tbody
     - @businesses.each do |business|
-      %tr{id: "business-#{business.id}"}
+      %tr.align-middle{id: "business-#{business.id}"}
         %td= business.email
         %td= business.name
+        %td.text-wrap.w-25= business.truncated_description
         %td= business.unlock_button?
+        %td= business.invite_button?
         %td= link_to 'Edit user', edit_admin_business_path(business), class: 'ajax-modal btn btn-xs'
         %td= link_to 'Delete user', admin_business_path(business), method: :delete, class: 'btn btn-xs', data: { confirm: 'Are you sure you want to delete this business?' }

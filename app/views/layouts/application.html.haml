@@ -26,7 +26,8 @@
         .alert.alert-secondary#notice= notice
       - if !alert.nil? then
         .alert.alert-secondary#notice= alert
-    = yield
+    .container-fluid.overflow-hidden
+      = yield
 
   = render partial: 'layouts/footer'
 

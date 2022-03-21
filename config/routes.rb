@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   end
   resources :staffs, path: 'staff', only: %i[show edit update destroy] do
     patch :unlock, on: :member
+    patch :invite, on: :member
   end
   get '/staff/show'
   get '/staff/edit'
@@ -52,6 +53,7 @@ Rails.application.routes.draw do
   end
   resources :businesses, path: 'business', only: %i[show index edit update destroy] do
     patch :unlock, on: :member
+    patch :invite, on: :member
   end
   get '/business/show', to: 'businesses#index'
   get '/business/edit'

@@ -2,10 +2,7 @@
 
 # Business controller for managing business only actions
 class BusinessesController < ApplicationController
-  # before_action :authenticate_customer!
-  # before_action :authenticate_staff!, only: :unlock
-  # before_action :authenticate_business!, except: :unlock
-  before_action :set_business, only: %i[show edit update destroy unlock]
+  before_action :set_business, only: %i[show edit update destroy unlock invite]
   load_and_authorize_resource
 
   # GET /businesses
@@ -37,6 +34,12 @@ class BusinessesController < ApplicationController
   # PATCH /businesses/1/unlock
   def unlock
     @business.unlock_access!
+    redirect_back fallback_location: root_path
+  end
+
+  # PATCH /businesses/1/invite
+  def invite
+    @business.invite!
     redirect_back fallback_location: root_path
   end
 
