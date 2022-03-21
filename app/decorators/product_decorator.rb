@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Decorator class for product view logic
-class ProductDecorator < Draper::Decorator
+class ProductDecorator < ApplicationDecorator
   delegate_all
 
   # Define presentation-specific methods here. Helpers are accessed through

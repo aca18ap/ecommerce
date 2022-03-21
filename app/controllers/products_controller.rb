@@ -5,6 +5,8 @@ class ProductsController < ApplicationController
   before_action :set_product, only: %i[show edit update destroy]
   before_action :authenticate_staff!, except: %i[show index new create]
   authorize_resource
+  decorates_assigned :products, :product
+
 
   # GET /products
   def index
@@ -13,7 +15,7 @@ class ProductsController < ApplicationController
     filtering_params(params).each do |key, value|
       @products = @products.public_send("filter_by_#{key}", value) if value.present?
     end
-    @products = @products.decorate
+    @products = @products.paginate(page: params[:page], per_page: 10)
   end
 
   # GET /products/1

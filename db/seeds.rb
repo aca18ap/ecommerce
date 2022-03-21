@@ -32,4 +32,15 @@ Material.where(name: 'cotton').first_or_create(kg_co2_per_kg: 8)
 Material.where(name: 'wool').first_or_create(kg_co2_per_kg: 7)
 Material.where(name: 'hemp').first_or_create(kg_co2_per_kg: 3)
 
-
+# Products
+100.times do
+  Product.where(name: Faker::Coffee.blend_name).first_or_create(category: Faker::IndustrySegments.sub_sector,
+    co2_produced: Faker::Number.decimal(l_digits: 2),
+    description: Faker::Quotes::Shakespeare.hamlet_quote,
+    manufacturer: Faker::Company.name,
+    manufacturer_country: Faker::Address.country,
+    mass: Faker::Measurement.metric_weight,
+    name: Faker::Coffee.blend_name,
+    url: Faker::Internet.url
+  )
+end
