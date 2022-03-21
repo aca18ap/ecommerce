@@ -8,7 +8,12 @@ class ProductsController < ApplicationController
 
   # GET /products
   def index
-    @products = Product.order('created_at DESC').all.decorate
+    @query = request.query_parameters
+    @products = Product.where(nil)
+    filtering_params(params).each do |key, value|
+      @products = @products.public_send("filter_by_#{key}", value) if value.present?
+    end
+    @products = @products.decorate
   end
 
   # GET /products/1
@@ -69,5 +74,10 @@ class ProductsController < ApplicationController
   def product_params
     params.require(:product).permit(:name, :description, :business_id, :mass, :category, :url, :manufacturer,
                                     :manufacturer_country, :co2_produced, material_ids: [])
+  end
+
+  # List of params that can be used to filter products if specified
+  def filtering_params(params)
+    params.slice(:name, :similarity, :query)
   end
 end
