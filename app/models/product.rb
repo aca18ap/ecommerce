@@ -18,11 +18,10 @@
 #  business_id          :bigint
 #
 class Product < ApplicationRecord
-
   # Scopes defined to clean up controller
-  scope :filter_by_business, -> (business_id) { where business_id: business_id }
-  scope :filter_by_similarity, -> (name) { where("name like ?", "#{name}%")}
-  scope :filter_by_query, -> (name) { where("name like ?", "#{name}%")}
+  scope :filter_by_business, ->(business_id) { where business_id: business_id }
+  scope :filter_by_similarity, ->(name) { where('name like ?', "#{name}%") }
+  scope :filter_by_query, ->(name) { where('name like ?', "#{name}%") }
 
   validates :name, :category, :url, :manufacturer, :manufacturer_country, :mass, presence: true
   validates :url, uniqueness: true

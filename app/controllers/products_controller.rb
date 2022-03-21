@@ -7,7 +7,6 @@ class ProductsController < ApplicationController
   authorize_resource
   decorates_assigned :products, :product
 
-
   # GET /products
   def index
     @query = request.query_parameters

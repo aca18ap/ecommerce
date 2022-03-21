@@ -24,9 +24,9 @@ gem 'rails', '~> 6.1.4', '>= 6.1.4.7'
 gem 'responders'
 gem 'shakapacker'
 
+gem 'faker'
 gem 'gon'
 gem 'pg'
-gem 'faker'
 
 gem 'hamlit'
 gem 'hamlit-rails'

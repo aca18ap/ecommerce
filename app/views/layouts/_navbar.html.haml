@@ -27,11 +27,14 @@
         - if can?(:read, Business)
           %li
             = link_to 'Directory', businesses_path, class: 'nav-link px-2', title: 'Directory'
-      .px-5
-        = form_with url: products_path, method: :get do |form|
-          = form.text_field :query, placeholder: 'Search products'
-          %button{:type => "submit"}
+            
+      = form_with url: products_path, method: :get do |form|
+        .input-group.mx-5
+          .form-outline
+            = form.text_field :query, placeholder: 'Search products', class: 'form-control rounded'
+          %button{:type => "submit", :class => "btn btn-secondary"}
             %i.fa.fa-search
+
       .dropdown.text-end
         %a#dropdownUser1.d-block.custom-nav-fonts.text-decoration-none.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#"}
           -if customer_signed_in?
