@@ -1,5 +1,5 @@
 -# frozen_string_literal: true
-= simple_form_for(@product) do |f|
+= simple_form_for(@product)do |f|
   = f.error_notification
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
@@ -13,6 +13,30 @@
     = f.input :manufacturer
     = f.input :manufacturer_country
     = f.file_field :image
-    = f.collection_check_boxes(:material_ids, Material.all, :id, :name, {}, {:multiple => true, :id => 'material_select'})
+    %h3 Materials
+    #materials
+      = f.simple_fields_for :products_material do |products_material|
+        = render 'products_material_fields', :f => products_material
+      = link_to_add_association 'Add Material', f, :products_material
+
+    /- @product.materials.each do |m|
+    /  /= m.collection_select :material_ids, Material.all, :id, :name
+    /  = f.simple_fields_for :products_material_attributes do |b|
+    /    = render modal 'products_material_fields', :f => b
+    /    = link_to_add_association 'Add Material', f, :products_material
+
+
+
+    //%a#add_material.btn
+    //  %i.fa.fa-plus
+
+    
+        
+    // = f.collection_check_boxes(:material_ids, Material.all, :id, :name, {}, {:multiple => true, :id => 'material_select'}) do |builder|
+    //  .col-md-12
+    //    = builder.check_box
+    //   = builder.label
+    
+
   .form-actions
     = f.button :submit

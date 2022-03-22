@@ -9,5 +9,7 @@ import '../scripts/metrics';
 import './features';
 import './sharing';
 import './admin';
+import './new_product';
+import "@nathanvda/cocoon"
 
 Rails.start();
