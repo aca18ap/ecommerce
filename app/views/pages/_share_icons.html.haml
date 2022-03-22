@@ -1,15 +1,14 @@
 = stylesheet_link_tag 'features'
-
 #fb-root
-%script{:async => "", :crossorigin => "anonymous", :defer => "defer", :nonce => "04pcKjuC", :src => "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0"}
 
-.d-flex.justify-content-center
+.d-flex.justify-content-center.social_links
   %a.px-2.share#email{ :href => "mailto:" }
     %i.fa.fa-share-alt-square.fa-lg
   %br
-  %a.px-2.share.twitter-share-button#twitter{ :href => "https://twitter.com/intent/tweet?text=Unlimited%20shopping%20suggestions%20in%20all%20plans!!%20@ecommerce_team04" }
+  %a.px-2.share.twitter-share-button#twitter{}
     %i.fa.fa-twitter
   %br
-  .fb-share-button#facebook{"data-href" => "https://team04.demo1.genesys.shefcompsci.org.uk/#", "data-layout" => "button_count", "data-size" => "small"}
+  .fb-share-button.share#facebook{"data-href" => "https://team04.demo1.genesys.shefcompsci.org.uk/#", "data-layout" => "button_count", "data-size" => "small"}
     %a.px-2.share.fb-xfbml-parse-ignore{:href => "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fteam04.demo1.genesys.shefcompsci.org.uk%2F%23&src=sdkpreparse", :target => "_blank"}
       %i.fa.fa-facebook
+      
