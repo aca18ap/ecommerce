@@ -32,7 +32,11 @@
 #
 class Customer < ApplicationRecord
   validates :username, presence: true, uniqueness: true
+  has_many :purchase_history
+  has_many :products, through: :purchase_history
 
   devise :database_authenticatable, :registerable, :password_archivable, :recoverable,
          :rememberable, :secure_validatable, :lockable
+
+
 end
