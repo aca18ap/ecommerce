@@ -132,6 +132,7 @@ GEM
       xpath (~> 3.2)
     childprocess (4.1.0)
     chronic (0.10.2)
+    cocoon (1.2.15)
     concurrent-ruby (1.1.9)
     countries (4.2.2)
       i18n_data (~> 0.15.0)
@@ -462,6 +463,7 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rvm
   capybara
+  cocoon
   country_select
   daemons
   database_cleaner

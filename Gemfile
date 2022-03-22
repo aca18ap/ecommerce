@@ -25,6 +25,7 @@ gem 'responders'
 gem 'shakapacker'
 
 gem 'faker'
+gem "cocoon"
 gem 'gon'
 gem 'pg'
 
