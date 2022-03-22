@@ -176,6 +176,7 @@ ActiveRecord::Schema.define(version: 2022_03_25_135914) do
     t.bigint "material_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "percentage"
     t.index ["material_id"], name: "index_products_materials_on_material_id"
     t.index ["product_id"], name: "index_products_materials_on_product_id"
   end
