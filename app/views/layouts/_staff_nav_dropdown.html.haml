@@ -8,6 +8,9 @@
     = link_to 'Manage Materials', materials_path, class: 'dropdown-link', title: 'Manage materials'
 %li
   = link_to 'Manage Reviews', reviews_path, class: 'dropdown-link', title: 'Manage reviews'
+- if can?(:read, :metrics)
+  %li
+    = link_to 'View Metrics', metrics_path, class: 'dropdown-link', title: 'Site metrics'
 %hr.dropdown-divider
 %li
   = link_to 'Account Settings', staff_edit_path, :class => 'dropdown-link'

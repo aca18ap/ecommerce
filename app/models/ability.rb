@@ -24,10 +24,12 @@ class Ability
       can :create, Product
       can :read, Product
       can :read, Business
+      can :read, Faq
     when Customer
       can :create, Product
       can :read, Product
       can :read, Business
+      can :read, Faq
     else
       can :new, Review
       can :create, [Review, Faq, Newsletter]

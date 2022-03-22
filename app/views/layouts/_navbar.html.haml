@@ -6,21 +6,9 @@
       .nav.col-12.col-lg-auto.me-lg-auto.justify-content-center.my-auto.mx-5.custom-nav-fonts
         %li
           = link_to 'Home', root_path, title: 'Go to the home page', class: 'nav-link px-2 link-secondary'
-        - if can?(:read, :faqs)
+        - if can?(:read, Faq)
           %li
           = link_to 'FAQs', faqs_path, class: 'nav-link px-2', title: 'Frequently asked questions'
-        - if can?(:read, :metrics)
-          %li
-            = link_to 'Metrics', metrics_path, class: 'nav-link px-2', title: 'Site metrics'
-        -# - if can?(:manage, Review)
-        -# -#   %li
-        -#     = link_to 'Manage Reviews', reviews_path, class: 'nav-link px-2', title: 'Manage reviews'
-        -# - if can?(:manage, Staff)
-        -#   %li
-        -#     = link_to 'Manage Users', admin_users_path, class: 'nav-link px-2', title: 'Manage accounts'
-        -# - if can?(:manage, Material)
-          -# %li
-          -#   = link_to 'Manage Materials', materials_path, class: 'nav-link px-2', title: 'Manage materials'
         - if can?(:read, Product)
           %li
             = link_to 'Products', products_path, class: 'nav-link px-2', title: 'View products'
