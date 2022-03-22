@@ -33,6 +33,7 @@ gem 'hamlit-rails'
 
 gem 'draper'
 gem 'ransack'
+gem 'select2-rails'
 gem 'simple_form'
 
 gem 'bootstrap'

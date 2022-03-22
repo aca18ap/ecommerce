@@ -22,8 +22,7 @@ class Product < ApplicationRecord
   scope :filter_by_business_id, ->(business_id) { where business_id: business_id }
   scope :filter_by_similarity, ->(name) { where(name: name) }
   scope :filter_by_search_term, lambda { |name|
-                                  where('name like ?', "#{name}%")
-                                  where('manufacturer like ?', "#{name}%")
+                                  where('name like ? OR manufacturer like ?', "#{name}%", "#{name}%")
                                 }
 
   validates :name, :category, :url, :manufacturer, :manufacturer_country, :mass, presence: true
