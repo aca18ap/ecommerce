@@ -1,7 +1,15 @@
 %li
-  = link_to 'Profile', staff_show_path, :class => 'dropdown-link'
-  %li
-    = link_to 'Account Settings', staff_edit_path, :class => 'dropdown-link'
-    %hr.dropdown-divider
-  %li
-    = link_to 'Sign Out', destroy_staff_session_path, method: :delete, :class => "dropdown-link"
+  = link_to 'Staff Dashboard', staff_show_path, :class => 'dropdown-link'
+%hr.dropdown-divider
+%li
+  = link_to 'Manage Users', admin_users_path, class: 'dropdown-link', title: 'Manage accounts'
+- if can?(:manage, Material)
+  %li 
+    = link_to 'Manage Materials', materials_path, class: 'dropdown-link', title: 'Manage materials'
+%li
+  = link_to 'Manage Reviews', reviews_path, class: 'dropdown-link', title: 'Manage reviews'
+%hr.dropdown-divider
+%li
+  = link_to 'Account Settings', staff_edit_path, :class => 'dropdown-link'
+%li
+  = link_to 'Sign Out', destroy_staff_session_path, method: :delete, :class => "dropdown-link"

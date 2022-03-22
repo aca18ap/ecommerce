@@ -12,21 +12,21 @@
         - if can?(:read, :metrics)
           %li
             = link_to 'Metrics', metrics_path, class: 'nav-link px-2', title: 'Site metrics'
-        - if can?(:manage, Review)
-          %li
-            = link_to 'Manage Reviews', reviews_path, class: 'nav-link px-2', title: 'Manage reviews'
-        - if can?(:manage, Staff)
-          %li
-            = link_to 'Manage Users', admin_users_path, class: 'nav-link px-2', title: 'Manage accounts'
-        - if can?(:manage, Material)
-          %li
-            = link_to 'Manage Materials', materials_path, class: 'nav-link px-2', title: 'Manage materials'
+        -# - if can?(:manage, Review)
+        -# -#   %li
+        -#     = link_to 'Manage Reviews', reviews_path, class: 'nav-link px-2', title: 'Manage reviews'
+        -# - if can?(:manage, Staff)
+        -#   %li
+        -#     = link_to 'Manage Users', admin_users_path, class: 'nav-link px-2', title: 'Manage accounts'
+        -# - if can?(:manage, Material)
+          -# %li
+          -#   = link_to 'Manage Materials', materials_path, class: 'nav-link px-2', title: 'Manage materials'
         - if can?(:read, Product)
           %li
-            = link_to 'View Products', products_path, class: 'nav-link px-2', title: 'View products'
+            = link_to 'Products', products_path, class: 'nav-link px-2', title: 'View products'
         - if can?(:read, Business)
           %li
-            = link_to 'Directory', businesses_path, class: 'nav-link px-2', title: 'Directory'
+            = link_to 'Affiliates', businesses_path, class: 'nav-link px-2', title: 'Directory'
             
       = form_with url: products_path, method: :get do |form|
         .input-group.mx-5
