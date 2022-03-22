@@ -5,6 +5,7 @@
 # Table name: products_materials
 #
 #  id          :bigint           not null, primary key
+#  percentage  :float
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  material_id :bigint           not null
@@ -24,5 +25,6 @@ FactoryBot.define do
   factory :products_material do
     product { nil }
     material { nil }
+    percentage { nil }
   end
 end
