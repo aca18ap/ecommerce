@@ -34,14 +34,28 @@ class Product < ApplicationRecord
   before_update :calculate_co2
 
   has_one_attached :image, dependent: :destroy
-  has_many :products_material, dependent: :destroy
+
+  has_many :products_material, inverse_of: :product, dependent: :destroy
   has_many :materials, through: :products_material
   belongs_to :business, optional: true
 
+  accepts_nested_attributes_for :products_material, :allow_destroy => true
+
+
   # CO2 re-calculated every time it gets updated. To update to take country into account
   def calculate_co2
-    material_co2 = materials.map(&:kg_co2_per_kg).sum
-    self.co2_produced = (mass * material_co2).round(2)
+     
+    material_co2 = materials.map(&:kg_co2_per_kg)
+    material_percentages = products_material.map(&:percentage)
+    if material_co2.length() == material_percentages.length()
+      total_co2 = 0
+      len = material_co2.length()
+      (0..len - 1).each do |i|
+        material_mass = (mass/100) * material_percentages[i]
+        total_co2 += material_mass * material_co2[i]
+      end
+      self.co2_produced = total_co2
+    end
   end
 
   # Gets the 'created_at' time truncated to the nearest hour
