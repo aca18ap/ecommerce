@@ -26,7 +26,8 @@
         .alert.alert-secondary#notice= notice
       - if !alert.nil? then
         .alert.alert-secondary#notice= alert
-    = yield
+    .container-fluid.p-0.m-0
+      = yield
 
   = render partial: 'layouts/footer'
 

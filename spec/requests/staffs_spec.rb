@@ -33,6 +33,35 @@ RSpec.describe 'staff', type: :request do
     end
   end
 
+  describe 'PATCH /staff/:id/unlock' do
+    let!(:reporter) { Staff.create(email: 'new_business@team04.com', password: 'Password123', role: Staff.roles[:reporter]) }
+    before { login_as(FactoryBot.create(:admin), scope: :staff) }
+
+    before do
+      reporter.lock_access!
+      expect(reporter.access_locked?).to eq true
+    end
+
+    it 'unlocks the account specified' do
+      patch unlock_staff_path(reporter)
+      expect(reporter.reload.access_locked?).to eq false
+    end
+  end
+
+  describe 'PATCH /staff/:id/invite' do
+    let!(:reporter) { Staff.create(email: 'new_business@team04.com', password: 'Password123', role: Staff.roles[:reporter]) }
+    before { login_as(FactoryBot.create(:admin), scope: :staff) }
+
+    it 'resends the invite' do
+      expect(reporter.invitation_created_at).to eq nil
+      patch invite_staff_path(reporter)
+
+      # Round to nearest minute
+      created_at = reporter.reload.invitation_created_at.change({ sec: 0 })
+      expect(created_at).to eq Time.now.change({ sec: 0 })
+    end
+  end
+
   describe 'PUT /staff/:id' do
     let!(:reporter) { Staff.create(email: 'new_reporter@team04.com', password: 'Password123', role: 'reporter') }
 
@@ -58,6 +87,13 @@ RSpec.describe 'staff', type: :request do
 
       put staff_path(reporter)
       assert_response 302
+
+      reporter.lock_access!
+      patch unlock_staff_path(reporter)
+      expect(reporter.reload.access_locked?).to eq true
+
+      patch invite_staff_path(reporter)
+      expect(reporter.invitation_created_at).to eq nil
     end
 
     it 'does not let me access the routes if I am not logged in' do

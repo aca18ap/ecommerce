@@ -19,5 +19,15 @@ RSpec.describe ReviewDecorator do
         expect(review.truncated_description).to eq "#{'a' * 117}..."
       end
     end
+
+    context 'If a review description is nil or empty' do
+      it 'returns nothing' do
+        review.description = nil
+        expect(review.truncated_description).to eq nil
+
+        review.description = ''
+        expect(review.truncated_description).to eq nil
+      end
+    end
   end
 end

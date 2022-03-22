@@ -8,7 +8,7 @@
 
   %tbody
     - @customers.each do |customer|
-      %tr{id: "customer-#{customer.id}"}
+      %tr.align-middle{id: "customer-#{customer.id}"}
         %td= customer.email
         %td= customer.username
         %td= customer.unlock_button?

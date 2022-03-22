@@ -4,14 +4,16 @@
       %th Email
       %th Role
       %th Unlock
+      %th Invite
       %th Actions
 
   %tbody
     - @staff.each do |staff|
-      %tr{id: "staff-#{staff.id}"}
+      %tr.align-middle{id: "staff-#{staff.id}"}
         %td= staff.email
         %td= staff.role
         %td= staff.unlock_button?
+        %td= staff.invite_button?
         -if current_staff == staff
           %td
           %td

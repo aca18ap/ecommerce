@@ -3,7 +3,7 @@
 # Staff controller for managing staff only actions
 class StaffsController < ApplicationController
   before_action :authenticate_staff!
-  before_action :set_staff, only: %i[show edit update destroy unlock]
+  before_action :set_staff, only: %i[show edit update destroy unlock invite]
 
   # GET /staffs/1
   def show
@@ -37,9 +37,15 @@ class StaffsController < ApplicationController
     end
   end
 
-  # PATCH /businesses/1/unlock
+  # PATCH /staff/1/unlock
   def unlock
     @staff.unlock_access!
+    redirect_back fallback_location: root_path
+  end
+
+  # PATCH /staff/1/invite
+  def invite
+    @staff.invite!
     redirect_back fallback_location: root_path
   end
 

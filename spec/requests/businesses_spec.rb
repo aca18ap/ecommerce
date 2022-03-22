@@ -134,7 +134,6 @@ RSpec.describe 'Business', type: :request do
     end
 
     context 'If the current user is authenticated as admin' do
-      # authenticate_staff! not recognising staff account
       before { login_as(FactoryBot.create(:admin), scope: :staff) }
 
       it 'unlocks the account specified' do
@@ -147,6 +146,31 @@ RSpec.describe 'Business', type: :request do
       it 'does not unlock the account specified' do
         patch unlock_business_path(business)
         expect(business.reload.access_locked?).to eq true
+      end
+    end
+  end
+
+  describe 'PATCH /business/:id/invite' do
+    let!(:business) { Business.create(email: 'new_business@team04.com', password: 'Password123', name: 'A Business') }
+
+    context 'If the current user is authenticated as admin' do
+      before { login_as(FactoryBot.create(:admin), scope: :staff) }
+
+      it 'resends the invite' do
+        expect(business.invitation_created_at).to eq nil
+        patch invite_business_path(business)
+
+        # Round to nearest minute
+        created_at = business.reload.invitation_created_at.change({ sec: 0 })
+        expect(created_at).to eq Time.now.change({ sec: 0 })
+      end
+    end
+
+    context 'If the current user is not authenticated as admin' do
+      it 'does not resend the invite' do
+        expect(business.invitation_created_at).to eq nil
+        patch invite_business_path(business)
+        expect(business.invitation_created_at).to eq nil
       end
     end
   end
