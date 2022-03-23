@@ -144,10 +144,15 @@ Capybara.register_driver :headless_chrome do |app|
   chrome_options.add_argument('--window-size=1920,1080')
 
   Capybara::Selenium::Driver.new app, browser: :chrome, options: chrome_options
+  
 end
 Capybara.javascript_driver = :headless_chrome
 
 Capybara.asset_host = 'http://localhost:3000'
+
+# Fix to make rspec error disappear based on SO response
+# Accessible at: https://stackoverflow.com/questions/69851082
+Selenium::WebDriver.logger.ignore(:browser_options)
 
 # Make capybara try and click a radio's label if it can't click the radio itself.
 # This takes care of custom radios where the radio itself is not actually visible.
