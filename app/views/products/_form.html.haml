@@ -1,6 +1,5 @@
 -# frozen_string_literal: true
-
-= simple_form_for(@product)do |f|
+= simple_form_for(@product) do |f|
   = f.error_notification
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
@@ -14,6 +13,8 @@
     = f.input :manufacturer
     = f.input :manufacturer_country
     = f.file_field :image
+    - if current_customer
+      = f.input :customer_purchased, label: 'I have purchased this product', as: :boolean, input_html: { checked: false }
 
 
   .d-flex.align-items-center.materials-section
@@ -25,11 +26,11 @@
         = link_to_add_association 'Add Material', f, :products_material
     .flex-fill
       .div
-        %h4 Your materials should add up to 100%, missing: 
+        %h4 Your materials should add up to 100%, missing:
         %h3#sum 0
 
 
   %br
   .form-actions
     .btn= f.button :submit
- 
+

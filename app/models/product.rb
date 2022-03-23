@@ -38,9 +38,11 @@ class Product < ApplicationRecord
 
   has_many :products_material, inverse_of: :product, dependent: :destroy
   has_many :materials, through: :products_material
+
+  has_many :purchase_histories
+  has_many :customers, through: :purchase_histories
+
   belongs_to :business, optional: true
-  has_many :purchase_history
-  has_many :customers, through: :purchase_history
 
   accepts_nested_attributes_for :products_material, allow_destroy: true
 
