@@ -24,5 +24,12 @@
 class ProductsMaterial < ApplicationRecord
   belongs_to :product
   belongs_to :material
+  after_save :co2
+
+
+  def co2
+    p = Product.find(product_id)
+    p.calculate_co2
+  end
 
 end
