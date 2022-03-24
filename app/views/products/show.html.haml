@@ -4,39 +4,39 @@
 
   %p
     %b Name:
-    = @product.name
+    = product.name
   %p
     %b Vendor:
-    = @product.business_name
+    = product.business_name
   %p
     %b Description:
-    = @product.description
+    = product.description
   %p
     %b Mass:
-    = @product.mass
+    = product.mass
   %p
     %b Type:
-    = @product.category
+    = product.category
   %p
     %b Url:
-    = @product.url
+    = product.url
   %p
     %b Manufacturer:
-    = @product.manufacturer
+    = product.manufacturer
   %p
     %b Manufacturer country:
-    = @product.manufacturer_country
+    = product.manufacturer_country
   %p
     %b Co2 produced:
-    = @product.co2_produced
+    = product.co2_produced
   %p
     %b Materials:
-    - @product.materials.each do |m|
+    - product.materials.each do |m|
       = m.name
       
 
 
   - if can?(:edit, Product)
-    = link_to 'Edit', edit_product_path(@product)
+    = link_to 'Edit', edit_product_path(product)
     \|
   = link_to 'Back', :back

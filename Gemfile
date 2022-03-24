@@ -24,6 +24,7 @@ gem 'rails', '~> 6.1.4', '>= 6.1.4.7'
 gem 'responders'
 gem 'shakapacker'
 
+gem 'faker'
 gem 'gon'
 gem 'pg'
 
@@ -32,6 +33,7 @@ gem 'hamlit-rails'
 
 gem 'draper'
 gem 'ransack'
+gem 'select2-rails'
 gem 'simple_form'
 
 gem 'bootstrap'
@@ -49,6 +51,7 @@ gem 'devise'
 gem 'devise_cas_authenticatable'
 gem 'devise_invitable', '~> 2.0.0'
 gem 'devise_ldap_authenticatable'
+gem 'orderly'
 
 gem 'daemons'
 gem 'delayed_job'

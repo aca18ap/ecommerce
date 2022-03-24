@@ -1,6 +1,28 @@
 .container-fluid.pad-edge
-  %h1.pt-5 Listing products
+  %h1.pt-5
+    - if not params[:search_term].blank? 
+      Listing products related to 
+      = "'" + params["search_term"] + "'"
+      -# = link_to 'Reset', products_path, class: 'col-form-label px-2'
+    - else 
+      Product Archive
 
+  .d-flex.flex-row.pb-3
+    .me-auto.my-auto
+      %h2.my-auto
+        = page_entries_info products, :model => 'product'
+
+    - if products.size > 0
+      = form_with url: products_path, method: :get do |form|
+        .input-group
+          = form.label 'Sort by', class: 'col-form-label px-2'
+          = form.select :sort_by, Product.attribute_names, :selected => params[:sort_by]
+          = form.select :order_by, ['descending', 'ascending'], :selected => params[:order_by]
+          = form.hidden_field :search_term, value: params[:search_term]
+          %button{:type => "submit", :class => "btn btn-primary"}
+            Apply
+
+  -# - if products.size > 0
   %table.table
     %thead
       %tr
@@ -19,7 +41,7 @@
         %th
 
     %tbody
-      - @products.each do |product|
+      - products.each do |product| 
         %tr
           %td= product.name
           %td= product.description
@@ -30,9 +52,10 @@
           %td= product.manufacturer
           %td= product.manufacturer_country
           %td= product.co2_produced
-          - product.materials.each do |material|
-            %td= material.name
-            //%td= material[1]
+          %td
+            - product.materials.each do |material|
+              %br= material.name
+              //%td= material[1]
           %td= link_to 'Show', product
           - if can?(:edit, Product)
             %td= link_to 'Edit', edit_product_path(product)
@@ -40,6 +63,10 @@
             %td= link_to 'Destroy', product, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
   %br
+
+  .justify-content-center.pagination
+    = will_paginate(products, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer)
+
 
   - if can?(:new, Product)
     = link_to 'New Product', new_product_path

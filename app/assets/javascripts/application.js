@@ -16,3 +16,4 @@
 //= require ../../javascript/packs/features
 //= require topojson
 //= require_tree
+//= require select2

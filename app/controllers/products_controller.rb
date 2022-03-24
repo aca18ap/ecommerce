@@ -5,10 +5,16 @@ class ProductsController < ApplicationController
   before_action :set_product, only: %i[show edit update destroy]
   before_action :authenticate_staff!, except: %i[show index new create]
   authorize_resource
+  decorates_assigned :products, :product
 
   # GET /products
   def index
-    @products = Product.order('created_at DESC').all.decorate
+    @products = Product.where(nil)
+    filtering_params(params).each do |key, value|
+      @products = @products.public_send("filter_by_#{key}", value) if value.present?
+    end
+    @products = @products.paginate(page: params[:page], per_page: 10).order(params['sort_by'])
+    @products = @products.reverse_order if params['order_by'] == 'descending'
   end
 
   # GET /products/1
@@ -69,5 +75,10 @@ class ProductsController < ApplicationController
   def product_params
     params.require(:product).permit(:name, :description, :business_id, :mass, :category, :url, :manufacturer,
                                     :manufacturer_country, :co2_produced, material_ids: [])
+  end
+
+  # List of params that can be used to filter products if specified
+  def filtering_params(params)
+    params.slice(:name, :similarity, :search_term, :business_id)
   end
 end

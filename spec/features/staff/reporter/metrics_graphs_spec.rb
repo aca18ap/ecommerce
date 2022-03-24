@@ -100,7 +100,8 @@ describe 'Metrics management', js: true do
   context 'Security' do
     specify 'If I am not logged in, I cannot view metrics' do
       visit '/metrics'
-      within(:css, '.nav') { expect(page).not_to have_content 'Metrics' }
+      click_on(class: 'dropdown-toggle')
+      within(:css, '.dropdown-menu') { expect(page).not_to have_content 'View Metrics' }
       expect(page).not_to have_content 'Metrics Summary'
       expect(page).to have_current_path new_staff_session_path
     end
@@ -109,7 +110,8 @@ describe 'Metrics management', js: true do
       before { login_as(FactoryBot.create(:admin), scope: :staff) }
       specify 'I can view metrics' do
         visit '/metrics'
-        within(:css, '.nav') { expect(page).to have_content 'Metrics' }
+        click_on(class: 'dropdown-toggle')
+        within(:css, '.dropdown-menu') { expect(page).to have_text 'View Metrics' }
         expect(page).to have_content 'Metrics Summary'
       end
     end
@@ -118,7 +120,8 @@ describe 'Metrics management', js: true do
       before { login_as(FactoryBot.create(:reporter), scope: :staff) }
       specify 'I can view metrics' do
         visit '/metrics'
-        within(:css, '.nav') { expect(page).to have_content 'Metrics' }
+        click_on(class: 'dropdown-toggle')
+        within(:css, '.dropdown-menu') { expect(page).to have_content 'View Metrics' }
         expect(page).to have_content 'Metrics Summary'
       end
     end
@@ -127,7 +130,8 @@ describe 'Metrics management', js: true do
       before { login_as(FactoryBot.create(:customer), scope: :customer) }
       specify ', I cannot view metrics' do
         visit '/metrics'
-        within(:css, '.nav') { expect(page).not_to have_content 'Metrics' }
+        click_on(class: 'dropdown-toggle')
+        within(:css, '.dropdown-menu') { expect(page).not_to have_content 'View Metrics' }
         expect(page).not_to have_content 'Metrics Summary'
       end
     end
