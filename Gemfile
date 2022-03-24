@@ -51,6 +51,7 @@ gem 'devise'
 gem 'devise_cas_authenticatable'
 gem 'devise_invitable', '~> 2.0.0'
 gem 'devise_ldap_authenticatable'
+gem 'orderly'
 
 gem 'daemons'
 gem 'delayed_job'

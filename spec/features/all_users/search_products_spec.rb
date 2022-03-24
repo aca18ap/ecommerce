@@ -3,10 +3,9 @@
 require 'rails_helper'
 
 describe 'Search Products' do
-  context 'As an unregistered user' do
+  context 'As an unregistered OR registered user' do
     let!(:product) { FactoryBot.create(:product) }
-    # let!(:customer) { FactoryBot.create(:customer) }
-    # before { login_as(customer) }
+
     specify 'I can view products related to an entered search term' do
       visit '/'
       fill_in 'search_term', with: 'TestName'
@@ -22,54 +21,46 @@ describe 'Search Products' do
     end
 
     specify 'I can sort search results by ascending order' do
-      skip 'Not implemented yet'
+      skip 'Generate required test data with Factorybot'
+      # visit '/'
+      # fill_in 'search_term', with: 'Test'
+      # click_button
+      # select 'name', from: 'sort_by'
+      # select 'ascending', from: 'order_by'
+      # click_button
+      # expect('ProductA').to appear_before('ProductB')
     end
 
     specify 'I can sort search results by descending order' do
-      skip 'Not implemented yet'
+      skip 'Generate required test data with Factorybot'
+      # visit '/'
+      # fill_in 'search_term', with: 'Test'
+      # click_button
+      # select 'name', from: 'sort_by'
+      # select 'descending', from: 'order_by'
+      # click_button
+      # expect('ProductB').to appear_before('ProductA')
     end
 
-    specify 'I cannot perform an injection attack' do
-      skip 'Not implemented yet'
+    specify 'I cannot perform an XSS injection attack' do
+      visit '/'
+      fill_in 'search_term', with: '
+        <script>
+          $(function() {
+            window.location.replace("http://api.rubyonrails.org/classes/ActionView/Helpers/SanitizeHelper.html");
+          });
+        </script>'
+      click_button
+      sleep(2)
+      expect(current_url).not_to eq 'http://api.rubyonrails.org/classes/ActionView/Helpers/SanitizeHelper.html'
+      expect(page).to have_content 'No products found'
     end
 
-    specify 'I cannot perform an XSS attack' do
-      skip 'Not implemented yet'
+    specify 'I cannot perform an SQL injection attack' do
+      visit '/'
+      fill_in 'search_term', with: "TestName') OR 'SQLTest'--"
+      click_button
+      expect(page).to have_content "'TestName') OR 'SQLTest'--"
     end
   end
 end
-
-
-  # context 'As a visitor' do
-  #   let!(:product) { FactoryBot.create(:product) }
-  #   specify 'I can view products' do
-  #     visit '/products'
-  #     expect(page).to have_content('TestName')
-  #   end
-
-  #   specify 'I cannot add new products unless I register' do
-  #     visit '/products/new'
-  #     expect(page).to have_content('Access Denied 403')
-  #   end
-  # end
-
-  # context 'As an admin' do
-  #   let!(:product) { FactoryBot.create(:product) }
-  #   before { login_as(FactoryBot.create(:admin), scope: :staff) }
-  #   specify 'I can edit a product' do
-  #     visit '/products'
-  #     click_link 'Edit'
-  #     expect(page).to have_content 'Editing product'
-  #     fill_in 'product[name]', with: 'UpdatedTestName'
-  #     select 'Italy', from: 'Manufacturer country' # #factory bot not setting country correctly and makes test fail
-  #     click_button 'Update Product'
-  #     expect(page).to have_content 'Product was successfully updated.'
-  #   end
-  #   specify 'I can delete a product', js: true do
-  #     visit '/products'
-  #     accept_alert do
-  #       click_link 'Destroy'
-  #     end
-  #     expect(page).not_to have_content 'TestName'
-  #   end
-  # end
