@@ -464,7 +464,8 @@ DEPENDENCIES
   capistrano-rvm
   capybara
   cocoon
-  country_select
+  countries
+  country_select (~> 6.0)
   daemons
   database_cleaner
   delayed_job

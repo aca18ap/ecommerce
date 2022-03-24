@@ -18,6 +18,9 @@
 #  updated_at           :datetime         not null
 #  business_id          :bigint
 #
+
+require 'csv'
+
 class Product < ApplicationRecord
   # Scopes defined to clean up controller
   scope :filter_by_business_id, ->(business_id) { where business_id: business_id }
@@ -41,38 +44,42 @@ class Product < ApplicationRecord
 
   accepts_nested_attributes_for :products_material, :allow_destroy => true
 
-  AIR = 0.570 # kgCO2/km/tonne
   SHIP = 0.014 # kgCO2/km/tonne
   SEA_PERC = 0.92 # % of the way by sea
-  AIR_PERC = 0.8 # % of the way by air
 
   # CO2 re-calculated every time it gets updated. To update to take country into account
   def calculate_co2
-    puts "Calculating CO2"
     material_co2 = materials.map(&:kg_co2_per_kg)
     material_percentages = products_material.map(&:percentage)
+
     if material_co2.length == material_percentages.length
       total_co2 = 0
       len = material_co2.length
-      puts "Materials n: " + len.to_s
       (0..len - 1).each do |i|
         material_mass = (mass/100) * material_percentages[i]
         total_co2 += material_mass * material_co2[i]
       end
+
       shipping_co2 = co2_factor * mass # co2 produced from shipping
-      shipping_co2 ||= 0
+      if shipping_co2.nan?; shipping_co2 = 0 end
+      puts "co2 factor" + shipping_co2.to_s
+
+
       self.co2_produced = total_co2 + shipping_co2 # estimated
       self.save
-      puts "Total CO2 produced " + co2_produced.to_s
 
     end
   end
 
   def co2_factor
-    here = Geocoder.coordinates(", , United Kingdom")
-    there = Geocoder.coordinates(", , #{self.manufacturer_country}")
-    distance = Geocoder::Calculations.distance_between(here, there)
-    co2_factor = ((distance * SEA_PERC) * SHIP) + ((distance * AIR_PERC) * AIR) # kgCO2/tonne
+    here = ISO3166::Country.new('GB').alpha3
+    there = ISO3166::Country.new(manufacturer_country).alpha3
+
+    csv = ::CSV.read('lib/datasets/CERDI-seadistance.csv', headers: true)
+    row = csv.find { | r | (r['iso1'] == here) && (r['iso2'] == there) }
+    if row.nil?; distance = 0; else distance = row['seadistance'] end
+
+    co2_factor = distance.to_f * 1.852 * SHIP
     return (co2_factor / 1000) # per tonne -> per kg
   end
 

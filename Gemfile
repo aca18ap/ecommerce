@@ -25,7 +25,6 @@ gem 'responders'
 gem 'shakapacker'
 
 gem 'faker'
-gem "cocoon"
 gem 'gon'
 gem 'pg'
 
@@ -38,6 +37,7 @@ gem 'select2-rails'
 gem 'simple_form'
 
 gem 'bootstrap'
+gem "cocoon"
 gem 'font-awesome-rails'
 gem 'font-awesome-sass'
 gem 'sassc'
@@ -47,7 +47,8 @@ gem 'bootstrap-will_paginate'
 gem 'will_paginate'
 
 gem 'cancancan'
-gem 'country_select'
+gem 'countries', require: 'countries/global'
+gem 'country_select', '~> 6.0'
 gem 'devise'
 gem 'devise_cas_authenticatable'
 gem 'devise_invitable', '~> 2.0.0'
