@@ -4,7 +4,7 @@
 class CustomersController < ApplicationController
   before_action :authenticate_staff!, only: :unlock
   before_action :authenticate_customer!, except: :unlock
-  before_action :set_customer, only: %i[show edit update destroy unlock]
+  before_action :set_customer, except: %i[create new]
 
   def create; end
 
@@ -12,6 +12,8 @@ class CustomersController < ApplicationController
 
   # GET /customer/1
   def show
+    # Sets customer if using authenticated customer root
+    @customer = current_customer if @customer.nil?
     redirect_back fallback_location: '/' unless customer_signed_in?
   end
 

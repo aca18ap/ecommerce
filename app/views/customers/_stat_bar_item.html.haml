@@ -1,0 +1,11 @@
+.container.d-inline-block{ style: 'width: 20%;' }
+  .container.d-inline-block.text-center
+    %h2.d-inline-block.align-middle= stat_text
+    - if valence == 'good'
+      %i.d-inline-block.fa.fa-caret-up.fa-lg.p-lg-2{ style: 'color: green;' }
+    - elsif valence == 'average'
+      %i.d-inline-block.fa.fa-minus.fa-lg.p-lg-2{ style: 'color: #ffcc00;' }
+    - else
+      %i.d-inline-block.fa.fa-caret-down.fa-lg.p-lg-2{ style: 'color: red;' }
+  .container.text-center
+    = description

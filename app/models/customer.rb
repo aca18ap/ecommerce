@@ -37,6 +37,4 @@ class Customer < ApplicationRecord
 
   devise :database_authenticatable, :registerable, :password_archivable, :recoverable,
          :rememberable, :secure_validatable, :lockable
-
-
 end

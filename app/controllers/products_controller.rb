@@ -44,6 +44,7 @@ class ProductsController < ApplicationController
                end
 
     if @product.save
+      # Add product to customer purchase history
       @product.customers << current_customer if current_customer && product_params[:customer_purchased]
       @product.image.attach(params[:product][:image])
       redirect_to @product, notice: 'Product was successfully created.'
