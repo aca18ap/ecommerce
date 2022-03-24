@@ -19,4 +19,20 @@ RSpec.describe CustomerDecorator do
       end
     end
   end
+
+  describe '.mean_co2_per_purchase' do
+    let!(:product) { FactoryBot.create(:product, co2_produced: 2.44) }
+
+    it 'returns "N/A" if a customer has no products in their purchase history' do
+      expect(customer.mean_co2_per_purchase).to be 'N/A'
+    end
+
+    it 'returns the mean CO2, rounded to one decimal place if there are purchases in their history' do
+      customer.products << product
+      customer.products << product
+
+      expected_mean = product.co2_produced.round(1)
+      expect(customer.mean_co2_per_purchase).to be expected_mean
+    end
+  end
 end

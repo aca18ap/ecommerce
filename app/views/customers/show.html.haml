@@ -3,10 +3,10 @@
 
 .container-fluid.p-0.m-0
   .row.mx-5.my-3.px-lg-5.align-content-around.border-top.border-bottom
-    = render 'stat_bar_item', stat_text: '2Kg', valence: 'good', description: 'Avg. CO<sub>2</sub> Per Purchase'.html_safe
-    = render 'stat_bar_item', stat_text: '200Kg', valence: 'average', description: 'Total CO<sub>2</sub> Produced'.html_safe
-    = render 'stat_bar_item', stat_text: '176Kg', valence: 'bad', description: 'Total CO<sub>2</sub> Produced'.html_safe
-    = render 'stat_bar_item', stat_text: '1.1Kg', valence: 'average', description: 'Total CO<sub>2</sub> Produced'.html_safe
+    = render 'stat_bar_item', stat_text: "#{@customer.mean_co2_per_purchase}Kg", valence: 'good', description: 'Avg. CO<sub>2</sub> Per Purchase'.html_safe
+    = render 'stat_bar_item', stat_text: "#{@customer.total_co2_produced}Kg", valence: 'average', description: 'Total CO<sub>2</sub> Produced'.html_safe
+    = render 'stat_bar_item', stat_text: "#{@customer.co2_saved}Kg", valence: 'bad', description: 'CO<sub>2</sub> Saved'.html_safe
+    = render 'stat_bar_item', stat_text: "#{@customer.mean_co2_per_pound}Kg", valence: 'average', description: 'CO<sub>2</sub> Per £'.html_safe
     = render 'stat_bar_item', stat_text: @customer.products.size, valence: 'good', description: 'Total Purchases Logged'.html_safe
 
   .row.mx-5.text-center
@@ -24,25 +24,32 @@
           = link_to 'CO<sub>2</sub> Saved'.html_safe, '#co2-saved-tab', { 'data-toggle': 'tab', class: 'btn', id: 'open-co2-saved-tab' }
         %li
           = link_to 'CO<sub>2</sub> Per £'.html_safe, '#co2-pound-tab', { 'data-toggle': 'tab', class: 'btn', id: 'open-co2-pound-tab' }
+        %li
+          = link_to 'Products Added', '#products-added-tab', { 'data-toggle': 'tab', class: 'btn', id: 'open-products-added-tab' }
 
       .container-fluid.tab-content
         .container-fluid.tab-pane.active#co2-purchase-tab
           %h2.d-inline= 'CO<sub>2</sub> Per Purchase'.html_safe
-          %p Coming soon
+          %svg#co2-purchased-graph.d-block.m-auto
 
         .container-fluid.tab-pane.mb-2#total-co2-tab
           %h2.d-inline= 'Total CO<sub>2</sub>'.html_safe
-          %p Coming soon
+          %svg#total-co2-graph.d-block.m-auto
 
         .container-fluid.tab-pane#co2-saved-tab
           %h2.d-inline= 'CO<sub>2</sub> Saved'.html_safe
-          %p Coming soon
+          %svg#co2-saved-graph.d-block.m-auto
 
         .container-fluid.tab-pane#co2-pound-tab
           %h2.d-inline= 'CO<sub>2</sub> Per £'.html_safe
-          %p Coming soon
+          %svg#co2-pound-graph.d-block.m-auto
+
+        .container-fluid.tab-pane#products-added-tab
+          %h2.d-inline= 'Products Added'
+          %svg#products-added-graph.d-block.m-auto
 
     .col-xl-5
       %h2.d-inline= 'Recent Purchases'.html_safe
-      - @customer.products.each do |product|
-        %p= product.name
+      .container.p-0.m-0.h-100
+        - @customer.products.each do |product|
+          %p= product.name

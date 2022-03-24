@@ -14,6 +14,7 @@ class CustomersController < ApplicationController
   def show
     # Sets customer if using authenticated customer root
     @customer = current_customer if @customer.nil?
+    @customer = @customer.decorate
     redirect_back fallback_location: '/' unless customer_signed_in?
   end
 
