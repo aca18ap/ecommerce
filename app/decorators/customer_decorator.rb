@@ -30,7 +30,7 @@ class CustomerDecorator < Draper::Decorator
     'N/A'
   end
 
-  def mean_co2_per_pound
+  def co2_per_pound
     return 'N/A' if products.size.zero?
 
     'N/A'

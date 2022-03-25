@@ -1,11 +1,11 @@
-.container.d-inline-block{ style: 'width: 20%;' }
+.container{ style: 'width: 20%;' }
   .container.d-inline-block.text-center
     %h2.d-inline-block.align-middle= stat_text
     - if valence == 'good'
-      %i.d-inline-block.fa.fa-caret-up.fa-lg.p-lg-2{ style: 'color: green;' }
+      %i.d-inline-block.fa.fa-caret-up.fa-lg.p-lg-2{ style: 'color: green;', title: "You're above the site average!" }
     - elsif valence == 'average'
-      %i.d-inline-block.fa.fa-minus.fa-lg.p-lg-2{ style: 'color: #ffcc00;' }
+      %i.d-inline-block.fa.fa-minus.fa-lg.p-lg-2{ style: 'color: #ffcc00;', title: "You're about achieving the site average" }
     - else
-      %i.d-inline-block.fa.fa-caret-down.fa-lg.p-lg-2{ style: 'color: red;' }
+      %i.d-inline-block.fa.fa-caret-down.fa-lg.p-lg-2{ style: 'color: red;', title: "You're below site average" }
   .container.text-center
     = description

@@ -6,7 +6,7 @@
     = render 'stat_bar_item', stat_text: "#{@customer.mean_co2_per_purchase}Kg", valence: 'good', description: 'Avg. CO<sub>2</sub> Per Purchase'.html_safe
     = render 'stat_bar_item', stat_text: "#{@customer.total_co2_produced}Kg", valence: 'average', description: 'Total CO<sub>2</sub> Produced'.html_safe
     = render 'stat_bar_item', stat_text: "#{@customer.co2_saved}Kg", valence: 'bad', description: 'CO<sub>2</sub> Saved'.html_safe
-    = render 'stat_bar_item', stat_text: "#{@customer.mean_co2_per_pound}Kg", valence: 'average', description: 'CO<sub>2</sub> Per £'.html_safe
+    = render 'stat_bar_item', stat_text: "#{@customer.co2_per_pound}Kg", valence: 'average', description: 'CO<sub>2</sub> Per £'.html_safe
     = render 'stat_bar_item', stat_text: @customer.products.size, valence: 'good', description: 'Total Purchases Logged'.html_safe
 
   .row.mx-5.text-center
@@ -49,7 +49,6 @@
           %svg#products-added-graph.d-block.m-auto
 
     .col-xl-5
-      %h2.d-inline= 'Recent Purchases'.html_safe
-      .container.p-0.m-0.h-100
-        - @customer.products.each do |product|
-          %p= product.name
+      %h2.py-2= 'Recent Purchases'.html_safe
+      .container.px-0.mx-0.h-100.overflow-scroll
+        = render partial: 'product', collection: @customer.products
