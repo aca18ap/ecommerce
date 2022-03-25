@@ -26,6 +26,7 @@
   %table.table
     %thead
       %tr
+        %th
         %th Name
         %th Description
         %th Vendor
@@ -43,6 +44,11 @@
     %tbody
       - products.each do |product| 
         %tr
+          -# Image functionality should be moved to decorator when we make the partial
+          - if product.image.attached?
+            %td= image_tag(product.image.variant(resize: '100x100'))
+          - else
+            %td
           %td= product.name
           %td= product.description
           %td= product.business_name
@@ -55,7 +61,6 @@
           %td
             - product.materials.each do |material|
               %br= material.name
-              //%td= material[1]
           %td= link_to 'Show', product
           - if can?(:edit, Product)
             %td= link_to 'Edit', edit_product_path(product)

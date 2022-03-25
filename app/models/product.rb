@@ -33,6 +33,8 @@ class Product < ApplicationRecord
   has_many :materials, through: :products_material
   belongs_to :business, optional: true
 
+  has_one_attached :image, dependent: :destroy
+
   # CO2 re-calculated every time it gets updated. To update to take country into account
   def calculate_co2
     material_co2 = materials.map(&:kg_co2_per_kg).sum
