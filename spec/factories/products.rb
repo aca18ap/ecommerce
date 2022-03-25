@@ -23,7 +23,7 @@ FactoryBot.define do
     description { 'A piece of clothing' }
     mass { '14' }
     category { 'Trousers' }
-    url { 'clothes.com' }
+    url { 'https://clothes.com' }
     manufacturer { 'Me' }
     manufacturer_country { 'Italy' }
     after(:create) do |product|

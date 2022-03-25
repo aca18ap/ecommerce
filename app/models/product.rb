@@ -26,14 +26,15 @@ class Product < ApplicationRecord
                                 }
 
   validates :name, :category, :url, :manufacturer, :manufacturer_country, :mass, presence: true
-  validates :url, uniqueness: true
+  validates :url, uniqueness: true, format: { with: URI::DEFAULT_PARSER.make_regexp }
+  validates :mass, numericality: { greater_than: 0 }
+
   before_update :calculate_co2
 
+  has_one_attached :image, dependent: :destroy
   has_many :products_material, dependent: :destroy
   has_many :materials, through: :products_material
   belongs_to :business, optional: true
-
-  has_one_attached :image, dependent: :destroy
 
   # CO2 re-calculated every time it gets updated. To update to take country into account
   def calculate_co2
