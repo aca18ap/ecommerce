@@ -12,6 +12,7 @@
 #  manufacturer_country :string
 #  mass                 :float
 #  name                 :string
+#  price                :float
 #  url                  :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
@@ -21,7 +22,10 @@ require 'rails_helper'
 
 RSpec.describe Product, type: :model do
   let!(:material) { FactoryBot.create(:material, name: 'material', kg_co2_per_kg: 4) }
-  let!(:product) { FactoryBot.create(:product, name: 'Product', category: 'Category', manufacturer: 'Me', mass: '10', url: 'http://test.com', manufacturer_country: 'Country') }
+  let!(:product) do
+    FactoryBot.create(:product, name: 'Product', category: 'Category',
+                                manufacturer: 'Me', mass: 10, price: 10.1, url: 'https://test.com', manufacturer_country: 'Country')
+  end
   let!(:products_material) { FactoryBot.create(:products_material, product: product, material: material) }
 
   describe 'Validates' do

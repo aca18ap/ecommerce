@@ -17,8 +17,8 @@ require 'rails_helper'
 RSpec.describe '/products', type: :request do
   # Product. As you add validations to Product, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { name: 'Product', category: 'Category', manufacturer: 'rht', mass: '45', url: 'https://test.com', manufacturer_country: 'Country' } }
-  let(:invalid_attributes) { { name: 'Product', category: 'Category', manufacturer: '', mass: '', url: '', manufacturer_country: 'Country' } }
+  let(:valid_attributes) { { name: 'Product', category: 'Category', manufacturer: 'rht', mass: '45', price: 10.1, url: 'https://test.com', manufacturer_country: 'Country' } }
+  let(:invalid_attributes) { { name: 'Product', category: 'Category', manufacturer: '', mass: '', price: 10.1, url: '', manufacturer_country: 'Country' } }
   before { login_as(FactoryBot.create(:admin), scope: :staff) }
 
   describe 'GET /index' do

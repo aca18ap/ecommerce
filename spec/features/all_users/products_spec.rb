@@ -11,6 +11,7 @@ describe 'Products' do
       fill_in 'product[name]', with: 'AirForceOne'
       fill_in 'product[category]', with: 'Vietnam'
       fill_in 'product[mass]', with: '2'
+      fill_in 'product[price]', with: '10.1'
       fill_in 'product[url]', with: 'https://nike.com'
       fill_in 'product[manufacturer]', with: 'nike'
       select 'Vietnam', from: 'Manufacturer country'
