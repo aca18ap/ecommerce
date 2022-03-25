@@ -1,6 +1,6 @@
 = simple_form_for @business, url: admin_business_path do |f|
   .modal-header
-    %h4.modal-title Editing Business
+    %h2= "Editing #{@business.name}"
     = link_to 'Back', admin_users_path
   .modal-body
     .card-body
