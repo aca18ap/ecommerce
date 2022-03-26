@@ -30,6 +30,7 @@ class ProductsMaterial < ApplicationRecord
   def co2
     p = Product.find(product_id)
     p.calculate_co2
+    p.save
   end
 
 end

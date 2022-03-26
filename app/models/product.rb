@@ -44,7 +44,7 @@ class Product < ApplicationRecord
 
   accepts_nested_attributes_for :products_material, :allow_destroy => true
 
-  SHIP = 0.014 # kgCO2/km/tonne
+  SHIP = 0.014 # kgCO2/km/tonne https://www.infona.pl/resource/bwmeta1.element.baztech-article-BPW7-0024-0009/content/partContents/19bf1b47-846d-3a55-a64e-4d11b6441dc2
   SEA_PERC = 0.92 # % of the way by sea
 
   # CO2 re-calculated every time it gets updated. To update to take country into account
@@ -66,7 +66,6 @@ class Product < ApplicationRecord
 
 
       self.co2_produced = total_co2 + shipping_co2 # estimated
-      self.save
 
     end
   end
@@ -83,7 +82,7 @@ class Product < ApplicationRecord
     return (co2_factor / 1000) # per tonne -> per kg
   end
 
-  def valid_material_percentages?
+  def valid_material_percentages
     if products_material.map(&:percentage).sum != 100
       errors.add(:products_material, 'Materials not totalling 100%') 
     end
