@@ -12,21 +12,24 @@
     = f.input :category
     = f.input :url
     = f.input :manufacturer
-<<<<<<< HEAD
     = f.input :manufacturer_country
     = f.file_field :image
-=======
-    = f.input :manufacturer_country  
 
->>>>>>> factoring in country when calculating co2
-    %h3 Materials
-    #materials
-      = f.simple_fields_for :products_material do |products_material|
-        = render 'products_material_fields', :f => products_material
-      = link_to_add_association 'Add Material', f, :products_material
 
-      %h4 Your materials should add up to 100%, missing: 
-      #sum 0
+  .d-flex.align-items-center.materials-section
+    .flex-fill
+      %h3 Materials
+      #materials
+        = f.simple_fields_for :products_material do |products_material|
+          = render 'products_material_fields', :f => products_material
+        = link_to_add_association 'Add Material', f, :products_material
+    .flex-fill
+      .div
+        %h4 Your materials should add up to 100%, missing: 
+        %h3#sum 0
 
+
+  %br
   .form-actions
-    = f.button :submit
+    .btn= f.button :submit
+ 

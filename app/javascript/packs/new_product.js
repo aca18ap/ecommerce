@@ -13,10 +13,10 @@ $(function() {
 })
 
 function checkPercentagesSum(){
-    let materials = document.getElementsByClassName('percentage')
+    let percentages = document.getElementsByClassName('percentage')
     let tmp = 100
     console.log("Check percentage called")
-    Array.from(materials).forEach(function(e){
+    Array.from(percentages).forEach(function(e){
         console.log(parseInt(e.value))
         tmp -= parseInt(e.value) || 0
     })
@@ -24,6 +24,7 @@ function checkPercentagesSum(){
     console.log(tmp)
 }
 
-$('.form-inputs').on('click', function(e){
+$('.materials-section').on('click', function(e){
     setupListeners()
+    console.log('Setup listeners again')
 })
