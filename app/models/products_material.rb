@@ -25,6 +25,7 @@ class ProductsMaterial < ApplicationRecord
   belongs_to :product
   belongs_to :material
   after_save :co2
+  validates :percentage, numericality: { only_integer: true }
 
 
   def co2

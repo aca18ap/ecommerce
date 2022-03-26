@@ -1,32 +1,29 @@
-/* console.log('hi')
-$(document).on("page:load turbolinks:load", function(){
-    $("#materials a.add_fields").
-        data("association-insertion-position", "before").
-        data("association-insertion-node", "this")
-    
-    $('#materials').bind('cocoon:after-insert',
-        function(e, material){
-            console.log('inserting new material ...')
-            $(".products-material-fields a.add-material").
-                data("association-insertion-position", 'after').
-                data("association-insertion-node", 'this')
-            $(this).find('.products-material-field').bind('cocoon:after-insert',
-                function(){
-                    console.log('insert new material ...');
-                    console.log($(this));
-                    $(this).find("material_from_list").remove()
-                    $(this).find("a.add_fields").hide()
+console.log('doc changed')
+setupListeners()
 
-            })
-        })
-    $('.product-material-fields').bind('cocoon:after-insert',
-            function(e) {
-                console.log('replace material tag ...');
-                e.stopPropagation()
-                console.log($(this));
-                $(this).find(".material_from_list").remove()
-                $(this).find("a.add_fields").hide()
-    
-            })
 
-}) */
+function setupListeners(){
+    $('.percentage').on('input', function(){
+        checkPercentagesSum()
+    })
+}
+
+$(function() {
+    checkPercentagesSum()
+})
+
+function checkPercentagesSum(){
+    let materials = document.getElementsByClassName('percentage')
+    let tmp = 100
+    console.log("Check percentage called")
+    Array.from(materials).forEach(function(e){
+        console.log(parseInt(e.value))
+        tmp -= parseInt(e.value) || 0
+    })
+    $('#sum').text(tmp)
+    console.log(tmp)
+}
+
+$('.form-inputs').on('click', function(e){
+    setupListeners()
+})
