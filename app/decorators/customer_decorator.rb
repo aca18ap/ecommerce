@@ -14,27 +14,71 @@ class CustomerDecorator < Draper::Decorator
   end
 
   def mean_co2_per_purchase
-    return 'N/A' if products.size.zero?
+    # TODO: Change CustomerMetrics calculation to be offline and fetch offline calculation instead
+    return { customer: 'N/A', site: CustomerMetrics.site_mean_co2_per_purchase, valence: 'average' } if products.size.zero?
 
-    (products.map(&:co2_produced).sum / products.size).round(1)
+    customer = (products.map(&:co2_produced).sum / products.size).round(1)
+    site = CustomerMetrics.site_mean_co2_per_purchase
+    {
+      customer: customer,
+      site: site,
+      valence: calculate_valence(customer, site)
+    }
   end
 
   def total_co2_produced
-    return 'N/A' if products.size.zero?
+    return { customer: 'N/A', site: CustomerMetrics.site_total_co2_produced, valence: 'average' } if products.size.zero?
 
-    products.map(&:co2_produced).sum.round(1)
+    customer = products.map(&:co2_produced).sum.round(1)
+    site = CustomerMetrics.site_total_co2_produced
+    {
+      customer: customer,
+      site: site,
+      valence: calculate_valence(customer, site)
+    }
   end
 
   def co2_saved
-    return 'N/A' if products.size.zero?
+    return { customer: 'N/A', site: CustomerMetrics.site_co2_saved, valence: 'average' } if products.size.zero?
 
-    'N/A'
+    # TODO: Implementation
+    { customer: 'N/A', site: CustomerMetrics.site_co2_saved, valence: 'average' }
   end
 
   def co2_per_pound
-    return 'N/A' if products.size.zero?
+    return { customer: 'N/A', site: CustomerMetrics.site_co2_per_pound, valence: 'average' } if products.size.zero?
 
-    'N/A'
-    # products.map(&:co2_produced).sum / products.map(&:price)
+    customer = (products.map(&:co2_produced).sum / products.map(&:price).sum).round(1)
+    site = CustomerMetrics.site_co2_per_pound
+    {
+      customer: customer,
+      site: site,
+      valence: calculate_valence(customer, site)
+    }
+  end
+
+  def products_total
+    return { customer: 0, site: CustomerMetrics.site_products_total, valence: 'average' } if products.size.zero?
+
+    customer = products.length
+    site = CustomerMetrics.site_products_total
+    {
+      customer: customer,
+      site: site,
+      valence: calculate_valence(site, customer)
+    }
+  end
+
+  private
+
+  # Compares customer statistics against site average
+  def calculate_valence(exp_smaller, exp_larger)
+    if exp_smaller < exp_larger
+      'good'
+    elsif exp_smaller == exp_larger
+      'average'
+    else
+      'bad'
+    end
   end
 end

@@ -65,7 +65,10 @@ RSpec.describe CustomerDecorator do
     end
 
     it 'returns the CO2 per pound, rounded to one decimal place if there are purchases in their history' do
-      skip 'Needs implementing'
+      customer.products << product
+      customer.products << product
+
+      expect(customer.co2_per_pound).to eq(product.co2_produced / product.price)
     end
   end
 end
