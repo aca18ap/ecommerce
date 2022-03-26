@@ -37,11 +37,7 @@ class ProductsController < ApplicationController
 
   # POST /products
   def create
-    @product = if current_business
-                 Product.new(product_params.merge(business_id: current_business.id).except(:image, :customer_purchased))
-               else
-                 Product.new(product_params.except(:image, :customer_purchased))
-               end
+    @product = Product.new(current_user_params)
 
     if @product.save
       # Add product to customer purchase history
@@ -80,6 +76,15 @@ class ProductsController < ApplicationController
     params.require(:product).permit(:name, :description, :business_id, :mass, :price, :category, :url, :manufacturer,
                                     :manufacturer_country, :co2_produced, :image, :customer_purchased,
                                     products_material_attributes: %i[material_id percentage id _destroy])
+  end
+
+  # Set specific product parameters for if the current user is a business, a customer or a staff member
+  def current_user_params
+    if current_business
+      product_params.merge(business_id: current_business.id).except(:image, :customer_purchased)
+    else
+      product_params.except(:image, :customer_purchased)
+    end
   end
 
   # List of params that can be used to filter products if specified

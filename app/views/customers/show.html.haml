@@ -1,3 +1,7 @@
+- content_for :title, "#{@customer}'s Dashboard'"
+= include_gon
+= additional_javascript('customers')
+
 .container-fluid.pad-edge
   %h1.pt-5= "#{@customer.username}'s Dashboard"
 

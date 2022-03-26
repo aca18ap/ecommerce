@@ -56,7 +56,6 @@ RSpec.describe ProductDecorator do
 
   describe '.price_with_currency' do
     it 'returns the product price with a "£" symbol before it' do
-      skip 'waiting for price to be merged for product'
       expect(product.price_with_currency).to eq "£#{product.price}"
     end
   end
