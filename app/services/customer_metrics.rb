@@ -1,12 +1,18 @@
+# frozen_string_literal: true
 
+# Calculates customer based metrics for use and display in the customer dashboard.
+# Inherits some methods from CalculateMetrics
 class CustomerMetrics < CalculateMetrics
   class << self
     def site_mean_co2_per_purchase
-      PurchaseHistory.joins(:product).average(:co2_produced).round(1)
+      PurchaseHistory.joins(:product).average(:co2_produced).to_f.round(1)
     end
 
     def site_total_co2_produced
       customer_totals = Customer.joins(:products).group(:customer_id).sum(:co2_produced)
+
+      return 0 if customer_totals.size.zero?
+
       customer_totals.values.sum / customer_totals.size
     end
 
@@ -16,11 +22,14 @@ class CustomerMetrics < CalculateMetrics
     end
 
     def site_co2_per_pound
-      PurchaseHistory.joins(:product).pluck(Arel.sql('sum(co2_produced) / sum(price)')).first.round(1)
+      PurchaseHistory.joins(:product).pluck(Arel.sql('sum(co2_produced) / sum(price)')).first.to_f.round(1)
     end
 
     def site_products_total
       customer_products = Customer.joins(:products).group(:customer_id).count
+
+      return 0 if customer_products.size.zero?
+
       customer_products.values.sum / customer_products.size
     end
   end

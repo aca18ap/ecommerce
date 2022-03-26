@@ -15,9 +15,6 @@ class CustomersController < ApplicationController
     # Sets customer if using authenticated customer root
     @customer = current_customer if @customer.nil?
     @customer = @customer.decorate
-    puts '='*20
-    puts @customer.mean_co2_per_purchase[:valence]
-    puts '='*20
     redirect_back fallback_location: '/' unless customer_signed_in?
   end
 

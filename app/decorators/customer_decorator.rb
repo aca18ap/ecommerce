@@ -15,7 +15,10 @@ class CustomerDecorator < Draper::Decorator
 
   def mean_co2_per_purchase
     # TODO: Change CustomerMetrics calculation to be offline and fetch offline calculation instead
-    return { customer: 'N/A', site: CustomerMetrics.site_mean_co2_per_purchase, valence: 'average' } if products.size.zero?
+    if products.size.zero?
+      return { customer: 'N/A', site: CustomerMetrics.site_mean_co2_per_purchase,
+               valence: 'average' }
+    end
 
     customer = (products.map(&:co2_produced).sum / products.size).round(1)
     site = CustomerMetrics.site_mean_co2_per_purchase

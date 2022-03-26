@@ -97,10 +97,10 @@ RSpec.describe '/products', type: :request do
 
       it 'adds a new purchase history relationship for the product and customer, if I am signed in as a customer' do
         login_as(customer, scope: :customer)
-        post products_url, params: { product: valid_attributes.merge({ customer_purchased: true }) }
+        post products_url, params: { product: valid_attributes.merge({ customer_purchased: '1' }) }
         expect(PurchaseHistory.count).to be 1
-        expect(PurchaseHistory.first.customer_id).to be customer.id
-        expect(PurchaseHistory.first.product_id).to be Product.first.id
+        expect(PurchaseHistory.first.customer_id).to eq customer.id
+        expect(PurchaseHistory.first.product_id).to eq Product.first.id
       end
 
       def check_post_request
