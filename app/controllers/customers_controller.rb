@@ -15,6 +15,12 @@ class CustomersController < ApplicationController
     # Sets customer if using authenticated customer root
     @customer = current_customer if @customer.nil?
     @customer = @customer.decorate
+
+    gon.timeCO2PerPurchase = CustomerMetrics.time_co2_per_purchase(@customer)
+    gon.timeTotalCO2 = CustomerMetrics.time_total_co2(@customer)
+    gon.timeCO2PerPound = CustomerMetrics.time_co2_per_pound(@customer)
+    gon.timeProductsTotal = CustomerMetrics.time_products_total(@customer)
+
     redirect_back fallback_location: '/' unless customer_signed_in?
   end
 

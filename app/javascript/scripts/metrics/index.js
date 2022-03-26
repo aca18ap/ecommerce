@@ -283,25 +283,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Add missing data message to appropriate chart areas
-    for (let chart of emptyCharts) {
-        let svg = d3.select(chart)
-            .attr("width", width)
-            .attr("height", height)
-            .attr("viewBox", [0, 0, width, height])
-            .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
-
-        let g = svg.append("g")
-            .attr("transform", function (d, i) {
-                return "translate(0,0)";
-            });
-
-        g.append("text")
-            .attr("x", width / 2)
-            .attr("y", height / 2)
-            .attr("stroke", "#000")
-            .attr("text-anchor", "middle")
-            .attr("font-size", "24px")
-            .attr("font-family", "Outfit")
-            .text("There is no data for this metric yet");
-    }
+    for (let chart of emptyCharts) graph_utils.insert_empty_chart_message(chart, width, height);
 });
