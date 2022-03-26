@@ -12,6 +12,7 @@
 #  manufacturer_country :string
 #  mass                 :float
 #  name                 :string
+#  price                :float
 #  url                  :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
@@ -23,9 +24,10 @@ FactoryBot.define do
     description { 'A piece of clothing' }
     mass { '14' }
     category { 'Trousers' }
-    url { 'clothes.com' }
+    url { 'https://clothes.com' }
     manufacturer { 'Me' }
     manufacturer_country { 'Italy' }
+    price { '10.4' }
     after(:create) do |product|
       product.materials ||= create(:material, product: product)
     end

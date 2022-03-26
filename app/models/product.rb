@@ -12,6 +12,7 @@
 #  manufacturer_country :string
 #  mass                 :float
 #  name                 :string
+#  price                :float
 #  url                  :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
@@ -25,10 +26,14 @@ class Product < ApplicationRecord
                                   where('name like ? OR manufacturer like ?', "#{name}%", "#{name}%")
                                 }
 
-  validates :name, :category, :url, :manufacturer, :manufacturer_country, :mass, presence: true
-  validates :url, uniqueness: true
+  validates :name, :category, :url, :manufacturer, :manufacturer_country, :mass, :price, presence: true
+  validates :url, uniqueness: true, format: { with: URI::DEFAULT_PARSER.make_regexp }
+  validates :mass, numericality: { greater_than: 0 }
+  validates :price, numericality: { greater_than: 0 }
+
   before_update :calculate_co2
 
+  has_one_attached :image, dependent: :destroy
   has_many :products_material, dependent: :destroy
   has_many :materials, through: :products_material
   belongs_to :business, optional: true

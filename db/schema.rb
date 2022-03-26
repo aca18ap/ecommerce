@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_17_111658) do
+ActiveRecord::Schema.define(version: 2022_03_25_135914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -168,6 +168,7 @@ ActiveRecord::Schema.define(version: 2022_03_17_111658) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "business_id"
+    t.float "price"
   end
 
   create_table "products_materials", force: :cascade do |t|
@@ -177,6 +178,15 @@ ActiveRecord::Schema.define(version: 2022_03_17_111658) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["material_id"], name: "index_products_materials_on_material_id"
     t.index ["product_id"], name: "index_products_materials_on_product_id"
+  end
+
+  create_table "purchase_histories", id: false, force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "customer_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_purchase_histories_on_customer_id"
+    t.index ["product_id"], name: "index_purchase_histories_on_product_id"
   end
 
   create_table "registrations", force: :cascade do |t|
@@ -291,4 +301,6 @@ ActiveRecord::Schema.define(version: 2022_03_17_111658) do
   add_foreign_key "faq_votes", "faqs"
   add_foreign_key "products_materials", "materials"
   add_foreign_key "products_materials", "products"
+  add_foreign_key "purchase_histories", "customers"
+  add_foreign_key "purchase_histories", "products"
 end

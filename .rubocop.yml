@@ -115,6 +115,7 @@ Metrics/MethodLength:
     - 'app/models/ability.rb'
 
 Metrics/AbcSize:
+  Max: 20
   Exclude:
     - 'spec/**/*.rb'
     # Skipped as these are required functionality and cannot be reduced

@@ -12,6 +12,7 @@
 #  manufacturer_country :string
 #  mass                 :float
 #  name                 :string
+#  price                :float
 #  url                  :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
@@ -21,7 +22,10 @@ require 'rails_helper'
 
 RSpec.describe Product, type: :model do
   let!(:material) { FactoryBot.create(:material, name: 'material', kg_co2_per_kg: 4) }
-  let!(:product) { FactoryBot.create(:product, name: 'Product', category: 'Category', manufacturer: 'Me', mass: '10', url: 'test.com', manufacturer_country: 'Country') }
+  let!(:product) do
+    FactoryBot.create(:product, name: 'Product', category: 'Category',
+                                manufacturer: 'Me', mass: 10, price: 10.1, url: 'https://test.com', manufacturer_country: 'Country')
+  end
   let!(:products_material) { FactoryBot.create(:products_material, product: product, material: material) }
 
   describe 'Validates' do
@@ -33,18 +37,43 @@ RSpec.describe Product, type: :model do
       product.name = ''
       expect(product).not_to be_valid
     end
+
     it 'is invalid without category' do
       product.category = ''
       expect(product).not_to be_valid
     end
+
     it 'is invalid without manufacturer' do
       product.manufacturer = ''
       expect(product).not_to be_valid
     end
+
     it 'is invalid without mass' do
       product.mass = ''
       expect(product).not_to be_valid
     end
+
+    it 'is invalid with a mass less than or equal to 0' do
+      product.mass = 1
+      expect(product).to be_valid
+
+      product.mass = 0
+      expect(product).not_to be_valid
+
+      product.mass = -1
+      expect(product).not_to be_valid
+    end
+
+    it 'is invalid without a url' do
+      product.url = nil
+      expect(product).not_to be_valid
+    end
+
+    it 'is invalid with an invalid url' do
+      product.url = 'invalid_url'
+      expect(product).not_to be_valid
+    end
+
     it 'is invalid without manufacturer country' do
       product.manufacturer_country = ''
       expect(product).not_to be_valid

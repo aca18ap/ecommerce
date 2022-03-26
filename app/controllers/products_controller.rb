@@ -37,12 +37,13 @@ class ProductsController < ApplicationController
   # POST /products
   def create
     @product = if current_business
-                 Product.new(product_params.merge(business_id: current_business.id))
+                 Product.new(product_params.merge(business_id: current_business.id).except(:image))
                else
-                 Product.new(product_params)
+                 Product.new(product_params.except(:image))
                end
 
     if @product.save
+      @product.image.attach(params[:product][:image])
       redirect_to @product, notice: 'Product was successfully created.'
     else
       render :new
@@ -73,8 +74,8 @@ class ProductsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def product_params
-    params.require(:product).permit(:name, :description, :business_id, :mass, :category, :url, :manufacturer,
-                                    :manufacturer_country, :co2_produced, material_ids: [])
+    params.require(:product).permit(:name, :description, :business_id, :mass, :price, :category, :url, :manufacturer,
+                                    :manufacturer_country, :co2_produced, :image, material_ids: [])
   end
 
   # List of params that can be used to filter products if specified
