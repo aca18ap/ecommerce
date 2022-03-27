@@ -165,6 +165,16 @@ ActiveRecord::Schema.define(version: 2022_04_11_120739) do
     t.index ["password_archivable_type", "password_archivable_id"], name: "index_password_archivable"
   end
 
+  create_table "product_reports", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "customer_id", null: false
+    t.string "content", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_product_reports_on_customer_id"
+    t.index ["product_id"], name: "index_product_reports_on_product_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -311,6 +321,8 @@ ActiveRecord::Schema.define(version: 2022_04_11_120739) do
   add_foreign_key "affiliate_product_views", "customers"
   add_foreign_key "affiliate_product_views", "products"
   add_foreign_key "faq_votes", "faqs"
+  add_foreign_key "product_reports", "customers"
+  add_foreign_key "product_reports", "products"
   add_foreign_key "products_materials", "materials"
   add_foreign_key "products_materials", "products"
   add_foreign_key "purchase_histories", "customers"

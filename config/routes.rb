@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
 
+  resources :product_reports
   ## ===== System Users and Accounts Routes ===== ##
   devise_for :customers, path: 'customer',
                          controllers: { sessions: 'customers/sessions', registrations: 'customers/registrations' }

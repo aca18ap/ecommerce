@@ -1,0 +1,16 @@
+%p#notice= notice
+
+%p
+  %b Product:
+  = @product_report.product_link
+%p
+  %b Reported By:
+  = @product_report.customer_link
+  
+%p
+  %b Content:
+  = @product_report.content
+
+= link_to 'Edit', edit_product_report_path(@product_report)
+\|
+= link_to 'Back', product_reports_path
