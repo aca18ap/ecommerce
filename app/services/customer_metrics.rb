@@ -47,7 +47,7 @@ class CustomerMetrics < CalculateMetrics
               .sum(:co2_produced)
     end
 
-    def time_co2_saved(customer)
+    def time_co2_saved(_customer)
       # TODO: Implement function
       {}
     end
@@ -56,12 +56,12 @@ class CustomerMetrics < CalculateMetrics
       # TODO: Come back and work out how to maintain date
       Customer.where(id: customer.id)
               .joins(:products)
-              .group("date_trunc('hour', products.created_at)")
+              .group("date_trunc('day', products.created_at)")
               .select('SUM(products.co2_produced) / SUM(products.price)')
     end
 
     def time_products_total(customer)
-      Customer.where(id: customer.id).joins(:products).group("date_trunc('hour', products.created_at)").count
+      Customer.where(id: customer.id).joins(:products).group("date_trunc('day', products.created_at)").count
     end
   end
 end
