@@ -15,10 +15,6 @@ class ProductReportsController < ApplicationController
     @product_report = ProductReport.new
   end
 
-  # GET /product_reports/1/edit
-  def edit
-  end
-
   # POST /product_reports
   def create
     @product_report = ProductReport.new(
@@ -35,15 +31,6 @@ class ProductReportsController < ApplicationController
       puts current_customer.id
       puts @product_report.errors.full_messages
       render :new
-    end
-  end
-
-  # PATCH/PUT /product_reports/1
-  def update
-    if @product_report.update(product_report_params)
-      redirect_to @product_report, notice: 'Product report was successfully updated.'
-    else
-      render :edit
     end
   end
 

@@ -8,7 +8,6 @@
       %th Content
       %th
       %th
-      %th
 
   %tbody
     - @product_reports.each do |product_report|
@@ -17,7 +16,6 @@
         %td= product_report.customer_link
         %td= product_report.content
         %td= link_to 'Show', product_report
-        %td= link_to 'Edit', edit_product_report_path(product_report)
         %td= link_to 'Destroy', product_report, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
