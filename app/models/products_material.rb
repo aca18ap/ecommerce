@@ -22,10 +22,15 @@
 #  fk_rails_...  (product_id => products.id)
 #
 class ProductsMaterial < ApplicationRecord
-  belongs_to :product
+  belongs_to :product, inverse_of: :products_material
   belongs_to :material
   after_save :co2
+  before_destroy :print_check
   validates :percentage, numericality: { only_integer: true }
+
+  def print_check
+    puts 'before_destroy product_material'
+  end
 
 
   def co2

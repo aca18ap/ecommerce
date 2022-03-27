@@ -51,7 +51,6 @@ class Product < ApplicationRecord
   def calculate_co2
     material_co2 = materials.map(&:kg_co2_per_kg)
     material_percentages = products_material.map(&:percentage)
-
     if material_co2.length == material_percentages.length
       total_co2 = 0
       len = material_co2.length
@@ -82,9 +81,25 @@ class Product < ApplicationRecord
     return (co2_factor / 1000) # per tonne -> per kg
   end
 
+  def delete_product_material
+    products_material.each do |p|
+      if p.marked_for_destruction?
+        p.delete
+      end
+    end
+  end
+
   def valid_material_percentages
-    if products_material.map(&:percentage).sum != 100
-      errors.add(:products_material, 'Materials not totalling 100%') 
+    tmp = 0
+    products_material.each do |p|
+      if !p.marked_for_destruction?
+        tmp += p.percentage
+      else
+        p.delete
+      end
+    end
+    if tmp != 100
+      errors.add :product_material, "Materials should add up to 100%"
     end
   end
 
