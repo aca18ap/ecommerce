@@ -1,18 +1,25 @@
 class ProductReportsController < ApplicationController
-  before_action :set_product_report, only: [:show, :edit, :update, :destroy]
+  before_action :set_product_report, only: [:show, :destroy]
+  authorize_resource
 
   # GET /product_reports
   def index
-    @product_reports = ProductReport.all.decorate
+    @product_reports = ProductReport.accessible_by(current_ability).decorate
   end
 
   # GET /product_reports/1
   def show
+    @product_report = @product_report.decorate
   end
 
   # GET /product_reports/new
   def new
-    @product_report = ProductReport.new
+    if params[:product_id]
+      @product_report = ProductReport.new
+      @product_report.product = Product.find(params[:product_id]) if params[:product_id]
+    else
+      redirect_to products_url, notice: 'You must select a product to report.'
+    end
   end
 
   # POST /product_reports
@@ -24,12 +31,8 @@ class ProductReportsController < ApplicationController
     )
 
     if @product_report.save
-      redirect_to @product_report, notice: 'Product report was successfully created.'
+      redirect_to products_url, notice: 'Thank you for submitting a report. This will be reviewed soon.'
     else
-      puts product_report_params
-      puts "==================================="
-      puts current_customer.id
-      puts @product_report.errors.full_messages
       render :new
     end
   end
@@ -43,7 +46,7 @@ class ProductReportsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product_report
-      @product_report = ProductReport.find(params[:id]).decorate
+      @product_report = ProductReport.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

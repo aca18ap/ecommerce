@@ -4,7 +4,7 @@
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
   .form-inputs
-    = f.association :product
+    = f.hidden_field :product_id
     = f.input :content
 
   .form-actions

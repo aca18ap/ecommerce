@@ -1,23 +1,22 @@
-%h1 Listing product_reports
+.container-fluid.pad-edge
+  %h1.pt-5 Listing Product Reports
 
-%table
-  %thead
-    %tr
-      %th Product
-      %th Customer
-      %th Content
-      %th
-      %th
-
-  %tbody
-    - @product_reports.each do |product_report|
+  %table
+    %thead
       %tr
-        %td= product_report.product_link
-        %td= product_report.customer_link
-        %td= product_report.content
-        %td= link_to 'Show', product_report
-        %td= link_to 'Destroy', product_report, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %th Product
+        %th Customer
+        %th Content
+        %th
+        %th
 
-%br
-
-= link_to 'New Product report', new_product_report_path
+    %tbody
+      - @product_reports.each do |product_report|
+        %tr
+          %td= product_report.product_link
+          %td= product_report.customer_link
+          %td= product_report.content
+          - if can?(:read, product_report.model)
+            %td= link_to 'Show', product_report.model
+          - if can?(:destroy, product_report.model)
+            %td= link_to 'Destroy', product_report.model, :method => :delete, :data => { :confirm => 'Are you sure?' }
