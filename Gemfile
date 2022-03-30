@@ -18,15 +18,20 @@ gem 'bcrypt_pbkdf'
 gem 'bootsnap'
 gem 'ed25519'
 gem 'geocoder', '~> 1.3'
+gem 'gon'
 gem 'image_processing'
+gem 'pg'
 gem 'puma'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.7'
 gem 'responders'
 gem 'shakapacker'
+<<<<<<< HEAD
 
 gem 'faker'
 gem 'gon'
 gem 'pg'
+=======
+>>>>>>> Fixed existing tests to work with new
 
 gem 'hamlit'
 gem 'hamlit-rails'
@@ -37,7 +42,7 @@ gem 'select2-rails'
 gem 'simple_form'
 
 gem 'bootstrap'
-gem "cocoon"
+gem 'cocoon'
 gem 'font-awesome-rails'
 gem 'font-awesome-sass'
 gem 'sassc'

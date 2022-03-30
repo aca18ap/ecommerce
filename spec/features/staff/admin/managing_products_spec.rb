@@ -5,7 +5,7 @@ require 'rails_helper'
 describe 'Managing Products' do
   describe 'When I am logged in as an admin' do
     before { login_as(FactoryBot.create(:admin), scope: :staff) }
-    let!(:product) { FactoryBot.create(:product) }
+    let!(:product) { FactoryBot.create(:product)}
 
     specify 'I can see edit and destroy for products in the list' do
       visit products_path
@@ -65,7 +65,8 @@ describe 'Managing Products' do
 
   describe 'Security' do
     before { login_as(FactoryBot.create(:admin), scope: :staff) }
-    let!(:product) { FactoryBot.create(:product) }
+    let!(:product) { FactoryBot.create(:product)}
+
 
     specify 'I cannot perform an SQL injection attack' do
       visit edit_product_path(product)

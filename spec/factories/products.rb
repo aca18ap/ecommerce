@@ -19,17 +19,18 @@
 #  business_id          :bigint
 #
 FactoryBot.define do
-  factory :product, class: Product do
+  factory :product do
     name { 'TestName' }
     description { 'A piece of clothing' }
-    mass { '14' }
+    mass { '10' }
     category { 'Trousers' }
     url { 'https://clothes.com' }
     manufacturer { 'Me' }
-    manufacturer_country { 'Italy' }
     price { '10.4' }
-    after(:create) do |product|
-      product.materials ||= create(:material, product: product)
+    manufacturer_country { 'GB' }
+    after :build do |product|
+      product.products_material << FactoryBot.build(:products_material, material: FactoryBot.build(:material), percentage: 60)
+      product.products_material << FactoryBot.build(:products_material, material: FactoryBot.build(:material), percentage: 40)
     end
   end
 end

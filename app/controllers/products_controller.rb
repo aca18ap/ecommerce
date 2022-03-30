@@ -24,12 +24,7 @@ class ProductsController < ApplicationController
 
   # GET /products/new
   def new
-<<<<<<< HEAD
     if current_customer || current_staff || current_business
-=======
-    
-    if current_customer || current_staff
->>>>>>> controller accepts new data format from product form
       @product = Product.new
       @product.products_material.build
     else
@@ -80,18 +75,13 @@ class ProductsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def product_params
-<<<<<<< HEAD
     params.require(:product).permit(:name, :description, :business_id, :mass, :price, :category, :url, :manufacturer,
-                                    :manufacturer_country, :co2_produced, :image, material_ids: [])
+                                    :manufacturer_country, :co2_produced, :image,
+                                    products_material_attributes: %i[material_id percentage id _destroy])
   end
 
   # List of params that can be used to filter products if specified
   def filtering_params(params)
     params.slice(:name, :similarity, :search_term, :business_id)
-=======
-    params.require(:product).permit(:name, :description, :mass, :category, :url, :manufacturer,
-                                    :manufacturer_country, :co2_produced,
-                                    products_material_attributes: [ :material_id , :percentage, :id, :_destroy ] )
->>>>>>> controller accepts new data format from product form
   end
 end

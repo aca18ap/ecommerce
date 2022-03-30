@@ -25,18 +25,11 @@ class ProductsMaterial < ApplicationRecord
   belongs_to :product, inverse_of: :products_material
   belongs_to :material
   after_save :co2
-  before_destroy :print_check
   validates :percentage, numericality: { only_integer: true }
-
-  def print_check
-    puts 'before_destroy product_material'
-  end
-
 
   def co2
     p = Product.find(product_id)
     p.calculate_co2
     p.save
   end
-
 end

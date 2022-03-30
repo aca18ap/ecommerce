@@ -21,20 +21,8 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-<<<<<<< HEAD
-  let!(:material) { FactoryBot.create(:material, name: 'material', kg_co2_per_kg: 4) }
-  let!(:product) do
-    FactoryBot.create(:product, name: 'Product', category: 'Category',
-                                manufacturer: 'Me', mass: 10, price: 10.1, url: 'https://test.com', manufacturer_country: 'Country')
-  end
-  let!(:products_material) { FactoryBot.create(:products_material, product: product, material: material) }
-=======
-  let!(:material1) { FactoryBot.create(:material, name: 'material_two', kg_co2_per_kg: 4) }
-  let!(:material2) { FactoryBot.create(:material, name: 'material_one', kg_co2_per_kg: 7) }
-  let!(:product) { FactoryBot.create(:product, name: 'Product', category: 'Category', manufacturer: 'Me', mass: '10', url: 'test.com', manufacturer_country: 'Country') }
-  let!(:products_material1) { FactoryBot.create(:products_material, product: product, material: material1, percentage: 30) }
-  let!(:products_material2) { FactoryBot.create(:products_material, product: product, material: material2, percentage: 70) }
->>>>>>> tests
+
+  let!(:product) { FactoryBot.create(:product)}
 
   describe 'Validates' do
     it 'is valid with valid attributes' do
@@ -92,18 +80,8 @@ RSpec.describe Product, type: :model do
     before { stub_const('Material', Material) }
     it 'CO2 produced by product' do
       # factorybot creates association with material of 4co2/kg
-      product.mass = 10
-      material1.kg_co2_per_kg = 5
-      material2.kg_co2_per_kg = 8
-      products_material1.product = product
-      products_material1.material = material1
-      products_material2.product = product
-      products_material2.material = material2
-      products_material1.percentage = 30
-      products_material2.percentage = 70
       product.calculate_co2
-      puts 'materials: ' + product.materials.to_s
-      expect(product.co2_produced).to eq(40)
+      expect(product.reload.co2_produced).to eq(40)
     end
   end
 
