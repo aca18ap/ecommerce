@@ -1,6 +1,3 @@
-console.log('doc changed')
-
-
 setupListeners()
 
 
@@ -42,7 +39,6 @@ $(function() {
 function checkPercentagesSum(){
     let percentages = document.getElementsByClassName('percentage')
     let tmp = 100
-    console.log("Check percentage called")
     Array.from(percentages).forEach(function(e){
         console.log(e.offsetParent)
         if (e.offsetParent !== null){
@@ -52,11 +48,4 @@ function checkPercentagesSum(){
         }
     })
     $('#sum').text(tmp)
-    console.log(tmp)
 }
-
-/* $('.materials-section').on('click', function(e){
-    setupListeners()
-    checkPercentagesSum()
-    console.log('Setup listeners again')
-}) */
