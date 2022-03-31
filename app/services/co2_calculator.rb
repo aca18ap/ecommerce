@@ -20,7 +20,7 @@ class Co2Calculator
 
     shipping_co2 = shipping_factor * @mass # co2 produced from shipping
     shipping_co2 = 0 if shipping_co2.nil?
-    materials_factor + shipping_co2 # estimated
+    (materials_factor + shipping_co2).round(2) # estimated
   end
 
   def materials_factor
