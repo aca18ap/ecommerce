@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let emptyCharts = [];
 
-    console.log(gon.timeProductsTotal)
+    console.log(gon.timeCO2PerPound)
+    console.log(gon.timeCO2PerPurchase)
 
     // Add missing data message to appropriate chart areas
     for (let chart of emptyCharts) insert_empty_chart_message(chart, width, height);

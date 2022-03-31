@@ -53,11 +53,12 @@ class CustomerMetrics < CalculateMetrics
     end
 
     def time_co2_per_pound(customer)
-      # TODO: Come back and work out how to maintain date
       Customer.where(id: customer.id)
               .joins(:products)
               .group("date_trunc('day', products.created_at)")
-              .select('SUM(products.co2_produced) / SUM(products.price)')
+              .select("date_trunc('day', products.created_at) AS hour, SUM(products.co2_produced) / SUM(products.price) AS co2_per_pound")
+              .map { |hour| { hour.hour => hour.co2_per_pound } }
+              .reduce({}, :update)
     end
 
     def time_products_total(customer)
