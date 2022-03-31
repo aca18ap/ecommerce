@@ -21,8 +21,7 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-
-  let!(:product) { FactoryBot.create(:product)}
+  let!(:product) { FactoryBot.create(:product) }
 
   describe 'Validates' do
     it 'is valid with valid attributes' do
@@ -80,7 +79,7 @@ RSpec.describe Product, type: :model do
     before { stub_const('Material', Material) }
     it 'CO2 produced by product' do
       # factorybot creates association with material of 4co2/kg
-      product.calculate_co2
+      product.manufacturer_country = 'GB'
       expect(product.reload.co2_produced).to eq(40)
     end
   end

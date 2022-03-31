@@ -5,8 +5,8 @@ require 'rails_helper'
 describe 'Products' do
   context 'As a user' do
     let!(:customer) { FactoryBot.create(:customer) }
-    let!(:product) { FactoryBot.create(:product)}
-    let!(:material_new) { FactoryBot.create(:material, name: 'Material_New')}
+    let!(:product) { FactoryBot.create(:product) }
+    let!(:material_new) { FactoryBot.create(:material, name: 'Material_New') }
 
     before { login_as(customer) }
     specify 'I can add a product' do
@@ -35,7 +35,7 @@ describe 'Products' do
   end
 
   context 'As a visitor' do
-    let!(:product) { FactoryBot.create(:product)}
+    let!(:product) { FactoryBot.create(:product) }
 
     specify 'I can view products' do
       visit '/products'
@@ -49,7 +49,7 @@ describe 'Products' do
   end
 
   context 'As an admin' do
-    let!(:product) { FactoryBot.create(:product)}
+    let!(:product) { FactoryBot.create(:product) }
 
     before { login_as(FactoryBot.create(:admin), scope: :staff) }
     specify 'I can edit a product name and country' do

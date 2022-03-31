@@ -20,15 +20,19 @@ RSpec.describe '/products', type: :request do
   let!(:material1) { FactoryBot.create(:material, name: 'material_one', kg_co2_per_kg: 7) }
   let!(:material2) { FactoryBot.create(:material, name: 'material_two', kg_co2_per_kg: 4) }
 
-  let!(:valid_attributes) { { name: 'Product', category: 'Category', manufacturer: 'rht', mass: '45', url: 'test.com', manufacturer_country: 'IT',
-     products_material_attributes: [{material_id: material1.id, percentage: 40},
-      {material_id: material2.id, percentage: 60}] }}
+  let!(:valid_attributes) do
+    { name: 'Product', category: 'Category', manufacturer: 'rht', mass: '45', url: 'test.com', manufacturer_country: 'IT',
+      products_material_attributes: [{ material_id: material1.id, percentage: 40 },
+                                     { material_id: material2.id, percentage: 60 }] }
+  end
 
-  let!(:invalid_attributes) { {name: '', category: '', mass: '', manufacturer: '', url: '', manufacturer_country: '', 
-    products_material_attributes: [{material_id: material1.id, percentage: 40},
-                                  {material_id: material2.id, percentage: 60}] }}
-     
- before { login_as(FactoryBot.create(:admin), scope: :staff) }
+  let!(:invalid_attributes) do
+    { name: '', category: '', mass: '', manufacturer: '', url: '', manufacturer_country: '',
+      products_material_attributes: [{ material_id: material1.id, percentage: 40 },
+                                     { material_id: material2.id, percentage: 60 }] }
+  end
+
+  before { login_as(FactoryBot.create(:admin), scope: :staff) }
 
   describe 'GET /index' do
     it 'renders a successful response' do
