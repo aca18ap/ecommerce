@@ -7,7 +7,7 @@
                 .d-inline-block
                     .d-block
                         .row= f.label :percentage
-                        .l-50.row= f.text_field :percentage, { :class => 'percentage'}
+                        .l-50.row= f.text_field :percentage, { :class => 'percentage', :type=>'number', :min=>'1', :max=>'100'}
 
         = link_to_remove_association f, class: 'btn btn-default btn-xs' do
             Remove Material

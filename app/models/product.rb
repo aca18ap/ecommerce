@@ -22,7 +22,6 @@
 require 'csv'
 
 class Product < ApplicationRecord
-<<<<<<< HEAD
   # Scopes defined to clean up controller
   scope :filter_by_business_id, ->(business_id) { where business_id: business_id }
   scope :filter_by_similarity, ->(name) { where(name: name) }
@@ -44,17 +43,6 @@ class Product < ApplicationRecord
   belongs_to :business, optional: true
 
   accepts_nested_attributes_for :products_material, :allow_destroy => true
-=======
-  validates :name, :category, :url, :manufacturer, :manufacturer_country, :mass, presence: true
-  validates :url, uniqueness: true
-  before_validation :delete_product_material
-  before_create :calculate_co2
-  before_save :calculate_co2
-  has_many :products_material, inverse_of: :product, dependent: :destroy, autosave: true
-  accepts_nested_attributes_for :products_material, allow_destroy: true
-  has_many :materials, through: :products_material
-  validate :validate_material_percentages
->>>>>>> Fixed existing tests to work with new
 
   SHIP = 0.014 # kgCO2/km/tonne https://www.infona.pl/resource/bwmeta1.element.baztech-article-BPW7-0024-0009/content/partContents/19bf1b47-846d-3a55-a64e-4d11b6441dc2
   SEA_PERC = 0.92 # % of the way by sea
@@ -63,17 +51,18 @@ class Product < ApplicationRecord
   def calculate_co2
     material_co2 = materials.map(&:kg_co2_per_kg)
     material_percentages = products_material.map(&:percentage)
-
     if material_co2.length == material_percentages.length
       total_co2 = 0
       len = material_co2.length
       (0..len - 1).each do |i|
-        material_mass = (mass / 100) * material_percentages[i]
+        material_mass = (mass/100) * material_percentages[i]
         total_co2 += material_mass * material_co2[i]
       end
 
       shipping_co2 = co2_factor * mass # co2 produced from shipping
-      shipping_co2 = 0 if shipping_co2.nil?
+      if shipping_co2.nan?; shipping_co2 = 0 end
+      puts "co2 factor" + shipping_co2.to_s
+
 
       self.co2_produced = total_co2 + shipping_co2 # estimated
 
@@ -83,36 +72,37 @@ class Product < ApplicationRecord
   def co2_factor
     here = ISO3166::Country.new('GB').alpha3
     there = ISO3166::Country.new(manufacturer_country).alpha3
+
     csv = ::CSV.read('lib/datasets/CERDI-seadistance.csv', headers: true)
-    row = csv.find { |r| (r['iso1'] == here) && (r['iso2'] == there) }
-    distance = row.nil? ? 0 : row['seadistance']
+    row = csv.find { | r | (r['iso1'] == here) && (r['iso2'] == there) }
+    if row.nil?; distance = 0; else distance = row['seadistance'] end
 
     co2_factor = distance.to_f * 1.852 * SHIP
-    (co2_factor / 1000) # per tonne -> per kg
+    return (co2_factor / 1000) # per tonne -> per kg
   end
 
   def delete_product_material
     products_material.each do |p|
-      p.delete if p.marked_for_destruction?
+      if p.marked_for_destruction?
+        p.delete
+      end
     end
   end
 
-  def validate_percentages
-    pms = products_material.except { |m| m.marked_for_destruction? != true }.map(&:percentage)
-    errors.add :products_material, 'Materials should add up to 100%' if pms.sum != 100
-  end
-
-  def validate_material_percentages
+  def valid_material_percentages
     tmp = 0
     products_material.each do |p|
-      if !p.marked_for_destruction? && !p.percentage.nil?
+      if !p.marked_for_destruction?
         tmp += p.percentage
       else
         p.delete
       end
     end
-    errors.add :product_material, 'Materials should add up to 100%' if tmp != 100
+    if tmp != 100
+      errors.add :product_material, "Materials should add up to 100%"
+    end
   end
+
 
   # Gets the 'created_at' time truncated to the nearest hour
   def hour

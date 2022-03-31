@@ -24,12 +24,4 @@
 class ProductsMaterial < ApplicationRecord
   belongs_to :product, inverse_of: :products_material
   belongs_to :material
-  after_save :co2
-  validates :percentage, numericality: { only_integer: true }
-
-  def co2
-    p = Product.find(product_id)
-    p.calculate_co2
-    p.save
-  end
 end
