@@ -64,9 +64,10 @@ class Product < ApplicationRecord
       puts "co2 factor" + shipping_co2.to_s
 
 
-      self.co2_produced = total_co2 + shipping_co2 # estimated
-
-    end
+  # Validation for materials percentages to add up to 100
+  def validate_percentages
+    pms = products_material.select { |m| m.marked_for_destruction? == false }.map(&:percentage).sum.to_i
+    errors.add :products_material, 'Materials should add up to 100%' if pms != 100
   end
 
   def co2_factor
@@ -107,5 +108,13 @@ class Product < ApplicationRecord
   # Gets the 'created_at' time truncated to the nearest hour
   def hour
     DateTime.parse(created_at.to_s).change({ min: 0, sec: 0 })
+
+    
+  private
+
+  # calculating and updating co2 produced after_save
+  def co2
+    co2 = Co2Calculator.new(materials, products_material, manufacturer_country, mass).calculate_co2
+    update_column(:co2_produced, co2)
   end
 end

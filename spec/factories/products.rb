@@ -27,10 +27,10 @@ FactoryBot.define do
     url { 'https://clothes.com' }
     manufacturer { 'Me' }
     price { '10.4' }
-    manufacturer_country { 'GB' }
+    manufacturer_country { 'VN' }
     after :build do |product|
-      product.products_material << FactoryBot.build(:products_material, material: FactoryBot.build(:material), percentage: 60)
-      product.products_material << FactoryBot.build(:products_material, material: FactoryBot.build(:material), percentage: 40)
+      product.products_material << FactoryBot.build(:products_material, material: FactoryBot.build(:material, kg_co2_per_kg: 5), percentage: 60)
+      product.products_material << FactoryBot.build(:products_material, material: FactoryBot.build(:material, kg_co2_per_kg: 10), percentage: 40)
     end
   end
 end
