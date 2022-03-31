@@ -16,7 +16,7 @@ class ProductReportsController < ApplicationController
   def new
     if params[:product_id]
       @product_report = ProductReport.new
-      @product_report.product = Product.find(params[:product_id]) if params[:product_id]
+      @product_report.product = Product.find(params[:product_id]).decorate if params[:product_id]
     else
       redirect_to products_url, notice: 'You must select a product to report.'
     end
