@@ -25,13 +25,10 @@ gem 'puma'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.7'
 gem 'responders'
 gem 'shakapacker'
-<<<<<<< HEAD
 
 gem 'faker'
 gem 'gon'
 gem 'pg'
-=======
->>>>>>> Fixed existing tests to work with new
 
 gem 'hamlit'
 gem 'hamlit-rails'

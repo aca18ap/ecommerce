@@ -21,13 +21,13 @@ RSpec.describe '/products', type: :request do
   let!(:material2) { FactoryBot.create(:material, name: 'material_two', kg_co2_per_kg: 4) }
 
   let!(:valid_attributes) do
-    { name: 'Product', category: 'Category', manufacturer: 'rht', mass: '45', url: 'test.com', manufacturer_country: 'IT',
+    { name: 'Product', category: 'Category', manufacturer: 'rht', mass: '45', url: 'http://www.test.com', manufacturer_country: 'IT', price: '10.1',
       products_material_attributes: [{ material_id: material1.id, percentage: 40 },
                                      { material_id: material2.id, percentage: 60 }] }
   end
 
   let!(:invalid_attributes) do
-    { name: '', category: '', mass: '', manufacturer: '', url: '', manufacturer_country: '',
+    { name: '', category: '', mass: '', manufacturer: '', url: '', manufacturer_country: '', price: '',
       products_material_attributes: [{ material_id: material1.id, percentage: 40 },
                                      { material_id: material2.id, percentage: 60 }] }
   end
@@ -96,11 +96,7 @@ RSpec.describe '/products', type: :request do
   describe 'PATCH /update' do
     context 'with valid parameters' do
       let(:new_attributes) do
-<<<<<<< HEAD
-        { name: 'NewProduct', category: 'NewCategory', manufacturer: 'NewManufacturer', mass: '12', url: 'https://test2.com', manufacturer_country: 'Country2' }
-=======
-        { name: 'NewProduct', category: 'NewCategory', manufacturer: 'NewManufacturer', mass: '12', url: 'test2.com', manufacturer_country: 'VN' }
->>>>>>> Fixed existing tests to work with new
+        { name: 'NewProduct', category: 'NewCategory', manufacturer: 'NewManufacturer', mass: '12', url: 'https://test2.com', manufacturer_country: 'VN', price: '10.1' }
       end
 
       it 'updates the requested product' do
