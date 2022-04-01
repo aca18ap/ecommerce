@@ -27,8 +27,6 @@ gem 'responders'
 gem 'shakapacker'
 
 gem 'faker'
-gem 'gon'
-gem 'pg'
 
 gem 'hamlit'
 gem 'hamlit-rails'

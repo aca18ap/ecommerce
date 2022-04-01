@@ -18,9 +18,6 @@
 #  updated_at           :datetime         not null
 #  business_id          :bigint
 #
-
-require 'csv'
-
 class Product < ApplicationRecord
   # Scopes defined to clean up controller
   scope :filter_by_business_id, ->(business_id) { where business_id: business_id }
@@ -43,7 +40,7 @@ class Product < ApplicationRecord
   has_many :materials, through: :products_material
   belongs_to :business, optional: true
 
-  accepts_nested_attributes_for :products_material, :allow_destroy => true
+  accepts_nested_attributes_for :products_material, allow_destroy: true
 
   # Validation for materials percentages to add up to 100
   def validate_percentages
@@ -51,13 +48,11 @@ class Product < ApplicationRecord
     errors.add :products_material, 'Materials should add up to 100%' if pms != 100
   end
 
-
-
   # Gets the 'created_at' time truncated to the nearest hour
   def hour
     DateTime.parse(created_at.to_s).change({ min: 0, sec: 0 })
   end
-    
+
   private
 
   # calculating and updating co2 produced after_save
