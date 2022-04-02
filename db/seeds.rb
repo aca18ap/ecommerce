@@ -33,14 +33,15 @@ Material.where(name: 'wool').first_or_create(kg_co2_per_kg: 7)
 Material.where(name: 'hemp').first_or_create(kg_co2_per_kg: 3)
 
 # Products
-100.times do
-  Product.where(name: Faker::Coffee.blend_name).first_or_create(category: Faker::IndustrySegments.sub_sector,
-    co2_produced: Faker::Number.decimal(l_digits: 2),
+prng = Random.new
+100.times do |i|
+  Product.where(name: Faker::Coffee.blend_name).first_or_create!(
+    category: Faker::IndustrySegments.sub_sector,
+    url: "http://www.test#{i}.com",
     description: Faker::Quotes::Shakespeare.hamlet_quote,
     manufacturer: Faker::Company.name,
-    manufacturer_country: Faker::Address.country,
-    mass: Faker::Measurement.metric_weight,
-    name: Faker::Coffee.blend_name,
-    url: Faker::Internet.url
-  )
+    manufacturer_country: Faker::Address.country_code,
+    mass: prng.rand(10.0),
+    price: (prng.rand(1..200) - 0.01),
+    products_material: [ProductsMaterial.new(material_id: prng.rand(1..8), percentage: 100)])
 end
