@@ -6,15 +6,14 @@
 
   .row
     .col-xl-4
-      %h1= product.name
-      %h3= product.manufacturer
+
       .row
         - if product.image.attached?
           %img.img-fluid.rounded= image_tag product.image
         - else
-          %img.img-fluid= image_tag("app/assets/images/default-image.jpg")  
+          %img.img-fluid= image_tag("default-image.jpg")  
         %br
-        .col-sm-3.offset-9.offset-y.border
+        .col.offset-8.offset-y.border
           %h3= "£" + product.price.to_s
       %br
       .row
@@ -22,16 +21,30 @@
     
     .col-xl-8
       .row
-        .col-xl-8
+        .col-xl-9
           .eco-stats.d-flex.flex-column
-            %h2.center We estimate that...
+            %h1= product.name
+            %h3= product.manufacturer
+
+            %br
+
+            %h4.center We estimate that...
             %h1.center= product.co2_produced.to_s + "kg of CO2"
             %h4.center  ...were produced in the making of this product
-        .col-xl-4
-          .reviews
+
+            %br
+
+        .col-xl-3
+          .calculations
+            %h4 This product contains:
             - product.materials.each do |m|
               %h5.review= m.name
 
+      %h4 Check out these greener alternatives
+      .row.overflow-scroll.suggested-products
+        .d-flex.flex-no-wrap
+          - Product.limit(5).each do |p|
+            = render 'suggested_product_card', p: p
 
 
 

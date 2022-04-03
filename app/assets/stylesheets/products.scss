@@ -2,11 +2,21 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
+::-webkit-scrollbar {
+    display: none;
+}
+
+body{
+    overflow-x: hidden;
+    width: 100%;
+}
+
 .offset-y {
     margin-top: -1em;
     background-color: white;
     align-items: center;
     justify-content: center;
+    
 }
 
 .center {
@@ -16,3 +26,14 @@
 .review {
     text-align: right;
 }
+
+.card{
+    margin-right: 5px;
+    min-width: 12rem;
+}
+
+.suggested-products{
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+

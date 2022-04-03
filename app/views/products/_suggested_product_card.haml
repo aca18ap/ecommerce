@@ -1,0 +1,6 @@
+.card
+    .card-body
+        %h5.card-title= p.name
+        %h6.card-subtitle= "£" + p.price.to_s
+        %h6.card-text= p.co2_produced.to_s + "kgCO2"
+        %a.card-link.stretched-link{:href=>"#{product_path(p)}"}
