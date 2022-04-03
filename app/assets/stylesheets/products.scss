@@ -1,3 +1,18 @@
 // Place all the styles related to the Products controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.offset-y {
+    margin-top: -1em;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+}
+
+.center {
+    text-align: center;
+}
+
+.review {
+    text-align: right;
+}

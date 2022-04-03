@@ -1,38 +1,72 @@
+= stylesheet_link_tag 'products'
 .container-fluid.pad-edge
   .pt-5 
   %p#notice= notice
 
-  %p
-    %b Name:
-    = product.name
-  %p
-    %b Vendor:
-    = product.business_name
-  %p
-    %b Description:
-    = product.description
-  %p
-    %b Mass:
-    = product.mass
-  %p
-    %b Type:
-    = product.category
-  %p
-    %b Url:
-    = product.url
-  %p
-    %b Manufacturer:
-    = product.manufacturer
-  %p
-    %b Manufacturer country:
-    = Country.new(@product.manufacturer_country).common_name
-  %p
-    %b Co2 produced:
-    = product.co2_produced
-  %p
-    %b Materials:
-    - product.materials.each do |m|
-      = m.name
+
+  .row
+    .col-xl-4
+      %h1= product.name
+      %h3= product.manufacturer
+      .row
+        - if product.image.attached?
+          %img.img-fluid.rounded= image_tag product.image
+        - else
+          %img.img-fluid= image_tag("app/assets/images/default-image.jpg")  
+        %br
+        .col-sm-3.offset-9.offset-y.border
+          %h3= "£" + product.price.to_s
+      %br
+      .row
+        %p= product.description
+    
+    .col-xl-8
+      .row
+        .col-xl-8
+          .eco-stats.d-flex.flex-column
+            %h2.center We estimate that...
+            %h1.center= product.co2_produced.to_s + "kg of CO2"
+            %h4.center  ...were produced in the making of this product
+        .col-xl-4
+          .reviews
+            - product.materials.each do |m|
+              %h5.review= m.name
+
+
+
+
+
+  -# %p
+  -#   %b Name:
+  -#   = product.name
+  -# %p
+  -#   %b Vendor:
+  -#   = product.business_name
+  -# %p
+  -#   %b Description:
+  -#   = product.description
+  -# %p
+  -#   %b Mass:
+  -#   = product.mass
+  -# %p
+  -#   %b Type:
+  -#   = product.category
+  -# %p
+  -#   %b Url:
+  -#   = product.url
+  -# %p
+  -#   %b Manufacturer:
+  -#   = product.manufacturer
+  -# %p
+  -#   %b Manufacturer country:
+  -#   = product.manufacturer_country
+  -# %p
+  -#   %b Co2 produced:
+  -#   = product.co2_produced
+  -# %p
+  -#   %b Materials:
+  -#   - product.materials.each do |m|
+  -#     = m.name
       
 
 
