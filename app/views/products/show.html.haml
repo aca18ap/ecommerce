@@ -25,7 +25,7 @@
     = product.manufacturer
   %p
     %b Manufacturer country:
-    = product.manufacturer_country
+    = Country.new(@product.manufacturer_country).common_name
   %p
     %b Co2 produced:
     = product.co2_produced

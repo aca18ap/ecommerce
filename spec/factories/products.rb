@@ -12,24 +12,25 @@
 #  manufacturer_country :string
 #  mass                 :float
 #  name                 :string
-#  price                :float
+#  price                :float            not null
 #  url                  :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  business_id          :bigint
 #
 FactoryBot.define do
-  factory :product, class: Product do
+  factory :product do
     name { 'TestName' }
     description { 'A piece of clothing' }
-    mass { '14' }
+    mass { '10' }
     category { 'Trousers' }
     url { 'https://clothes.com' }
     manufacturer { 'Me' }
-    manufacturer_country { 'Italy' }
     price { '10.4' }
-    after(:create) do |product|
-      product.materials ||= create(:material, product: product)
+    manufacturer_country { 'VN' }
+    after :build do |product|
+      product.products_material << FactoryBot.build(:products_material, material: FactoryBot.build(:material, kg_co2_per_kg: 5), percentage: 60)
+      product.products_material << FactoryBot.build(:products_material, material: FactoryBot.build(:material, kg_co2_per_kg: 10), percentage: 40)
     end
   end
 end

@@ -12,7 +12,7 @@
 #  manufacturer_country :string
 #  mass                 :float
 #  name                 :string
-#  price                :float
+#  price                :float            not null
 #  url                  :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
@@ -30,22 +30,34 @@ class Product < ApplicationRecord
   validates :url, uniqueness: true, format: { with: URI::DEFAULT_PARSER.make_regexp }
   validates :mass, numericality: { greater_than: 0 }
   validates :price, numericality: { greater_than: 0 }
+  validate :validate_percentages
 
-  before_update :calculate_co2
+  after_save :co2
 
   has_one_attached :image, dependent: :destroy
-  has_many :products_material, dependent: :destroy
+
+  has_many :products_material, inverse_of: :product, dependent: :destroy
   has_many :materials, through: :products_material
   belongs_to :business, optional: true
 
-  # CO2 re-calculated every time it gets updated. To update to take country into account
-  def calculate_co2
-    material_co2 = materials.map(&:kg_co2_per_kg).sum
-    self.co2_produced = (mass * material_co2).round(2)
+  accepts_nested_attributes_for :products_material, allow_destroy: true
+
+  # Validation for materials percentages to add up to 100
+  def validate_percentages
+    pms = products_material.select { |m| m.marked_for_destruction? == false }.map(&:percentage).sum.to_i
+    errors.add :products_material, 'Materials should add up to 100%' if pms != 100
   end
 
   # Gets the 'created_at' time truncated to the nearest hour
   def hour
     DateTime.parse(created_at.to_s).change({ min: 0, sec: 0 })
+  end
+
+  private
+
+  # calculating and updating co2 produced after_save
+  def co2
+    co2 = Co2Calculator.new(materials, products_material, manufacturer_country, mass).calculate_co2
+    update_column(:co2_produced, co2)
   end
 end

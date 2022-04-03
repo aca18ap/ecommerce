@@ -12,7 +12,7 @@
 #  manufacturer_country :string
 #  mass                 :float
 #  name                 :string
-#  price                :float
+#  price                :float            not null
 #  url                  :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
@@ -21,12 +21,7 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-  let!(:material) { FactoryBot.create(:material, name: 'material', kg_co2_per_kg: 4) }
-  let!(:product) do
-    FactoryBot.create(:product, name: 'Product', category: 'Category',
-                                manufacturer: 'Me', mass: 10, price: 10.1, url: 'https://test.com', manufacturer_country: 'Country')
-  end
-  let!(:products_material) { FactoryBot.create(:products_material, product: product, material: material) }
+  let!(:product) { FactoryBot.create(:product) }
 
   describe 'Validates' do
     it 'is valid with valid attributes' do
@@ -78,15 +73,23 @@ RSpec.describe Product, type: :model do
       product.manufacturer_country = ''
       expect(product).not_to be_valid
     end
+    it 'is invalid if materials dont add up to 100%' do
+      product.products_material[0].percentage = 0
+      expect(product).not_to be_valid
+    end
   end
 
   describe '.calculate_co2' do
     before { stub_const('Material', Material) }
     it 'CO2 produced by product' do
-      # factorybot creates association with material of 4co2/kg
-      product.mass = 10
-      product.calculate_co2
-      expect(product.co2_produced).to eq(40)
+      product.manufacturer_country = 'GB' # gb = Great Britain, same as country of origin, thus co2=70
+      product.save
+      expect(product.reload.co2_produced).to eq(70)
+    end
+
+    it 'CO2 increases when country is further' do
+      product.manufacturer_country = 'VN' # VN = Vietnam, far from GB
+      expect(product.reload.co2_produced).to be > 70
     end
   end
 

@@ -132,6 +132,7 @@ GEM
       xpath (~> 3.2)
     childprocess (4.1.0)
     chronic (0.10.2)
+    cocoon (1.2.15)
     concurrent-ruby (1.1.9)
     countries (4.2.2)
       i18n_data (~> 0.15.0)
@@ -264,7 +265,7 @@ GEM
     pg (1.3.3)
     popper_js (2.9.3)
     public_suffix (4.0.6)
-    puma (5.6.2)
+    puma (5.6.4)
       nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.3)
@@ -462,7 +463,9 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rvm
   capybara
-  country_select
+  cocoon
+  countries
+  country_select (~> 6.0)
   daemons
   database_cleaner
   delayed_job

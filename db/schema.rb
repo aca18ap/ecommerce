@@ -168,7 +168,7 @@ ActiveRecord::Schema.define(version: 2022_03_25_135914) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "business_id"
-    t.float "price"
+    t.float "price", null: false
   end
 
   create_table "products_materials", force: :cascade do |t|
@@ -176,17 +176,9 @@ ActiveRecord::Schema.define(version: 2022_03_25_135914) do
     t.bigint "material_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "percentage"
     t.index ["material_id"], name: "index_products_materials_on_material_id"
     t.index ["product_id"], name: "index_products_materials_on_product_id"
-  end
-
-  create_table "purchase_histories", id: false, force: :cascade do |t|
-    t.bigint "product_id", null: false
-    t.bigint "customer_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["customer_id"], name: "index_purchase_histories_on_customer_id"
-    t.index ["product_id"], name: "index_purchase_histories_on_product_id"
   end
 
   create_table "registrations", force: :cascade do |t|
@@ -301,6 +293,4 @@ ActiveRecord::Schema.define(version: 2022_03_25_135914) do
   add_foreign_key "faq_votes", "faqs"
   add_foreign_key "products_materials", "materials"
   add_foreign_key "products_materials", "products"
-  add_foreign_key "purchase_histories", "customers"
-  add_foreign_key "purchase_histories", "products"
 end

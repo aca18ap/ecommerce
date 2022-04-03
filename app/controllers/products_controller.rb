@@ -26,6 +26,7 @@ class ProductsController < ApplicationController
   def new
     if current_customer || current_staff || current_business
       @product = Product.new
+      @product.products_material.build
     else
       redirect_to new_customer_registration_path, alert: 'You need to sign up before adding a new product!'
     end
@@ -62,7 +63,7 @@ class ProductsController < ApplicationController
   # DELETE /products/1
   def destroy
     @product.destroy
-    redirect_to products_url, notice: 'Product was successfully destroyed.'
+    redirect_to products_path, notice: 'Product was successfully destroyed.'
   end
 
   private
@@ -75,7 +76,8 @@ class ProductsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def product_params
     params.require(:product).permit(:name, :description, :business_id, :mass, :price, :category, :url, :manufacturer,
-                                    :manufacturer_country, :co2_produced, :image, material_ids: [])
+                                    :manufacturer_country, :co2_produced, :image,
+                                    products_material_attributes: %i[material_id percentage id _destroy])
   end
 
   # List of params that can be used to filter products if specified
