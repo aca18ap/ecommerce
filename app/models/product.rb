@@ -27,7 +27,7 @@ class Product < ApplicationRecord
                                 }
 
   validates :name, :category, :url, :manufacturer, :manufacturer_country, :mass, :price, presence: true
-  # validates :url, uniqueness: true, format: { with: URI::DEFAULT_PARSER.make_regexp }
+  validates :url, uniqueness: true, format: { with: URI::DEFAULT_PARSER.make_regexp }
   validates :mass, numericality: { greater_than: 0 }
   validates :price, numericality: { greater_than: 0 }
   validate :validate_percentages
