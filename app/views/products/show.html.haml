@@ -1,5 +1,5 @@
 = stylesheet_link_tag 'products'
-
+= include_gon
 .container-fluid.pad-edge
   .pt-5 
   %p#notice= notice
@@ -14,15 +14,20 @@
         - else
           %img.img-fluid= image_tag("default-image.jpg")  
         %br
+
         .col.offset-8.offset-y.border
           %h3= "£" + product.price.to_s
+        .offset-y.w-auto
+          %button.btn{:href=>product.url}
+            %i=fa_icon('cart-shopping')
+            %a Buy now!
       %br
       .row
         %p= product.description
     
     .col-xl-8
       .row
-        .col-xl-9
+        .col-xl-8
           .eco-stats.d-flex.flex-column
             %h1= product.name
             %h3= product.manufacturer
@@ -35,7 +40,7 @@
 
             %br
 
-        .col-xl-3
+        .col-xl-4
           .calculations.p-2
             %h4 How the CO2 was calculated
             %hr
@@ -64,10 +69,23 @@
 
 
   .row.py-3
-    #map
+    .col-8
+      #map.p-1
+
+    .col-4
+      .other-environmental-info
+        %h4 Other product information
+        %tr
+          %td Weight:
+          %td= "#{product.mass.round(2)} kg"
+        %tr
+          %td 
 
 
   - if can?(:edit, Product)
     = link_to 'Edit', edit_product_path(product)
     \|
   = link_to 'Back', :back
+
+
+
