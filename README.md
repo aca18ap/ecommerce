@@ -49,13 +49,14 @@ Clone the project, then:
 ### CI
 The CI Pipeline will fail if any of the following conditions are not met:
 1) Any RSpec tests fail
-2) Any RuboCop offenses
-3) Brakeman finds a "medium" issue
-4) Bundler-audit fails
-5) Yarn-audit fails
+2) Any Jest tests fail
+3) Any RuboCop offenses
+4) Brakeman finds a "medium" issue
+5) Bundler-audit fails
+6) Yarn-audit fails
 
 ### Style Guide
-An adaptation of the standard [Ruby Style Guide](https://rubystyle.guide/) is employed and enforced using RuboCop. Some modifications have been made to better suit the project and our agreed programming style. A summary of these modifications can be found here:
+An adaptation of the standard [Ruby Style Guide](https://rubystyle.guide/) and extended [Rails Style Guide](https://github.com/rubocop/rails-style-guide) are employed and enforced using RuboCop. Some modifications have been made to better suit the project and our agreed programming style. A summary of these modifications can be found here:
 1) Line width increased to 120 characters
 2) Maximum block length increased to 40
 3) Maximum method length increased to 20

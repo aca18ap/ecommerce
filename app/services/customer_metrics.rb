@@ -13,7 +13,7 @@ class CustomerMetrics < CalculateMetrics
 
       return 0 if customer_totals.size.zero?
 
-      customer_totals.values.sum / customer_totals.size
+      (customer_totals.values.sum / customer_totals.size).round(1)
     end
 
     def site_co2_saved

@@ -37,6 +37,15 @@
   "version": "0.1.0",
   "devDependencies": {
     "@webpack-cli/serve": "^1.6.1",
+    "jest": "^27.5.1",
     "webpack-dev-server": "^4.7.4"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "roots": [
+      "spec/javascript"
+    ]
   }
 }

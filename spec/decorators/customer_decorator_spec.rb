@@ -38,7 +38,7 @@ RSpec.describe CustomerDecorator do
       insert_purchases
 
       site_mean = ((product.co2_produced + product2.co2_produced) / 2).round(1)
-      expect(customer.mean_co2_per_purchase).to eq({ customer: product.co2_produced, site: site_mean, valence: 'average' })
+      expect(customer.mean_co2_per_purchase).to eq({ customer: product.co2_produced.round(1), site: site_mean, valence: 'average' })
     end
   end
 
@@ -51,7 +51,7 @@ RSpec.describe CustomerDecorator do
       insert_purchases
 
       site_mean = ((product.co2_produced + product2.co2_produced) / 2).round(1)
-      expect(customer.total_co2_produced).to eq({ customer: product.co2_produced, site: site_mean, valence: 'average' })
+      expect(customer.total_co2_produced).to eq({ customer: product.co2_produced.round(1), site: site_mean, valence: 'average' })
     end
   end
 

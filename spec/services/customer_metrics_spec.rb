@@ -17,7 +17,7 @@ describe 'Calculating metrics' do
       customer.products << product2
 
       expected_mean = (product.co2_produced + product2.co2_produced) / 2
-      expect(CustomerMetrics.site_mean_co2_per_purchase).to eq expected_mean
+      expect(CustomerMetrics.site_mean_co2_per_purchase).to eq expected_mean.round(1)
     end
   end
 
@@ -31,7 +31,7 @@ describe 'Calculating metrics' do
       customer.products << product2
 
       expected_sum = product.co2_produced + product2.co2_produced
-      expect(CustomerMetrics.site_total_co2_produced).to eq expected_sum
+      expect(CustomerMetrics.site_total_co2_produced).to eq expected_sum.round(1)
     end
   end
 
