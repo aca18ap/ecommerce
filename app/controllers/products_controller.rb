@@ -20,6 +20,7 @@ class ProductsController < ApplicationController
   # GET /products/1
   def show
     @product = @product.decorate
+    @co2 = Co2Calculator.new(@product)
   end
 
   # GET /products/new

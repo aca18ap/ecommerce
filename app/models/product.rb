@@ -61,7 +61,7 @@ class Product < ApplicationRecord
 
   # calculating and updating co2 produced after_save
   def co2
-    co2 = Co2Calculator.new(materials, products_material, manufacturer_country, mass).calculate_co2
+    co2 = Co2Calculator.new(self).calculate_co2
     update_column(:co2_produced, co2)
   end
 end

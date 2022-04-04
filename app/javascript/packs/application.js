@@ -4,12 +4,14 @@
 // that code so it'll be compiled.
 
 import Rails from "@rails/ujs";
+import { Loader } from "@googlemaps/js-api-loader";
 import "bootstrap";
 import '../scripts/metrics';
 import './features';
 import './sharing';
 import './admin';
 import './new_product';
-import "@nathanvda/cocoon"
+import './show_product';
+import "@nathanvda/cocoon";
 
 Rails.start();

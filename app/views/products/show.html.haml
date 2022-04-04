@@ -1,4 +1,5 @@
 = stylesheet_link_tag 'products'
+
 .container-fluid.pad-edge
   .pt-5 
   %p#notice= notice
@@ -35,10 +36,24 @@
             %br
 
         .col-xl-3
-          .calculations
-            %h4 This product contains:
-            - product.materials.each do |m|
-              %h5.review= m.name
+          .calculations.p-2
+            %h4 How the CO2 was calculated
+            %hr
+            .row.materials_calculations
+              - product.products_material.each do |m|
+                %h6.breakdown= m.material.name + " - " + m.percentage.to_i.to_s + "%"
+              %h6.breakdown= "...roughly #{content_tag(:strong, @co2.materials_factor.round(2).to_s)} kg"
+              
+            %hr
+            
+            .row.materials_calculations
+              %span
+                %h6.breakdown= "Manufactured in #{content_tag(:em,Country.new(product.manufacturer_country).common_name)}" 
+            
+                %h6.breakdown= "a shipping distance of over #{content_tag(:strong, @co2.calc_distance.to_s)} km!"
+
+                %h6.breakdown= "...roughly #{content_tag(:strong, (product.co2_produced - @co2.materials_factor).round(2))} kg"
+
 
       %h4 Check out these greener alternatives
       .row.overflow-scroll.suggested-products
@@ -48,39 +63,8 @@
 
 
 
-
-  -# %p
-  -#   %b Name:
-  -#   = product.name
-  -# %p
-  -#   %b Vendor:
-  -#   = product.business_name
-  -# %p
-  -#   %b Description:
-  -#   = product.description
-  -# %p
-  -#   %b Mass:
-  -#   = product.mass
-  -# %p
-  -#   %b Type:
-  -#   = product.category
-  -# %p
-  -#   %b Url:
-  -#   = product.url
-  -# %p
-  -#   %b Manufacturer:
-  -#   = product.manufacturer
-  -# %p
-  -#   %b Manufacturer country:
-  -#   = product.manufacturer_country
-  -# %p
-  -#   %b Co2 produced:
-  -#   = product.co2_produced
-  -# %p
-  -#   %b Materials:
-  -#   - product.materials.each do |m|
-  -#     = m.name
-      
+  .row.py-3
+    #map
 
 
   - if can?(:edit, Product)
