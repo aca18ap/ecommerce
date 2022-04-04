@@ -21,7 +21,7 @@ describe 'Calculating metrics' do
     end
   end
 
-  describe 'site_total_co2_produced' do
+  describe '.site_total_co2_produced' do
     it 'returns 0 if there are no entries in the product history table' do
       expect(CustomerMetrics.site_total_co2_produced).to eq 0
     end
@@ -35,7 +35,7 @@ describe 'Calculating metrics' do
     end
   end
 
-  describe 'site_co2_saved' do
+  describe '.site_co2_saved' do
     it 'returns 0 if there are no entries in the product history table' do
       expect(CustomerMetrics.site_co2_saved).to eq 0
     end
@@ -45,7 +45,7 @@ describe 'Calculating metrics' do
     end
   end
 
-  describe 'site_co2_per_pound' do
+  describe '.site_co2_per_pound' do
     it 'returns 0 if there are no entries in the product history table' do
       expect(CustomerMetrics.site_co2_per_pound).to eq 0
     end
@@ -59,7 +59,7 @@ describe 'Calculating metrics' do
     end
   end
 
-  describe 'site_products_total' do
+  describe '.site_products_total' do
     it 'returns 0 if there are no entries in the product history table' do
       expect(CustomerMetrics.site_products_total).to eq 0
     end
@@ -70,5 +70,25 @@ describe 'Calculating metrics' do
 
       expect(CustomerMetrics.site_products_total).to eq 2
     end
+  end
+
+  describe '.time_co2_per_purchase' do
+    skip 'awaiting implementation'
+  end
+
+  describe '.time_total_co2' do
+    skip 'awaiting implementation'
+  end
+
+  describe '.time_co2_saved' do
+    skip 'awaiting implementation'
+  end
+
+  describe '.time_co2_per_pound' do
+    skip 'awaiting implementation'
+  end
+
+  describe '.time_products_total' do
+    skip 'awaiting implementation'
   end
 end
