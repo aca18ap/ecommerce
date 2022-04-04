@@ -1,34 +1,36 @@
 = stylesheet_link_tag 'products'
 = include_gon
 .container-fluid.pad-edge
-  .pt-5 
+  .pt-2
   %p#notice= notice
 
 
-  .row
+  .row.py-3
     .col-xl-4
 
       .row
         - if product.image.attached?
-          %img.img-fluid.rounded= image_tag product.image
+          %img= image_tag(product.image, class: 'img-fluid round-image')
         - else
-          %img.img-fluid= image_tag("default-image.jpg")  
+          %img= image_tag("default-image.jpg", class: 'round-image')
         %br
 
-        .col.offset-8.offset-y.border
-          %h3= "£" + product.price.to_s
-        .offset-y.w-auto
-          %button.btn{:href=>product.url}
+      .offset-y.d-flex.justify-content-between
+        .border
+          %a.btn{:href=>product.url}
             %i=fa_icon('cart-shopping')
-            %a Buy now!
+            Buy now!
+
+        .border
+          %h3= "£" + product.price.to_s
       %br
       .row
         %p= product.description
     
     .col-xl-8
       .row
-        .col-xl-8
-          .eco-stats.d-flex.flex-column
+        .col-xl-12.d-flex#co2_left
+          .eco-stats.d-flex.flex-column.w-100
             %h1= product.name
             %h3= product.manufacturer
 
@@ -39,8 +41,12 @@
             %h4.center  ...were produced in the making of this product
 
             %br
+          .flex-shrink-1
+            %button.btn.h-100#chevron
+              %i.fa.fa-chevron-left#chevron-icon
+              
 
-        .col-xl-4
+        .col-xl-4#co2_right
           .calculations.p-2
             %h4 How the CO2 was calculated
             %hr
@@ -67,6 +73,7 @@
             = render 'suggested_product_card', p: p
 
 
+  %hr
 
   .row.py-3
     .col-8

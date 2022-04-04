@@ -1,5 +1,10 @@
 .card
     .card-body.d-flex.flex-column.justify-content-around
+        - if p.image.attached?
+            %img.card-img-top= image_tag p.image
+        - else
+            %img.card-img-top= image_tag("default-image.jpg")  
+
         %h5.card-title= p.name
         %h6.card-subtitle= "£ #{content_tag(:em, p.price)}"
         %h6.card-text= p.co2_produced.to_s + "kgCO2"

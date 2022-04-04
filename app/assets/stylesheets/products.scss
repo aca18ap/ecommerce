@@ -13,11 +13,19 @@ body{
 
 .offset-y {
     margin-top: -1em;
-    background-color: white;
     align-items: center;
     justify-content: center;
-    
+    margin-right: -0.5em;
+    margin-left: -0.5em;
 }
+
+.border {
+    background-color: lightgreen;
+    color: darkslategrey;
+    padding: 5px;
+    border-radius: 25px;
+}
+
 
 .center {
     text-align: center;
@@ -61,3 +69,18 @@ body{
     width: 100%;
     /* The width is the width of the web page */
   }
+
+.round-image{
+    border-radius: 25px;
+}
+
+#chevron {
+    .fa{
+        transform: scale(1,2.5);
+    }
+}
+
+#co2_right {
+    display: none;
+    animation-duration: 3s;
+}
