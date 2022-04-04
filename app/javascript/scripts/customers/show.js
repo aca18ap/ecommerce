@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 import * as graphs from '../graphs/graph_templates';
 import * as graph_utils from '../graphs/graph_utils';
-import {insert_empty_chart_message} from "../graphs/graph_utils";
+import * as d3_graph_utils from '../graphs/d3_graph_utils';
 
 document.addEventListener('DOMContentLoaded', () => {
     const width = 1000;
@@ -13,5 +13,5 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(gon.timeCO2PerPurchase)
 
     // Add missing data message to appropriate chart areas
-    for (let chart of emptyCharts) insert_empty_chart_message(chart, width, height);
+    for (let chart of emptyCharts) d3_graph_utils.insert_empty_chart_message(chart, width, height);
 })

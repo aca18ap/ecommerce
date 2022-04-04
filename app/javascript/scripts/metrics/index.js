@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
 import * as graphs from '../graphs/graph_templates';
 import * as graph_utils from '../graphs/graph_utils';
+import * as d3_graph_utils from '../graphs/d3_graph_utils';
 
 const uk = require('./uk-geo.json');
 
@@ -54,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const colour = d3.scaleSequential([1, 10], d3.interpolateGreens);
     colour.unknown('#fff');
 
-    let visitsPlotData = graph_utils.create_feature_dict(uk.features, gon.visits);
+    let visitsPlotData = d3_graph_utils.create_feature_dict(uk.features, gon.visits);
     let visits_values = Object.values(visitsPlotData);
     let visits_min = graph_utils.get_min(visits_values);
     let visits_max = graph_utils.get_max(visits_values);
@@ -127,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     }
 
-    let regsPlotData = graph_utils.create_feature_dict(uk.features, gon.registrations);
+    let regsPlotData = d3_graph_utils.create_feature_dict(uk.features, gon.registrations);
     let regs_values = Object.values(regsPlotData);
     let regs_min = graph_utils.get_min(regs_values);
     let regs_max = graph_utils.get_max(regs_values);
@@ -283,5 +284,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Add missing data message to appropriate chart areas
-    for (let chart of emptyCharts) graph_utils.insert_empty_chart_message(chart, width, height);
+    for (let chart of emptyCharts) d3_graph_utils.insert_empty_chart_message(chart, width, height);
 });

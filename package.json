@@ -2,9 +2,9 @@
   "name": "genesys",
   "private": true,
   "dependencies": {
-    "@babel/core": "7",
+    "@babel/core": "^7.17.8",
     "@babel/plugin-transform-runtime": "7",
-    "@babel/preset-env": "7",
+    "@babel/preset-env": "^7.16.11",
     "@babel/runtime": "7",
     "@epigenesys/epi-js": "^1.0.0-alpha",
     "@nathanvda/cocoon": "^1.2.14",
@@ -37,15 +37,28 @@
   "version": "0.1.0",
   "devDependencies": {
     "@webpack-cli/serve": "^1.6.1",
+    "babel-jest": "^27.3.1",
     "jest": "^27.5.1",
     "webpack-dev-server": "^4.7.4"
   },
+  "babel": {
+    "presets": [[
+      "@babel/preset-env", {
+        "targets": {
+          "node": "current"
+        }}]]
+  },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "jest": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "jest": {
     "roots": [
       "spec/javascript"
-    ]
+    ],
+    "transformIgnorePatterns": ["/node_modules/(?!d3|d3-array|internmap|delaunator|robust-predicates)"],
+    "transform": {
+      "\\.js$": "babel-jest"
+    }
   }
 }
