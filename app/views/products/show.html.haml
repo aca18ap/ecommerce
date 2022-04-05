@@ -1,5 +1,9 @@
 = stylesheet_link_tag 'products'
 = include_gon
+
+#back-button.btn= link_to 'Back', :back
+
+
 .container-fluid.pad-edge
   .pt-2
   %p#notice= notice
@@ -17,7 +21,7 @@
 
       .offset-y.d-flex.justify-content-between
         .border.shadow-lg
-          %a.btn#buy-price{:href=>product.url, text: "Buy now"}
+          %a.btn.fa-solid.fa-cart-shopping#buy-price{:href=>product.url, text: "Buy now"}
             Buy now
             %i=fa_icon('cart-shopping')
             
@@ -104,12 +108,16 @@
             %td= "#{product.url}"
 
     
+  %hr
+    .row.py-3
+      .col-12
+        %h1 Reviews
+      
 
 
   - if can?(:edit, Product)
     = link_to 'Edit', edit_product_path(product)
     \|
-  = link_to 'Back', :back
 
 
 
