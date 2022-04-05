@@ -23,13 +23,7 @@ class ProductsController < ApplicationController
     @co2 = Co2Calculator.new(@product)
     @country = Country.new(@product.manufacturer_country)
     @uk = Country.new('GB')
-    gon.push({
-      :lat1 => @uk.latitude,
-      :long1 => @uk.longitude,
-      :lat2 => @country.latitude,
-      :long2 => @country.longitude
-    })
-
+    gon.push({ lat1: @uk.latitude, long1: @uk.longitude, lat2: @country.latitude, long2: @country.longitude })
   end
 
   # GET /products/new
