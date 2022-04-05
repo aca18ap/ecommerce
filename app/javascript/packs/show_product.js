@@ -13,16 +13,19 @@ function toggleDetails(){
   if (chevron.hasClass('fa-chevron-left')){
     console.log('expanding')
     right.animate({
-      width: "35%"
+      width: "35%",
+      fillOpacity: 1
     },
     {
 
     })
     left.animate({
-      width: "65%"},
+      width: "65%"
+    },
       {      
         complete: function(){
           right.css('display', 'block')    
+
       }
     })
     chevron.removeClass('fa-chevron-left')
@@ -36,7 +39,8 @@ function toggleDetails(){
       width: "100%"
     })
     right.animate({
-      width: "0%"
+      width: "0%",
+      fillOpacity: 0 
     })
 
     chevron.removeClass('fa-chevron-right')

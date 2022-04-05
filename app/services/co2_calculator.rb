@@ -26,7 +26,7 @@ class Co2Calculator
   def materials_factor
     co2 = 0
     (0..@materials_co2.length - 1).each do |i|
-      co2 += ((@mass / 100) * @materials_percentages[i]) * @materials_co2[i]
+      co2 += ((@mass / 100) * (@materials_percentages[i] || 0)) * @materials_co2[i]
     end
     co2
   end

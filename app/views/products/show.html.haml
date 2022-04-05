@@ -16,13 +16,14 @@
         %br
 
       .offset-y.d-flex.justify-content-between
-        .border
-          %a.btn{:href=>product.url}
+        .border.shadow-lg
+          %a.btn#buy-price{:href=>product.url, text: "Buy now"}
+            Buy now
             %i=fa_icon('cart-shopping')
-            Buy now!
+            
 
-        .border
-          %h3= "£" + product.price.to_s
+        .border.shadow-lg
+          #buy-price= "£" + product.price.to_s
       %br
       .row
         %p= product.description
@@ -42,9 +43,8 @@
 
             %br
           .flex-shrink-1
-            %button.btn.h-100.shadow-none#chevron
+            %button.btn.h-100.shadow-none#chevron{:data-toggle=> "tooltip", title: "View a breakdown of how this value was calculated"}
               %i.fa.fa-chevron-left#chevron-icon
-              
 
         #co2_right
           .calculations.p-2
@@ -65,12 +65,22 @@
 
                 %h6.breakdown= "...roughly #{content_tag(:strong, (product.co2_produced - @co2.materials_factor).round(2))} kg"
 
-
-      %h4 Check out these greener alternatives
-      .row.overflow-scroll.suggested-products
-        .d-flex.flex-no-wrap
-          - Product.limit(5).each do |p|
-            = render 'suggested_product_card', p: p
+      - if product.co2_produced > 10
+        %h4 Check out these greener alternatives
+        .row.overflow-scroll.suggested-products
+          .d-flex.flex-no-wrap
+            - Product.limit(5).each do |p|
+              = render 'suggested_product_card', p: p
+      - else
+        %h3 This product is great, you should buy it ;)
+        .row
+          .d-flex
+            .card
+              .card-header kgCO2/£
+              %h3.card-body= (product.co2_produced / product.price).round(2)
+            .card
+              .card-header Trees saved
+              %h3.card-body= 1
 
 
   %hr
@@ -80,13 +90,20 @@
       #map.p-1
 
     .col-4
-      .other-environmental-info
+      .other-environmental-info.w-100
         %h4 Other product information
-        %tr
-          %td Weight:
-          %td= "#{product.mass.round(2)} kg"
-        %tr
-          %td 
+        %table.w-100
+          %tr
+            %td Weight:
+            %td= "#{product.mass.round(2)} kg"
+          %tr
+            %td Category:
+            %td= "#{product.category}"
+          %tr
+            %td URL:
+            %td= "#{product.url}"
+
+    
 
 
   - if can?(:edit, Product)
