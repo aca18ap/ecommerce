@@ -1,7 +1,14 @@
 = stylesheet_link_tag 'products'
 = include_gon
 
-#back-button.btn= link_to 'Back', :back
+#back-button.d-flex.flex-column.p-2
+  = link_to 'Back', :back, {class: 'fa fa-arrow-left'}
+  %hr
+  - if can?(:manage, Product)
+    = link_to 'Edit', edit_product_path(product)
+    %hr/
+    = link_to 'Destroy', product, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
 
 
 .container-fluid.pad-edge
@@ -114,10 +121,6 @@
         %h1 Reviews
       
 
-
-  - if can?(:edit, Product)
-    = link_to 'Edit', edit_product_path(product)
-    \|
 
 
 
