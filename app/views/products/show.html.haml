@@ -8,7 +8,7 @@
   .row.py-3
     .col-xl-4
 
-      .row
+      .row.round-image
         - if product.image.attached?
           %img= image_tag(product.image, class: 'img-fluid round-image')
         - else
@@ -29,7 +29,7 @@
     
     .col-xl-8
       .row
-        .col-xl-12.d-flex#co2_left
+        .d-flex#co2_left
           .eco-stats.d-flex.flex-column.w-100
             %h1= product.name
             %h3= product.manufacturer
@@ -42,13 +42,13 @@
 
             %br
           .flex-shrink-1
-            %button.btn.h-100#chevron
+            %button.btn.h-100.shadow-none#chevron
               %i.fa.fa-chevron-left#chevron-icon
               
 
-        .col-xl-4#co2_right
+        #co2_right
           .calculations.p-2
-            %h4 How the CO2 was calculated
+            %h4.text-wrap How the CO2 was calculated
             %hr
             .row.materials_calculations
               - product.products_material.each do |m|
@@ -61,7 +61,7 @@
               %span
                 %h6.breakdown= "Manufactured in #{content_tag(:em,Country.new(product.manufacturer_country).common_name)}" 
             
-                %h6.breakdown= "a shipping distance of over #{content_tag(:strong, @co2.calc_distance.to_s)} km!"
+                %h6.breakdown= "a distance of over #{content_tag(:strong, @co2.calc_distance.to_s)} km!"
 
                 %h6.breakdown= "...roughly #{content_tag(:strong, (product.co2_produced - @co2.materials_factor).round(2))} kg"
 

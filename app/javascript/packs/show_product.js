@@ -11,17 +11,34 @@ function toggleDetails(){
   let right = $('#co2_right')
   let chevron = $('#chevron-icon')
   if (chevron.hasClass('fa-chevron-left')){
-    console.log('reducing')
-    left.removeClass('col-xl-12')
-    left.addClass('col-xl-8')
-    right.css('display', 'block')
+    console.log('expanding')
+    right.animate({
+      width: "35%"
+    },
+    {
+
+    })
+    left.animate({
+      width: "65%"},
+      {      
+        complete: function(){
+          right.css('display', 'block')    
+      }
+    })
     chevron.removeClass('fa-chevron-left')
     chevron.addClass('fa-chevron-right')
+    
   }else{
-    console.log('expanding')
-    left.removeClass('col-xl-8')
-    left.addClass('col-xl-12')
+    console.log('reducing')
     right.css('display', 'none')
+    
+    left.animate({
+      width: "100%"
+    })
+    right.animate({
+      width: "0%"
+    })
+
     chevron.removeClass('fa-chevron-right')
     chevron.addClass('fa-chevron-left')
   }
