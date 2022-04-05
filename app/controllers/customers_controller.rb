@@ -21,8 +21,6 @@ class CustomersController < ApplicationController
     gon.timeCO2Saved = CustomerMetrics.time_co2_saved(@customer)
     gon.timeCO2PerPound = CustomerMetrics.time_co2_per_pound(@customer)
     gon.timeProductsTotal = CustomerMetrics.time_products_total(@customer)
-
-    redirect_back fallback_location: '/' unless customer_signed_in?
   end
 
   # GET /customer/1/edit

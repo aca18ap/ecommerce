@@ -520,6 +520,13 @@ export function LineChart(data, {
     voronoi, // show a Voronoi overlay? (for debugging)
     svgElement
 } = {}) {
+
+    if (xType === d3.scaleTime) {
+        data.forEach(function(x){
+            x.day = d3.timeParse("%Y-%m-%d")(x.day)
+        });
+    }
+
     // Compute values.
     const X = d3.map(data, x);
     const Y = d3.map(data, y);

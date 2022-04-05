@@ -16,15 +16,16 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(gon.timeProductsTotal);
 
     if (gon.timeCO2PerPurchase && Object.keys(gon.timeCO2PerPurchase).length > 0) {
-        graphs.BarChart(gon.timeCO2PerPurchase, {
+        graphs.LineChart(gon.timeCO2PerPurchase, {
             x: d => d.day,
             y: d => d.value,
             width,
             height,
             color: 'green',
             marginTop: 30,
-            marginLeft: 30,
-            marginRight: 10,
+            marginLeft: 40,
+            marginRight: 20,
+            xType: d3.scaleTime,
             yLabel: 'CO2/Purchase',
             svgElement: document.getElementById('co2-purchased-graph'),
         });
@@ -33,15 +34,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (gon.timeTotalCO2 && Object.keys(gon.timeTotalCO2).length > 0) {
-        graphs.BarChart(gon.timeTotalCO2, {
+        graphs.LineChart(gon.timeTotalCO2, {
             x: d => d.day,
             y: d => d.value,
             width,
             height,
             color: 'green',
             marginTop: 30,
-            marginLeft: 30,
-            marginRight: 10,
+            marginLeft: 40,
+            marginRight: 20,
+            xType: d3.scaleTime,
             yLabel: 'Total CO2',
             svgElement: document.getElementById('total-co2-graph'),
         });
@@ -50,15 +52,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (gon.timeCO2Saved && Object.keys(gon.timeCO2Saved).length > 0) {
-        graphs.BarChart(gon.timeCO2Saved, {
+        graphs.LineChart(gon.timeCO2Saved, {
             x: d => d.day,
             y: d => d.value,
             width,
             height,
             color: 'green',
             marginTop: 30,
-            marginLeft: 30,
-            marginRight: 10,
+            marginLeft: 40,
+            marginRight: 20,
+            xType: d3.scaleTime,
             yLabel: 'CO2 Saved',
             svgElement: document.getElementById('co2-saved-graph'),
         });
@@ -67,15 +70,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (gon.timeCO2PerPound && Object.keys(gon.timeCO2PerPound).length > 0) {
-        graphs.BarChart(gon.timeCO2PerPound, {
+        graphs.LineChart(gon.timeCO2PerPound, {
             x: d => d.day,
             y: d => d.value,
             width,
             height,
             color: 'green',
             marginTop: 30,
-            marginLeft: 30,
-            marginRight: 10,
+            marginLeft: 40,
+            marginRight: 20,
+            xType: d3.scaleTime,
             yLabel: 'CO2/£',
             svgElement: document.getElementById('co2-pound-graph'),
         });
@@ -84,15 +88,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (gon.timeProductsTotal && Object.keys(gon.timeProductsTotal).length > 0) {
-        graphs.BarChart(gon.timeProductsTotal, {
+        graphs.LineChart(gon.timeProductsTotal, {
             x: d => d.day,
             y: d => d.value,
             width,
             height,
             color: 'green',
             marginTop: 30,
-            marginLeft: 30,
-            marginRight: 10,
+            marginLeft: 40,
+            marginRight: 20,
+            xType: d3.scaleTime,
             yLabel: 'Products Added',
             svgElement: document.getElementById('products-added-graph'),
         });
