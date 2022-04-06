@@ -22,5 +22,23 @@
 require 'rails_helper'
 
 RSpec.describe PurchaseHistory, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let!(:customer) { FactoryBot.create(:customer) }
+  let!(:product) { FactoryBot.create(:product) }
+  subject { described_class.new(customer_id: customer.id, product_id: product.id) }
+
+  describe 'Validates' do
+    it 'is valid with valid attributes' do
+      expect(subject).to be_valid
+    end
+
+    it 'is invalid without a customer' do
+      subject.customer_id = ''
+      expect(subject).not_to be_valid
+    end
+
+    it 'is invalid without a product' do
+      subject.product_id = ''
+      expect(subject).not_to be_valid
+    end
+  end
 end

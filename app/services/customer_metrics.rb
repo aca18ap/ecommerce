@@ -40,6 +40,7 @@ class CustomerMetrics < CalculateMetrics
                 .group("date_trunc('day', products.created_at)")
                 .average(:co2_produced)
                 .transform_keys(&:to_i)
+                .transform_values { |average| average.round(1) }
       )
     end
 
@@ -50,12 +51,13 @@ class CustomerMetrics < CalculateMetrics
                 .group("date_trunc('day', products.created_at)")
                 .sum(:co2_produced)
                 .transform_keys(&:to_i)
+                .transform_values { |average| average.round(1) }
       )
     end
 
     def time_co2_saved(_customer)
       # TODO: Implement function
-      {}
+      insert_zero_entries([])
     end
 
     def time_co2_per_pound(customer)
@@ -65,7 +67,7 @@ class CustomerMetrics < CalculateMetrics
                 .group("date_trunc('day', products.created_at)")
                 .select("date_trunc('day', products.created_at) AS day," \
                         'SUM(products.co2_produced) / SUM(products.price) AS co2_per_pound')
-                .map { |day| { day.day.to_i => day.co2_per_pound } }
+                .map { |day| { day.day.to_i => day.co2_per_pound.round(1) } }
                 .reduce({}, :update)
       )
     end
@@ -86,7 +88,7 @@ class CustomerMetrics < CalculateMetrics
       return if data_hash.nil? || data_hash.empty?
 
       earliest_day = data_hash.first[0]
-      latest_day = DateTime.now.change({ hour: 0, min: 0, sec: 0 })
+      latest_day = (Time.now + 1.day).change({ hour: 0, min: 0, sec: 0 })
 
       data_arr = []
       (earliest_day.to_i..latest_day.to_i).step(1.day) do |date|

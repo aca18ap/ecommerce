@@ -26,6 +26,7 @@ RSpec.describe ProductsMaterial, type: :model do
   let!(:material) { FactoryBot.create(:material) }
   let!(:product) { FactoryBot.create(:product) }
   subject { described_class.new(material_id: material.id, product_id: product.id, percentage: 100) }
+
   describe 'Validates' do
     it 'is valid with valid attributes' do
       expect(subject).to be_valid
@@ -35,6 +36,7 @@ RSpec.describe ProductsMaterial, type: :model do
       subject.material_id = ''
       expect(subject).not_to be_valid
     end
+
     it 'is invalid without a product' do
       subject.product_id = ''
       expect(subject).not_to be_valid
