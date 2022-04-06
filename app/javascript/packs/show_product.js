@@ -14,11 +14,7 @@ function toggleDetails(){
     console.log('expanding')
     right.animate({
       width: "35%",
-      fillOpacity: 1
-    },
-    {
-
-    })
+    }, 800)
     left.animate({
       width: "65%"
     },
@@ -40,7 +36,6 @@ function toggleDetails(){
     })
     right.animate({
       width: "0%",
-      fillOpacity: 0 
     })
 
     chevron.removeClass('fa-chevron-right')

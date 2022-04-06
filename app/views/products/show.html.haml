@@ -3,10 +3,10 @@
 
 #back-button.d-flex.flex-column.p-2
   = link_to 'Back', :back, {class: 'fa fa-arrow-left'}
-  %hr
   - if can?(:manage, Product)
+    %hr
     = link_to 'Edit', edit_product_path(product)
-    %hr/
+    %hr
     = link_to 'Destroy', product, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 
@@ -76,6 +76,7 @@
 
                 %h6.breakdown= "...roughly #{content_tag(:strong, (product.co2_produced - @co2.materials_factor).round(2))} kg"
 
+      %br
       - if product.co2_produced > 10
         %h4 Check out these greener alternatives
         .row.overflow-scroll.suggested-products
@@ -83,15 +84,25 @@
             - Product.limit(5).each do |p|
               = render 'suggested_product_card', p: p
       - else
-        %h3 This product is great, you should buy it ;)
-        .row
-          .d-flex
-            .card
-              .card-header kgCO2/£
-              %h3.card-body= (product.co2_produced / product.price).round(2)
-            .card
-              .card-header Trees saved
-              %h3.card-body= 1
+        %h3.text-center This product is great, you should buy it ;)
+        .row.pt-2
+          .d-flex.cards.justify-content-between
+            .card.w-25
+              .card-body.text-center
+                %h4 kgCO2/£
+                %h3= (product.co2_produced / product.price).round(2)
+              %img.card-img-bottom= image_tag('footprint.jpg')
+            .card.w-25
+              .card-body.text-center
+                %h4 Better than
+                %h3 93%
+                %h4 of products
+              
+            .card.w-25
+              .card-body.text-center
+                %h4 Trees saved
+                %h3= 1
+              %img.card-img-bottom= image_tag('trees-saved.gif')
 
 
   %hr
