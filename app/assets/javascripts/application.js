@@ -13,6 +13,7 @@
 //= require d3
 //= require d3-geo
 //= require ../../javascript/packs/metrics
+//= require ../../javascript/packs/customers
 //= require ../../javascript/packs/features
 //= require topojson
 //= require_tree

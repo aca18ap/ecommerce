@@ -91,6 +91,48 @@ RSpec.describe '/products', type: :request do
         expect(response).to be_successful
       end
     end
+
+    context 'when adding a product to my purchase history' do
+      let!(:customer) { FactoryBot.create(:customer) }
+
+      it 'adds a new purchase history relationship for the product and customer, if I am signed in as a customer' do
+        login_as(customer, scope: :customer)
+        post products_url, params: { product: valid_attributes.merge({ customer_purchased: '1' }) }
+        expect(PurchaseHistory.count).to be 1
+        expect(PurchaseHistory.first.customer_id).to eq customer.id
+        expect(PurchaseHistory.first.product_id).to eq Product.first.id
+      end
+
+      def check_post_request
+        post products_url, params: { product: valid_attributes.merge({ customer_purchased: true }) }
+        expect(PurchaseHistory.count).to be 0
+      end
+
+      it 'does not let me add a product to my purchase history if I am logged in as a business' do
+        login_as(FactoryBot.create(:business), scope: :business)
+        check_post_request
+      end
+
+      it 'does not let me add a product to my purchase history if I am logged in as a reporter' do
+        login_as(FactoryBot.create(:reporter), scope: :staff)
+        check_post_request
+      end
+
+      it 'does not let me add a product to my purchase history if I am logged in as a admin' do
+        login_as(FactoryBot.create(:admin, email: 'admin2@team04.com'), scope: :staff)
+        check_post_request
+      end
+    end
+
+    context 'when adding a product as a business' do
+      let!(:business) { FactoryBot.create(:business) }
+      before { login_as(business, scope: :business) }
+
+      it 'adds my business id to the product' do
+        post products_url, params: { product: valid_attributes }
+        expect(Product.first.business_id).to be business.id
+      end
+    end
   end
 
   describe 'PATCH /update' do

@@ -81,15 +81,15 @@ rubocop:
     - bundle check --path vendor/gems
     - bundle exec rubocop --force-exclusion
 
-# jest:
-#   stage: test
-#   except:
-#     - tags
-#   dependencies:
-#     - yarn
-#   script:
-#     - yarn check --integrity
-#     - yarn test
+jest:
+ stage: test
+ except:
+   - tags
+ dependencies:
+   - yarn
+ script:
+   - yarn check --integrity
+   - yarn test
 
 ### Security ###
 

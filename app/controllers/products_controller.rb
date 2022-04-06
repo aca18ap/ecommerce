@@ -37,13 +37,11 @@ class ProductsController < ApplicationController
 
   # POST /products
   def create
-    @product = if current_business
-                 Product.new(product_params.merge(business_id: current_business.id).except(:image))
-               else
-                 Product.new(product_params.except(:image))
-               end
+    @product = Product.new(current_user_params)
 
     if @product.save
+      # Add product to customer purchase history
+      @product.customers << current_customer if current_customer && product_params[:customer_purchased] == '1'
       @product.image.attach(params[:product][:image])
       redirect_to @product, notice: 'Product was successfully created.'
     else
@@ -53,7 +51,7 @@ class ProductsController < ApplicationController
 
   # PATCH/PUT /products/1
   def update
-    if @product.update(product_params)
+    if @product.update(product_params.except(:customer_purchased))
       redirect_to @product, notice: 'Product was successfully updated.'
     else
       render :edit
@@ -76,8 +74,17 @@ class ProductsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def product_params
     params.require(:product).permit(:name, :description, :business_id, :mass, :price, :category, :url, :manufacturer,
-                                    :manufacturer_country, :co2_produced, :image,
+                                    :manufacturer_country, :co2_produced, :image, :customer_purchased,
                                     products_material_attributes: %i[material_id percentage id _destroy])
+  end
+
+  # Set specific product parameters for if the current user is a business, a customer or a staff member
+  def current_user_params
+    if current_business
+      product_params.merge(business_id: current_business.id).except(:image, :customer_purchased)
+    else
+      product_params.except(:image, :customer_purchased)
+    end
   end
 
   # List of params that can be used to filter products if specified

@@ -2,38 +2,37 @@
 
 # == Schema Information
 #
-# Table name: products_materials
+# Table name: purchase_histories
 #
-#  id          :bigint           not null, primary key
-#  percentage  :float
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  material_id :bigint           not null
+#  customer_id :bigint           not null
 #  product_id  :bigint           not null
 #
 # Indexes
 #
-#  index_products_materials_on_material_id  (material_id)
-#  index_products_materials_on_product_id   (product_id)
+#  index_purchase_histories_on_customer_id  (customer_id)
+#  index_purchase_histories_on_product_id   (product_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (material_id => materials.id)
+#  fk_rails_...  (customer_id => customers.id)
 #  fk_rails_...  (product_id => products.id)
 #
 require 'rails_helper'
-RSpec.describe ProductsMaterial, type: :model do
-  let!(:material) { FactoryBot.create(:material) }
+
+RSpec.describe PurchaseHistory, type: :model do
+  let!(:customer) { FactoryBot.create(:customer) }
   let!(:product) { FactoryBot.create(:product) }
-  subject { described_class.new(material_id: material.id, product_id: product.id, percentage: 100) }
+  subject { described_class.new(customer_id: customer.id, product_id: product.id) }
 
   describe 'Validates' do
     it 'is valid with valid attributes' do
       expect(subject).to be_valid
     end
 
-    it 'is invalid without a material' do
-      subject.material_id = ''
+    it 'is invalid without a customer' do
+      subject.customer_id = ''
       expect(subject).not_to be_valid
     end
 

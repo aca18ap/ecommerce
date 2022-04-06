@@ -8,9 +8,9 @@ describe 'Products' do
     let!(:product) { FactoryBot.create(:product) }
     let!(:material_new) { FactoryBot.create(:material, name: 'Material_New') }
 
-    before { login_as(customer) }
+    before { login_as(customer, scope: :customer) }
     specify 'I can add a product' do
-      visit '/products/new'
+      visit new_product_path
       fill_in 'product[name]', with: 'AirForceOne'
       fill_in 'product[category]', with: 'Shoes'
       fill_in 'product[mass]', with: '2'
@@ -23,14 +23,19 @@ describe 'Products' do
       select material_new.name, from: 'Material'
       fill_in 'product[products_material_attributes][0][percentage]', with: '100'
       click_button 'Create Product'
-      # visit '/products'
-      expect(page).to have_content 'Product was successfully created'
+      visit products_path
+      expect(page).to have_content 'AirForceOne'
     end
 
     specify 'I cannot edit a product' do
-      visit '/products'
-      expect(page).to have_content 'TestName'
+      visit products_path
+      expect(page).to have_content product.name
       expect(page).not_to have_content 'Edit'
+    end
+
+    specify 'I can see the "I have purchased this product" checkbox' do
+      visit new_product_path
+      expect(page).to have_content 'I have purchased this product'
     end
   end
 
@@ -38,12 +43,12 @@ describe 'Products' do
     let!(:product) { FactoryBot.create(:product) }
 
     specify 'I can view products' do
-      visit '/products'
-      expect(page).to have_content('TestName')
+      visit products_path
+      expect(page).to have_content product.name
     end
 
     specify 'I cannot add new products unless I register' do
-      visit '/products/new'
+      visit new_product_path
       expect(page).to have_content('Access Denied 403')
     end
   end
@@ -53,7 +58,7 @@ describe 'Products' do
 
     before { login_as(FactoryBot.create(:admin), scope: :staff) }
     specify 'I can edit a product name and country' do
-      visit '/products'
+      visit products_path
       click_link 'Edit'
       expect(page).to have_content 'Editing product'
       fill_in 'product[name]', with: 'UpdatedTestName'
@@ -73,11 +78,25 @@ describe 'Products' do
     end
 
     specify 'I can delete a product', js: true do
-      visit '/products'
+      visit products_path
       accept_alert do
         click_link 'Destroy'
       end
-      expect(page).not_to have_content 'TestName'
+      expect(page).not_to have_content product.name
+    end
+
+    specify 'I cannot see the "I have purchased this product" checkbox' do
+      visit new_product_path
+      expect(page).to_not have_content 'I have purchased this product'
+    end
+  end
+
+  context 'As a business' do
+    before { login_as(FactoryBot.create(:business), scope: :business) }
+
+    specify 'I cannot see the "I have purchased this product" checkbox' do
+      visit new_product_path
+      expect(page).to_not have_content 'I have purchased this product'
     end
   end
 end

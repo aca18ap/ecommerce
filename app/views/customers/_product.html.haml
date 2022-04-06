@@ -1,0 +1,17 @@
+= link_to product do
+  .container.d-inline-flex.bg-light.px-0.mx-0.text-black.w-100
+    - if product.image.attached?
+      %img= image_tag(product.image.variant(resize: '100x100'), alt: product.description)
+    - else
+      %img= image_tag('no-image.png', size: '100x100', alt: product.description)
+
+    .container
+      %h3.text-black.fw-normal.m-0= product.name
+      %p= product.truncated_description
+
+    .container.w-auto.d-flex.flex-column.justify-content-evenly
+      .container.m-0.p-0
+        %h2.m-0.text-end= product.price_with_currency
+
+      .container.m-0.p-0
+        %h2.m-0.text-end= product.co2_produced_with_unit

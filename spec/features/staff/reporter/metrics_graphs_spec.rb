@@ -15,8 +15,8 @@ describe 'Metrics management', js: true do
     before { login_as(FactoryBot.create(:reporter), scope: :staff) }
 
     specify 'The graphs should show an appropriate message' do
-      visit '/metrics'
-      expect(page).to have_current_path '/metrics'
+      visit metrics_path
+      expect(page).to have_current_path metrics_path
 
       plot_is_empty('#visits-barchart-plot')
       plot_is_empty('#visits-linechart-plot')
@@ -43,8 +43,8 @@ describe 'Metrics management', js: true do
     specify 'If there are visitor statistics' do
       FactoryBot.create :visit
 
-      visit '/metrics'
-      expect(page).to have_current_path '/metrics'
+      visit metrics_path
+      expect(page).to have_current_path metrics_path
 
       plot_is_populated('#visits-barchart-plot')
       plot_is_populated('#visits-barchart-title')
@@ -56,8 +56,8 @@ describe 'Metrics management', js: true do
     specify 'If there are registrations' do
       FactoryBot.create :customer_registration
 
-      visit '/metrics'
-      expect(page).to have_current_path '/metrics'
+      visit metrics_path
+      expect(page).to have_current_path metrics_path
 
       plot_is_populated('#registrations-barchart-plot')
       plot_is_populated('#registrations-barchart-title')
@@ -71,8 +71,8 @@ describe 'Metrics management', js: true do
     specify 'If there are feature shares' do
       FactoryBot.create :share
 
-      visit '/metrics'
-      expect(page).to have_current_path '/metrics'
+      visit metrics_path
+      expect(page).to have_current_path metrics_path
 
       plot_is_populated('#feature-shares-barchart-plot')
       within(:css, '#feature-shares-barchart-title') { expect(page).to have_content 'Shares By Feature (Total: 1)' }
@@ -81,15 +81,15 @@ describe 'Metrics management', js: true do
     specify 'If there are feature clicks/visits' do
       skip 'WAITING FOR FEATURE IMPLEMENTATION'
 
-      visit '/metrics'
-      expect(page).to have_current_path '/metrics'
+      visit metrics_path
+      expect(page).to have_current_path metrics_path
     end
 
     specify 'If there are products' do
       FactoryBot.create :product
 
-      visit '/metrics'
-      expect(page).to have_current_path '/metrics'
+      visit metrics_path
+      expect(page).to have_current_path metrics_path
 
       plot_is_populated('#products-barchart-plot')
       plot_is_populated('#products-linechart-plot')
@@ -99,7 +99,7 @@ describe 'Metrics management', js: true do
 
   context 'Security' do
     specify 'If I am not logged in, I cannot view metrics' do
-      visit '/metrics'
+      visit metrics_path
       click_on(class: 'dropdown-toggle')
       within(:css, '.dropdown-menu') { expect(page).not_to have_content 'View Metrics' }
       expect(page).not_to have_content 'Metrics Summary'
@@ -109,7 +109,7 @@ describe 'Metrics management', js: true do
     context 'If I am an admin' do
       before { login_as(FactoryBot.create(:admin), scope: :staff) }
       specify 'I can view metrics' do
-        visit '/metrics'
+        visit metrics_path
         click_on(class: 'dropdown-toggle')
         within(:css, '.dropdown-menu') { expect(page).to have_text 'View Metrics' }
         expect(page).to have_content 'Metrics Summary'
@@ -119,7 +119,7 @@ describe 'Metrics management', js: true do
     context 'If I am an reporter' do
       before { login_as(FactoryBot.create(:reporter), scope: :staff) }
       specify 'I can view metrics' do
-        visit '/metrics'
+        visit metrics_path
         click_on(class: 'dropdown-toggle')
         within(:css, '.dropdown-menu') { expect(page).to have_content 'View Metrics' }
         expect(page).to have_content 'Metrics Summary'
@@ -129,7 +129,7 @@ describe 'Metrics management', js: true do
     context 'If I am not an admin or reporter' do
       before { login_as(FactoryBot.create(:customer), scope: :customer) }
       specify ', I cannot view metrics' do
-        visit '/metrics'
+        visit metrics_path
         click_on(class: 'dropdown-toggle')
         within(:css, '.dropdown-menu') { expect(page).not_to have_content 'View Metrics' }
         expect(page).not_to have_content 'Metrics Summary'

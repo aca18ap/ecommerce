@@ -4,7 +4,7 @@
 class CustomersController < ApplicationController
   before_action :authenticate_staff!, only: :unlock
   before_action :authenticate_customer!, except: :unlock
-  before_action :set_customer, only: %i[show edit update destroy unlock]
+  before_action :set_customer, except: %i[create new]
 
   def create; end
 
@@ -12,7 +12,15 @@ class CustomersController < ApplicationController
 
   # GET /customer/1
   def show
-    redirect_back fallback_location: '/' unless customer_signed_in?
+    # Sets customer if using authenticated customer root
+    @customer = current_customer if @customer.nil?
+    @customer = @customer.decorate
+
+    gon.timeCO2PerPurchase = CustomerMetrics.time_co2_per_purchase(@customer)
+    gon.timeTotalCO2 = CustomerMetrics.time_total_co2(@customer)
+    gon.timeCO2Saved = CustomerMetrics.time_co2_saved(@customer)
+    gon.timeCO2PerPound = CustomerMetrics.time_co2_per_pound(@customer)
+    gon.timeProductsTotal = CustomerMetrics.time_products_total(@customer)
   end
 
   # GET /customer/1/edit

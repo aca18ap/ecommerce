@@ -47,16 +47,23 @@ Clone the project, then:
 * **Run all of the above with `rake`**
 
 ### CI
-TODO: Fail if RSpec / Jest tests fail or if Brakeman finds a "medium" issue.
+The CI Pipeline will fail if any of the following conditions are not met:
+1) Any RSpec tests fail
+2) Any Jest tests fail
+3) Any RuboCop offenses
+4) Brakeman finds a "medium" issue
+5) Bundler-audit fails
+6) Yarn-audit fails
 
 ### Style Guide
-The standard [Ruby Style Guide](https://rubystyle.guide/) is employed and enforced using RuboCop. Most common standards are:
-1) Symbols, Methods and Variables using `snake_case` format
-2) Two-space indentations
-3) Maximum line length of 80 
-4) One expression per line
-5) No trailing whitespaces
-6) Indentation alignment for multiline statements (e.g. as hashmap declarations) that overrun 80 characters
+An adaptation of the standard [Ruby Style Guide](https://rubystyle.guide/) and extended [Rails Style Guide](https://github.com/rubocop/rails-style-guide) are employed and enforced using RuboCop. Some modifications have been made to better suit the project and our agreed programming style. A summary of these modifications can be found here:
+1) Line width increased to 120 characters
+2) Maximum block length increased to 40
+3) Maximum method length increased to 20
+4) ABC Size metric increased to 20
+5) Enforcing class and module children format disabled
+
+Most style expectations are skipped for spec files as it was seen to cause excessive delay in development and decrease overall productivity. 
 
 ### Deployment with the Epi-Deploy Gem
 More detailed instructions can be found [here](https://info.shefcompsci.org.uk/genesys/demos/team04.html)

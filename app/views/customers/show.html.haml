@@ -1,3 +1,58 @@
+- content_for :title, "#{@customer.username}'s Dashboard"
+= include_gon
+= additional_javascript('customers')
+
 .container-fluid.pad-edge
-  %h1.pt-5 Customer Dashboard
-  %p Find me in app/views/customers/show.html.haml
+  %h1.pt-5= "#{@customer.username}'s Dashboard"
+
+.container-fluid.p-0.m-0
+  .row.mx-5.my-3.px-lg-5.align-content-around.border-top.border-bottom
+    = render 'stat_bar_item', elem_id: 'avg-co2', statistic: @customer.mean_co2_per_purchase, statistic_unit: 'Kg', description: 'Avg. CO<sub>2</sub> Per Purchase'.html_safe
+    = render 'stat_bar_item', elem_id: 'total-co2', statistic: @customer.total_co2_produced, statistic_unit: 'Kg', description: 'Total CO<sub>2</sub> Produced'.html_safe
+    = render 'stat_bar_item', elem_id: 'co2-saved', statistic: @customer.co2_saved, statistic_unit: 'Kg', description: 'CO<sub>2</sub> Saved'.html_safe
+    = render 'stat_bar_item', elem_id: 'co2-per-pound', statistic: @customer.co2_per_pound, statistic_unit: 'Kg', description: 'CO<sub>2</sub> Per £'.html_safe
+    = render 'stat_bar_item', elem_id: 'total-purchases', statistic: @customer.products_total, statistic_unit: '', description: 'Total Purchases Logged'.html_safe
+
+  .row.mx-5.text-center
+    %h2 Tip For Improvement
+    %p Unfortunately we don't have enough data for you yet. Keep adding your purchases and we'll give you some pointers!
+
+  .row.m-3.bg-light-green
+    .col-xl-7
+      %ul.nav.nav-tabs.mb-2
+        %li.active
+          = link_to 'CO<sub>2</sub> Per Purchase'.html_safe, '#co2-purchase-tab', { 'data-toggle': 'tab', class: 'btn', id: 'open-co2-purchase-tab' }
+        %li
+          = link_to 'Total CO<sub>2</sub>'.html_safe, '#total-co2-tab', { 'data-toggle': 'tab', class: 'btn', id: 'open-total-co2-tab' }
+        %li
+          = link_to 'CO<sub>2</sub> Saved'.html_safe, '#co2-saved-tab', { 'data-toggle': 'tab', class: 'btn', id: 'open-co2-saved-tab' }
+        %li
+          = link_to 'CO<sub>2</sub> Per £'.html_safe, '#co2-pound-tab', { 'data-toggle': 'tab', class: 'btn', id: 'open-co2-pound-tab' }
+        %li
+          = link_to 'Products Added', '#products-added-tab', { 'data-toggle': 'tab', class: 'btn', id: 'open-products-added-tab' }
+
+      .container-fluid.tab-content
+        .container-fluid.tab-pane.active#co2-purchase-tab
+          %h2.d-inline= 'CO<sub>2</sub> Per Purchase'.html_safe
+          %svg#co2-purchased-graph.d-block.m-auto
+
+        .container-fluid.tab-pane.mb-2#total-co2-tab
+          %h2.d-inline= 'Total CO<sub>2</sub>'.html_safe
+          %svg#total-co2-graph.d-block.m-auto
+
+        .container-fluid.tab-pane#co2-saved-tab
+          %h2.d-inline= 'CO<sub>2</sub> Saved'.html_safe
+          %svg#co2-saved-graph.d-block.m-auto
+
+        .container-fluid.tab-pane#co2-pound-tab
+          %h2.d-inline= 'CO<sub>2</sub> Per £'.html_safe
+          %svg#co2-pound-graph.d-block.m-auto
+
+        .container-fluid.tab-pane#products-added-tab
+          %h2.d-inline= 'Products Added'
+          %svg#products-added-graph.d-block.m-auto
+
+    .col-xl-5
+      %h2.py-2= 'Recent Purchases'.html_safe
+      .container.px-0.mx-0.h-100.overflow-scroll
+        = render partial: 'product', collection: @customer.products
