@@ -1,11 +1,17 @@
 import { Loader } from "@googlemaps/js-api-loader";
 
+/**
+ * Click listener for CO2 breakdown chevron
+ */
 $(function(){
   $('#chevron').on('click', function(){
     toggleDetails()
   })
 })
 
+/**
+ * Toggles CO2 breakdown
+ */
 function toggleDetails(){
   let left = $('#co2_left')
   let right = $('#co2_right')
@@ -43,8 +49,9 @@ function toggleDetails(){
   }
 }
 
-// Create the script tag, set the appropriate attributes
-
+/**
+ * Maps API loader
+ */
 const loader = new Loader({
     apiKey: "AIzaSyCSUnN_KPnlZn8o2FXoWY4AdpLTMR-uN0Y",
     version: "weekly"
@@ -52,9 +59,12 @@ const loader = new Loader({
 
 var map;
 
+/**
+ * Loader filling up map
+ */
 loader.load().then(()=>{
     map = new google.maps.Map(document.getElementById("map"), {
-      center: { lat: 53, lng: -0.5 },
+      center: { lat: 53, lng: -0.5 }, //uk coordinates
       zoom: 4,
       mapTypeId: 'terrain'
     });
@@ -114,6 +124,8 @@ loader.load().then(()=>{
     map.setZoom(2)
   }
   
+  // Line looks weird before any zoom applied, hence this function
+  // looks quite cool as well
   setTimeout(zoomOut, 1000)
 
 })
