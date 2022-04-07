@@ -1,9 +1,9 @@
 .card
     .card-body.d-flex.flex-column.justify-content-around
         - if p.image.attached?
-            %img.card-img-top= image_tag p.image
+            %img= image_tag(p.image, 'class' => 'card-img-top')
         - else
-            %img.card-img-top= image_tag("default-image.jpg")  
+            %img= image_tag("default-image.jpg", 'class' => 'card-img-top')  
 
         %h5.card-title= p.name
         %h6.card-subtitle= "£ #{content_tag(:em, p.price)}"
