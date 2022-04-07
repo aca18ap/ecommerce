@@ -41,8 +41,9 @@
       %br
 
       // Description
-      .row
-        %p= product.description
+      .row#description
+        %p.collapse#descriptionText{'aria-expanded' => 'false' }= product.description
+        %a.button.collapsed{'data-toggle' => 'collapse', href: '#descriptionText', 'aria-expanded' => 'false', 'aria-controls'=>'descriptionText'}
     
     .col-xl-8
       // Name and stats about the product

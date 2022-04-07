@@ -26,6 +26,34 @@ body{
     border-radius: 25px;
 }
 
+#description {
+    width: 500px;
+    font-size: 0.75em;
+    line-height: 1.5;
+  }
+  
+  #description #descriptionText.collapse:not(.show) {
+      display: block;
+      height: 4.5em ;
+      overflow: hidden;
+    
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;  
+  }
+  
+  #description #descriptionText.collapsing{
+      height: 4.5em;
+  }
+  
+  #description a.collapsed:after  {
+      content: '+ Show More';
+  }
+  
+  #description a:not(.collapsed):after {
+      content: '- Show Less';
+  }
+
 
 .card{
     margin-right: 0.25em;
