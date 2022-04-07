@@ -53,7 +53,6 @@ describe 'Products' do
       expect(page).to have_content product.name
     end
 
-
     specify 'I can view a breakdown of how the CO2 was calculated' do
       visit products_path
       click_link 'Show'
