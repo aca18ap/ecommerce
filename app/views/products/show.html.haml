@@ -35,6 +35,7 @@
             Buy now
             %i=fa_icon('cart-shopping')
             
+
         .border.shadow-lg
           #buy-price= "£" + product.price.to_s
       %br
@@ -90,16 +91,21 @@
       - if product.co2_produced > 10
         %h4 Check out these greener alternatives
         .row.overflow-scroll.suggested-products
-          .d-flex.flex-no-wrap
+          .d-flex.flex-no-wrap.card-group
             // TODO First five products currently returned
             // to change to relevant products in the future
             - Product.limit(5).each do |p|
               = render 'suggested_product_card', p: p
       - else
-        %h3.text-center This product is great, you should buy it ;)
+        .d-flex.justify-content-between
+          %h3.text-center This product is great, you should buy it ;)
+          .div
+            .div
+              .featureName{style: 'visibility: hidden'}= product.name
+              = render 'layouts/share_icons'
         // These values need more thought, just done styling for now
         .row.pt-2
-          .d-flex.cards.justify-content-between
+          .d-flex.cards.justify-content-between.card-deck
             .card.w-25
               .card-body.text-center
                 %h4 kgCO2/£
@@ -128,7 +134,7 @@
 
   // Map gets loaded on load
   .row.py-3
-    .col-8
+    .col-xl-8.col-sm-12
       #map.p-1
 
     .col-4
