@@ -91,7 +91,7 @@ RSpec.describe ProductDecorator do
 
   describe '.co2_per_pound' do
     it 'returns the co2 produced per pound' do
-      expect(product.co2_per_pound).to eq (7.15)
+      expect(product.co2_per_pound).to eq(7.15)
     end
   end
 end

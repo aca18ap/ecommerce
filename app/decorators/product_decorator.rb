@@ -26,12 +26,12 @@ class ProductDecorator < ApplicationDecorator
     if image.attached?
       h.image_tag(image, class: 'img-fluid round-image')
     else
-      h.image_tag("default-image.jpg", class: 'img-fluid round-image')
+      h.image_tag('default-image.jpg', class: 'img-fluid round-image')
     end
   end
 
   def materials_breakdown
-    html_values = ""
+    html_values = ''
     products_material.each do |m|
       name = m.material.name
       percentage = " #{m.percentage.to_i}%"
@@ -41,7 +41,7 @@ class ProductDecorator < ApplicationDecorator
   end
 
   def greener_suggestions
-    html_values = ""
+    html_values = ''
     Product.limit(5).each do |p|
       html_values += h.render partial: 'suggested_product_card', locals: { p: p.decorate }
     end
