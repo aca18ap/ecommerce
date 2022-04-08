@@ -22,10 +22,7 @@
 
       // Products Image
       .row.round-image
-        - if product.image.attached?
-          %img= image_tag(product.image, class: 'img-fluid round-image')
-        - else
-          %img= image_tag("default-image.jpg", class: 'round-image')
+        %img= product.product_image
         %br
 
       // Buy button and price
@@ -37,7 +34,7 @@
             
 
         .border.shadow-lg
-          #buy-price= "£" + product.price.to_s
+          #buy-price= product.price_with_currency
       %br
 
       // Description
@@ -56,7 +53,7 @@
             %br
 
             %h4.center We estimate that...
-            %h1.center= product.co2_produced.to_s + "kg of CO2"
+            %h1.center= product.co2_produced_with_unit
             %h4.center  ...were produced in the making of this product
 
             %br
@@ -71,8 +68,7 @@
             %h4.text-wrap How the CO2 was calculated
             %hr
             .row.materials_calculations
-              - product.products_material.each do |m|
-                %h6.breakdown= m.material.name + " - " + m.percentage.to_i.to_s + "%"
+              = product.materials_breakdown
               %h6.breakdown= "...roughly #{content_tag(:strong, @co2.materials_factor.round(2).to_s)} kg"
               
             %hr
@@ -95,8 +91,8 @@
           .d-flex.flex-no-wrap
             // TODO First five products currently returned
             // to change to relevant products in the future
-            - Product.limit(5).each do |p|
-              = render 'suggested_product_card', p: p
+            = product.greener_suggestions
+
       - else
         .d-flex.justify-content-between
           %h3.text-center This product is great, you should buy it ;)
@@ -110,7 +106,7 @@
             .card.w-25
               .card-body.text-center
                 %h4 kgCO2/£
-                %h3= (product.co2_produced / product.price).round(2)
+                %h3= product.co2_per_pound
               %img.card-img-bottom= image_tag('footprint.jpg')
             
             // TODO How product compares to others, to 
@@ -145,13 +141,13 @@
         %table.w-100
           %tr
             %td Weight:
-            %td= "#{product.mass.round(2)} kg"
+            %td= product.mass_with_unit
           %tr
             %td Category:
-            %td= "#{product.category}"
+            %td= product.category
           %tr
             %td URL:
-            %td= "#{product.url}"
+            %td= product.url
 
     
   %hr
