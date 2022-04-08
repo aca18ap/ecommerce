@@ -60,7 +60,6 @@ $(function () {
             'click',
             function () {
                 let mainCard = (e.parentNode.parentNode.parentNode.parentNode);
-                console.log(mainCard)
                 let feature = mainCard.getElementsByClassName("featureName")[0].textContent.replace(/(\r\n|\n|\r)/gm, " ").trim()
                 let social = e.id
 

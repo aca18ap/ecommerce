@@ -17,7 +17,6 @@ function toggleDetails(){
   let right = $('#co2_right')
   let chevron = $('#chevron-icon')
   if (chevron.hasClass('fa-chevron-left')){
-    console.log('expanding')
     right.animate({
       width: "35%",
     }, 800)
@@ -34,7 +33,6 @@ function toggleDetails(){
     chevron.addClass('fa-chevron-right')
     
   }else{
-    console.log('reducing')
     right.css('display', 'none')
     
     left.animate({
