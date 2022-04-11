@@ -1,0 +1,12 @@
+.container{ id: "#{elem_id}-stat", style: 'width: 20%;' }
+  .container.d-inline-block.text-center
+    %h2.d-inline-block.align-middle= "#{statistic[:customer]}#{statistic_unit}"
+    - if statistic[:valence] == 'good'
+      %i.d-inline-block.fa.fa-caret-up.fa-lg.p-lg-2{ style: 'color: green;', title: "You're above the site average! (#{statistic[:site]})" }
+      -# TODO: Add mode sophisticated check for average against min/max site values
+    - elsif statistic[:valence] == 'average'
+      %i.d-inline-block.fa.fa-minus.fa-lg.p-lg-2{ style: 'color: #ffcc00;', title: "You're about achieving the site average (#{statistic[:site]})" }
+    - else
+      %i.d-inline-block.fa.fa-caret-down.fa-lg.p-lg-2{ style: 'color: red;', title: "You're below site average (#{statistic[:site]})" }
+  .container.text-center
+    = description

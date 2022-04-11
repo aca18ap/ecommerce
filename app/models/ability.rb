@@ -25,6 +25,7 @@ class Ability
       can :read, Product
       can :read, Business
       can :read, Faq
+      can :manage, :dashboard
     when Customer
       can :create, Product
       can :read, Product

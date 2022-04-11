@@ -3,6 +3,7 @@
 # Decorator class for business view logic
 class BusinessDecorator < Draper::Decorator
   delegate_all
+  decorates_association :products
 
   def unlock_button?
     return unless access_locked?
