@@ -49,14 +49,49 @@ RSpec.describe ProductDecorator do
   end
 
   describe '.co2_produced_with_unit' do
-    it 'returns the product co2 produced with "Kg" after it' do
-      expect(product.co2_produced_with_unit).to eq "#{product.co2_produced}<sub>Kg</sub>"
+    it 'returns the product co2 produced with "kg of CO2" after it' do
+      expect(product.co2_produced_with_unit).to eq "#{product.co2_produced}<sub>kg of CO2</sub>"
     end
   end
 
   describe '.price_with_currency' do
     it 'returns the product price with a "£" symbol before it' do
       expect(product.price_with_currency).to eq "£#{product.price}"
+    end
+  end
+
+  describe '.product_image' do
+    it 'returns the image product if exists' do
+      product.image.attach(
+        io: File.open(Rails.root.join('spec', 'assets', 'footprint.jpg')),
+        filename: 'footprint.jpg',
+        content_type: 'image/jpeg'
+      )
+      expect(product.product_image).to have_css("img[src*='footprint']")
+    end
+
+    it 'returns the default image if none\' attached' do
+      expect(product.product_image).to have_css("img[src*='default-image']")
+    end
+  end
+
+  describe '.materials_breakdown' do
+    it 'returns a list of materials with their percentages' do
+      expect(product.materials_breakdown).to have_content('Timber', count: 2)
+      expect(product.materials_breakdown).to have_content '60%'
+      expect(product.materials_breakdown).to have_content '40%'
+    end
+  end
+
+  describe '.mass_with_unit' do
+    it 'returns the mass with kg symbol' do
+      expect(product.mass_with_unit).to eq '10.0 kg'
+    end
+  end
+
+  describe '.co2_per_pound' do
+    it 'returns the co2 produced per pound' do
+      expect(product.co2_per_pound).to eq(7.15)
     end
   end
 end

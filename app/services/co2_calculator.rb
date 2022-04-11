@@ -8,11 +8,11 @@ class Co2Calculator
   SHIP = 0.014 # kgCO2/km/tonne https://www.infona.pl/resource/bwmeta1.element.baztech-article-BPW7-0024-0009/content/partContents/19bf1b47-846d-3a55-a64e-4d11b6441dc2
   SEA_PERC = 0.92 # % of the way by sea
 
-  def initialize(materials, products_material, manufacturer_country, mass)
-    @materials_co2 = materials.map(&:kg_co2_per_kg)
-    @materials_percentages = products_material.map(&:percentage)
-    @manufacturer_country = manufacturer_country
-    @mass = mass
+  def initialize(product)
+    @materials_co2 = product.materials.map(&:kg_co2_per_kg)
+    @materials_percentages = product.products_material.map(&:percentage)
+    @manufacturer_country = product.manufacturer_country
+    @mass = product.mass
   end
 
   def calculate_co2
@@ -26,19 +26,22 @@ class Co2Calculator
   def materials_factor
     co2 = 0
     (0..@materials_co2.length - 1).each do |i|
-      co2 += ((@mass / 100) * @materials_percentages[i]) * @materials_co2[i]
+      co2 += ((@mass / 100) * (@materials_percentages[i] || 0)) * @materials_co2[i]
     end
     co2
   end
 
   def shipping_factor
+    distance = calc_distance
+    co2_factor = distance.to_f * 1.852 * SHIP
+    (co2_factor / 1000) # per tonne -> per kg
+  end
+
+  def calc_distance
     here = ISO3166::Country.new('GB').alpha3
     there = ISO3166::Country.new(@manufacturer_country).alpha3
     csv = ::CSV.read('lib/datasets/CERDI-seadistance.csv', headers: true)
     row = csv.find { |r| (r['iso1'] == here) && (r['iso2'] == there) }
-    distance = row.nil? ? 0 : row['seadistance']
-
-    co2_factor = distance.to_f * 1.852 * SHIP
-    (co2_factor / 1000) # per tonne -> per kg
+    row.nil? ? 0 : row['seadistance']
   end
 end

@@ -47,6 +47,20 @@ describe 'Products' do
       expect(page).to have_content product.name
     end
 
+    specify 'I can view a particular product' do
+      visit products_path
+      click_link 'Show'
+      expect(page).to have_content product.name
+    end
+
+    specify 'I can view a breakdown of how the CO2 was calculated' do
+      visit products_path
+      click_link 'Show'
+      click_on 'chevron'
+      find(:css, '#co2_right').should be_visible
+      expect(page).to have_content 'How the CO2 was calculated'
+    end
+
     specify 'I cannot add new products unless I register' do
       visit new_product_path
       expect(page).to have_content('Access Denied 403')

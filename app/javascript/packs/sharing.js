@@ -26,6 +26,10 @@ const website_url = "team04.demo1.genesys.shefcompsciorg.uk"
 function socialFormatter(social, feature) {
     //Getting post text based on the feature
     let post_text = posts[feature]
+
+    if (post_text === undefined){
+        post_text = '@ecommerce recommends ' + feature
+    }
     //Encoding post text in uri query form
     let query_post = encodeURIComponent(post_text)
     let url

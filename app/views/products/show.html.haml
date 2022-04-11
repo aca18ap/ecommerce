@@ -1,42 +1,162 @@
+= stylesheet_link_tag 'products'
+= include_gon
+
+// Back edit and destroy buttons
+#back-button.d-flex.flex-column.p-2
+  = link_to 'Back', :back, {class: 'fa fa-arrow-left'}
+  - if can?(:manage, Product)
+    %hr
+    = link_to 'Edit', edit_product_path(product)
+    %hr
+    = link_to 'Destroy', product, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+
+
 .container-fluid.pad-edge
-  .pt-5 
+  .pt-2
   %p#notice= notice
 
-  %p
-    %b Name:
-    = product.name
-  %p
-    %b Vendor:
-    = product.business_name
-  %p
-    %b Description:
-    = product.description
-  %p
-    %b Mass:
-    = product.mass
-  %p
-    %b Type:
-    = product.category
-  %p
-    %b Url:
-    = product.url
-  %p
-    %b Manufacturer:
-    = product.manufacturer
-  %p
-    %b Manufacturer country:
-    = Country.new(@product.manufacturer_country).common_name
-  %p
-    %b Co2 produced:
-    = product.co2_produced
-  %p
-    %b Materials:
-    - product.materials.each do |m|
-      = m.name
+
+  .row.py-3
+    .col-xl-4
+
+      // Products Image
+      .row.round-image
+        %img= product.product_image
+        %br
+
+      // Buy button and price
+      .offset-y.d-flex.justify-content-between
+        .border.shadow-lg
+          %a.btn.fa-solid.fa-cart-shopping#buy-price{:href=>product.url, text: "Buy now"}
+            Buy now
+            %i=fa_icon('cart-shopping')
+            
+
+        .border.shadow-lg
+          #buy-price= product.price_with_currency
+      %br
+
+      // Description
+      .row#description
+        %p.collapse#descriptionText{'aria-expanded' => 'false' }= product.description
+        %a.button.collapsed{'data-toggle' => 'collapse', href: '#descriptionText', 'aria-expanded' => 'false', 'aria-controls'=>'descriptionText'}
+    
+    .col-xl-8
+      // Name and stats about the product
+      .row
+        .d-flex#co2_left
+          .eco-stats.d-flex.flex-column.w-100
+            %h1= product.name
+            %h3= product.manufacturer
+
+            %br
+
+            %h4.center We estimate that...
+            %h1.center= product.co2_produced_with_unit
+            %h4.center  ...were produced in the making of this product
+
+            %br
+          // Button to expand co2 breakdown
+          .flex-shrink-1
+            %button.btn.h-100.shadow-none#chevron{:data-toggle=> "tooltip", title: "View a breakdown of how this value was calculated"}
+              %i.fa.fa-chevron-left#chevron-icon
+
+        // Co2 breakdown
+        #co2_right
+          .calculations.p-2
+            %h4.text-wrap How the CO2 was calculated
+            %hr
+            .row.materials_calculations
+              = product.materials_breakdown
+              %h6.breakdown= "...roughly #{content_tag(:strong, @co2.materials_factor.round(2).to_s)} kg"
+              
+            %hr
+            
+            .row.materials_calculations
+              %span
+                %h6.breakdown= "Manufactured in #{content_tag(:em,Country.new(product.manufacturer_country).common_name)}" 
+            
+                %h6.breakdown= "a distance of over #{content_tag(:strong, @co2.calc_distance.to_s)} km!"
+
+                %h6.breakdown= "...roughly #{content_tag(:strong, (product.co2_produced - @co2.materials_factor).round(2))} kg"
+
+      %br
+
+      // At the moment compared to dummy value, in the future maybe
+      // change to use average or some other calculated value?
+      - if product.co2_produced > 10
+        %h4 Check out these greener alternatives
+        .row.overflow-scroll.suggested-products
+          .d-flex.flex-no-wrap
+            // TODO First five products currently returned
+            // to change to relevant products in the future
+            = product.greener_suggestions
+
+      - else
+        .d-flex.justify-content-between
+          %h3.text-center This product is great, you should buy it ;)
+          .div
+            .div
+              .featureName{style: 'visibility: hidden'}= product.name
+              = render 'layouts/share_icons'
+        // These values need more thought, just done styling for now
+        .row.pt-2
+          .d-flex.cards.justify-content-between.card-deck
+            .card.w-25
+              .card-body.text-center
+                %h4 kgCO2/£
+                %h3= product.co2_per_pound
+              %img.card-img-bottom= image_tag('footprint.jpg')
+            
+            // TODO How product compares to others, to 
+            // figure out how to calculate
+            .card.w-25
+              .card-body.text-center
+                %h4 Better than
+                %h3 93%
+                %h4 of products
+              
+            // TODO I dont even know if trees saved makes sense
+            // I thought trees liked co2 lol
+            // will come back to it
+            .card.w-25
+              .card-body.text-center
+                %h4 Trees saved
+                %h3= 1
+              %img.card-img-bottom= image_tag('trees-saved.gif')
+
+
+  %hr
+
+  // Map gets loaded on load
+  .row.py-3
+    .col-xl-8.col-sm-12
+      #map.p-1
+
+    .col-4
+      .other-environmental-info.w-100
+        // other information about product, should think of more
+        %h4 Other product information
+        %table.w-100
+          %tr
+            %td Weight:
+            %td= product.mass_with_unit
+          %tr
+            %td Category:
+            %td= product.category
+          %tr
+            %td URL:
+            %td= product.url
+
+    
+  %hr
+    // are we gonna have product's reviews?
+    .row.py-3
+      .col-12
+        %h1 Reviews
       
 
 
-  - if can?(:edit, Product)
-    = link_to 'Edit', edit_product_path(product)
-    \|
-  = link_to 'Back', :back
+
+
