@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_25_135914) do
+ActiveRecord::Schema.define(version: 2022_04_11_120739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,15 @@ ActiveRecord::Schema.define(version: 2022_03_25_135914) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "affiliate_product_views", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "customer_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_affiliate_product_views_on_customer_id"
+    t.index ["product_id"], name: "index_affiliate_product_views_on_product_id"
   end
 
   create_table "businesses", force: :cascade do |t|
@@ -168,7 +177,7 @@ ActiveRecord::Schema.define(version: 2022_03_25_135914) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "business_id"
-    t.float "price", null: false
+    t.float "price", default: 0.0, null: false
   end
 
   create_table "products_materials", force: :cascade do |t|
@@ -299,6 +308,8 @@ ActiveRecord::Schema.define(version: 2022_03_25_135914) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "affiliate_product_views", "customers"
+  add_foreign_key "affiliate_product_views", "products"
   add_foreign_key "faq_votes", "faqs"
   add_foreign_key "products_materials", "materials"
   add_foreign_key "products_materials", "products"

@@ -24,6 +24,11 @@ class ProductsController < ApplicationController
     @country = Country.new(@product.manufacturer_country)
     @uk = Country.new('GB')
     gon.push({ lat1: @uk.latitude, long1: @uk.longitude, lat2: @country.latitude, long2: @country.longitude })
+
+    return if @product.business_id.nil? || (not current_customer)
+
+    # Insert affiliate view if a customer views an affiliate product
+    AffiliateProductView.new(product_id: @product.id, customer_id: current_customer.id).save
   end
 
   # GET /products/new
