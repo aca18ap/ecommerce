@@ -51,7 +51,7 @@ class CalculateMetrics
       return if registrations_arr.nil? || registrations_arr.empty?
 
       time_regs = calculate_time_counts(registrations_arr)
-                    .map { |time, regs| { 'vocation' => 'total', 'time' => time, 'registrations' => regs } }
+                  .map { |time, regs| { 'vocation' => 'total', 'time' => time, 'registrations' => regs } }
 
       registrations_arr.group_by { |registration| registration.vocation.itself }.each do |vocation, registrations|
         time_regs.concat(calculate_time_counts(registrations)

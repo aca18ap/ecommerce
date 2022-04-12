@@ -20,7 +20,10 @@ class BusinessMetrics < CalculateMetrics
              .group('affiliate_product_views.product_id', 'products.name')
              .select('COUNT(affiliate_product_views.product_id) AS count, products.name AS product_name,' \
                      'affiliate_product_views.product_id as product_id')
-             .map { |product| { 'name' => "#{product.product_name} (#{product.product_id})", 'count' => product.count } }
+             .map do |product|
+        { 'name' => "#{product.product_name} (#{product.product_id})",
+          'count' => product.count }
+      end
     end
 
     def views_by_category(business)

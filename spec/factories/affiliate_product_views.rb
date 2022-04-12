@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: affiliate_product_views
@@ -20,6 +22,7 @@
 #
 FactoryBot.define do
   factory :affiliate_product_view do
-    
+    product_id { FactoryBot.build(:product).id }
+    customer_id { FactoryBot.build(:customer).id }
   end
 end
