@@ -27,4 +27,16 @@ class BusinessDecorator < Draper::Decorator
               method: :patch, class: 'btn btn-xs',
               data: { confirm: 'Resend invitation?' }
   end
+
+  def total_product_views
+    Product.joins(:affiliate_product_views).where(business_id: id).count
+  end
+
+  def customer_purchases
+    Product.joins(:purchase_histories).where(business_id: id).count
+  end
+
+  def unique_product_categories
+    Product.joins(:affiliate_product_views).where(business_id: id).pluck(:category).uniq.count
+  end
 end

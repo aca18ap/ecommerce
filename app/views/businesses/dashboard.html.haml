@@ -7,11 +7,10 @@
 
 .container-fluid.p-0.m-0
   .row.mx-5.my-3.px-lg-5.align-content-around.border-top.border-bottom
-    -# = render 'stat_bar_item', elem_id: 'avg-co2', statistic: @customer.mean_co2_per_purchase, statistic_unit: 'Kg', description: 'Avg. CO<sub>2</sub> Per Purchase'.html_safe
-    -# = render 'stat_bar_item', elem_id: 'total-co2', statistic: @customer.total_co2_produced, statistic_unit: 'Kg', description: 'Total CO<sub>2</sub> Produced'.html_safe
-    -# = render 'stat_bar_item', elem_id: 'co2-saved', statistic: @customer.co2_saved, statistic_unit: 'Kg', description: 'CO<sub>2</sub> Saved'.html_safe
-    -# = render 'stat_bar_item', elem_id: 'co2-per-pound', statistic: @customer.co2_per_pound, statistic_unit: 'Kg', description: 'CO<sub>2</sub> Per £'.html_safe
-    -# = render 'stat_bar_item', elem_id: 'total-purchases', statistic: @customer.products_total, statistic_unit: '', description: 'Total Purchases Logged'.html_safe
+    = render 'stat_bar_item', elem_id: 'total-views', statistic: @business.total_product_views, statistic_unit: '', description: 'Total Product Views'
+    = render 'stat_bar_item', elem_id: 'customer-purchases', statistic: @business.customer_purchases, statistic_unit: '', description: 'Customer Purchases'
+    = render 'stat_bar_item', elem_id: 'affiliate-products', statistic: @business.products.size, statistic_unit: '', description: 'Affiliate Products'
+    = render 'stat_bar_item', elem_id: 'unique-categories', statistic: @business.unique_product_categories, statistic_unit: '', description: 'Unique Categories'
 
   .row.m-3.bg-light-green
     .col-xl-7

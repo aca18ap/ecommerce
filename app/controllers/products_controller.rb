@@ -97,6 +97,7 @@ class ProductsController < ApplicationController
     params.slice(:name, :similarity, :search_term, :business_id)
   end
 
+  # Creates a view in the affiliate product views table if the product shown is associated with a business
   def affiliate_view
     # Insert affiliate view if a customer views an affiliate product
     return if @product.business_id.nil? || !current_customer

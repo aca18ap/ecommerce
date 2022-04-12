@@ -23,5 +23,24 @@
 require 'rails_helper'
 
 RSpec.describe AffiliateProductView, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let!(:product) { FactoryBot.create(:product, business_id: 1) }
+  let!(:customer) { FactoryBot.create(:customer) }
+  subject { described_class.new(product_id: product.id, customer_id: customer.id) }
+
+  describe 'Validates' do
+    it 'is valid with valid attributes' do
+      expect(subject).to be_valid
+    end
+
+    it 'is invalid without a product_id' do
+      subject.product_id = nil
+      expect(subject).not_to be_valid
+    end
+
+    it 'is invalid without a customer_id' do
+      subject.customer_id = nil
+      expect(subject).not_to be_valid
+    end
+  end
 end
+
