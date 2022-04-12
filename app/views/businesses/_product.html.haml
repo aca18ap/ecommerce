@@ -1,9 +1,6 @@
 = link_to product do
   .container.d-inline-flex.bg-light.px-0.mx-0.text-black.w-100
-    - if product.image.attached?
-      %img= image_tag(product.image.variant(resize: '100x100'), alt: product.description)
-    - else
-      %img= image_tag('no-image.png', size: '100x100', alt: product.description)
+    = product.product_image(height=100, width=100)
 
     .container
       %h3.text-black.fw-normal.m-0= product.name

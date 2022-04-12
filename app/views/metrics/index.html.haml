@@ -16,6 +16,14 @@
       %h2#products-linechart-title.text-center Product Additions Over Time
       %svg#products-linechart-plot.d-block.m-auto
 
+    #products-barchart-div.justify-content-center.bg-light-green.col-xl-6
+      %h2#affiliates-barchart-title.text-center Affiliate Product Additions By Category (Total: #{@affiliate_products.size})
+      %svg#affiliates-barchart-plot.d-block.m-auto
+
+    #affiliate-views-linechart-div.justify-content-center.bg-light-green.col-xl-6
+      %h2#affiliate-views-linechart-title.text-center Affiliate Product Views Over Time (Total: #{@affiliate_views.size})
+      %svg#affiliate-views-linechart-plot.d-block.m-auto
+
   .row.m-3
     %h1.m-3.text-center Visitor Statistics
     #visits-barchart-div.justify-content-center.bg-light-green.col-xl-6
@@ -68,13 +76,10 @@
 
   .row.m-3
     %h1.mt-5.mb-3.text-center Feature Interest Statistics
-    #feature-shares-div.justify-content-center.bg-light-green.col-xl-6
+    #feature-shares-div.justify-content-center.bg-light-green
       %h2#feature-shares-barchart-title.text-center Shares By Feature (Total: #{@shares.size})
       %svg#feature-shares-barchart-plot.d-block.m-auto
 
-    #feature-shares-div.justify-content-center.bg-light-green.col-xl-6
-      %h2#feature-views-barchart-title.text-center Views By Feature (Total: NEEDS IMPLEMENTING)
-      %svg#feature-views-barchart-plot.d-block.m-auto
 
   .row.m-3
     %h1#flow-report-title.text-center User Flow Report

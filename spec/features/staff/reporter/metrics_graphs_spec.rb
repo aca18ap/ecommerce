@@ -28,12 +28,16 @@ describe 'Metrics management', js: true do
 
       plot_is_empty('#feature-shares-barchart-plot')
       within(:css, '#feature-shares-barchart-title') { expect(page).to have_content 'Shares By Feature (Total: 0)' }
-      # within(:css, '#feature-views-barchart-plot') { expect(page).to have_content 'There is no data for this metric yet' }
-      # within(:css, '#feature-views-barchart-title') { expect(page).to have_content 'Clicks By Feature (Total: 0)' }
 
       plot_is_empty('#products-barchart-plot')
       plot_is_empty('#products-linechart-plot')
       within(:css, '#products-barchart-title') { expect(page).to have_content 'Product Additions By Category (Total: 0)' }
+
+      plot_is_empty('#affiliates-barchart-plot')
+      within(:css, '#affiliates-barchart-title') { expect(page).to have_content 'Affiliate Product Additions By Category (Total: 0)' }
+
+      plot_is_empty('#affiliate-views-linechart-plot')
+      within(:css, '#affiliate-views-linechart-title') { expect(page).to have_content 'Affiliate Product Views Over Time (Total: 0)' }
     end
   end
 
@@ -78,13 +82,6 @@ describe 'Metrics management', js: true do
       within(:css, '#feature-shares-barchart-title') { expect(page).to have_content 'Shares By Feature (Total: 1)' }
     end
 
-    specify 'If there are feature clicks/visits' do
-      skip 'WAITING FOR FEATURE IMPLEMENTATION'
-
-      visit metrics_path
-      expect(page).to have_current_path metrics_path
-    end
-
     specify 'If there are products' do
       FactoryBot.create :product
 
@@ -94,6 +91,28 @@ describe 'Metrics management', js: true do
       plot_is_populated('#products-barchart-plot')
       plot_is_populated('#products-linechart-plot')
       within(:css, '#products-barchart-title') { expect(page).to have_content 'Product Additions By Category (Total: 1)' }
+    end
+
+    specify 'If there are affiliate products' do
+      FactoryBot.create(:product, business_id: 1)
+
+      visit metrics_path
+      expect(page).to have_current_path metrics_path
+
+      plot_is_populated('#affiliates-barchart-plot')
+      within(:css, '#affiliates-barchart-title') { expect(page).to have_content 'Affiliate Product Additions By Category (Total: 1)' }
+    end
+
+    specify 'If there are affiliate product views' do
+      product = FactoryBot.create(:product, business_id: 1)
+      customer = FactoryBot.create(:customer)
+      AffiliateProductView.new(product_id: product.id, customer_id: customer.id).save
+
+      visit metrics_path
+      expect(page).to have_current_path metrics_path
+
+      plot_is_populated('#affiliate-views-linechart-plot')
+      within(:css, '#affiliate-views-linechart-title') { expect(page).to have_content 'Affiliate Product Views Over Time (Total: 1)' }
     end
   end
 

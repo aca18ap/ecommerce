@@ -14,9 +14,9 @@ describe 'Calculating metrics' do
   let(:business_registration) { FactoryBot.create(:business_registration) }
 
   # Products
-  let(:product1) { FactoryBot.create(:product, created_at: '2021-11-27 16:39:22', category: 'shirt') }
-  let(:product2) { FactoryBot.create(:product, created_at: '2021-11-27 16:39:22', url: 'https://something.com', category: 'shirt') }
-  let(:product3) { FactoryBot.create(:product, created_at: Time.now, url: 'https://somethingelse.com', category: 'shoes') }
+  let!(:product1) { FactoryBot.create(:product, created_at: '2021-11-27 16:39:22', category: 'shirt') }
+  let!(:product2) { FactoryBot.create(:product, created_at: '2021-11-27 16:39:22', url: 'https://something.com', category: 'shirt') }
+  let!(:product3) { FactoryBot.create(:product, created_at: Time.now, url: 'https://somethingelse.com', category: 'shoes') }
 
   let(:visits) { [visit_root, visit_reviews, visit_newsletters] }
   let(:regs) { [customer_registration, customer_registration2, business_registration] }
@@ -108,7 +108,7 @@ describe 'Calculating metrics' do
   end
 
   it 'gets the number of products by category' do
-    expect(CalculateMetrics.product_categories(products)).to match_array(
+    expect(CalculateMetrics.product_categories).to match_array(
       [{ 'category' => 'shirt', 'products' => 2 },
        { 'category' => 'shoes', 'products' => 1 }]
     )

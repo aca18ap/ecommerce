@@ -10,6 +10,8 @@ class MetricsController < ApplicationController
     @registrations = Registration.all
     @shares = Share.all
     @products = Product.all
+    @affiliate_products = @products.reject { |product| product.business_id.nil? }
+    @affiliate_views = AffiliateProductView.all
 
     gon.visits = @visits
     gon.registrations = @registrations
@@ -31,7 +33,9 @@ class MetricsController < ApplicationController
 
     # Products
     gon.timeProducts = CalculateMetrics.time_products(@products)
-    gon.productCategories = CalculateMetrics.product_categories(@products)
+    gon.productCategories = CalculateMetrics.product_categories
+    gon.affiliateProductCategories = CalculateMetrics.affiliate_product_categories
+    gon.timeAffiliateViews = CalculateMetrics.time_affiliate_views
   end
 
   def create

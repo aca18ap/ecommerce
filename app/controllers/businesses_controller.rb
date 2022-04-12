@@ -53,6 +53,7 @@ class BusinessesController < ApplicationController
 
   def set_business
     @business = Business.find_by_id(params[:id])
+    redirect_to businesses_path unless @business
   end
 
   def business_params

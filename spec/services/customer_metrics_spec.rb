@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 describe 'Calculating metrics' do
-  let!(:product) { FactoryBot.create(:product, created_at: Time.now - 2.days) }
-  let!(:product2) { FactoryBot.create(:product, url: 'https://anotherwebsite.com', price: 5.7, created_at: Time.now) }
+  let!(:product) { FactoryBot.create(:product, created_at: Time.now.change({ sec: 0 }) - 2.days) }
+  let!(:product2) { FactoryBot.create(:product, url: 'https://anotherwebsite.com', price: 5.7, created_at: Time.now.change({ sec: 0 })) }
   let!(:customer) { FactoryBot.create(:customer) }
 
   describe 'Site wide statistics' do
@@ -85,9 +85,9 @@ describe 'Calculating metrics' do
         customer.products << product2
 
         expect(CustomerMetrics.time_co2_per_purchase(customer)).to match_array(
-          [{ 'day' => Time.at(product.created_at.to_i).to_date, 'value' => product.co2_produced.round(1) },
-           { 'day' => Time.at(Time.now - 1.day).to_date, 'value' => 0 },
-           { 'day' => Time.at(product2.created_at.to_i).to_date, 'value' => product2.co2_produced.round(1) }]
+          [{ 'time' => product.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => product.co2_produced.round(1) },
+           { 'time' => (product2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day).to_i, 'value' => 0 },
+           { 'time' => product2.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => product2.co2_produced.round(1) }]
         )
       end
     end
@@ -102,9 +102,9 @@ describe 'Calculating metrics' do
         customer.products << product2
 
         expect(CustomerMetrics.time_total_co2(customer)).to match_array(
-          [{ 'day' => Time.at(product.created_at.to_i).to_date, 'value' => product.co2_produced.round(1) },
-           { 'day' => Time.at(Time.now - 1.day).to_date, 'value' => 0 },
-           { 'day' => Time.at(product2.created_at.to_i).to_date, 'value' => product2.co2_produced.round(1) }]
+          [{ 'time' => product.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => product.co2_produced.round(1) },
+           { 'time' => (product2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day).to_i, 'value' => 0 },
+           { 'time' => product2.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => product2.co2_produced.round(1) }]
         )
       end
     end
@@ -132,9 +132,9 @@ describe 'Calculating metrics' do
         customer.products << product2
 
         expect(CustomerMetrics.time_co2_per_pound(customer)).to match_array(
-          [{ 'day' => Time.at(product.created_at.to_i).to_date, 'value' => (product.co2_produced / product.price).round(1) },
-           { 'day' => Time.at(Time.now - 1.day).to_date, 'value' => 0 },
-           { 'day' => Time.at(product2.created_at.to_i).to_date, 'value' => (product2.co2_produced / product2.price).round(1) }]
+          [{ 'time' => product.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => (product.co2_produced / product.price).round(1) },
+           { 'time' => (product2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day).to_i, 'value' => 0 },
+           { 'time' => product2.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => (product2.co2_produced / product2.price).round(1) }]
         )
       end
     end
@@ -149,9 +149,9 @@ describe 'Calculating metrics' do
         customer.products << product2
 
         expect(CustomerMetrics.time_products_total(customer)).to match_array(
-          [{ 'day' => Time.at(product.created_at.to_i).to_date, 'value' => 1 },
-           { 'day' => Time.at(Time.now - 1.day).to_date, 'value' => 0 },
-           { 'day' => Time.at(product2.created_at.to_i).to_date, 'value' => 1 }]
+          [{ 'time' => product.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => 1 },
+           { 'time' => (product2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day).to_i, 'value' => 0 },
+           { 'time' => product2.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => 1 }]
         )
       end
     end

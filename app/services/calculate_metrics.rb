@@ -51,7 +51,7 @@ class CalculateMetrics
       return if registrations_arr.nil? || registrations_arr.empty?
 
       time_regs = calculate_time_counts(registrations_arr)
-                  .map { |time, regs| { 'vocation' => 'total', 'time' => time, 'registrations' => regs } }
+                    .map { |time, regs| { 'vocation' => 'total', 'time' => time, 'registrations' => regs } }
 
       registrations_arr.group_by { |registration| registration.vocation.itself }.each do |vocation, registrations|
         time_regs.concat(calculate_time_counts(registrations)
@@ -71,14 +71,6 @@ class CalculateMetrics
                 .map { |feature, shares| { 'feature' => feature[0], 'social' => feature[1], 'count' => shares.length } }
     end
 
-    # Calculates the number of times each feature was visited
-    def feature_visits(shares_arr)
-      # TODO: Implement feature
-      return if shares_arr.nil? || shares_arr.empty?
-
-      ''
-    end
-
     # Calculates number of product entries over time
     def time_products(products_arr)
       return if products_arr.nil? || products_arr.empty?
@@ -90,17 +82,27 @@ class CalculateMetrics
     end
 
     # Calculates the number of products in each category
-    def product_categories(products_arr)
-      return if products_arr.nil? || products_arr.empty?
+    def product_categories
+      Product.group(:category).count.map { |category, count| { 'category' => category, 'products' => count } }
+    end
 
-      # { category: category_type, products: num_products }
-      products_arr.group_by { |product| product.category.itself }
-                  .map { |category, products| { 'category' => category, 'products' => products.length } }
+    # Calculates the number of affiliate products in each category
+    def affiliate_product_categories
+      Product.where.not(business_id: nil)
+             .group(:category).count.map { |category, count| { 'category' => category, 'products' => count } }
+    end
+
+    # Calculates the number of affiliate product views over time
+    def time_affiliate_views
+      insert_zero_entries(
+        AffiliateProductView.group("date_trunc('hour', created_at)").count.transform_keys(&:to_i), 'hour'
+      )
     end
 
     private
 
     # Calculates the number of elements in an array that occur at each hour between a start and end time
+    # TODO Deprecate
     def calculate_time_counts(element_array)
       time_counts = {}
 
@@ -116,6 +118,27 @@ class CalculateMetrics
       end
 
       time_counts
+    end
+
+    # Inserts 0 entries for intervals of time which don't have any data
+    def insert_zero_entries(data_hash, step = 'day')
+      return if data_hash.nil? || data_hash.empty?
+
+      step_size = if step == 'day'
+                    1.day
+                  else
+                    1.hour
+                  end
+
+      earliest_day = data_hash.first[0]
+      latest_day = (Time.now + 1.day).change({ hour: 0, min: 0, sec: 0 })
+
+      data_arr = []
+      (earliest_day.to_i..latest_day.to_i).step(step_size) do |date|
+        data_arr.append({ 'time' => date, 'value' => data_hash.key?(date) ? data_hash[date] : 0 })
+      end
+
+      data_arr
     end
 
     # Identifies whether a session led to a registration by checking for /newsletters/# in path

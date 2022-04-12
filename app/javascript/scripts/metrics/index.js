@@ -12,6 +12,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let emptyCharts = [];
 
+    if (gon.timeAffiliateViews && Object.keys(gon.timeAffiliateViews).length > 0) {
+        graphs.LineChart(gon.timeAffiliateViews, {
+            x: d => d.time,
+            y: d => d.value,
+            width,
+            height,
+            color: 'green',
+            marginTop: 30,
+            marginLeft: 40,
+            marginRight: 20,
+            xType: d3.scaleTime,
+            yLabel: 'Affiliate Products Added',
+            svgElement: document.getElementById('affiliate-views-linechart-plot'),
+        });
+    } else {
+        emptyCharts.push(document.getElementById('affiliate-views-linechart-plot'));
+    }
+
+    if (gon.affiliateProductCategories && Object.keys(gon.affiliateProductCategories).length > 0) {
+        // Gets pageVisits from gon gem - calculated in CalculateMetrics service class
+        graphs.HorizontalBarChart(gon.affiliateProductCategories, {
+            x: d => d.products,
+            y: d => d.category,
+            yDomain: d3.groupSort(gon.affiliateProductCategories, ([d]) => -d.products, d => d.category), // sort by descending frequency
+            width,
+            height,
+            color: 'green',
+            marginLeft: 70,
+            marginRight: 10,
+            xLabel: 'Visits',
+            svgElement: document.getElementById('affiliates-barchart-plot')
+        });
+    } else {
+        // Set text of chart areas to indicate that there is no data
+        emptyCharts.push(document.getElementById('affiliates-barchart-plot'));
+    }
+
     // Only update graphs if there are any site tracking metrics in the system
     if (gon.visits && gon.visits.length > 0) {
         // Gets pageVisits from gon gem - calculated in CalculateMetrics service class
