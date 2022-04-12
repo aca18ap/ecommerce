@@ -1,14 +1,13 @@
 = stylesheet_link_tag 'features'
-#fb-root
 
 .d-flex.justify-content-center.social_links
-  %a.px-2.share#email{ :href => "mailto:" }
+  %a.px-2.share{ :href => "mailto:", :aria-label => "Share feature via email", :title => "Share feature via email"}
     %i.fa.fa-share-alt-square.fa-lg
   %br
-  %a.px-2.share.twitter-share-button#twitter{}
+  %a.px-2.share.twitter-share-button{ :aria-label => "Share feature via Twitter", :title => "Share feature via Twitter"}
     %i.fa.fa-twitter
   %br
-  .fb-share-button.share#facebook{"data-href" => "https://team04.demo1.genesys.shefcompsci.org.uk/#", "data-layout" => "button_count", "data-size" => "small"}
-    %a.px-2.share.fb-xfbml-parse-ignore{:href => "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fteam04.demo1.genesys.shefcompsci.org.uk%2F%23&src=sdkpreparse", :target => "_blank"}
+  .fb-share-button.share{"data-href" => "https://team04.demo1.genesys.shefcompsci.org.uk/#", "data-layout" => "button_count", "data-size" => "small"}
+    %a.px-2.share.fb-xfbml-parse-ignore{:href => "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fteam04.demo1.genesys.shefcompsci.org.uk%2F%23&src=sdkpreparse", :target => "_blank",  :aria-label => "Share feature via Facebook", :title => "Share feature via Facebook"}
       %i.fa.fa-facebook
       

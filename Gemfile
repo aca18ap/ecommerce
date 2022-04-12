@@ -90,7 +90,11 @@ group :development do
 end
 
 group :test do
+<<<<<<< HEAD
   gem 'bullet'
+=======
+  gem 'axe-core-rspec'
+>>>>>>> Added accessibility tests
   gem 'capybara'
   gem 'factory_bot_rails'
   gem 'webdrivers'

@@ -3,18 +3,19 @@
     .d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-lg-start
       %a.d-flex.align-items-center.mb-2.mr-5.mb-lg-0.text-decoration-none{:href => "/"}
         %img{:alt => "mdo", :height => "48", :src => "/images/logo.png", :width => "160"}
-      .nav.col-12.col-lg-auto.me-lg-auto.justify-content-center.my-auto.mx-5.custom-nav-fonts
-        %li
-          = link_to 'Home', root_path, title: 'Go to the home page', class: 'nav-link px-2 link-secondary'
-        - if can?(:read, Faq)
+      .nav.col-12.col-lg-auto.me-lg-auto.justify-content-center.mx-5.custom-nav-fonts
+        %ul.my-auto
           %li
-          = link_to 'FAQs', faqs_path, class: 'nav-link px-2', title: 'Frequently asked questions'
-        - if can?(:read, Product)
-          %li
-            = link_to 'Products', products_path, class: 'nav-link px-2', title: 'View products'
-        - if can?(:read, Business)
-          %li
-            = link_to 'Affiliates', businesses_path, class: 'nav-link px-2', title: 'Directory'
+            = link_to 'Home', root_path, title: 'Go to the home page', class: 'nav-link px-2 link-secondary'
+          - if can?(:read, Faq)
+            %li
+              = link_to 'FAQs', faqs_path, class: 'nav-link px-2', title: 'Frequently asked questions'
+          - if can?(:read, Product)
+            %li
+              = link_to 'Products', products_path, class: 'nav-link px-2', title: 'View products'
+          - if can?(:read, Business)
+            %li
+              = link_to 'Affiliates', businesses_path, class: 'nav-link px-2', title: 'Directory'
             
       = form_with url: products_path, method: :get do |form|
         .input-group.mx-5
@@ -23,7 +24,7 @@
               = form.text_field :search_term, placeholder: params[:search_term], class: 'form-control rounded'
             - else 
               = form.text_field :search_term, placeholder: 'Search products', class: 'form-control rounded'
-          %button{:type => "submit", :class => "btn btn-secondary"}
+          %button{:type => "submit", :class => "btn btn-secondary", :title => "Search", :aria-label => "Search"}
             %i.fa.fa-search
 
       .dropdown.text-end
