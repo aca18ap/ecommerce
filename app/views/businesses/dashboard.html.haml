@@ -1,6 +1,6 @@
 - content_for :title, "#{@business.name}'s Dashboard"
 = include_gon
-= additional_javascript('customers')
+= additional_javascript('businesses')
 
 .container-fluid.pad-edge
   %h1.pt-5= "#{@business.name}'s Dashboard"
@@ -26,15 +26,15 @@
       .container-fluid.tab-content
         .container-fluid.tab-pane.active#total-product-views-tab
           %h2.d-inline Total Product Views
-          %svg#co2-purchased-graph.d-block.m-auto
+          %svg#total-product-views-graph.d-block.m-auto
 
         .container-fluid.tab-pane.mb-2#product-views-tab
           %h2.d-inline Views By Product
-          %svg#total-co2-graph.d-block.m-auto
+          %svg#product-views-graph.d-block.m-auto
 
         .container-fluid.tab-pane#category-views-tab
           %h2.d-inline Views By Category
-          %svg#co2-saved-graph.d-block.m-auto
+          %svg#category-views-graph.d-block.m-auto
 
     .col-xl-5
       %h2.py-2 Affiliate Products
