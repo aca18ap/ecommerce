@@ -4,25 +4,11 @@ require 'rails_helper'
 
 describe 'Business accessibility' do
   let!(:business) { FactoryBot.create(:business) }
-  login_as(business, scope: :business)
-
-  feature 'Sign up as business', js: true do
-    scenario 'is accessible' do
-      visit new_business_registration_path
-      expect(page).to be_axe_clean
-    end
-  end
-
-  feature 'Add business product', js: true do
-    scenario 'is accessible' do
-      visit new_product_path
-      expect(page).to be_axe_clean
-    end
-  end
+  before { login_as(business, scope: :business) }
 
   feature 'Business dashboard', js: true do
     scenario 'is accessible' do
-      visit business_path
+      visit business_show_path
       expect(page).to be_axe_clean
     end
   end

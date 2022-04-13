@@ -1,6 +1,8 @@
+- content_for :title, "Affiliate Directory"
+
 .container-fluid.pad-edge
   .pt-5 
     %h1 
-      Directory
+      Affiliate Directory
     - @businesses.each do |business|
       = link_to business.name, business_path(business)
