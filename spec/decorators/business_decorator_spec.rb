@@ -100,7 +100,7 @@ RSpec.describe BusinessDecorator do
     end
 
     it 'returns the number of unique categories for affiliate products if there are any' do
-      AffiliateProductView.new(product_id: affiliate_product.id, customer_id: customer.id).save
+      FactoryBot.create(:product, url: 'https://unique.com', business_id: business.id)
       expect(business.unique_product_categories).to eq 1
     end
   end

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'Metrics management', js: true do
+describe 'Customer Metrics Graphs', js: true do
   def plot_is_empty(css_id)
     within(:css, css_id) { expect(page).to have_content 'There is no data for this metric yet' }
   end

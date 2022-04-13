@@ -43,4 +43,3 @@ RSpec.describe AffiliateProductView, type: :model do
     end
   end
 end
-

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'Calculating metrics' do
+describe 'Customer metrics' do
   let!(:product) { FactoryBot.create(:product, created_at: Time.now.change({ sec: 0 }) - 2.days) }
   let!(:product2) { FactoryBot.create(:product, url: 'https://anotherwebsite.com', price: 5.7, created_at: Time.now.change({ sec: 0 })) }
   let!(:customer) { FactoryBot.create(:customer) }

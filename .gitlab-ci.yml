@@ -121,14 +121,14 @@ bundler-audit:
     - bundle check --path vendor/gems
     - bundle exec bundler-audit --update
 
-yarn-audit:
-  stage: security
-  when: always
-  except:
-    - tags
-  dependencies:
-    - yarn
-  allow_failure: false
-  script:
-    - yarn check --integrity
-    - yarn audit
+#yarn-audit:
+#  stage: security
+#  when: always
+#  except:
+#    - tags
+#  dependencies:
+#    - yarn
+#  allow_failure: false
+#  script:
+#    - yarn check --integrity
+#    - yarn audit

@@ -2,7 +2,10 @@
 
 require 'rails_helper'
 
-describe 'Metrics management', js: true do
+describe 'Business Metrics Graphs', js: true do
+  let!(:business) { FactoryBot.create(:business).decorate }
+  before { login_as(business, scope: :business) }
+
   def plot_is_empty(css_id)
     within(:css, css_id) { expect(page).to have_content 'There is no data for this metric yet' }
   end
@@ -12,55 +15,54 @@ describe 'Metrics management', js: true do
   end
 
   context 'If there are no products for a business' do
-    before { login_as(FactoryBot.create(:customer), scope: :customer) }
-
     specify 'The graphs should show an appropriate message' do
-      visit authenticated_customer_root_path
+      visit authenticated_business_root_path
 
-      within(:css, '#avg-co2-stat') { expect(page).to have_content 'N/AKg' }
-      within(:css, '#total-co2-stat') { expect(page).to have_content 'N/AKg' }
-      within(:css, '#co2-saved-stat') { expect(page).to have_content 'N/AKg' }
-      within(:css, '#co2-per-pound-stat') { expect(page).to have_content 'N/AKg' }
-      within(:css, '#total-purchases-stat') { expect(page).to have_content '0' }
+      within(:css, '#total-views-stat') { expect(page).to have_content '0' }
+      within(:css, '#customer-purchases-stat') { expect(page).to have_content '0' }
+      within(:css, '#affiliate-products-stat') { expect(page).to have_content '0' }
+      within(:css, '#unique-categories-stat') { expect(page).to have_content '0' }
 
-      plot_is_empty('#co2-purchased-graph')
-      find('#open-total-co2-tab').click
-      plot_is_empty('#total-co2-graph')
-      find('#open-co2-saved-tab').click
-      plot_is_empty('#co2-saved-graph')
-      find('#open-co2-pound-tab').click
-      plot_is_empty('#co2-pound-graph')
-      find('#open-products-added-tab').click
-      plot_is_empty('#products-added-graph')
+      plot_is_empty('#total-product-views-graph')
+      find('#open-product-views-tab').click
+      plot_is_empty('#product-views-graph')
+      find('#open-category-views-tab').click
+      plot_is_empty('#category-views-graph')
     end
   end
 
-  context 'If there are purchases for a customer' do
-    let!(:customer) { FactoryBot.create(:customer) }
-    let!(:product) { FactoryBot.create(:product, created_at: '2021-11-27 16:39:22') }
+  context 'If there are affiliate products' do
+    let!(:product) { FactoryBot.create(:product, business_id: business.id) }
+    let(:customer) { FactoryBot.create(:customer) }
 
-    before do
-      login_as(customer, scope: :customer)
-      customer.products << product
-      visit authenticated_customer_root_path
+    specify 'the appropriate page statistics should update' do
+      visit authenticated_business_root_path
+
+      within(:css, '#affiliate-products-stat') { expect(page).to have_content '1' }
+      within(:css, '#unique-categories-stat') { expect(page).to have_content '1' }
     end
 
-    specify 'the graphs display the data' do
-      within(:css, '#avg-co2-stat') { expect(page).to have_content "#{product.co2_produced.round(1)}Kg" }
-      within(:css, '#total-co2-stat') { expect(page).to have_content "#{product.co2_produced.round(1)}Kg" }
-      # within(:css, '#co2-saved-stat') { expect(page).to have_content 'N/AKg' }
-      within(:css, '#co2-per-pound-stat') { expect(page).to have_content "#{(product.co2_produced / product.price).round(1)}Kg" }
-      within(:css, '#total-purchases-stat') { expect(page).to have_content '1' }
+    context 'If there are affiliate views' do
+      specify 'the appropriate page statistics anf graphs should update' do
+        AffiliateProductView.new(product_id: product.id, customer_id: customer.id).save
+        visit authenticated_business_root_path
 
-      plot_is_populated('#co2-purchased-graph')
-      find('#open-total-co2-tab').click
-      plot_is_populated('#total-co2-graph')
-      find('#open-co2-saved-tab').click
-      # plot_is_populated('#co2-saved-graph')
-      find('#open-co2-pound-tab').click
-      plot_is_populated('#co2-pound-graph')
-      find('#open-products-added-tab').click
-      plot_is_populated('#products-added-graph')
+        within(:css, '#total-views-stat') { expect(page).to have_content '1' }
+        plot_is_populated('#total-product-views-graph')
+        find('#open-product-views-tab').click
+        plot_is_populated('#product-views-graph')
+        find('#open-category-views-tab').click
+        plot_is_populated('#category-views-graph')
+      end
+    end
+
+    context 'If there are customer purchases of affiliate products' do
+      specify 'the appropriate page statistics should update' do
+        customer.products << product
+        visit authenticated_business_root_path
+
+        within(:css, '#customer-purchases-stat') { expect(page).to have_content '1' }
+      end
     end
   end
 end
