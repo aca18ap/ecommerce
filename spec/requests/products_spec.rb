@@ -26,6 +26,13 @@ RSpec.describe '/products', type: :request do
                                      { material_id: material2.id, percentage: 60 }] }
   end
 
+  let!(:affiliate_valid_attributes) do
+    { name: 'Product', category: 'Category', manufacturer: 'rht', mass: '45', url: 'http://www.test.com', manufacturer_country: 'IT', price: '10.1',
+      products_material_attributes: [{ material_id: material1.id, percentage: 40 },
+                                     { material_id: material2.id, percentage: 60 }],
+      business_id: 1 }
+  end
+
   let!(:invalid_attributes) do
     { name: '', category: '', mass: '', manufacturer: '', url: '', manufacturer_country: '', price: '',
       products_material_attributes: [{ material_id: material1.id, percentage: 40 },
@@ -47,6 +54,16 @@ RSpec.describe '/products', type: :request do
       product = Product.create! valid_attributes
       get product_url(product)
       expect(response).to be_successful
+    end
+
+    it 'creates a log of an affiliate view if a customer views an affiliate product' do
+      customer = FactoryBot.create(:customer)
+      login_as(customer, scope: :customer)
+      product = Product.create! affiliate_valid_attributes
+      get product_url(product)
+      expect(AffiliateProductView.count).to eq 1
+      expect(AffiliateProductView.first.product_id).to eq product.id
+      expect(AffiliateProductView.first.customer_id).to eq customer.id
     end
   end
 

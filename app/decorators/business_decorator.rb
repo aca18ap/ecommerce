@@ -3,6 +3,7 @@
 # Decorator class for business view logic
 class BusinessDecorator < Draper::Decorator
   delegate_all
+  decorates_association :products
 
   def unlock_button?
     return unless access_locked?
@@ -25,5 +26,17 @@ class BusinessDecorator < Draper::Decorator
     h.link_to 'Resend', h.invite_business_url(id),
               method: :patch, class: 'btn btn-xs',
               data: { confirm: 'Resend invitation?' }
+  end
+
+  def total_product_views
+    Product.joins(:affiliate_product_views).where(business_id: id).count
+  end
+
+  def customer_purchases
+    Product.joins(:purchase_histories).where(business_id: id).count
+  end
+
+  def unique_product_categories
+    Product.where(business_id: id).pluck(:category).uniq.count
   end
 end

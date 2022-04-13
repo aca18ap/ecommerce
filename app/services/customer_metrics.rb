@@ -92,7 +92,7 @@ class CustomerMetrics < CalculateMetrics
 
       data_arr = []
       (earliest_day.to_i..latest_day.to_i).step(1.day) do |date|
-        data_arr.append({ 'day' => Time.at(date).to_date, 'value' => data_hash.key?(date) ? data_hash[date] : 0 })
+        data_arr.append({ 'time' => date, 'value' => data_hash.key?(date) ? data_hash[date] : 0 })
       end
 
       data_arr

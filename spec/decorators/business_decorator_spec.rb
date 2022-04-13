@@ -4,6 +4,8 @@ require 'rails_helper'
 
 RSpec.describe BusinessDecorator do
   let(:business) { FactoryBot.create(:business).decorate }
+  let(:affiliate_product) { FactoryBot.create(:product, business_id: business.id) }
+  let(:customer) { FactoryBot.create(:customer) }
 
   describe '.unlock_button?' do
     context 'when a business is locked through devise' do
@@ -67,6 +69,39 @@ RSpec.describe BusinessDecorator do
         business.invitation_accepted_at = nil
         expect(business.invite_button?).to have_link 'Resend'
       end
+    end
+  end
+
+  describe '.total_product_views' do
+    it 'returns 0 if there are no views for any affiliate products or if there are no affiliate products' do
+      expect(business.total_product_views).to eq 0
+    end
+
+    it 'returns the total number of product views if there are any' do
+      AffiliateProductView.new(product_id: affiliate_product.id, customer_id: customer.id).save
+      expect(business.total_product_views).to eq 1
+    end
+  end
+
+  describe '.customer_purchases' do
+    it 'returns 0 if there are no affiliate products or no customer purchases' do
+      expect(business.customer_purchases).to eq 0
+    end
+
+    it 'returns the number of customer purchases if there are any' do
+      customer.products << affiliate_product
+      expect(business.customer_purchases).to eq 1
+    end
+  end
+
+  describe '.unique_product_categories' do
+    it 'returns 0 if there are no affiliate products' do
+      expect(business.unique_product_categories).to eq 0
+    end
+
+    it 'returns the number of unique categories for affiliate products if there are any' do
+      FactoryBot.create(:product, url: 'https://unique.com', business_id: business.id)
+      expect(business.unique_product_categories).to eq 1
     end
   end
 end

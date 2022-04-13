@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe ProductDecorator do
   let(:product) { FactoryBot.create(:product).decorate }
+  let(:affiliate_product) { FactoryBot.create(:product, url: 'https://different-url.com', business_id: 1).decorate }
 
   describe '.business_name' do
     let(:business) { FactoryBot.create(:business) }
@@ -49,8 +50,8 @@ RSpec.describe ProductDecorator do
   end
 
   describe '.co2_produced_with_unit' do
-    it 'returns the product co2 produced with "kg of CO2" after it' do
-      expect(product.co2_produced_with_unit).to eq "#{product.co2_produced}<sub>kg of CO2</sub>"
+    it 'returns the product co2 produced with "kg" after it' do
+      expect(product.co2_produced_with_unit).to eq "#{product.co2_produced}<sub>Kg</sub>"
     end
   end
 
@@ -92,6 +93,27 @@ RSpec.describe ProductDecorator do
   describe '.co2_per_pound' do
     it 'returns the co2 produced per pound' do
       expect(product.co2_per_pound).to eq(7.15)
+    end
+  end
+
+  describe '.number_of_views' do
+    let(:customer) { FactoryBot.create(:customer) }
+
+    it 'returns 0 if the product is not an affiliate product' do
+      expect(product.number_of_views).to eq '0 Views'
+    end
+
+    it 'returns "1 View" if the product has been viewed once' do
+      AffiliateProductView.new(product_id: affiliate_product.id, customer_id: customer.id).save
+      expect(affiliate_product.number_of_views).to eq '1 View'
+    end
+
+    it 'returns "N Views" if the product has been viewed once' do
+      10.times do
+        AffiliateProductView.new(product_id: affiliate_product.id, customer_id: customer.id).save
+      end
+
+      expect(affiliate_product.number_of_views).to eq '10 Views'
     end
   end
 end

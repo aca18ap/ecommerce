@@ -15,18 +15,21 @@ class ProductDecorator < ApplicationDecorator
   end
 
   def co2_produced_with_unit
-    "#{co2_produced}<sub>kg of CO2</sub>".html_safe
+    "#{co2_produced}<sub>Kg</sub>".html_safe
   end
 
   def price_with_currency
     "£#{price}"
   end
 
-  def product_image
+  def product_image(height = nil, width = nil)
     if image.attached?
-      h.image_tag(image, class: 'img-fluid round-image')
+      meta = ActiveStorage::Analyzer::ImageAnalyzer.new(image).metadata
+      height = meta['width'] if height.nil?
+      width = meta['width'] if width.nil?
+      h.image_tag(image, class: 'img-fluid round-image', size: "#{height}x#{width}", alt: description)
     else
-      h.image_tag('default-image.jpg', class: 'img-fluid round-image')
+      h.image_tag('default-image.jpg', class: 'img-fluid round-image', size: "#{height}x#{width}", alt: description)
     end
   end
 
@@ -54,5 +57,12 @@ class ProductDecorator < ApplicationDecorator
 
   def mass_with_unit
     "#{product.mass.round(2)} kg"
+  end
+
+  def number_of_views
+    return '0 Views' if business_id.nil?
+
+    count = affiliate_product_views.count
+    "#{count} View#{count > 1 ? 's' : ''}"
   end
 end

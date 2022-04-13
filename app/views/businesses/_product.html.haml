@@ -1,0 +1,10 @@
+= link_to product do
+  .container.d-inline-flex.bg-light.px-0.mx-0.text-black.w-100
+    = product.product_image(height=100, width=100)
+
+    .container
+      %h3.text-black.fw-normal.m-0= product.name
+      %p= product.truncated_description
+
+    .container.w-auto.m-0.text-center
+      %h2= product.number_of_views

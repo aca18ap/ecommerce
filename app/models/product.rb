@@ -12,7 +12,7 @@
 #  manufacturer_country :string
 #  mass                 :float
 #  name                 :string
-#  price                :float            not null
+#  price                :float            default(0.0), not null
 #  url                  :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
@@ -41,6 +41,8 @@ class Product < ApplicationRecord
 
   has_many :purchase_histories
   has_many :customers, through: :purchase_histories
+
+  has_many :affiliate_product_views
 
   belongs_to :business, optional: true
 

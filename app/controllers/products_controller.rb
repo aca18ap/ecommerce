@@ -4,6 +4,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[show edit update destroy]
   before_action :authenticate_staff!, except: %i[show index new create]
+  after_action :affiliate_view, only: :show
   authorize_resource
   decorates_assigned :products, :product
 
@@ -94,5 +95,13 @@ class ProductsController < ApplicationController
   # List of params that can be used to filter products if specified
   def filtering_params(params)
     params.slice(:name, :similarity, :search_term, :business_id)
+  end
+
+  # Creates a view in the affiliate product views table if the product shown is associated with a business
+  def affiliate_view
+    # Insert affiliate view if a customer views an affiliate product
+    return if @product.business_id.nil? || !current_customer
+
+    AffiliateProductView.new(product_id: @product.id, customer_id: current_customer.id).save
   end
 end

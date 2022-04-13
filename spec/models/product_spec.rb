@@ -12,7 +12,7 @@
 #  manufacturer_country :string
 #  mass                 :float
 #  name                 :string
-#  price                :float            not null
+#  price                :float            default(0.0), not null
 #  url                  :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null

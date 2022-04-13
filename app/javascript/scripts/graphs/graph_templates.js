@@ -523,7 +523,7 @@ export function LineChart(data, {
 
     if (xType === d3.scaleTime) {
         data.forEach(function(x){
-            x.day = d3.timeParse("%Y-%m-%d")(x.day)
+            x.time = d3.timeParse("%Q")(x.time)
         });
     }
 

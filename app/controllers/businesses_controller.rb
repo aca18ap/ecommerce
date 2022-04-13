@@ -3,7 +3,7 @@
 # Business controller for managing business only actions
 class BusinessesController < ApplicationController
   before_action :set_business, only: %i[show edit update destroy unlock invite]
-  load_and_authorize_resource
+  load_and_authorize_resource except: :dashboard
 
   # GET /businesses
   def index
@@ -12,6 +12,16 @@ class BusinessesController < ApplicationController
 
   # GET /businesses/1
   def show; end
+
+  # GET /businesses/dashboard
+  def dashboard
+    @business = current_business
+    @business = @business.decorate
+
+    gon.timeAffiliateViews = BusinessMetrics.time_affiliate_views(@business)
+    gon.viewsByProduct = BusinessMetrics.views_by_product(@business)
+    gon.viewsByCategory = BusinessMetrics.views_by_category(@business)
+  end
 
   # GET /businesses/1/edit
   def edit; end

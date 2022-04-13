@@ -1,6 +1,5 @@
 import * as d3 from 'd3';
 import * as graphs from '../graphs/graph_templates';
-import * as graph_utils from '../graphs/graph_utils';
 import * as d3_graph_utils from '../graphs/d3_graph_utils';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -11,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (gon.timeCO2PerPurchase && Object.keys(gon.timeCO2PerPurchase).length > 0) {
         graphs.LineChart(gon.timeCO2PerPurchase, {
-            x: d => d.day,
+            x: d => d.time,
             y: d => d.value,
             width,
             height,
@@ -29,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (gon.timeTotalCO2 && Object.keys(gon.timeTotalCO2).length > 0) {
         graphs.LineChart(gon.timeTotalCO2, {
-            x: d => d.day,
+            x: d => d.time,
             y: d => d.value,
             width,
             height,
@@ -47,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (gon.timeCO2Saved && Object.keys(gon.timeCO2Saved).length > 0) {
         graphs.LineChart(gon.timeCO2Saved, {
-            x: d => d.day,
+            x: d => d.time,
             y: d => d.value,
             width,
             height,
@@ -65,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (gon.timeCO2PerPound && Object.keys(gon.timeCO2PerPound).length > 0) {
         graphs.LineChart(gon.timeCO2PerPound, {
-            x: d => d.day,
+            x: d => d.time,
             y: d => d.value,
             width,
             height,
@@ -83,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (gon.timeProductsTotal && Object.keys(gon.timeProductsTotal).length > 0) {
         graphs.LineChart(gon.timeProductsTotal, {
-            x: d => d.day,
+            x: d => d.time,
             y: d => d.value,
             width,
             height,
