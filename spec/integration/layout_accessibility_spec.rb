@@ -10,4 +10,25 @@ describe 'Layout accessibility' do
       # expect(page).to be_axe_clean
     end
   end
+
+  feature 'Customer login', js: true do
+    scenario 'is accessible' do
+      visit new_customer_session_path
+      expect(page).to be_axe_clean
+    end
+  end
+
+  feature 'Business login', js: true do
+    scenario 'is accessible' do
+      visit new_business_session_path
+      expect(page).to be_axe_clean
+    end
+  end
+
+  feature 'Staff login', js: true do
+    scenario 'is accessible' do
+      visit new_staff_session_path
+      expect(page).to be_axe_clean
+    end
+  end
 end
