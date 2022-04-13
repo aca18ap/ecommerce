@@ -4,7 +4,6 @@ require 'rails_helper'
 
 describe 'Customer accessibility' do
   let!(:customer) { FactoryBot.create(:customer) }
-  before { login_as(customer, scope: :customer) }
 
   feature 'Sign up as customer', js: true do
     scenario 'is accessible' do

@@ -8,7 +8,7 @@ describe 'Business accessibility' do
 
   feature 'Business dashboard', js: true do
     scenario 'is accessible' do
-      visit business_show_path
+      visit dashboard_path
       expect(page).to be_axe_clean
     end
   end

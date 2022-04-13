@@ -15,7 +15,7 @@ describe 'Customer Metrics Graphs', js: true do
     before { login_as(FactoryBot.create(:customer), scope: :customer) }
 
     specify 'The graphs should show an appropriate message' do
-      visit authenticated_customer_root_path
+      visit customer_show_path
 
       within(:css, '#avg-co2-stat') { expect(page).to have_content 'N/AKg' }
       within(:css, '#total-co2-stat') { expect(page).to have_content 'N/AKg' }
@@ -42,7 +42,7 @@ describe 'Customer Metrics Graphs', js: true do
     before do
       login_as(customer, scope: :customer)
       customer.products << product
-      visit authenticated_customer_root_path
+      visit customer_show_path
     end
 
     specify 'the graphs display the data' do

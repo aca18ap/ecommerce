@@ -6,17 +6,17 @@ describe 'Shares' do
     context 'I can share the carbon footprint viewer' do
       specify 'by email', js: true do
         visit '/'
-        within(:css, '.carbon-footprint-feature') { find('#email').click }
+        within(:css, '.carbon-footprint-feature') { find('.email-share-button').click }
       end
 
       specify 'to twitter', js: true do
         visit '/'
-        within(:css, '.carbon-footprint-feature') { find('#twitter').click }
+        within(:css, '.carbon-footprint-feature') { find('.twitter-share-button').click }
       end
 
       specify 'to facebook', js: true do
         visit '/'
-        within(:css, '.carbon-footprint-feature') { find('#facebook').click }
+        within(:css, '.carbon-footprint-feature') { find('.fb-share-button').click }
       end
     end
   end
@@ -26,19 +26,19 @@ describe 'Shares' do
       specify 'to facebook', js: true do
         visit '/pricing_plans'
         within(:css, '.unlimited-suggestions') { find('.btn').click }
-        expect(page).to have_css('#facebook')
+        expect(page).to have_css('.fb-share-button')
       end
 
       specify 'to email', js: true do
         visit '/pricing_plans'
         within(:css, '.unlimited-suggestions') { find('.btn').click }
-        expect(page).to have_css('#email')
+        expect(page).to have_css('.email-share-button')
       end
 
       specify 'to twitter', js: true do
         visit '/pricing_plans'
         within(:css, '.unlimited-suggestions') { find('.btn').click }
-        expect(page).to have_css('#twitter')
+        expect(page).to have_css('.twitter-share-button')
       end
     end
 
