@@ -1,6 +1,8 @@
+@import 'variables';
+
 .custom-nav {
   font-weight: 300;
-  background-color: #00241B;
+  background-color: var(--primary);
   font-size: 0.9em;
 }
 

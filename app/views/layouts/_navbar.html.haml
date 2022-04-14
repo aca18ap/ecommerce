@@ -1,13 +1,13 @@
-%header.p-2.border-bottom.custom-nav
+%header.p-2.custom-nav
   .container-fluid.pad-edge
     .d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-lg-start
       %a.d-flex.align-items-center.mb-2.mr-5.mb-lg-0.text-decoration-none{:href => root_path}
         %img{:alt => "mdo", :height => "48", :src => "/images/logo.png", :width => "160"}
       .nav.col-12.col-lg-auto.me-lg-auto.justify-content-center.mr-5.custom-nav-fonts
         %ul.my-auto
-          -# %li
-          -#   = link_to 'Home', root_path, title: 'Go to the home page', class: 'nav-link px-2 link-secondary'
-       
+          - if customer_signed_in? || business_signed_in? || staff_signed_in?
+            %li
+              = link_to 'Dashboard', dashboard_path, class: 'nav-link px-2 link-secondary', title: 'Dashboard'
           - if can?(:read, Product)
             %li
               = link_to 'Products', products_path, class: 'nav-link px-2', title: 'View products'
@@ -17,6 +17,14 @@
           - if can?(:read, Faq)
             %li
               = link_to 'FAQs', faqs_path, class: 'nav-link px-2', title: 'Frequently asked questions'
+
+      %body.dark
+        .load-flash
+        .mode-toggle.noselect
+
+          %h6.label-dark.my-auto Dark
+          .toggle-switch
+          %h6.label-light.my-auto Light
             
       = form_with url: products_path, method: :get do |form|
         .input-group.mx-5
