@@ -11,6 +11,7 @@ $('#product_form').submit(function(){
 })
 
 function initParents(){
+    console.log(categories)
     categories[0].children.forEach(c=>{
         $('.category_parent').append(new Option(c.name, c.id))
     })

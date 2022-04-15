@@ -29,6 +29,7 @@ class ProductsController < ApplicationController
 
   # GET /products/new
   def new
+    gon.push({ categories: Category.arrange_serializable })
     if current_customer || current_staff || current_business
       @product = Product.new
       @product.products_material.build
@@ -38,7 +39,9 @@ class ProductsController < ApplicationController
   end
 
   # GET /products/1/edit
-  def edit; end
+  def edit
+    gon.push({ categories: Category.arrange_serializable })
+  end
 
   # POST /products
   def create
@@ -78,8 +81,8 @@ class ProductsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def product_params
-    params.require(:product).permit(:name, :description, :business_id, :mass, :price, :category_id, :url, :manufacturer,
-                                    :manufacturer_country, :co2_produced, :image, :customer_purchased,
+    params.require(:product).permit(:name, :description, :business_id, :mass, :price, :url, :manufacturer,
+                                    :manufacturer_country, :co2_produced, :image, :customer_purchased, :category_id,
                                     products_material_attributes: %i[material_id percentage id _destroy])
   end
 

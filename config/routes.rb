@@ -2,7 +2,11 @@
 
 Rails.application.routes.draw do
 
+<<<<<<< HEAD
   resources :product_reports, except: [:edit, :update]
+=======
+  resources :categories
+>>>>>>> Fixes
   ## ===== System Users and Accounts Routes ===== ##
   devise_for :customers, path: 'customer',
                          controllers: { sessions: 'customers/sessions', registrations: 'customers/registrations' }

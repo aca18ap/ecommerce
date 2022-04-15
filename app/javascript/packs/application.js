@@ -12,6 +12,7 @@ import './sharing';
 import './admin';
 import './new_product';
 import './show_product';
+import './categories_form';
 import "@nathanvda/cocoon";
 
 Rails.start();
