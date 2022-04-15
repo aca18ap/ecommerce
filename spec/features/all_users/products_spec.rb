@@ -7,19 +7,19 @@ describe 'Products' do
     let!(:customer) { FactoryBot.create(:customer) }
     let!(:product) { FactoryBot.create(:product) }
     let!(:material_new) { FactoryBot.create(:material, name: 'Material_New') }
+    let!(:category) { FactoryBot.create(:category, name: 'Category_New') }
 
     before { login_as(customer, scope: :customer) }
     specify 'I can add a product' do
       visit new_product_path
       fill_in 'product[name]', with: 'AirForceOne'
-      fill_in 'product[category]', with: 'Shoes'
+      fill_in 'product[description]', with: 'AirForceOne'
       fill_in 'product[mass]', with: '2'
       fill_in 'product[price]', with: '10.1'
       fill_in 'product[url]', with: 'https://nike.com'
       fill_in 'product[manufacturer]', with: 'nike'
       select 'Vietnam', from: 'Manufacturer country'
-
-      # click_on 'Add Material'
+      select category.name, from: 'Category'
       select material_new.name, from: 'Material'
       fill_in 'product[products_material_attributes][0][percentage]', with: '100'
       click_button 'Create Product'
@@ -85,6 +85,7 @@ describe 'Products' do
       visit '/products'
       click_link 'Edit'
       expect(page).to have_content 'Editing product'
+      click_on 'Materials'
       click_link 'Remove Material'
       fill_in 'product[products_material_attributes][1][percentage]', with: '100'
       click_button 'Update Product'

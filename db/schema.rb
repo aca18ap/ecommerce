@@ -10,8 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2022_04_11_120739) do
 
+=======
+ActiveRecord::Schema.define(version: 2022_04_11_144214) do
+>>>>>>> Fixed chunk of tests
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -200,10 +204,7 @@ ActiveRecord::Schema.define(version: 2022_04_11_120739) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "business_id"
     t.float "price", default: 0.0, null: false
-<<<<<<< HEAD
-=======
     t.integer "category_id"
->>>>>>> Migrations
   end
 
   create_table "products_materials", force: :cascade do |t|

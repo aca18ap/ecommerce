@@ -34,7 +34,7 @@ RSpec.describe Product, type: :model do
     end
 
     it 'is invalid without category' do
-      product.category = ''
+      product.category_id = ''
       expect(product).not_to be_valid
     end
 

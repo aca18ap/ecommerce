@@ -23,7 +23,7 @@ FactoryBot.define do
     name { 'TestName' }
     description { 'A piece of clothing' }
     mass { '10' }
-    category { 'Trousers' }
+    category { FactoryBot.build(:category) }
     url { 'https://clothes.com' }
     manufacturer { 'Me' }
     price { '10.4' }

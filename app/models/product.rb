@@ -48,7 +48,7 @@ class Product < ApplicationRecord
 
   belongs_to :business, optional: true
 
-  belongs_to :category, optional: true
+  belongs_to :category
 
   accepts_nested_attributes_for :products_material, allow_destroy: true
 
