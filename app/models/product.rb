@@ -5,7 +5,6 @@
 # Table name: products
 #
 #  id                   :bigint           not null, primary key
-#  category             :string
 #  co2_produced         :float
 #  description          :string
 #  manufacturer         :string
@@ -17,6 +16,7 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  business_id          :bigint
+#  category_id          :integer
 #
 class Product < ApplicationRecord
   # Scopes defined to clean up controller
