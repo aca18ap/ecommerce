@@ -39,16 +39,12 @@ cats = CSV.parse(File.read("lib/datasets/categories.csv"), headers: true)
 
 cats.each do |c|
   if c['Parent'] == nil
-    puts '- grandparent'
-    Category.first_or_create!(name: c['Grandparent'])
+    Category.where(name: c['Grandparent']).first_or_create!()
   elsif c['Child'] == nil
-    puts '- parent'
     Category.where(name: c['Grandparent']).first.children.create(name: c['Parent'])
   elsif c['Grandchild'] == nil
-    puts '- child'
     Category.where(name: c['Parent']).first.children.create(name: c['Child'])
   else
-    puts '- grandchild'
     Category.where(name: c['Child']).first.children.create(name: c['Grandchild'])
   end
 end
@@ -58,7 +54,7 @@ end
 prng = Random.new
 100.times do |i|
   Product.where(name: Faker::Coffee.blend_name).first_or_create(
-    # category: Faker::IndustrySegments.sub_sector,
+    category_id: Category.find(Category.pluck(:id).sample),
     url: "http://www.test#{i}.com",
     description: Faker::Quotes::Shakespeare.hamlet_quote,
     manufacturer: Faker::Company.name,
