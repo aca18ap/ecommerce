@@ -41,11 +41,11 @@ cats.each do |c|
   if c['Parent'] == nil
     Category.where(name: c['Grandparent']).first_or_create!()
   elsif c['Child'] == nil
-    Category.where(name: c['Grandparent']).first.children.create(name: c['Parent'])
+    Category.where(name: c['Grandparent']).first.children.where(name: c['Parent']).first_or_create!()
   elsif c['Grandchild'] == nil
-    Category.where(name: c['Parent']).first.children.create(name: c['Child'])
+    Category.where(name: c['Parent']).first.children.where(name: c['Child']).first_or_create!()
   else
-    Category.where(name: c['Child']).first.children.create(name: c['Grandchild'])
+    Category.where(name: c['Child']).first.children.where(name: c['Grandchild']).first_or_create!()
   end
 end
 
@@ -53,8 +53,8 @@ end
 ## Products
 prng = Random.new
 100.times do |i|
-  Product.where(name: Faker::Coffee.blend_name).first_or_create(
-    category_id: Category.find(Category.pluck(:id).sample),
+  Product.where(name: Faker::Coffee.blend_name).first_or_create!(
+    category_id: Category.find(Category.pluck(:id).sample).id,
     url: "http://www.test#{i}.com",
     description: Faker::Quotes::Shakespeare.hamlet_quote,
     manufacturer: Faker::Company.name,
