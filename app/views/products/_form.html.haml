@@ -41,6 +41,7 @@
     .panel.panel-primary.setup-content#step1
       .panel-heading
         %h2.panel-title Name and Description
+        %br
       .panel-body
         .form-group
           = f.input :name
@@ -51,6 +52,7 @@
     .panel.panel-primary.setup-content#step2
       .panel-heading
         %h2.panel-title Mass and Price
+        %br
       .panel-body 
         .form-group
           = f.input :mass
@@ -62,18 +64,22 @@
     .panel.panel-primary.setup-content#step3
       .panel-heading
         %h2.panel-title Category
+        %br
       
       .panel-body 
         .form-group.float.required.product_category.form-group-valid
-          .float.required= f.label 'Category', :category
-          
-          %select.category_grandparent
+          .float.required.d-none= f.label 'Category', :category
+          .d-flex.flex-column.col-3
+            %select.category_grandparent
+            %br
 
-          %select.category_parent
+            %select.category_parent
+            %br
 
-          %select.category_child
+            %select.category_child
+            %br
 
-          %select.category_grandchild
+            %select.category_grandchild
 
         = f.input :category_id, :as => :hidden
       %button.btn.btn-primary.nextBtn.pull-right{type: 'button', href: '#'} Next
@@ -82,7 +88,7 @@
     .panel.panel-primary.setup-content#step4
       .panel-heading
         %h2.panel-title Manufacturer Information
-      
+        %br      
       .panel-body 
         = f.input :url
         = f.input :manufacturer
@@ -91,6 +97,7 @@
     .panel.panel-primary.setup-content#step5
       .panel-heading
         %h2.panel-title Image
+        %br
       .panel-body
         = f.file_field :image
       %button.btn.btn-primary.nextBtn.pull-right{type: 'button', href: '#'} Next
@@ -99,7 +106,7 @@
   .panel.panel-primary.setup-content#step6
     .panel-heading
       %h2.panel-title Materials
-    
+      %br
     .panel-body.d-flex.align-items-center.materials-section
       .flex-fill
         #materials
@@ -115,6 +122,7 @@
   .panel.panel-primary.setup-content#step7
     .panel-heading
       %h2.panel-title Submit Product
+      %br
     .panel-body        
       %br
       .form-actions
