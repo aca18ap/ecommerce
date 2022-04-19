@@ -67,6 +67,8 @@
         .form-group.float.required.product_category.form-group-valid
           .float.required= f.label 'Category', :category
           
+          %select.category_grandparent
+
           %select.category_parent
 
           %select.category_child
@@ -91,8 +93,6 @@
         %h2.panel-title Image
       .panel-body
         = f.file_field :image
-        - if current_customer
-          = f.input :customer_purchased, label: 'I have purchased this product', as: :boolean, input_html: { checked: false }
       %button.btn.btn-primary.nextBtn.pull-right{type: 'button', href: '#'} Next
 
 
@@ -118,5 +118,8 @@
     .panel-body        
       %br
       .form-actions
+        - if current_customer
+          %h2 Have you purchased this product?  
+          = f.input :customer_purchased, label: 'I have purchased this product', as: :boolean, input_html: { checked: false }
         .btn.submit_btn= f.button :submit
 
