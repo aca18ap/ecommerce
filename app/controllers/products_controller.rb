@@ -4,6 +4,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[show edit update destroy]
   before_action :authenticate_staff!, except: %i[show index new create]
+  before_action :load_categories, only: %i[new create edit update]
   after_action :affiliate_view, only: :show
   authorize_resource
   decorates_assigned :products, :product
@@ -29,7 +30,6 @@ class ProductsController < ApplicationController
 
   # GET /products/new
   def new
-    gon.push({ categories: Category.arrange_serializable })
     if current_customer || current_staff || current_business
       @product = Product.new
       @product.products_material.build
@@ -39,9 +39,7 @@ class ProductsController < ApplicationController
   end
 
   # GET /products/1/edit
-  def edit
-    gon.push({ categories: Category.arrange_serializable })
-  end
+  def edit;  end
 
   # POST /products
   def create
@@ -106,5 +104,9 @@ class ProductsController < ApplicationController
     return if @product.business_id.nil? || !current_customer
 
     AffiliateProductView.new(product_id: @product.id, customer_id: current_customer.id).save
+  end
+
+  def load_categories
+    gon.push({ categories: Category.arrange_serializable })
   end
 end

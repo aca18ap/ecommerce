@@ -1,12 +1,15 @@
-const categories = gon.categories
+let categories;
 
 $(function(){
+    if(gon){
+        categories = gon.categories
+    }
     initParents()
     $('.category_child').hide()
     $('.category_grandchild').hide()
 })
 
-$('#product_form').submit(function(){
+$('#product_form').on('submit', function(){
     fillCategory()
 })
 
