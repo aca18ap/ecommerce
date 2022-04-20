@@ -17,11 +17,12 @@
   --br2light: #bfe2d1;
   --br3: #b8658c;
   --br3light: #e2bfd0;
-  --br4: #E09525;
-  --fg1: #e6e6e6;
-  --fg2: #CDD1D5;
-  --bg1: #333333;
-  --bg2: #262626;
+  --br4: #bc9464; 
+  --light1: #f2f2f2;
+  --light2: #CDD1D5;
+  --light3: #e6e6e6;
+  --dark1: #333333;
+  --dark2: #262626;
   --accent1: #262626;
   --accent2: #333333;
   --accent3: #404040;
@@ -30,10 +31,11 @@
 :root[color-mode="dark"] {
   --primary: #00241B;
   --secondary: #245444;
-  --fg1: #262626;
-  --fg2: #333333;
-  --bg1: #eeeeee;
-  --bg2: #CDD1D5;
+  --light1: #262626;
+  --light2: #333333;
+  --light3: #404040;
+  --dark1: #eeeeee;
+  --dark2: #CDD1D5;
   --br1: #00241B;
   --br4: #bc7164;
   --accent1: #e6e6e6;

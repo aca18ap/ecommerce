@@ -7,8 +7,9 @@ html, body {
 
 .devise-form-container {
   margin-top: 3rem;
-  background: var(--bg1);
-  color: var(--fg1);
+  margin-bottom: 3rem;
+  background: var(--light2);
+  color: var(--dark1);
   padding: 0;
   max-width: 500px;
   border-radius: 10px;
@@ -20,7 +21,7 @@ body {
   flex-direction: column;
 	margin:0;
 	color:var(--bg1);
-  background-color: var(--fg1);
+  background-color: var(--light1);
   font-family: 'Outfit';
   font-weight: 100;
   font-size: 1.2em;
@@ -38,16 +39,6 @@ a:hover {
   text-decoration: underline;
 }
 
-// body.dark {
-// 	color:var(--gray-80);
-// }
-h6 {
-	color:var(--gray-80);
-	transition:color var(--animate) ease-in-out;
-}
-// body.dark h6 {
-// 	color:var(--gray-80);
-// }
 .load-flash {
 	z-index:1000;
 	top:0;
@@ -68,9 +59,10 @@ h6 {
 .label-light {
 	letter-spacing:-0.031px;
 }
-.mode-toggle h6,
-body.dark .mode-toggle h6 {
+.mode-toggle h1,
+body.dark .mode-toggle h1 {
 	text-transform:uppercase;
+  font-size: 1em;
 }
 .label-dark,
 .label-light {
@@ -79,25 +71,25 @@ body.dark .mode-toggle h6 {
 	text-align:center;
 	color:var(--gray-60);
 }
-// body.dark .label-dark,
-// body.dark .label-light {
-// 	color:var(--gray-60);
-// }
+body.dark .label-dark,
+body.dark .label-light {
+	color:var(--gray-60);
+}
 .label-dark:hover {
-	color:var(--gray-40);
+	color:var(--gray-50);
 }
 .label-dark:active {
-	color:var(--gray-5);
+	color:var(--gray-50);
 }
-// body.dark .label-dark {
-// 	pointer-events:none;
-// }
-// body.dark .label-light:hover {
-// 	color:var(--gray-95);
-// }
-// body.dark .label-light:active {
-// 	color:var(--gray-65);
-// }
+body.dark .label-dark {
+	pointer-events:none;
+}
+body.dark .label-light:hover {
+	color:var(--gray-95);
+}
+body.dark .label-light:active {
+	color:var(--gray-65);
+}
 .toggle-switch {
 	margin:0;
 	padding:0;
@@ -214,6 +206,6 @@ $mynewcolor: #bc7164;
 }
 
 .bg-shade {
-  background-color: var(--bg2);
+  background-color: var(--light3);
   border-radius: 0px 0px 10px 10px;
 }

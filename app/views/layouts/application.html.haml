@@ -20,16 +20,12 @@
 
   %body
 
-  = render partial: 'layouts/navbar'
+    = render partial: 'layouts/navbar'
 
   %main
-    .text-center
-      - if !notice.nil? then
-        .alert.alert-secondary#notice= notice
-      - if !alert.nil? then
-        .alert.alert-secondary#notice= alert
-    .container-fluid.p-0.m-0
-      = yield
+  
+    = render partial: 'layouts/notice'
+    = yield
 
   = render partial: 'layouts/footer'
 
