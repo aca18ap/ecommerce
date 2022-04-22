@@ -50,7 +50,7 @@ describe 'Product Reports' do
 
   context 'As an admin' do
     let!(:admin) { FactoryBot.create(:admin) }
-    before { login_as(admin) }
+    before { login_as(admin, scope: admin) }
     specify 'I can report a product' do
       visit product_path(product)
       click_link 'Report'
