@@ -12,7 +12,7 @@ class Ability
       if user.admin?
         can :manage, [Staff, Customer, Business, Review, Visit, Newsletter, Faq, :metrics, Product, Material]
         can :read, :all
-        can [:destroy,:delete], ProductReport
+        can %i[destroy delete], ProductReport
       elsif user.reporter?
         can :read, :metrics
         cannot :manage, Review

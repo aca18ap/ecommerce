@@ -1,5 +1,5 @@
 class ProductReportsController < ApplicationController
-  before_action :set_product_report, only: [:show, :destroy]
+  before_action :set_product_report, only: %i[show destroy]
   authorize_resource
 
   # GET /product_reports
@@ -16,7 +16,7 @@ class ProductReportsController < ApplicationController
   def new
     if params[:product_id]
       @product_report = ProductReport.new
-      @product_report.product = Product.find(params[:product_id]).decorate if params[:product_id]
+      @product_report.product = Product.find(params[:product_id]).decorate
     else
       redirect_to products_url, notice: 'You must select a product to report.'
     end
@@ -33,6 +33,7 @@ class ProductReportsController < ApplicationController
     if @product_report.save
       redirect_to products_url, notice: 'Thank you for submitting a report. This will be reviewed soon.'
     else
+      @product_report.product = Product.find(product_report_params[:product_id]).decorate
       render :new
     end
   end
@@ -44,13 +45,14 @@ class ProductReportsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_product_report
-      @product_report = ProductReport.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def product_report_params
-      params.require(:product_report).permit(:product_id, :content)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_product_report
+    @product_report = ProductReport.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def product_report_params
+    params.require(:product_report).permit(:product_id, :content)
+  end
 end

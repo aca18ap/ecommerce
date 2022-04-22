@@ -19,9 +19,10 @@
 #  fk_rails_...  (customer_id => customers.id)
 #  fk_rails_...  (product_id => products.id)
 #
-class ProductReport < ApplicationRecord
-  validates :content, presence: true
-  validates :product_id, presence: true
-  belongs_to :product
-  belongs_to :customer
+FactoryBot.define do
+  factory :product_report do
+    product { FactoryBot.create(:product) }
+    customer { FactoryBot.create(:customer) }
+    content { 'MyString' }
+  end
 end
