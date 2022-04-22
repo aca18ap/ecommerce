@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Decorator class for product report view logic
 class ProductReportDecorator < Draper::Decorator
   delegate_all
 
@@ -10,8 +13,17 @@ class ProductReportDecorator < Draper::Decorator
   #     end
   #   end
 
-  def customer_link
-    h.link_to customer.username, customer
+  def user_link
+    @staff = staff
+    @business = business
+    @customer = customer
+    if object.staff_id
+      h.link_to @staff.email, @staff
+    elsif object.business_id
+      h.link_to @business.username, @business
+    else
+      h.link_to @customer.username, @customer
+    end
   end
 
   def product_link

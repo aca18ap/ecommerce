@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_11_120739) do
+ActiveRecord::Schema.define(version: 2022_04_22_173105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -167,12 +167,16 @@ ActiveRecord::Schema.define(version: 2022_04_11_120739) do
 
   create_table "product_reports", force: :cascade do |t|
     t.bigint "product_id", null: false
-    t.bigint "customer_id", null: false
+    t.bigint "customer_id"
     t.string "content", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "business_id"
+    t.bigint "staff_id"
+    t.index ["business_id"], name: "index_product_reports_on_business_id"
     t.index ["customer_id"], name: "index_product_reports_on_customer_id"
     t.index ["product_id"], name: "index_product_reports_on_product_id"
+    t.index ["staff_id"], name: "index_product_reports_on_staff_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -321,8 +325,10 @@ ActiveRecord::Schema.define(version: 2022_04_11_120739) do
   add_foreign_key "affiliate_product_views", "customers"
   add_foreign_key "affiliate_product_views", "products"
   add_foreign_key "faq_votes", "faqs"
+  add_foreign_key "product_reports", "businesses"
   add_foreign_key "product_reports", "customers"
   add_foreign_key "product_reports", "products"
+  add_foreign_key "product_reports", "staffs"
   add_foreign_key "products_materials", "materials"
   add_foreign_key "products_materials", "products"
   add_foreign_key "purchase_histories", "customers"

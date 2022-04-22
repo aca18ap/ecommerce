@@ -2,12 +2,11 @@
 
 require 'rails_helper'
 
-describe 'Product Reports' do  
+describe 'Product Reports' do
   let!(:product) { FactoryBot.create :product }
 
   context 'As a customer' do
-    let!(:customer) { FactoryBot.create(:customer) }
-    before { login_as(customer) }
+    before { login_as(FactoryBot.create(:customer), scope: :customer) }
     specify 'I can report a product' do
       visit product_path(product)
       click_link 'Report'
@@ -25,8 +24,7 @@ describe 'Product Reports' do
   end
 
   context 'As a business' do
-    let!(:business) { FactoryBot.create(:business) }
-    before { login_as(business) }
+    before { login_as(FactoryBot.create(:business), scope: :business) }
     specify 'I can report a product' do
       visit product_path(product)
       click_link 'Report'
@@ -37,8 +35,7 @@ describe 'Product Reports' do
   end
 
   context 'As a reporter' do
-    let!(:reporter) { FactoryBot.create(:reporter) }
-    before { login_as(reporter) }
+    before { login_as(FactoryBot.create(:reporter), scope: :staff) }
     specify 'I can report a product' do
       visit product_path(product)
       click_link 'Report'
@@ -49,8 +46,7 @@ describe 'Product Reports' do
   end
 
   context 'As an admin' do
-    let!(:admin) { FactoryBot.create(:admin) }
-    before { login_as(admin, scope: admin) }
+    before { login_as(FactoryBot.create(:admin), scope: :staff) }
     specify 'I can report a product' do
       visit product_path(product)
       click_link 'Report'

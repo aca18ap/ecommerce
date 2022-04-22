@@ -14,7 +14,7 @@
       - @product_reports.each do |product_report|
         %tr
           %td= product_report.product_link
-          %td= product_report.customer_link
+          %td= product_report.user_link
           %td= product_report.content
           - if can?(:read, product_report.model)
             %td= link_to 'Show', product_report.model

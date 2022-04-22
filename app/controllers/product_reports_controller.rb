@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Product Reports Controller handles creation and deletion requests of user reports of products
 class ProductReportsController < ApplicationController
   before_action :set_product_report, only: %i[show destroy]
   before_action :authenticate_staff!, except: %i[new create show created]
@@ -27,9 +30,10 @@ class ProductReportsController < ApplicationController
   def create
     @product_report = ProductReport.new(
       product_id: product_report_params[:product_id],
-      customer_id: current_customer.id,
       content: product_report_params[:content]
     )
+
+    assign_user(@product_report)
 
     if @product_report.save
       redirect_to products_url, notice: 'Thank you for submitting a report. This will be reviewed soon.'
@@ -55,5 +59,15 @@ class ProductReportsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def product_report_params
     params.require(:product_report).permit(:product_id, :content)
+  end
+
+  def assign_user(_product_report)
+    if current_staff
+      @product_report.staff_id = current_staff.id
+    elsif current_business
+      @product_report.business_id = current_business.id
+    elsif current_customer
+      @product_report.customer_id = current_customer.id
+    end
   end
 end
