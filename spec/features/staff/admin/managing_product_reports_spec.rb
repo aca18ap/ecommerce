@@ -22,6 +22,26 @@ describe 'Managing Product Reports' do
 
       within(:css, '.table') { expect(page).to_not have_content product_report.content }
     end
+
+    specify 'I can destroy a product with existing reports', js: true do
+      visit products_path
+      within(:css, '.table') { expect(page).to have_content product_report.product.name }
+
+      accept_confirm do
+        within(:css, '.table') { click_link 'Destroy' }
+      end
+
+      within(:css, '.table') { expect(page).to_not have_content product_report.product.name }
+    end
+
+    specify 'I can destroy a user with existing reports', js: true do
+      visit admin_users_path
+      within(:css, '.table') { expect(page).to have_content product_report.customer.username }
+      accept_confirm do
+        within(:css, "#customer-#{product_report.customer_id}") { click_link 'Delete user' }
+      end
+      within(:css, '#list-customers-table') { expect(page).to_not have_content product_report.customer.email }
+    end
   end
 
   describe 'Security' do
