@@ -1,5 +1,6 @@
 class ProductReportsController < ApplicationController
   before_action :set_product_report, only: %i[show destroy]
+  before_action :authenticate_staff!, except: %i[new create show created]
   authorize_resource
 
   # GET /product_reports
