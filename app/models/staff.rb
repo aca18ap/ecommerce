@@ -38,7 +38,7 @@ class Staff < ApplicationRecord
   include DeviseInvitable::Inviter
 
   enum role: { admin: 0, reporter: 1 }
-
+  has_many :product_report, dependent: :destroy
   devise :invitable, :database_authenticatable, :password_archivable, :recoverable,
          :rememberable, :secure_validatable, :lockable, :registerable, invite_for: 2.weeks
 end

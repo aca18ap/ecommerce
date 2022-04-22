@@ -36,6 +36,8 @@ class Product < ApplicationRecord
 
   has_one_attached :image, dependent: :destroy
 
+  has_many :product_report, dependent: :destroy
+
   has_many :products_material, inverse_of: :product, dependent: :destroy
   has_many :materials, through: :products_material
 
