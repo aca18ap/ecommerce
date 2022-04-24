@@ -124,21 +124,30 @@ class CalculateMetrics
     def insert_zero_entries(data_hash, step = 'day')
       return if data_hash.nil? || data_hash.empty?
 
-      step_size = if step == 'day'
+      step_size = case step
+                  when 'day'
                     1.day
                   else
                     1.hour
                   end
 
-      earliest_day = data_hash.first[0]
-      latest_day = (Time.now + 1.day).change({ hour: 0, min: 0, sec: 0 })
+      earliest_time = data_hash.first[0]
 
       data_arr = []
-      (earliest_day.to_i..latest_day.to_i).step(step_size) do |date|
+      (earliest_time.to_i..latest_time.to_i).step(step_size) do |date|
         data_arr.append({ 'time' => date, 'value' => data_hash.key?(date) ? data_hash[date] : 0 })
       end
 
       data_arr
+    end
+
+    # Method to return the correct time to stop extra entry being added for any time in the morning
+    def latest_time
+      if Time.now.hour > 12
+        (Time.now + 1.day).change({ hour: 0, min: 0, sec: 0 })
+      else
+        (Time.now).change({ hour: 0, min: 0, sec: 0 })
+      end
     end
 
     # Identifies whether a session led to a registration by checking for /newsletters/# in path
