@@ -41,4 +41,5 @@ class Business < ApplicationRecord
 
   has_one_attached :avatar
   has_many :products
+  has_many :product_report, dependent: :destroy
 end

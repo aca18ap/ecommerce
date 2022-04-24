@@ -1,0 +1,15 @@
+.container-fluid.pad-edge
+  %p#notice= notice
+
+  %p
+    %b Product:
+    = @product_report.product_link
+  %p
+    %b Reported By:
+    = @product_report.user_link
+    
+  %p
+    %b Content:
+    = @product_report.content
+
+  = link_to 'Back', product_reports_path

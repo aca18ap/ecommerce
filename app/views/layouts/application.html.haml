@@ -13,7 +13,7 @@
     = stylesheet_pack_tag "styles", media: :all
     = stylesheet_link_tag "application", media: :all
     = javascript_pack_tag *['application', *content_for(:additional_javascript).to_s.split(' ')].compact
-    = favicon_link_tag '/favicon.ico'
+    = favicon_link_tag '/images/logo-icon.png'
     = csrf_meta_tags
 
   %body.bg-light

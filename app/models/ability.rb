@@ -12,6 +12,7 @@ class Ability
       if user.admin?
         can :manage, [Staff, Customer, Business, Review, Visit, Newsletter, Faq, :metrics, Product, Material]
         can :read, :all
+        can %i[create destroy delete], ProductReport
       elsif user.reporter?
         can :read, :metrics
         cannot :manage, Review
@@ -19,6 +20,7 @@ class Ability
         can :read, Product
         can :like, Faq
         can :dislike, Faq
+        can :create, ProductReport
       end
     when Business
       can :create, Product
@@ -26,11 +28,13 @@ class Ability
       can :read, Business
       can :read, Faq
       can :manage, :dashboard
+      can :create, ProductReport
     when Customer
       can :create, Product
       can :read, Product
       can :read, Business
       can :read, Faq
+      can :create, ProductReport
     else
       can :new, Review
       can :create, [Review, Faq, Newsletter]

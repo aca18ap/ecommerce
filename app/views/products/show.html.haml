@@ -9,7 +9,9 @@
     = link_to 'Edit', edit_product_path(product)
     %hr
     = link_to 'Destroy', product, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
+  - if can?(:create, ProductReport)
+    %hr
+    = link_to 'Report', new_product_report_path(:product_id => @product.id)
 
 
 .container-fluid.pad-edge
@@ -155,8 +157,3 @@
     .row.py-3
       .col-12
         %h1 Reviews
-      
-
-
-
-

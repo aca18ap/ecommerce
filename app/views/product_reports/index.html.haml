@@ -1,0 +1,22 @@
+.container-fluid.pad-edge
+  %h1.pt-5 Listing Product Reports
+
+  %table.table
+    %thead
+      %tr
+        %th Product
+        %th Customer
+        %th Content
+        %th
+        %th
+
+    %tbody
+      - @product_reports.each do |product_report|
+        %tr
+          %td= product_report.product_link
+          %td= product_report.user_link
+          %td= product_report.content
+          - if can?(:read, product_report.model)
+            %td= link_to 'Show', product_report.model
+          - if can?(:destroy, product_report.model)
+            %td= link_to 'Destroy', product_report.model, :method => :delete, :data => { :confirm => 'Are you sure?' }
