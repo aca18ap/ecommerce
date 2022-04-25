@@ -1,9 +1,25 @@
 %p#notice= notice
 
-%p
+%h1
   %b Name:
   = @category.name
 
+
+- if @category.has_children?
+  %h3 Sub-categories
+  %table
+    %thead
+      %tr
+        %th Name
+        %th 
+    %tbody
+  - @category.children.each do |c|
+    %tr
+      %td= c.name
+      %td= link_to 'Show', c
+
+%hr
 = link_to 'Edit', edit_category_path(@category)
+= link_to 'Destroy', @category, :method => :delete, :data => { :confirm => 'Are you sure?' }
 \|
 = link_to 'Back', categories_path
