@@ -10,18 +10,31 @@ describe 'Products' do
     let!(:category) { FactoryBot.create(:category, name: 'Category_New') }
 
     before { login_as(customer, scope: :customer) }
-    specify 'I can add a product' do
+    specify 'I can add a product', js: true do
       visit new_product_path
       fill_in 'product[name]', with: 'AirForceOne'
       fill_in 'product[description]', with: 'AirForceOne'
+      click_button 'Next'
+
       fill_in 'product[mass]', with: '2'
       fill_in 'product[price]', with: '10.1'
+      click_button 'Next'
+      
+      within '.category_grandparent' do
+        find("option[value='1']").click
+      end
+      click_button 'Next'
+
       fill_in 'product[url]', with: 'https://nike.com'
       fill_in 'product[manufacturer]', with: 'nike'
       select 'Vietnam', from: 'Manufacturer country'
-      select category.name, from: 'Category'
+      click_button 'Next'
+      click_button 'Next'
+      
       select material_new.name, from: 'Material'
       fill_in 'product[products_material_attributes][0][percentage]', with: '100'
+      
+      click_button 'Next'
       click_button 'Create Product'
       visit products_path
       expect(page).to have_content 'AirForceOne'
@@ -85,9 +98,10 @@ describe 'Products' do
       visit '/products'
       click_link 'Edit'
       expect(page).to have_content 'Editing product'
-      click_on 'Materials'
+      click_link(href: '#step6')
       click_link 'Remove Material'
       fill_in 'product[products_material_attributes][1][percentage]', with: '100'
+      click_button 'Next'
       click_button 'Update Product'
       expect(page).to have_content 'Product was successfully updated.'
     end
