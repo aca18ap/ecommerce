@@ -7,6 +7,8 @@
   %li 
     = link_to 'Manage Materials', materials_path, class: 'dropdown-link', title: 'Manage materials'
 %li
+  = link_to 'Manage Categories', categories_path, class: 'dropdown-link', title: 'Manage categories'
+%li
   = link_to 'Manage Reviews', reviews_path, class: 'dropdown-link', title: 'Manage reviews'
 - if can?(:destroy, ProductReport)
   %li 
