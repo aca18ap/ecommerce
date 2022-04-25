@@ -83,13 +83,13 @@ class CalculateMetrics
 
     # Calculates the number of products in each category
     def product_categories
-      Product.group(:category).count.map { |category, count| { 'category' => category, 'products' => count } }
+      Product.group(:category).count.map { |category, count| { 'category' => category.name, 'products' => count } }
     end
 
     # Calculates the number of affiliate products in each category
     def affiliate_product_categories
       Product.where.not(business_id: nil)
-             .group(:category).count.map { |category, count| { 'category' => category, 'products' => count } }
+             .group(:category).count.map { |category, count| { 'category' => category.name, 'products' => count } }
     end
 
     # Calculates the number of affiliate product views over time

@@ -15,11 +15,12 @@ describe 'Calculating metrics' do
 
   #Category
   let(:category) { FactoryBot.create(:category, name: 'shoes') }
+  let(:category2) { FactoryBot.create(:category, name: 'shirt') }
 
   # Products
   let!(:product1) { FactoryBot.create(:product, created_at: '2021-11-27 16:39:22', category_id: category.id) }
-  let!(:product2) { FactoryBot.create(:product, created_at: '2021-11-27 16:39:22', url: 'https://something.com', category_id: category.id) }
-  let!(:product3) { FactoryBot.create(:product, created_at: Time.now, url: 'https://somethingelse.com', category_id: category.id) }
+  let!(:product2) { FactoryBot.create(:product, created_at: '2021-11-27 16:39:22', url: 'https://something.com', category_id: category2.id) }
+  let!(:product3) { FactoryBot.create(:product, created_at: Time.now, url: 'https://somethingelse.com', category_id: category2.id) }
 
   let(:visits) { [visit_root, visit_reviews, visit_newsletters] }
   let(:regs) { [customer_registration, customer_registration2, business_registration] }

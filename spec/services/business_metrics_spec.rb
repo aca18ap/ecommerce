@@ -54,8 +54,8 @@ describe 'Business metrics' do
       AffiliateProductView.new(product_id: product2.id, customer_id: customer.id).save
 
       expect(BusinessMetrics.views_by_category(business)).to match_array(
-        [{ 'category' => product.category, 'count' => 1 },
-         { 'category' => product2.category, 'count' => 1 }]
+        [{ 'category' => product.category.id, 'count' => 1 },
+         { 'category' => product2.category.id, 'count' => 1 }]
       )
     end
   end

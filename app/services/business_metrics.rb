@@ -29,7 +29,7 @@ class BusinessMetrics < CalculateMetrics
     def views_by_category(business)
       Product.joins(:affiliate_product_views)
              .where(business_id: business.id)
-             .group('products.category')
+             .group('products.category_id')
              .count
              .map { |category, count| { 'category' => category, 'count' => count } }
     end
