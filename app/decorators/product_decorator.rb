@@ -65,4 +65,8 @@ class ProductDecorator < ApplicationDecorator
     count = affiliate_product_views.count
     "#{count} View#{count > 1 ? 's' : ''}"
   end
+
+  def full_country_name
+    Country.new(manufacturer_country).common_name
+  end
 end

@@ -77,7 +77,7 @@
             
             .row.materials_calculations
               %span
-                %h6.breakdown= "Manufactured in #{content_tag(:em,Country.new(product.manufacturer_country).common_name)}" 
+                %h6.breakdown= "Manufactured in #{content_tag(:em,product.full_country_name)}" 
             
                 %h6.breakdown= "a distance of over #{content_tag(:strong, @co2.calc_distance.to_s)} km!"
 

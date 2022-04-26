@@ -53,10 +53,10 @@
           %td= product.description
           %td= product.business_name
           %td= product.mass
-          %td= product.category
+          %td= product.category.name
           %td= product.url
           %td= product.manufacturer
-          %td= Country.new(product.manufacturer_country).common_name
+          %td= product.full_country_name
           %td= product.co2_produced
           - product.materials.each do |material|
             %td= material.name
