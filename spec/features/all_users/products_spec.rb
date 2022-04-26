@@ -21,7 +21,7 @@ describe 'Products' do
       click_button 'Next'
 
       within '.category_grandparent' do
-        find("option[value='1']").click
+        find("option[value='#{category.id}']").click
       end
       click_button 'Next'
 
