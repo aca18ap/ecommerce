@@ -1,20 +1,21 @@
-= link_to product do
-  .row.bg-light.text-black.w-100
-    .col-2
-      .container.px-0.mx-0
-        = product.product_image(100, 100)
+.container{id: "product-#{product.id}-partial"}
+  = link_to product do
+    .row.bg-light.text-black.w-100
+      .col-2
+        .container.px-0.mx-0
+          = product.product_image(100, 100)
 
-    .col-6
-      %h3.text-black.fw-normal.m-0= product.name
-      %p= product.truncated_description
+      .col-6
+        %h3.text-black.fw-normal.m-0= product.name
+        %p= product.truncated_description
 
-    .col-2
-      .container.m-0.p-0.text-center
-        %h2.m-0.text-end= product.price_with_currency
+      .col-2
+        .container.m-0.p-0.text-center
+          %h2.m-0.text-end= product.price_with_currency
 
-      .container.m-0.p-0.text-center
-        %h2.m-0.text-end= product.co2_produced_with_unit
+        .container.m-0.p-0.text-center
+          %h2.m-0.text-end= product.co2_produced_with_unit
 
-    .col-2
-      = link_to purchase_history_path(product), method: :delete do
-        %i= fa_icon('trash')
+      .col-2
+        = link_to purchase_history_path(product), method: :delete, remote: true, class: 'delete_product', data: { confirm: 'Are you sure you want to remove this purchase from your history?', 'deleted-product-id': "#{product.id}" } do
+          %i= fa_icon('trash')

@@ -53,9 +53,9 @@ end
 ## Products
 prng = Random.new
 100.times do |i|
-  Product.where(name: Faker::Coffee.blend_name).first_or_create!(
-    category_id: Category.find(Category.pluck(:id).sample).id,
-    url: "http://www.test#{i}.com",
+  Product.where(url: "http://www.test#{i}.com").first_or_create!(
+    category: Faker::IndustrySegments.sub_sector,
+    name: Faker::Coffee.blend_name,
     description: Faker::Quotes::Shakespeare.hamlet_quote,
     manufacturer: Faker::Company.name,
     manufacturer_country: Faker::Address.country_code,
@@ -63,4 +63,3 @@ prng = Random.new
     price: (prng.rand(1..200) - 0.01),
     products_material: [ProductsMaterial.new(material_id: prng.rand(1..8), percentage: 100)])
 end
-

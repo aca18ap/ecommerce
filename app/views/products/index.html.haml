@@ -44,11 +44,7 @@
     %tbody
       - products.each do |product| 
         %tr
-          -# Image functionality should be moved to decorator when we make the partial
-          - if product.image.attached?
-            %td= image_tag(product.image.variant(resize: '100x100'))
-          - else
-            %td
+          %td= product.product_image(100, 100)
           %td= product.name
           %td= product.description
           %td= product.business_name
