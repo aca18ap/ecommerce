@@ -3,7 +3,6 @@ let categories;
 $(function(){
     if(gon){
         categories = gon.categories
-        console.log(categories)
     }
     initParents()
     $('.category_parent').hide()

@@ -13,7 +13,7 @@ describe 'Calculating metrics' do
   let(:customer_registration2) { FactoryBot.create(:customer_registration) }
   let(:business_registration) { FactoryBot.create(:business_registration) }
 
-  #Category
+  # Category
   let(:category) { FactoryBot.create(:category, name: 'shoes') }
   let(:category2) { FactoryBot.create(:category, name: 'shirt') }
 

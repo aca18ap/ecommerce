@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: categories
@@ -14,6 +16,6 @@
 #
 FactoryBot.define do
   factory :category do
-    name { "Trousers" }
+    name { 'Trousers' }
   end
 end

@@ -4,10 +4,10 @@ require 'rails_helper'
 
 describe 'Products' do
   context 'As a user' do
-    let!(:customer) { FactoryBot.create(:customer) }
-    let!(:product) { FactoryBot.create(:product) }
-    let!(:material_new) { FactoryBot.create(:material, name: 'Material_New') }
     let!(:category) { FactoryBot.create(:category, name: 'Category_New') }
+    let!(:customer) { FactoryBot.create(:customer) }
+    let!(:product) { FactoryBot.create(:product, category_id: category.id) }
+    let!(:material_new) { FactoryBot.create(:material, name: 'Material_New') }
 
     before { login_as(customer, scope: :customer) }
     specify 'I can add a product', js: true do
@@ -19,7 +19,7 @@ describe 'Products' do
       fill_in 'product[mass]', with: '2'
       fill_in 'product[price]', with: '10.1'
       click_button 'Next'
-      
+
       within '.category_grandparent' do
         find("option[value='1']").click
       end
@@ -30,10 +30,10 @@ describe 'Products' do
       select 'Vietnam', from: 'Manufacturer country'
       click_button 'Next'
       click_button 'Next'
-      
+
       select material_new.name, from: 'Material'
       fill_in 'product[products_material_attributes][0][percentage]', with: '100'
-      
+
       click_button 'Next'
       click_button 'Create Product'
       visit products_path

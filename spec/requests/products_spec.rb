@@ -19,7 +19,7 @@ RSpec.describe '/products', type: :request do
   # adjust the attributes here as well.
   let!(:material1) { FactoryBot.create(:material, name: 'material_one', kg_co2_per_kg: 7) }
   let!(:material2) { FactoryBot.create(:material, name: 'material_two', kg_co2_per_kg: 4) }
-  let!(:category) { FactoryBot.create(:category)}
+  let!(:category) { FactoryBot.create(:category) }
 
   let!(:valid_attributes) do
     { name: 'Product', category_id: category.id, manufacturer: 'rht', mass: '45', url: 'http://www.test.com', manufacturer_country: 'IT', price: '10.1',

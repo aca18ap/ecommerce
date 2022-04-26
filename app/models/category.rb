@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: categories
@@ -13,6 +15,7 @@
 #  index_categories_on_ancestry  (ancestry)
 #
 class Category < ApplicationRecord
-    has_ancestry
-    has_many :products
+  has_ancestry
+  has_many :products
+  validates :name, presence: true
 end

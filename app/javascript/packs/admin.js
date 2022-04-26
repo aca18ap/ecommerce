@@ -1,12 +1,10 @@
 $('#email').on('input', function(){
-    console.log('hj')
     updateSubmit()
 })
 
 function updateSubmit(){
     let email = document.getElementById('email').textContent
     let sbt = document.getElementById('submit_button')
-    console.log('l')
     if (ValidateEmail(email)){
         sbt.disabled = true
     }else{

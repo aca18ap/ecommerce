@@ -7,7 +7,6 @@ $(document).ready(function(){
     $('.materials-section').on('click', function(e){
         setupListeners()
         checkPercentagesSum()
-        console.log('Setup listeners again')
     })
     $('.materials-section').on('cocoon:after-insert', (e) => {
         setupListeners()
