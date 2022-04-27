@@ -90,6 +90,18 @@ describe 'Products' do
       visit new_product_path
       expect(page).to have_content('Access Denied 403')
     end
+
+    specify 'I can view greener alternatives' do
+      greener_product = FactoryBot.create(:product, name: 'greener product', url: 'http://www.not_a_drill.com', category_id: product.category_id, mass: 0.1)
+      visit product_path(product)
+      expect(page).to have_content(greener_product.name)
+    end
+
+    specify 'No recommendations are given if the viewed product is the greenest' do
+      dirty_product = FactoryBot.create(:product, name: 'greener product', url: 'http://www.not_a_drill.com', category_id: product.category_id, mass: 100)
+      visit product_path(product)
+      expect(page).not_to have_content(dirty_product.name)
+    end
   end
 
   context 'As an admin' do
