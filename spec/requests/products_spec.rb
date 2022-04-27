@@ -19,22 +19,23 @@ RSpec.describe '/products', type: :request do
   # adjust the attributes here as well.
   let!(:material1) { FactoryBot.create(:material, name: 'material_one', kg_co2_per_kg: 7) }
   let!(:material2) { FactoryBot.create(:material, name: 'material_two', kg_co2_per_kg: 4) }
+  let!(:category) { FactoryBot.create(:category) }
 
   let!(:valid_attributes) do
-    { name: 'Product', category: 'Category', manufacturer: 'rht', mass: '45', url: 'http://www.test.com', manufacturer_country: 'IT', price: '10.1',
+    { name: 'Product', category_id: category.id, manufacturer: 'rht', mass: '45', url: 'http://www.test.com', manufacturer_country: 'IT', price: '10.1',
       products_material_attributes: [{ material_id: material1.id, percentage: 40 },
                                      { material_id: material2.id, percentage: 60 }] }
   end
 
   let!(:affiliate_valid_attributes) do
-    { name: 'Product', category: 'Category', manufacturer: 'rht', mass: '45', url: 'http://www.test.com', manufacturer_country: 'IT', price: '10.1',
+    { name: 'Product', category_id: category.id, manufacturer: 'rht', mass: '45', url: 'http://www.test.com', manufacturer_country: 'IT', price: '10.1',
       products_material_attributes: [{ material_id: material1.id, percentage: 40 },
                                      { material_id: material2.id, percentage: 60 }],
       business_id: 1 }
   end
 
   let!(:invalid_attributes) do
-    { name: '', category: '', mass: '', manufacturer: '', url: '', manufacturer_country: '', price: '',
+    { name: '', category_id: '', mass: '', manufacturer: '', url: '', manufacturer_country: '', price: '',
       products_material_attributes: [{ material_id: material1.id, percentage: 40 },
                                      { material_id: material2.id, percentage: 60 }] }
   end
@@ -155,7 +156,7 @@ RSpec.describe '/products', type: :request do
   describe 'PATCH /update' do
     context 'with valid parameters' do
       let(:new_attributes) do
-        { name: 'NewProduct', category: 'NewCategory', manufacturer: 'NewManufacturer', mass: '12', url: 'https://test2.com', manufacturer_country: 'VN', price: '10.1' }
+        { name: 'NewProduct', category_id: category.id, manufacturer: 'NewManufacturer', mass: '12', url: 'https://test2.com', manufacturer_country: 'VN', price: '10.1' }
       end
 
       it 'updates the requested product' do

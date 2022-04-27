@@ -5,7 +5,6 @@
 # Table name: products
 #
 #  id                   :bigint           not null, primary key
-#  category             :string
 #  co2_produced         :float
 #  description          :string
 #  manufacturer         :string
@@ -17,13 +16,14 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  business_id          :bigint
+#  category_id          :integer
 #
 FactoryBot.define do
   factory :product do
     name { 'TestName' }
     description { 'A piece of clothing' }
     mass { '10' }
-    category { 'Trousers' }
+    category { FactoryBot.build(:category) }
     url { 'https://clothes.com' }
     manufacturer { 'Me' }
     price { '10.4' }

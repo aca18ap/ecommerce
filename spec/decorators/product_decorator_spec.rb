@@ -116,4 +116,10 @@ RSpec.describe ProductDecorator do
       expect(affiliate_product.number_of_views).to eq '10 Views'
     end
   end
+
+  describe '.full_country_name' do
+    it 'returns the full country name of a product' do
+      expect(product.full_country_name).to eq 'Vietnam'
+    end
+  end
 end

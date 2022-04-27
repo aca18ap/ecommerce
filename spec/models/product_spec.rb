@@ -5,7 +5,6 @@
 # Table name: products
 #
 #  id                   :bigint           not null, primary key
-#  category             :string
 #  co2_produced         :float
 #  description          :string
 #  manufacturer         :string
@@ -17,6 +16,7 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  business_id          :bigint
+#  category_id          :integer
 #
 require 'rails_helper'
 
@@ -34,7 +34,7 @@ RSpec.describe Product, type: :model do
     end
 
     it 'is invalid without category' do
-      product.category = ''
+      product.category_id = ''
       expect(product).not_to be_valid
     end
 

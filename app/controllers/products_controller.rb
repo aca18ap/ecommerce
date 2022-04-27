@@ -4,6 +4,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[show edit update destroy]
   before_action :authenticate_staff!, except: %i[show index new create]
+  before_action :load_categories, only: %i[new create edit update]
   after_action :affiliate_view, only: :show
   authorize_resource
   decorates_assigned :products, :product
@@ -78,8 +79,8 @@ class ProductsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def product_params
-    params.require(:product).permit(:name, :description, :business_id, :mass, :price, :category, :url, :manufacturer,
-                                    :manufacturer_country, :co2_produced, :image, :customer_purchased,
+    params.require(:product).permit(:name, :description, :business_id, :mass, :price, :url, :manufacturer,
+                                    :manufacturer_country, :co2_produced, :image, :customer_purchased, :category_id,
                                     products_material_attributes: %i[material_id percentage id _destroy])
   end
 
@@ -103,5 +104,9 @@ class ProductsController < ApplicationController
     return if @product.business_id.nil? || !current_customer
 
     AffiliateProductView.new(product_id: @product.id, customer_id: current_customer.id).save
+  end
+
+  def load_categories
+    gon.push({ categories: Category.arrange_serializable })
   end
 end

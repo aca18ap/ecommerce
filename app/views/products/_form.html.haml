@@ -1,36 +1,133 @@
 -# frozen_string_literal: true
-= simple_form_for(@product) do |f|
+= include_gon
+= stylesheet_link_tag 'products'
+.stepwizard
+  .stepwizard-row.setup-panel
+    .stepwizard-step.col-xs-2
+      %a.btn.btn-success.btn-circle{href: "#step1", type: "button"}1
+      %p 
+        %small Name & Description
+    .stepwizard-step.col-xs-2
+      %a.btn.btn-default.btn-circle{href: "#step2", type: "button"}2
+      %p 
+        %small Mass & Price
+    .stepwizard-step.col-xs-2
+      %a.btn.btn-default.btn-circle{href: "#step3", type: "button"}3
+      %p 
+        %small Category
+    .stepwizard-step.col-xs-2
+      %a.btn.btn-default.btn-circle{href: "#step4", type: "button"}4
+      %p 
+        %small Manufacturing 
+    .stepwizard-step.col-xs-2
+      %a.btn.btn-default.btn-circle{href: "#step5", type: "button"}5
+      %p 
+        %small Image
+    .stepwizard-step.col-xs-2
+      %a.btn.btn-default.btn-circle{href: "#step6", type: "button"}6
+      %p  
+        %small Materials
+    .stepwizard-step.col-xs-2
+      %a.btn.btn-default.btn-circle{href: "#step7", type: "button"}7
+      %p  
+        %small Submit Product
+
+
+= simple_form_for(@product, html: { id: 'product_form'}) do |f|
   = f.error_notification
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
-
+  
   .form-inputs
-    = f.input :name
-    = f.input :description
-    = f.input :mass
-    = f.input :price
-    = f.input :category
-    = f.input :url
-    = f.input :manufacturer
-    = f.input :manufacturer_country
-    = f.file_field :image
-    - if current_customer
-      = f.input :customer_purchased, label: 'I have purchased this product', as: :boolean, input_html: { checked: false }
+    .panel.panel-primary.setup-content#step1
+      .panel-heading
+        %h2.panel-title Name and Description
+        %br
+      .panel-body
+        .form-group
+          = f.input :name
+        .form-group
+          = f.input :description
+      %br
+      %button.btn.btn-primary.nextBtn.pull-right{type: 'button', href: '#'} Next
+    .panel.panel-primary.setup-content#step2
+      .panel-heading
+        %h2.panel-title Mass and Price
+        %br
+      .panel-body 
+        .form-group
+          = f.input :mass
+        .form-group
+          = f.input :price
+      %br
+        %button.btn.btn-primary.nextBtn.pull-right{type: 'button', href: '#'} Next
+
+    .panel.panel-primary.setup-content#step3
+      .panel-heading
+        %h2.panel-title Category
+        %br
+      
+      .panel-body 
+        .form-group.float.required.product_category.form-group-valid
+          .float.required.d-none= f.label 'Category', :category
+          .d-flex.flex-column.col-3
+            %select.category_grandparent
+            %br
+
+            %select.category_parent
+            %br
+
+            %select.category_child
+            %br
+
+            %select.category_grandchild
+
+        = f.input :category_id, :as => :hidden
+      %button.btn.btn-primary.nextBtn.pull-right{type: 'button', href: '#'} Next
+
+    
+    .panel.panel-primary.setup-content#step4
+      .panel-heading
+        %h2.panel-title Manufacturer Information
+        %br      
+      .panel-body 
+        = f.input :url
+        = f.input :manufacturer
+        = f.input :manufacturer_country
+      %button.btn.btn-primary.nextBtn.pull-right{type: 'button', href: '#'} Next
+    .panel.panel-primary.setup-content#step5
+      .panel-heading
+        %h2.panel-title Image
+        %br
+      .panel-body
+        = f.file_field :image
+      %button.btn.btn-primary.nextBtn.pull-right{type: 'button', href: '#'} Next
 
 
-  .d-flex.align-items-center.materials-section
-    .flex-fill
-      %h3 Materials
-      #materials
-        = f.simple_fields_for :products_material do |products_material|
-          = render 'products_material_fields', :f => products_material
-        = link_to_add_association 'Add Material', f, :products_material
-    .flex-fill
-      .div
-        %h4 Your materials should add up to 100%, missing:
-        %h3#sum 0
+  .panel.panel-primary.setup-content#step6
+    .panel-heading
+      %h2.panel-title Materials
+      %br
+    .panel-body.d-flex.align-items-center.materials-section
+      .flex-fill
+        #materials
+          = f.simple_fields_for :products_material do |products_material|
+            = render 'products_material_fields', :f => products_material
+          = link_to_add_association 'Add Material', f, :products_material
+      .flex-fill
+        .div
+          %h4 Your materials should add up to 100%, missing:
+          %h3#sum 0
+      %button.btn.btn-primary.nextBtn.pull-right{type: 'button', href: '#'} Next
 
-
-  %br
-  .form-actions
-    .btn= f.button :submit
+  .panel.panel-primary.setup-content#step7
+    .panel-heading
+      %h2.panel-title Submit Product
+      %br
+    .panel-body        
+      %br
+      .form-actions
+        - if current_customer
+          %h2 Have you purchased this product?  
+          = f.input :customer_purchased, label: 'I have purchased this product', as: :boolean, input_html: { checked: false }
+        .btn.submit_btn= f.button :submit
 

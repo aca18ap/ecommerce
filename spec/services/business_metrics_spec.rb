@@ -4,8 +4,9 @@ require 'rails_helper'
 
 describe 'Business metrics' do
   let!(:business) { FactoryBot.create(:business) }
+  let(:category) { FactoryBot.create(:category, name: 'Shirt') }
   let!(:product) { FactoryBot.create(:product, business_id: business.id) }
-  let!(:product2) { FactoryBot.create(:product, url: 'https://anotherwebsite.com', business_id: business.id, category: 'Shirt') }
+  let!(:product2) { FactoryBot.create(:product, url: 'https://anotherwebsite.com', business_id: business.id, category_id: category.id) }
   let(:customer) { FactoryBot.create(:customer) }
 
   describe '.time_affiliate_views' do
@@ -53,8 +54,8 @@ describe 'Business metrics' do
       AffiliateProductView.new(product_id: product2.id, customer_id: customer.id).save
 
       expect(BusinessMetrics.views_by_category(business)).to match_array(
-        [{ 'category' => product.category, 'count' => 1 },
-         { 'category' => product2.category, 'count' => 1 }]
+        [{ 'category' => product.category.id, 'count' => 1 },
+         { 'category' => product2.category.id, 'count' => 1 }]
       )
     end
   end

@@ -36,6 +36,7 @@ gem 'ransack'
 gem 'select2-rails'
 gem 'simple_form'
 
+gem 'ancestry'
 gem 'bootstrap'
 gem 'cocoon'
 gem 'font-awesome-rails'

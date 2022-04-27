@@ -81,6 +81,14 @@ ActiveRecord::Schema.define(version: 2022_04_22_173105) do
     t.index ["unlock_token"], name: "index_businesses_on_unlock_token", unique: true
   end
 
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "ancestry"
+    t.index ["ancestry"], name: "index_categories_on_ancestry"
+  end
+
   create_table "customers", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -183,7 +191,6 @@ ActiveRecord::Schema.define(version: 2022_04_22_173105) do
     t.string "name"
     t.string "description"
     t.float "mass"
-    t.string "category"
     t.string "url"
     t.string "manufacturer"
     t.string "manufacturer_country"
@@ -192,6 +199,7 @@ ActiveRecord::Schema.define(version: 2022_04_22_173105) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "business_id"
     t.float "price", default: 0.0, null: false
+    t.integer "category_id"
   end
 
   create_table "products_materials", force: :cascade do |t|

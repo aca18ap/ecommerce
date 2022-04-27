@@ -37,6 +37,6 @@ class BusinessDecorator < Draper::Decorator
   end
 
   def unique_product_categories
-    Product.where(business_id: id).pluck(:category).uniq.count
+    Product.where(business_id: id).pluck(:category_id).uniq.count
   end
 end

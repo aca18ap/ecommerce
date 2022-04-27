@@ -122,7 +122,7 @@ loader.load().then(()=>{
     map.setZoom(2)
   }
   
-  // Line looks weird before any zoom applied, hence this function
+  // Line looks weird before any zoom applied, hence this function call
   // looks quite cool as well
   setTimeout(zoomOut, 1000)
 

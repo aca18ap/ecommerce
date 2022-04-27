@@ -1,6 +1,7 @@
+#back-button.d-flex.flex-column.p-2
+  = link_to 'Back', :back, {class: 'fa fa-arrow-left'}
+
 .container-fluid.pad-edge
   %h1.pt-5 New product
 
   = render 'form'
-
-  = link_to 'Back', products_path
