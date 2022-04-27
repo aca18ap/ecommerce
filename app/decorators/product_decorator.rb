@@ -33,6 +33,17 @@ class ProductDecorator < ApplicationDecorator
     end
   end
 
+  def product_image_thumbnail(height = nil, width = nil)
+    if image.attached?
+      meta = ActiveStorage::Analyzer::ImageAnalyzer.new(image).metadata
+      height = meta['width'] if height.nil?
+      width = meta['width'] if width.nil?
+      h.image_tag(image, class: 'image-thumbnail', size: "#{height}x#{width}", alt: description)
+    else
+      h.image_tag('default-image.jpg', class: 'image-thumbnail', size: "#{height}x#{width}", alt: description)
+    end
+  end
+
   def materials_breakdown
     html_values = ''
     products_material.each do |m|

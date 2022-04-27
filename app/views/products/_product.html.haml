@@ -1,0 +1,35 @@
+.row-border.p-1
+
+    .row
+        .col-lg-2.d-flex.justify-content-end
+            =p.product_image_thumbnail
+            -# - if p.image.attached?
+            -#     %img= image_tag(p.image, class: 'image-thumbnail')
+            -# - else
+            -#     %img= image_tag("default-image.jpg", class: 'image-thumbnail')
+
+        .col-lg-9.d-flex.flex-column.justify-content-around
+            .row
+                =link_to p do
+                    %h2.w-100= p.name
+            .d-flex.flex-row
+                .col-3
+                    .text= p.co2_produced_with_unit
+                    .text= "Made in " + p.full_country_name
+                    .text= p.price_with_currency
+                .description-container.col-9
+                    .text_description= p.description
+                
+
+
+    
+
+        .col-lg-1.d-flex.align-items-center
+            %button.align-self-center.btn.suggestions{"aria-controls" => "collapse#{p.id}", "aria-expanded" => "true", "data-target" => "#collapse#{p.id}", "data-toggle" => "collapse", :type => "button"}
+                %i.fa.fa-plus
+    
+    
+    .collapse{ id: "collapse#{p.id}"}
+        hi
+
+    %hr

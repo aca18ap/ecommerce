@@ -1,3 +1,4 @@
+= stylesheet_link_tag 'products'
 .container-fluid.pad-edge
   %h1.pt-5
     - if not params[:search_term].blank? 
@@ -22,46 +23,12 @@
           %button{:type => "submit", :class => "btn btn-primary"}
             Apply
 
-  -# - if products.size > 0
-  %table.table
-    %thead
-      %tr
-        %th
-        %th Name
-        %th Description
-        %th Vendor
-        %th Mass
-        %th Category
-        %th Url
-        %th Manufacturer
-        %th Manufacturer country
-        %th Co2 produced
-        %th Materials
-        %th
-        %th
-        %th
+  %hr
 
-    %tbody
-      - products.each do |product|
-        %tr
-          %td= product.product_image(100, 100)
-          %td= product.name
-          %td= product.description
-          %td= product.business_name
-          %td= product.mass
-          %td= product.category.name
-          %td= product.url
-          %td= product.manufacturer
-          %td= product.full_country_name
-          %td= product.co2_produced
-          - product.materials.each do |material|
-            %td= material.name
-          %td= link_to 'Show', product
-          - if can?(:edit, Product)
-            %td= link_to 'Edit', edit_product_path(product)
-          - if can?(:delete, Product)
-            %td= link_to 'Destroy', product, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
+  .products.w-100
+    - products.each do |product| 
+      = render partial: 'product', locals: {p: product.decorate}
+   
   %br
 
   .justify-content-center.pagination
