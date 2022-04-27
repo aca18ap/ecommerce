@@ -21,6 +21,8 @@ class ProductsController < ApplicationController
 
   # GET /products/1
   def show
+    related_products = Category.find(@product.category_id).products
+    @suggestions = related_products.where('co2_produced < :co2_produced', {co2_produced: @product.co2_produced})
     @product = @product.decorate
     @co2 = Co2Calculator.new(@product)
     @country = Country.new(@product.manufacturer_country)

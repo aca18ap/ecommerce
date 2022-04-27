@@ -43,9 +43,9 @@ class ProductDecorator < ApplicationDecorator
     html_values.html_safe
   end
 
-  def greener_suggestions
+  def greener_suggestions(suggestions)
     html_values = ''
-    Product.limit(5).each do |p|
+    suggestions.each do |p|
       html_values += h.render partial: 'suggested_product_card', locals: { p: p.decorate }
     end
     html_values.html_safe

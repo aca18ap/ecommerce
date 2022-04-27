@@ -90,13 +90,13 @@
 
       // At the moment compared to dummy value, in the future maybe
       // change to use average or some other calculated value?
-      - if product.co2_produced > 10
+      - if @suggestions.length > 0
         %h4 Check out these greener alternatives
         .row.overflow-scroll.suggested-products
           .d-flex.flex-no-wrap
             // TODO First five products currently returned
             // to change to relevant products in the future
-            = product.greener_suggestions
+            = product.greener_suggestions(@suggestions)
 
       - else
         .d-flex.justify-content-between
