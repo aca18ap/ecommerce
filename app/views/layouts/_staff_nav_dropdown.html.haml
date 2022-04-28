@@ -7,14 +7,6 @@
   %li 
     = link_to 'Manage Materials', materials_path, class: 'dropdown-link'
 %li
-<<<<<<< HEAD
-  = link_to 'Manage Categories', categories_path, class: 'dropdown-link', title: 'Manage categories'
-%li
-  = link_to 'Manage Reviews', reviews_path, class: 'dropdown-link', title: 'Manage reviews'
-- if can?(:destroy, ProductReport)
-  %li 
-    = link_to 'Manage Reports', product_reports_path, class: 'dropdown-link', title: 'Manage Reports'
-=======
   = link_to 'Manage Reviews', reviews_path, class: 'dropdown-link'
 >>>>>>> Fixed share tests, redirected home + added business accessibility tests
 - if can?(:read, :metrics)

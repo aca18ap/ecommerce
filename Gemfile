@@ -9,7 +9,6 @@ gem 'brakeman'
 gem 'bundler-audit'
 gem 'rubocop', '~> 1.23'
 
-
 gem 'sentry-rails'
 gem 'sentry-raven'
 gem 'sentry-ruby'
@@ -87,8 +86,8 @@ group :development do
   gem 'capistrano-rvm', require: false
 
   gem 'annotate'
-  gem 'letter_opener'
   gem 'bullet'
+  gem 'letter_opener'
 end
 
 group :test do
