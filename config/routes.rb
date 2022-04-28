@@ -71,7 +71,7 @@ Rails.application.routes.draw do
   resources :product_reports, except: [:edit, :update]
 
   ## ==== Purchase Histories ==== ##
-  resources :purchase_histories, only: [:create, :destroy]
+  resources :purchase_histories, only: [:new, :create, :destroy]
 
   ## ===== FAQs ===== ##
   resources :faqs do

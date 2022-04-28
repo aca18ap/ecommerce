@@ -33,7 +33,9 @@
           %a.btn.fa-solid.fa-cart-shopping#buy-price{:href=>product.url, text: "Buy now"}
             Buy now
             %i=fa_icon('cart-shopping')
-            
+
+        .border.shadow-lg
+          = link_to 'Already Purchased?', new_purchase_history_path(product_id: product.id), remote: true, class: 'btn fa-solid fa-cart-shopping', data: { toggle: "modal", target: '#purchase-history-modal.modal' }
 
         .border.shadow-lg
           #buy-price= product.price_with_currency
@@ -111,7 +113,7 @@
                 %h3= product.co2_per_pound
               %img.card-img-bottom= image_tag('footprint.jpg')
             
-            // TODO How product compares to others, to 
+            // TODO How product compares to others, to
             // figure out how to calculate
             .card.w-25
               .card-body.text-center
@@ -128,14 +130,12 @@
                 %h3= 1
               %img.card-img-bottom= image_tag('trees-saved.gif')
 
-
   %hr
 
   // Map gets loaded on load
   .row.py-3
     .col-xl-8.col-sm-12
       #map.p-1
-
     .col-4
       .other-environmental-info.w-100
         // other information about product, should think of more
@@ -150,10 +150,13 @@
           %tr
             %td URL:
             %td= product.url
-
     
   %hr
     // are we gonna have product's reviews?
     .row.py-3
       .col-12
         %h1 Reviews
+
+#purchase-history-modal.modal.fade{"aria-hidden" => "true", role: "dialog", tabindex: "-1"}
+  .modal-dialog{role: "document"}
+    .modal-content
