@@ -199,7 +199,7 @@ ActiveRecord::Schema.define(version: 2022_05_02_134837) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "business_id"
-    t.float "price", default: 0.0, null: false
+    t.float "price", null: false
     t.integer "category_id"
     t.float "kg_co2_per_pounds"
   end
