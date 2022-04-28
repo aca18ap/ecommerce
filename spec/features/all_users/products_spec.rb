@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'Products' do
-  context 'As a user' do
+  context 'As a customer' do
     let!(:category) { FactoryBot.create(:category, name: 'Category_New') }
     let!(:customer) { FactoryBot.create(:customer) }
     let!(:product) { FactoryBot.create(:product, category_id: category.id) }
@@ -49,6 +49,18 @@ describe 'Products' do
     specify 'I can see the "I have purchased this product" checkbox' do
       visit new_product_path
       expect(page).to have_content 'I have purchased this product'
+    end
+
+    specify 'I can add a product to my product history', js: true do
+      visit product_path(product)
+      expect(page).to have_content 'Already Purchased?'
+
+      find('#add-to-history-button').click
+      within('#purchase-history-modal') { expect(page).to have_content "Adding #{product.name} to Purchase History" }
+      find('#purchase_history_submit').click
+
+      sleep(0.1)
+      expect(customer.products.reload.count).to eq 1
     end
   end
 
@@ -118,14 +130,25 @@ describe 'Products' do
       visit new_product_path
       expect(page).to_not have_content 'I have purchased this product'
     end
+
+    specify 'I cannot see the "Already Purchased?" button' do
+      visit product_path(product)
+      expect(page).to_not have_content 'Already Purchased?'
+    end
   end
 
   context 'As a business' do
-    before { login_as(FactoryBot.create(:business), scope: :business) }
+    let!(:product) { FactoryBot.create(:product) }
 
+    before { login_as(FactoryBot.create(:business), scope: :business) }
     specify 'I cannot see the "I have purchased this product" checkbox' do
       visit new_product_path
       expect(page).to_not have_content 'I have purchased this product'
+    end
+
+    specify 'I cannot see the "Already Purchased?" button' do
+      visit product_path(product)
+      expect(page).to_not have_content 'Already Purchased?'
     end
   end
 end

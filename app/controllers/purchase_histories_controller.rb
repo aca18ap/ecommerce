@@ -16,8 +16,6 @@ class PurchaseHistoriesController < ApplicationController
   end
 
   def create
-    puts '='*40
-    puts purchase_params
     @purchase = PurchaseHistory.new(purchase_params.merge(customer_id: current_customer.id))
     head :ok if @purchase.save
   end
