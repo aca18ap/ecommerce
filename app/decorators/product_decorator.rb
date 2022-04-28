@@ -15,7 +15,7 @@ class ProductDecorator < ApplicationDecorator
   end
 
   def co2_produced_with_unit
-    "#{co2_produced}<sub>Kg</sub>".html_safe
+    "#{co2_produced}<sub>Kg of CO2</sub>".html_safe
   end
 
   def price_with_currency

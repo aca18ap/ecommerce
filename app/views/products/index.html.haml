@@ -25,9 +25,10 @@
 
   %hr
 
-  .products.w-100
+  .products.row
     - products.each do |product| 
-      = render partial: 'product', locals: {p: product.decorate}
+      .col-3
+        = render partial: 'suggested_product_card', locals: {p: product.decorate}
    
   %br
 
