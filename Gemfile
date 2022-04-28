@@ -22,7 +22,7 @@ gem 'gon'
 gem 'image_processing'
 gem 'pg'
 gem 'puma'
-gem 'rails', '~> 6.1.4', '>= 6.1.4.7'
+gem 'rails', '~> 6.1.5', '>= 6.1.5'
 gem 'responders'
 gem 'shakapacker'
 
