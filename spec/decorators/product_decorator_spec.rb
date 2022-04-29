@@ -50,8 +50,8 @@ RSpec.describe ProductDecorator do
   end
 
   describe '.co2_produced_with_unit' do
-    it 'returns the product co2 produced with "kg" after it' do
-      expect(product.co2_produced_with_unit).to eq "#{product.co2_produced}<sub>Kg</sub>"
+    it 'returns the product co2 produced with "kg of CO2" after it' do
+      expect(product.co2_produced_with_unit).to eq "#{product.co2_produced}<sub>Kg of CO2</sub>"
     end
   end
 

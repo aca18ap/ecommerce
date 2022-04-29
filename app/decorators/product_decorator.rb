@@ -27,7 +27,7 @@ class ProductDecorator < ApplicationDecorator
       meta = ActiveStorage::Analyzer::ImageAnalyzer.new(image).metadata
       height = meta['width'] if height.nil?
       width = meta['width'] if width.nil?
-      h.image_tag(image, class: 'img-fluid round-image', size: "#{height}x#{width}", alt: description)
+      h.image_tag(image, class: 'img-fluid', size: "#{height}x#{width}", alt: description)
     else
       h.image_tag('default-image.jpg', class: 'img-fluid round-image', size: "#{height}x#{width}", alt: description)
     end

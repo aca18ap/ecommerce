@@ -1,4 +1,9 @@
 = stylesheet_link_tag 'products'
+#back-button.d-flex.flex-column.p-2
+  - if can?(:new, Product)
+    = link_to 'New Product', new_product_path
+
+
 .container-fluid.pad-edge
   %h1.pt-5
     - if not params[:search_term].blank? 
@@ -6,23 +11,26 @@
       = "'" + params["search_term"] + "'"
       -# = link_to 'Reset', products_path, class: 'col-form-label px-2'
     - else 
-      Product Archive
+      Our crowdsourced products 
 
   .d-flex.flex-row.pb-3
     .me-auto.my-auto
-      %h2.my-auto
+      %h5.my-auto
         = page_entries_info products, :model => 'product'
 
+      
     - if products.size > 0
       = form_with url: products_path, method: :get do |form|
-        .input-group
+        .input-group.collapse{ id: 'collapse'}
           = form.label 'Sort by', class: 'col-form-label px-2'
-          = form.select :sort_by, Product.attribute_names, :selected => params[:sort_by]
-          = form.select :order_by, ['descending', 'ascending'], :selected => params[:order_by]
+          = form.select :sort_by, Product.attribute_names, :selected => params[:sort_by], class: 'px-2' 
+          = form.select :order_by, ['descending', 'ascending'], :selected => params[:order_by], class: 'px-2'
           = form.hidden_field :search_term, value: params[:search_term]
-          %button{:type => "submit", :class => "btn btn-primary"}
+          %button{:type => "submit", :class => "btn btn-success px-2"}
             Apply
 
+    %button.align-self-center.btn.suggestions{"aria-controls" => "collapse", "aria-expanded" => "true", "data-target" => "#collapse", "data-toggle" => "collapse", :type => "button"}
+      %i.fa.fa-filter
   %hr
 
   .products.row
@@ -35,6 +43,3 @@
   .justify-content-center.pagination
     = will_paginate(products, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer)
 
-
-  - if can?(:new, Product)
-    = link_to 'New Product', new_product_path

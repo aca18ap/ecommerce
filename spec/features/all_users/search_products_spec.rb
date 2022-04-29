@@ -10,7 +10,7 @@ describe 'Search Products' do
       visit '/'
       fill_in 'search_term', with: 'TestName'
       click_button
-      within(:css, '.table') { expect(page).to have_content 'TestName' }
+      within(:css, '.products') { expect(page).to have_content 'TestName' }
     end
 
     specify 'If no products match my search term, I see no results' do

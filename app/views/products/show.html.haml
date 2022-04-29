@@ -3,7 +3,7 @@
 
 // Back edit and destroy buttons
 #back-button.d-flex.flex-column.p-2
-  = link_to 'Back', :back, {class: 'fa fa-arrow-left'}
+  = link_to ' Back', :back, {class: 'fa fa-arrow-left'}
   - if can?(:manage, Product)
     %hr
     = link_to 'Edit', edit_product_path(product)
@@ -39,7 +39,7 @@
             = link_to 'Already Purchased?', new_purchase_history_path(product_id: product.id), id: 'add-to-history-button', remote: true, class: 'btn fa-solid fa-cart-shopping', data: { toggle: "modal", target: '#purchase-history-modal.modal' }
 
         .border.shadow-lg
-          #buy-price= product.price_with_currency
+          #buy-price{:style => 'font-size: 1.75em'}= product.price_with_currency
       %br
 
       // Description
@@ -105,18 +105,20 @@
         .row.pt-2
           .d-flex.cards.justify-content-between.card-deck
             .card.w-25
-              .card-body.text-center
-                %h4 kgCO2/£
-                %h3= product.co2_per_pound
-              %img.card-img-bottom= image_tag('footprint.jpg')
+              .align-content-center.p-2
+                .card-body.text-center
+                  %h4 kgCO2/£
+                  %h3= product.co2_per_pound
+                %img= image_tag('footprint.jpg', class: 'card-img-bottom')
             
             // TODO How product compares to others, to
             // figure out how to calculate
             .card.w-25
-              .card-body.text-center
-                %h4 Better than
-                %h3 93%
-                %h4 of products
+              .d-flex.align-items-center.h-100
+                .card-body.text-center
+                  %h4 Better than
+                  %h3{:style => 'font-size: 3.5em'} 93%
+                  %h4 of products
               
             // TODO I dont even know if trees saved makes sense
             // I thought trees liked co2 lol

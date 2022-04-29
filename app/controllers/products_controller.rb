@@ -15,7 +15,7 @@ class ProductsController < ApplicationController
     filtering_params(params).each do |key, value|
       @products = @products.public_send("filter_by_#{key}", value) if value.present?
     end
-    @products = @products.paginate(page: params[:page], per_page: 10).order(params['sort_by'])
+    @products = @products.paginate(page: params[:page], per_page: 12).order(params['sort_by'])
     @products = @products.reverse_order if params['order_by'] == 'descending'
   end
 
