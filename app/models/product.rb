@@ -33,6 +33,7 @@ class Product < ApplicationRecord
   validate :validate_percentages
 
   after_save :co2
+  after_save :update_category_mean
 
   has_one_attached :image, dependent: :destroy
 
@@ -69,5 +70,10 @@ class Product < ApplicationRecord
   def co2
     co2 = Co2Calculator.new(self).calculate_co2
     update_column(:co2_produced, co2)
+  end
+
+  # Updates the category mean for the product just added
+  def update_category_mean
+    category.update_mean_co2
   end
 end

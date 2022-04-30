@@ -17,7 +17,6 @@ class CustomerMetrics < CalculateMetrics
     end
 
     def site_co2_saved
-      # TODO: Implement function
       0
     end
 
@@ -56,7 +55,6 @@ class CustomerMetrics < CalculateMetrics
     end
 
     def time_co2_saved(_customer)
-      # TODO: Implement function
       insert_zero_entries([])
     end
 

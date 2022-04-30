@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 2022_05_01_142847) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "ancestry"
     t.float "average_co2"
+    t.float "mean_co2", default: 0.0, null: false
     t.index ["ancestry"], name: "index_categories_on_ancestry"
   end
 
