@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         emptyCharts.push(document.getElementById('total-co2-graph'));
     }
 
+    console.log(gon.timeCO2Saved);
     if (gon.timeCO2Saved && Object.keys(gon.timeCO2Saved).length > 0) {
         graphs.LineChart(gon.timeCO2Saved, {
             x: d => d.time,

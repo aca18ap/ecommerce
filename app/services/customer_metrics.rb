@@ -17,7 +17,13 @@ class CustomerMetrics < CalculateMetrics
     end
 
     def site_co2_saved
-      0
+      customer_co2_saved = Customer.joins(:products, :categories)
+                                   .group('customers.id')
+                                   .select('SUM(products.co2_produced - categories.mean_co2) AS co2_saved')
+
+      return 0 if customer_co2_saved.length.zero?
+
+      (customer_co2_saved.map(&:co2_saved).sum / customer_co2_saved.size).round(1)
     end
 
     def site_co2_per_pound
@@ -36,7 +42,7 @@ class CustomerMetrics < CalculateMetrics
       insert_zero_entries(
         Customer.where(id: customer.id)
                 .joins(:products)
-                .group("date_trunc('day', products.created_at)")
+                .group("date_trunc('day', purchase_histories.created_at)")
                 .average(:co2_produced)
                 .transform_keys(&:to_i)
                 .transform_values { |average| average.round(1) }
@@ -47,23 +53,31 @@ class CustomerMetrics < CalculateMetrics
       insert_zero_entries(
         Customer.where(id: customer.id)
                 .joins(:products)
-                .group("date_trunc('day', products.created_at)")
+                .group("date_trunc('day', purchase_histories.created_at)")
                 .sum(:co2_produced)
                 .transform_keys(&:to_i)
                 .transform_values { |average| average.round(1) }
       )
     end
 
-    def time_co2_saved(_customer)
-      insert_zero_entries([])
+    def time_co2_saved(customer)
+      insert_zero_entries(
+        Customer.where(id: customer.id)
+                .joins(:products, :categories)
+                .group("date_trunc('day', purchase_histories.created_at)")
+                .select("date_trunc('day', purchase_histories.created_at) AS day," \
+                        'SUM(products.co2_produced - categories.mean_co2) AS value')
+                .map { |day| { day.day.to_i => day.value.round(1) } }
+                .reduce({}, :update)
+      )
     end
 
     def time_co2_per_pound(customer)
       insert_zero_entries(
         Customer.where(id: customer.id)
                 .joins(:products)
-                .group("date_trunc('day', products.created_at)")
-                .select("date_trunc('day', products.created_at) AS day," \
+                .group("date_trunc('day', purchase_histories.created_at)")
+                .select("date_trunc('day', purchase_histories.created_at) AS day," \
                         'SUM(products.co2_produced) / SUM(products.price) AS co2_per_pound')
                 .map { |day| { day.day.to_i => day.co2_per_pound.round(1) } }
                 .reduce({}, :update)
@@ -73,7 +87,7 @@ class CustomerMetrics < CalculateMetrics
     def time_products_total(customer)
       insert_zero_entries(
         Customer.where(id: customer.id).joins(:products)
-                .group("date_trunc('day', products.created_at)")
+                .group("date_trunc('day', purchase_histories.created_at)")
                 .count
                 .transform_keys(&:to_i)
       )

@@ -49,7 +49,7 @@ class CustomerDecorator < Draper::Decorator
     {
       customer: customer,
       site: site,
-      valence: 'average'
+      valence: calculate_valence(site, customer)
     }
   end
 
