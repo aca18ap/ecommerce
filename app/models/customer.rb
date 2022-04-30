@@ -33,7 +33,7 @@
 class Customer < ApplicationRecord
   validates :username, presence: true, uniqueness: true
   has_many :purchase_history
-  has_many :products, -> { order('products.created_at DESC') }, through: :purchase_history
+  has_many :products, -> { order('products.created_at ASC') }, through: :purchase_history
   has_many :affiliate_product_views
   has_many :product_report, dependent: :destroy
 

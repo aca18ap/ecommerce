@@ -2,9 +2,8 @@
 
 Rails.application.routes.draw do
 
-  resources :product_reports, except: [:edit, :update]
   resources :categories
-  ## ===== System Users and Accounts Routes ===== ##
+  ## ===== System Users and Accounts ===== ##
   devise_for :customers, path: 'customer',
                          controllers: { sessions: 'customers/sessions', registrations: 'customers/registrations' }
   authenticated :customer do
@@ -67,6 +66,12 @@ Rails.application.routes.draw do
   ## ===== Products ===== ## 
   resources :products
   resources :materials
+
+  ## ==== Product Reports ==== ##
+  resources :product_reports, except: [:edit, :update]
+
+  ## ==== Purchase Histories ==== ##
+  resources :purchase_histories, only: [:new, :create, :destroy]
 
   ## ===== FAQs ===== ##
   resources :faqs do

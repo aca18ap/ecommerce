@@ -1,0 +1,5 @@
+$("#purchase-history-modal .modal-content").html('#{escape_javascript( render partial: 'purchase_histories/form')}');
+$("#purchase-history-modal").modal();
+
+$('#new_purchase_history').submit( () => { $('.close').click(); });
+

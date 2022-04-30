@@ -125,7 +125,5 @@ loader.load().then(()=>{
   // Line looks weird before any zoom applied, hence this function call
   // looks quite cool as well
   setTimeout(zoomOut, 1000)
-
-})
-
+});
 

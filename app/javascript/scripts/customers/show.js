@@ -100,4 +100,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add missing data message to appropriate chart areas
     for (let chart of emptyCharts) d3_graph_utils.insert_empty_chart_message(chart, width, height);
-})
+});
+
+$('.delete_product').bind('ajax:success', function() {
+    let productId = $(this).attr('data-deleted-product-id');
+    $(`#product-${productId}-partial`).fadeOut();
+});

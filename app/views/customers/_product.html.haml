@@ -1,17 +1,20 @@
-= link_to product do
-  .container.d-inline-flex.bg-light.px-0.mx-0.text-black.w-100
-    - if product.image.attached?
-      %img= image_tag(product.image.variant(resize: '100x100'), alt: product.description)
-    - else
-      %img= image_tag('no-image.png', size: '100x100', alt: product.description)
+.row.bg-light.w-100.m-0.p-0{id: "product-#{product.id}-partial"}
+  = link_to product, class: 'col-11 row m-0 p-0 text-black text-decoration-none' do
+    .col-3.px-0.mx-0.d-flex.flex-column.justify-content-center
+      = product.product_image(100, 100)
 
-    .container
+    .col-7.px-0.mx-0
       %h3.text-black.fw-normal.m-0= product.name
       %p= product.truncated_description
 
-    .container.w-auto.d-flex.flex-column.justify-content-evenly
-      .container.m-0.p-0
+    .col-2.px-0.mx-0
+      .container.m-0.p-0.text-center
         %h2.m-0.text-end= product.price_with_currency
 
-      .container.m-0.p-0
+      .container.m-0.p-0.text-center
         %h2.m-0.text-end= product.co2_produced_with_unit
+
+  .col-1.px-0.mx-0.text-center.d-flex.flex-column.justify-content-center
+    = link_to purchase_history_path(product), method: :delete, remote: true, class: 'delete_product text-danger', data: { confirm: 'Are you sure you want to remove this purchase from your history?', 'deleted-product-id': "#{product.id}" } do
+      %i.fs-4= fa_icon('trash')
+      %span.sr-only.sr-only-focusable Delete Product

@@ -1,0 +1,17 @@
+= simple_form_for(@purchase, remote: true) do |f|
+  %button.close.btn.position-absolute.top-0.end-0{"aria-label" => "close", "data-dismiss" => "modal", type: "button"}
+    %span{"aria-hidden" => "true"} &times;
+
+  .modal-header
+    %h2.model-title= "Adding #{@product.name} to Purchase History"
+  .modal-body
+    = f.error_notification
+    = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+    .form-inputs
+      = f.hidden_field :product_id, value: @product.id
+      = f.input :created_at, as: :date, label: 'Date of purchase', html5: true, input_html: { value: Date.today }
+
+  .modal-footer
+    .pull-left
+      = f.button :submit, 'Add Purchase', id: 'purchase_history_submit'
