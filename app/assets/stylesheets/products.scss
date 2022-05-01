@@ -188,6 +188,20 @@ a:hover, a:visited, a:link, a:active
 	animation: pulse 2s infinite;
 }
 
+#card1 {
+    animation: fadeInAnimation 1s .0s ease-out forwards;
+    opacity: 0;
+}
+#card2 {
+    animation: fadeInAnimation 1s 1.2s ease-out forwards;
+    opacity: 0;
+}
+#card3 {
+    animation: fadeInAnimation 1s 2.4s ease-out forwards;
+    opacity: 0;
+}
+
+
 @keyframes pulse {
 	0% {
 		transform: scale(1.1,2.95);

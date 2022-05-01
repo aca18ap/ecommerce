@@ -104,7 +104,7 @@
         // These values need more thought, just done styling for now
         .row.pt-2
           .d-flex.cards.justify-content-between.card-deck
-            .card.w-25
+            .card.w-25#card1
               .align-content-center.p-2
                 .card-body.text-center
                   %h4 kgCO2/£
@@ -113,21 +113,21 @@
             
             // TODO How product compares to others, to
             // figure out how to calculate
-            .card.w-25
+            .card.w-25#card2
               .d-flex.align-items-center.h-100
                 .card-body.text-center
-                  %h4 Better than
-                  %h3{:style => 'font-size: 3.5em'} 93%
-                  %h4 of products
+                  %h4 A save of
+                  %h3{:style => 'font-size: 2em'}= product.difference_formatted
+                  %h4 compared to similar products...
               
-            // TODO I dont even know if trees saved makes sense
             // I thought trees liked co2 lol
             // will come back to it
-            .card.w-25
+            .card.w-25#card3
               .card-body.text-center
-                %h4 Trees saved
-                %h3= 1
-              %img.card-img-bottom= image_tag('trees-saved.gif')
+                %h4 ...equivalent to 
+                %h3= product.co2_in_car_km
+                %h4 driven by car!
+              %img.card-img-bottom= image_tag('carCO2.jpg')
 
   %hr
 
