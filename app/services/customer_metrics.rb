@@ -19,7 +19,8 @@ class CustomerMetrics < CalculateMetrics
     def site_co2_saved
       customer_co2_saved = Customer.joins(:products, :categories)
                                    .group('customers.id')
-                                   .select('SUM(categories.mean_co2 - products.co2_produced) AS co2_saved')
+                                   .select('SUM(categories.mean_co2 - products.co2_produced) / SQRT(COUNT(products))' \
+                                           'AS co2_saved')
 
       return 0 if customer_co2_saved.length.zero?
 
@@ -66,8 +67,8 @@ class CustomerMetrics < CalculateMetrics
                 .joins(:products, :categories)
                 .group("date_trunc('day', purchase_histories.created_at)")
                 .select("date_trunc('day', purchase_histories.created_at) AS day," \
-                        'SUM(categories.mean_co2 - products.co2_produced) AS value')
-                .map { |day| { day.day.to_i => day.value.round(1) } }
+                        'SUM(categories.mean_co2 - products.co2_produced) / SQRT(COUNT(products)) AS co2_saved')
+                .map { |day| { day.day.to_i => day.co2_saved.round(1) } }
                 .reduce({}, :update)
       )
     end
