@@ -54,7 +54,7 @@ end
 prng = Random.new
 100.times do |i|
   Product.where(url: "http://www.test#{i}.com").first_or_create!(
-    category: Faker::IndustrySegments.sub_sector,
+    category_id: Category.find(Category.pluck(:id).sample).id,
     name: Faker::Coffee.blend_name,
     description: Faker::Quotes::Shakespeare.hamlet_quote,
     manufacturer: Faker::Company.name,
