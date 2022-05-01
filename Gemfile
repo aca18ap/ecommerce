@@ -60,6 +60,7 @@ gem 'daemons'
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'whenever'
+gem 'groupdate'
 
 gem 'devise-security'
 gem 'jquery-rails'

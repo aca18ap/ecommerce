@@ -7,6 +7,12 @@ describe 'Customer metrics' do
   let!(:product2) { FactoryBot.create(:product, url: 'https://anotherwebsite.com', price: 5.7, created_at: Time.now.change({ sec: 0 })) }
   let!(:customer) { FactoryBot.create(:customer) }
 
+  def insert_purchases(product_id, customer_id, created_at)
+    purchase = PurchaseHistory.new(product_id: product_id, customer_id: customer_id, created_at: created_at)
+    purchase.save
+    purchase
+  end
+
   describe 'Site wide statistics' do
     describe '.site_mean_co2_per_purchase' do
       it 'returns 0 if there are no purchases' do
@@ -42,7 +48,11 @@ describe 'Customer metrics' do
       end
 
       it 'returns the total co2 saved across the site if purchases exist' do
-        skip 'awaiting implementation'
+        customer.products << product
+        customer.products << product2
+
+        expected_sum = ((product.category.mean_co2 - product.co2_produced) + (product2.category.mean_co2 - product2.co2_produced)).round(1)
+        expect(CustomerMetrics.site_co2_saved).to eq expected_sum
       end
     end
 
@@ -81,13 +91,13 @@ describe 'Customer metrics' do
       end
 
       it 'returns the average co2 per purchase per day for a customer if there are purchases' do
-        customer.products << product
-        customer.products << product2
+        purchase1 = insert_purchases(product.id, customer.id, (Time.now - 2.days))
+        purchase2 = insert_purchases(product2.id, customer.id, Time.now)
 
         expect(CustomerMetrics.time_co2_per_purchase(customer)).to match_array(
-          [{ 'time' => product.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => product.co2_produced.round(1) },
-           { 'time' => (product2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day).to_i, 'value' => 0 },
-           { 'time' => product2.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => product2.co2_produced.round(1) }]
+          [{ 'time' => purchase1.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => product.co2_produced.round(1) },
+           { 'time' => (purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day).to_i, 'value' => 0 },
+           { 'time' => purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => product2.co2_produced.round(1) }]
         )
       end
     end
@@ -98,13 +108,13 @@ describe 'Customer metrics' do
       end
 
       it 'returns the total co2 produced per day for a customer if there are purchases' do
-        customer.products << product
-        customer.products << product2
+        purchase1 = insert_purchases(product.id, customer.id, (Time.now - 2.days))
+        purchase2 = insert_purchases(product2.id, customer.id, Time.now)
 
         expect(CustomerMetrics.time_total_co2(customer)).to match_array(
-          [{ 'time' => product.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => product.co2_produced.round(1) },
-           { 'time' => (product2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day).to_i, 'value' => 0 },
-           { 'time' => product2.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => product2.co2_produced.round(1) }]
+          [{ 'time' => purchase1.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => product.co2_produced.round(1) },
+           { 'time' => (purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day).to_i, 'value' => 0 },
+           { 'time' => purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => product2.co2_produced.round(1) }]
         )
       end
     end
@@ -115,10 +125,14 @@ describe 'Customer metrics' do
       end
 
       it 'returns the total co2 produced per day for a customer if there are purchases' do
-        customer.products << product
-        customer.products << product2
+        purchase1 = insert_purchases(product.id, customer.id, (Time.now - 2.days))
+        purchase2 = insert_purchases(product2.id, customer.id, Time.now)
 
-        skip 'awaiting implementation'
+        expect(CustomerMetrics.time_co2_saved(customer)).to match_array(
+          [{ 'time' => purchase1.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => (product.category.mean_co2 - product.co2_produced).round(1) },
+           { 'time' => (purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day).to_i, 'value' => 0 },
+           { 'time' => purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => (product.category.mean_co2 - product.co2_produced).round(1) }]
+        )
       end
     end
 
@@ -128,13 +142,13 @@ describe 'Customer metrics' do
       end
 
       it 'returns the co2 per pound metric per day for a customer if there are purchases' do
-        customer.products << product
-        customer.products << product2
+        purchase1 = insert_purchases(product.id, customer.id, (Time.now - 2.days))
+        purchase2 = insert_purchases(product2.id, customer.id, Time.now)
 
         expect(CustomerMetrics.time_co2_per_pound(customer)).to match_array(
-          [{ 'time' => product.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => (product.co2_produced / product.price).round(1) },
-           { 'time' => (product2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day).to_i, 'value' => 0 },
-           { 'time' => product2.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => (product2.co2_produced / product2.price).round(1) }]
+          [{ 'time' => purchase1.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => (product.co2_produced / product.price).round(1) },
+           { 'time' => (purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day).to_i, 'value' => 0 },
+           { 'time' => purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => (product2.co2_produced / product2.price).round(1) }]
         )
       end
     end
@@ -145,13 +159,13 @@ describe 'Customer metrics' do
       end
 
       it 'returns the number of products added per day for a customer if there are purchases' do
-        customer.products << product
-        customer.products << product2
+        purchase1 = insert_purchases(product.id, customer.id, (Time.now - 2.days))
+        purchase2 = insert_purchases(product2.id, customer.id, Time.now)
 
         expect(CustomerMetrics.time_products_total(customer)).to match_array(
-          [{ 'time' => product.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => 1 },
-           { 'time' => (product2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day).to_i, 'value' => 0 },
-           { 'time' => product2.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => 1 }]
+          [{ 'time' => purchase1.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => 1 },
+           { 'time' => (purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day).to_i, 'value' => 0 },
+           { 'time' => purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => 1 }]
         )
       end
     end

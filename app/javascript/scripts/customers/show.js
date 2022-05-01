@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let emptyCharts = [];
 
+    console.log(gon.timeCO2PerPurchase);
+    console.log(gon.timeCO2Saved);
+
     if (gon.timeCO2PerPurchase && Object.keys(gon.timeCO2PerPurchase).length > 0) {
         graphs.LineChart(gon.timeCO2PerPurchase, {
             x: d => d.time,
@@ -44,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
         emptyCharts.push(document.getElementById('total-co2-graph'));
     }
 
-    console.log(gon.timeCO2Saved);
     if (gon.timeCO2Saved && Object.keys(gon.timeCO2Saved).length > 0) {
         graphs.LineChart(gon.timeCO2Saved, {
             x: d => d.time,
