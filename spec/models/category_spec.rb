@@ -48,13 +48,23 @@ RSpec.describe Category, type: :model do
     end
   end
 
-  describe '.update_mean_co2' do
+  describe '.add_to_mean_co2' do
     it 'maintains a record of average co2 for the category' do
-      category.products << FactoryBot.create(:product)
+      expect(category.mean_co2).to eq 0
+      FactoryBot.create(:product, category: category)
       expected_mean = category.products.sum(&:co2_produced) / category.products.size.to_f
-
-      category.update_mean_co2
       expect(category.mean_co2).to eq expected_mean
+    end
+  end
+
+  describe '.sub_from_mean_co2' do
+    it 'maintains a record of average co2 for the category' do
+      product = FactoryBot.create(:product, category: category)
+      expected_mean = category.products.sum(&:co2_produced) / category.products.size.to_f
+      expect(category.mean_co2).to eq expected_mean
+
+      product.destroy
+      expect(category.mean_co2).to eq 0
     end
   end
 end

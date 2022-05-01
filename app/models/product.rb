@@ -33,7 +33,8 @@ class Product < ApplicationRecord
   validate :validate_percentages
 
   after_save :co2
-  after_save :update_category_mean
+  after_save :add_to_category_mean
+  after_destroy :sub_from_category_mean
 
   has_one_attached :image, dependent: :destroy
 
@@ -73,7 +74,12 @@ class Product < ApplicationRecord
   end
 
   # Updates the category mean for the product just added
-  def update_category_mean
-    category.update_mean_co2
+  def add_to_category_mean
+    category.add_to_mean_co2(self)
+  end
+
+  # Updates the category mean for the product just removed
+  def sub_from_category_mean
+    category.sub_from_mean_co2(self)
   end
 end

@@ -21,7 +21,13 @@ class Category < ApplicationRecord
   has_many :products
   validates :name, presence: true
 
-  def update_mean_co2
-    update(mean_co2: products.sum(&:co2_produced) / products.size.to_f)
+  # Only over products.size because this method is called on after_save hook
+  def add_to_mean_co2(product)
+    update(mean_co2: ((products.size * mean_co2) + product.co2_produced) / products.size)
+  end
+
+  # Only over products.size because this method is called on after_destroy hook
+  def sub_from_mean_co2(product)
+    update(mean_co2: ((products.size * mean_co2) - product.co2_produced) / products.size)
   end
 end
