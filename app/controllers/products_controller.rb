@@ -15,12 +15,14 @@ class ProductsController < ApplicationController
     filtering_params(params).each do |key, value|
       @products = @products.public_send("filter_by_#{key}", value) if value.present?
     end
-    @products = @products.paginate(page: params[:page], per_page: 10).order(params['sort_by'])
+    @products = @products.paginate(page: params[:page], per_page: 12).order(params['sort_by'])
     @products = @products.reverse_order if params['order_by'] == 'descending'
   end
 
   # GET /products/1
   def show
+    related_products = Category.find(@product.category_id).products
+    @suggestions = related_products.where('co2_produced < :co2_produced', { co2_produced: @product.co2_produced })
     @product = @product.decorate
     @co2 = Co2Calculator.new(@product)
     @country = Country.new(@product.manufacturer_country)

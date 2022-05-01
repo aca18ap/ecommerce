@@ -74,13 +74,12 @@ describe 'Products' do
 
     specify 'I can view a particular product' do
       visit products_path
-      click_link 'Show'
+      find("a[href= '#{product_path(product)}']").click
       expect(page).to have_content product.name
     end
 
     specify 'I can view a breakdown of how the CO2 was calculated' do
-      visit products_path
-      click_link 'Show'
+      visit product_path(product)
       click_on 'chevron'
       find(:css, '#co2_right').should be_visible
       expect(page).to have_content 'How the CO2 was calculated'
@@ -90,6 +89,18 @@ describe 'Products' do
       visit new_product_path
       expect(page).to have_content('Access Denied 403')
     end
+
+    specify 'I can view greener alternatives' do
+      greener_product = FactoryBot.create(:product, name: 'greener product', url: 'http://www.not_a_drill.com', category_id: product.category_id, mass: 0.1)
+      visit product_path(product)
+      expect(page).to have_content(greener_product.name)
+    end
+
+    specify 'No recommendations are given if the viewed product is the greenest' do
+      dirty_product = FactoryBot.create(:product, name: 'greener product', url: 'http://www.not_a_drill.com', category_id: product.category_id, mass: 100)
+      visit product_path(product)
+      expect(page).not_to have_content(dirty_product.name)
+    end
   end
 
   context 'As an admin' do
@@ -97,7 +108,7 @@ describe 'Products' do
 
     before { login_as(FactoryBot.create(:admin), scope: :staff) }
     specify 'I can edit a product name and country' do
-      visit products_path
+      visit product_path(product)
       click_link 'Edit'
       expect(page).to have_content 'Editing product'
       fill_in 'product[name]', with: 'UpdatedTestName'
@@ -107,7 +118,7 @@ describe 'Products' do
     end
 
     specify 'I can edit a product\' material', js: true do
-      visit '/products'
+      visit product_path(product)
       click_link 'Edit'
       expect(page).to have_content 'Editing product'
       click_link(href: '#step6')
@@ -119,7 +130,7 @@ describe 'Products' do
     end
 
     specify 'I can delete a product', js: true do
-      visit products_path
+      visit product_path(product)
       accept_alert do
         click_link 'Destroy'
       end

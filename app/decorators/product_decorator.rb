@@ -15,7 +15,7 @@ class ProductDecorator < ApplicationDecorator
   end
 
   def co2_produced_with_unit
-    "#{co2_produced}<sub>Kg</sub>".html_safe
+    "#{co2_produced}<sub>Kg of CO2</sub>".html_safe
   end
 
   def price_with_currency
@@ -27,9 +27,20 @@ class ProductDecorator < ApplicationDecorator
       meta = ActiveStorage::Analyzer::ImageAnalyzer.new(image).metadata
       height = meta['width'] if height.nil?
       width = meta['width'] if width.nil?
-      h.image_tag(image, class: 'img-fluid round-image', size: "#{height}x#{width}", alt: description)
+      h.image_tag(image, class: 'img-fluid', size: "#{height}x#{width}", alt: description)
     else
       h.image_tag('default-image.jpg', class: 'img-fluid round-image', size: "#{height}x#{width}", alt: description)
+    end
+  end
+
+  def product_image_thumbnail(height = nil, width = nil)
+    if image.attached?
+      meta = ActiveStorage::Analyzer::ImageAnalyzer.new(image).metadata
+      height = meta['width'] if height.nil?
+      width = meta['width'] if width.nil?
+      h.image_tag(image, class: 'image-thumbnail', size: "#{height}x#{width}", alt: description)
+    else
+      h.image_tag('default-image.jpg', class: 'image-thumbnail', size: "#{height}x#{width}", alt: description)
     end
   end
 
@@ -43,9 +54,9 @@ class ProductDecorator < ApplicationDecorator
     html_values.html_safe
   end
 
-  def greener_suggestions
+  def greener_suggestions(suggestions)
     html_values = ''
-    Product.limit(5).each do |p|
+    suggestions.each do |p|
       html_values += h.render partial: 'suggested_product_card', locals: { p: p.decorate }
     end
     html_values.html_safe

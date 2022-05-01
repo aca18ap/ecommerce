@@ -1,72 +1,45 @@
+= stylesheet_link_tag 'products'
+#back-button.d-flex.flex-column.p-2
+  - if can?(:new, Product)
+    = link_to 'New Product', new_product_path
+
+
 .container-fluid.pad-edge
   %h1.pt-5
     - if not params[:search_term].blank? 
       Listing products related to 
       = "'" + params["search_term"] + "'"
-      -# = link_to 'Reset', products_path, class: 'col-form-label px-2'
+      %h4= link_to 'Show all products', products_path, class: 'col-form-label px-2'
     - else 
-      Product Archive
+      Our crowdsourced products 
 
   .d-flex.flex-row.pb-3
     .me-auto.my-auto
-      %h2.my-auto
+      %h5.my-auto
         = page_entries_info products, :model => 'product'
 
+      
     - if products.size > 0
       = form_with url: products_path, method: :get do |form|
-        .input-group
+        .input-group.collapse{ id: 'collapse'}
           = form.label 'Sort by', class: 'col-form-label px-2'
-          = form.select :sort_by, Product.attribute_names, :selected => params[:sort_by]
-          = form.select :order_by, ['descending', 'ascending'], :selected => params[:order_by]
+          = form.select :sort_by, Product.attribute_names, :selected => params[:sort_by], class: 'px-2' 
+          = form.select :order_by, ['descending', 'ascending'], :selected => params[:order_by], class: 'px-2'
           = form.hidden_field :search_term, value: params[:search_term]
-          %button{:type => "submit", :class => "btn btn-primary"}
+          %button{:type => "submit", :class => "btn btn-success px-2"}
             Apply
 
-  -# - if products.size > 0
-  %table.table
-    %thead
-      %tr
-        %th
-        %th Name
-        %th Description
-        %th Vendor
-        %th Mass
-        %th Category
-        %th Url
-        %th Manufacturer
-        %th Manufacturer country
-        %th Co2 produced
-        %th Materials
-        %th
-        %th
-        %th
+    %button.align-self-center.btn.suggestions{"aria-controls" => "collapse", "aria-expanded" => "true", "data-target" => "#collapse", "data-toggle" => "collapse", :type => "button"}
+      %i.fa.fa-filter
+  %hr
 
-    %tbody
-      - products.each do |product|
-        %tr
-          %td= product.product_image(100, 100)
-          %td= product.name
-          %td= product.description
-          %td= product.business_name
-          %td= product.mass
-          %td= product.category.name
-          %td= product.url
-          %td= product.manufacturer
-          %td= product.full_country_name
-          %td= product.co2_produced
-          - product.materials.each do |material|
-            %td= material.name
-          %td= link_to 'Show', product
-          - if can?(:edit, Product)
-            %td= link_to 'Edit', edit_product_path(product)
-          - if can?(:delete, Product)
-            %td= link_to 'Destroy', product, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
+  .products.row
+    - products.each do |product| 
+      .col-3
+        = render partial: 'suggested_product_card', locals: {p: product.decorate}
+   
   %br
 
   .justify-content-center.pagination
     = will_paginate(products, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer)
 
-
-  - if can?(:new, Product)
-    = link_to 'New Product', new_product_path

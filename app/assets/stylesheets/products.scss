@@ -83,6 +83,31 @@ body{
     scrollbar-width: none;  /* Firefox */
 }
 
+.image-thumbnail { 
+    object-fit: contain;
+    height: 20vh;
+    align-self: center;
+
+}
+
+.text_description {
+    font-size: smaller;
+}
+
+.description-container {
+    max-width: 75%;
+}
+
+.bg-none{
+    background: none;
+    border: none;
+}
+
+a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
+}
+
 .calculations{
     color: darkgreen;
     background-color: lightgreen;

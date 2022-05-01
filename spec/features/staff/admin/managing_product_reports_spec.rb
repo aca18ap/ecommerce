@@ -24,14 +24,14 @@ describe 'Managing Product Reports' do
     end
 
     specify 'I can destroy a product with existing reports', js: true do
-      visit products_path
-      within(:css, '.table') { expect(page).to have_content product_report.product.name }
+      visit product_path(product_report.product)
+      expect(page).to have_content product_report.product.name
 
       accept_confirm do
-        within(:css, '.table') { click_link 'Destroy' }
+        click_link 'Destroy'
       end
 
-      within(:css, '.table') { expect(page).to_not have_content product_report.product.name }
+      expect(page).to_not have_content product_report.product.name
     end
 
     specify 'I can destroy a user with existing reports', js: true do
