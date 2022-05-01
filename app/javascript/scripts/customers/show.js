@@ -8,9 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let emptyCharts = [];
 
-    console.log(gon.timeCO2PerPurchase);
-    console.log(gon.timeCO2Saved);
-
     if (gon.timeCO2PerPurchase && Object.keys(gon.timeCO2PerPurchase).length > 0) {
         graphs.LineChart(gon.timeCO2PerPurchase, {
             x: d => d.time,
