@@ -99,26 +99,7 @@ class CalculateMetrics
       )
     end
 
-    private
-
-    # Calculates the number of elements in an array that occur at each hour between a start and end time
-    # TODO Deprecate
-    def calculate_time_counts(element_array)
-      time_counts = {}
-
-      # Need to create a dict of all hours between start and now to display 0 values correctly
-      earliest_hour = element_array.first.hour
-      latest_hour = DateTime.now.change({ min: 0, sec: 0 })
-      (earliest_hour.to_i..latest_hour.to_i).step(1.hour) do |date|
-        time_counts[date] = 0
-      end
-
-      element_array.each do |element|
-        time_counts[element.hour.to_i] += 1
-      end
-
-      time_counts
-    end
+    protected
 
     # Inserts 0 entries for intervals of time which don't have any data
     def insert_zero_entries(data_hash, step = 'day')
@@ -139,6 +120,27 @@ class CalculateMetrics
       end
 
       data_arr
+    end
+
+    private
+
+    # Calculates the number of elements in an array that occur at each hour between a start and end time
+    # TODO Deprecate
+    def calculate_time_counts(element_array)
+      time_counts = {}
+
+      # Need to create a dict of all hours between start and now to display 0 values correctly
+      earliest_hour = element_array.first.hour
+      latest_hour = DateTime.now.change({ min: 0, sec: 0 })
+      (earliest_hour.to_i..latest_hour.to_i).step(1.hour) do |date|
+        time_counts[date] = 0
+      end
+
+      element_array.each do |element|
+        time_counts[element.hour.to_i] += 1
+      end
+
+      time_counts
     end
 
     # Method to return the correct time to stop extra entry being added for any time in the morning

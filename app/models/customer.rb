@@ -37,6 +37,8 @@ class Customer < ApplicationRecord
   has_many :affiliate_product_views
   has_many :product_report, dependent: :destroy
 
+  has_many :categories, through: :products
+
   devise :database_authenticatable, :registerable, :password_archivable, :recoverable,
          :rememberable, :secure_validatable, :lockable
 end

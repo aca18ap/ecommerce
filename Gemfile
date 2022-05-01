@@ -59,6 +59,7 @@ gem 'orderly'
 gem 'daemons'
 gem 'delayed_job'
 gem 'delayed_job_active_record'
+gem 'groupdate'
 gem 'whenever'
 
 gem 'devise-security'

@@ -44,8 +44,13 @@ class CustomerDecorator < Draper::Decorator
   def co2_saved
     return { customer: 'N/A', site: CustomerMetrics.site_co2_saved, valence: 'average' } if products.size.zero?
 
-    # TODO: Implementation
-    { customer: 'N/A', site: CustomerMetrics.site_co2_saved, valence: 'average' }
+    customer = products.map { |p| p.category.mean_co2 - p.co2_produced }.sum.round(1)
+    site = CustomerMetrics.site_co2_saved
+    {
+      customer: customer,
+      site: site,
+      valence: calculate_valence(site, customer)
+    }
   end
 
   def co2_per_pound
