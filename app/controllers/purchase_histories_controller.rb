@@ -21,7 +21,7 @@ class PurchaseHistoriesController < ApplicationController
   end
 
   def destroy
-    current_customer.products.delete(@product)
+    PurchaseHistory.where(customer_id: current_customer.id, product_id: @product.id).limit(1).destroy_all
   end
 
   private
