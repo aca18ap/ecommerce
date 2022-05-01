@@ -1,3 +1,4 @@
+// Partial for product rows, not used but keeping it for eventual future use
 .row-border.p-1
 
     .row
@@ -16,13 +17,12 @@
                 .description-container.col-9
                     .text_description= p.description
                 
-
-
+        .col-lg-1.d-flex.align-items-center
+            %button.align-self-center.btn.suggestions{"aria-controls" => "collapse#{p.id}", "aria-expanded" => "true", "data-target" => "#collapse#{p.id}", "data-toggle" => "collapse", :type => "button"}
+                %i.fa.fa-plus
     
-
-        -# .col-lg-1.d-flex.align-items-center
-        -#     %button.align-self-center.btn.suggestions{"aria-controls" => "collapse#{p.id}", "aria-expanded" => "true", "data-target" => "#collapse#{p.id}", "data-toggle" => "collapse", :type => "button"}
-        -#         %i.fa.fa-plus
     
+    .collapse{ id: "collapse#{p.id}"}
+        hi
 
     %hr

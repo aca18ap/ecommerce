@@ -9,7 +9,7 @@
     - if not params[:search_term].blank? 
       Listing products related to 
       = "'" + params["search_term"] + "'"
-      -# = link_to 'Reset', products_path, class: 'col-form-label px-2'
+      %h4= link_to 'Show all products', products_path, class: 'col-form-label px-2'
     - else 
       Our crowdsourced products 
 
