@@ -21,11 +21,7 @@ class PurchaseHistoriesController < ApplicationController
   end
 
   def destroy
-    puts current_customer.id
-    puts @product.id
-    puts '='*40
-    puts PurchaseHistory.where(customer_id: current_customer.id, product_id: @product.id).limit(1).destroy_all
-    puts '='*40
+    PurchaseHistory.where(customer_id: current_customer.id, product_id: @product.id).limit(1).destroy_all
   end
 
   private

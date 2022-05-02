@@ -63,3 +63,10 @@ prng = Random.new
     price: (prng.rand(1..200) - 0.01),
     products_material: [ProductsMaterial.new(material_id: prng.rand(1..8), percentage: 100)])
 end
+
+
+Product.all.each do |p|
+  if !p.category_id
+    Category.find(Category.pluck(:id).sample).id
+  end
+end
