@@ -67,6 +67,11 @@ class Product < ApplicationRecord
     DateTime.parse(created_at.to_s).change({ min: 0, sec: 0 })
   end
 
+  
+  def co2_per_pounds
+    update_column(:kg_co2_per_pounds, co2_produced / price)
+  end
+  
   private
 
   # calculating and updating co2 produced after_save
@@ -75,9 +80,6 @@ class Product < ApplicationRecord
     update_column(:co2_produced, co2)
   end
 
-  def co2_per_pounds
-    update_column(:kg_co2_per_pounds, co2_produced / price)
-  end
 
   # Updates the category mean for the product just added
   def add_to_category_mean

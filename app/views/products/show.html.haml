@@ -107,16 +107,10 @@
             .card.w-25#card1
               .align-content-center.p-2
                 .card-body
+                  %p.text-success.p-2.rounded.text-center Leaderboard CO2/£
                   #scrollable.masked-overflow
-                    .card-text.d-flex.flex-column.list-group#leaderboard
-                
+                    .card-text.d-flex.flex-column.list-group#leaderboard              
                       = product.leaderboard_mini
-                      -# - product.category.products.order(:kg_co2_per_pounds).each do |p|
-                      -#   %ol
-                      -#     %p.lboard_text=p.name ' ' p.kg_co2_per_pounds.round(3)
-                      -# %h4 kgCO2/£
-                      -# %h3= product.kg_co2_per_pounds.round(2)
-
                     %p.alert-danger.p-2.rounded.text-center ... not good ...
                 %img= image_tag('footprint.jpg', class: 'card-img-bottom')
             

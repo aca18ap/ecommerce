@@ -251,8 +251,6 @@ a:hover, a:visited, a:link, a:active
     mask-repeat: no-repeat, no-repeat;
 }
 
-#leaderboard{
-}
 
 #scrollable {
     overflow-y: scroll;
@@ -265,20 +263,25 @@ a:hover, a:visited, a:link, a:active
     width: 100%;
 }
 
-.card-body {
-}
-
 .lboard_text_this{
     font-size: medium;
     background-color: darkgreen;
     border-radius: 5px;
     padding: 2%;
     color: white;
+   
+}
+
+#current_product:hover {
+    color: white;
 }
 
 a {
     text-decoration: none;
     color: black;
+}
+a:hover {
+    color: green;
 }
 
 @keyframes pulse {
