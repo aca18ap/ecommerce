@@ -29,7 +29,7 @@ class ProductDecorator < ApplicationDecorator
       width = meta['width'] if width.nil?
       h.image_tag(image, class: 'img-fluid', size: "#{height}x#{width}", alt: description)
     else
-      h.image_tag('default-image.jpg', class: 'img-fluid round-image', size: "#{height}x#{width}", alt: description)
+      h.image_tag('default-image.jpg', class: 'img-fluid', size: "#{height}x#{width}", alt: description)
     end
   end
 
@@ -92,5 +92,19 @@ class ProductDecorator < ApplicationDecorator
 
   def difference_formatted
     "#{difference_with_mean}<sub>Kg of CO2</sub>".html_safe
+  end
+
+  def leaderboard_mini
+    html_values = ''
+    product.category.products.order(:kg_co2_per_pounds).each_with_index do |p, i|
+      if p.id == id
+        html_values += "
+          <a id=current_product class='lboard_text_this flex-fill' href=/products/#{p.id}> #{i + 1} | #{p.name} <sub>#{p.kg_co2_per_pounds.round(3)}</sub></a><br>"
+      else
+        html_values += "
+          <a class='flex-fill lboard_text' href=/products/#{p.id}> #{i + 1} | #{p.name} <sub>#{p.kg_co2_per_pounds.round(3)}</sub></a><br>"
+      end
+    end
+    html_values.html_safe
   end
 end

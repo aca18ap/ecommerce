@@ -88,7 +88,7 @@
 
       %br
 
-      - if @suggestions.length > 0
+      - if product.category.mean_co2 < product.co2_produced
         %h4 Check out these greener alternatives
         .row.overflow-scroll.suggested-products
           .d-flex.flex-no-wrap
@@ -102,16 +102,25 @@
               .featureName{style: 'visibility: hidden'}= product.name
               = render 'layouts/share_icons'
         // These values need more thought, just done styling for now
-        .row.pt-2
+        .row.pt-2.overflow-scroll
           .d-flex.cards.justify-content-between.card-deck
             .card.w-25#card1
               .align-content-center.p-2
-                .card-body.text-center
-                  %h4 kgCO2/£
-                  %h3= product.co2_per_pound
+                .card-body
+                  #scrollable.masked-overflow
+                    .card-text.d-flex.flex-column.list-group#leaderboard
+                
+                      = product.leaderboard_mini
+                      -# - product.category.products.order(:kg_co2_per_pounds).each do |p|
+                      -#   %ol
+                      -#     %p.lboard_text=p.name ' ' p.kg_co2_per_pounds.round(3)
+                      -# %h4 kgCO2/£
+                      -# %h3= product.kg_co2_per_pounds.round(2)
+
+                    %p.alert-danger.p-2.rounded.text-center ... not good ...
                 %img= image_tag('footprint.jpg', class: 'card-img-bottom')
             
-            // TODO How product compares to others, to
+
             // figure out how to calculate
             .card.w-25#card2
               .d-flex.align-items-center.h-100
@@ -123,7 +132,7 @@
             // I thought trees liked co2 lol
             // will come back to it
             .card.w-25#card3
-              .card-body.text-center
+              .card-body.text-center.d-flex.flex-column.justify-content-center
                 %h4 ...equivalent to 
                 %h3= product.co2_in_car_km
                 %h4 driven by car!

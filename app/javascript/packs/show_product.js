@@ -7,7 +7,13 @@ $(function(){
   $('#chevron').on('click', function(){
     toggleDetails()
   })
+  setTimeout(scrollLeaderboard, 2000)
+  
 })
+
+function scrollLeaderboard(){
+  $("#scrollable").scrollTo("#current_product");
+}
 
 /**
  * Toggles CO2 breakdown
@@ -46,6 +52,17 @@ function toggleDetails(){
     chevron.addClass('fa-chevron-left')
   }
 }
+
+$.fn.scrollTo = function(elem, speed) { 
+  $(this).animate({
+      scrollTop:  $(this).scrollTop() - $(this).offset().top + $(elem).offset().top
+  }, speed == undefined ? 1000 : speed); 
+  return this; 
+};
+
+
+
+
 
 /**
  * Maps API loader

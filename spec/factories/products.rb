@@ -7,6 +7,7 @@
 #  id                   :bigint           not null, primary key
 #  co2_produced         :float
 #  description          :string
+#  kg_co2_per_pounds    :float
 #  manufacturer         :string
 #  manufacturer_country :string
 #  mass                 :float

@@ -1,10 +1,13 @@
 // Place all the styles related to the Products controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
-
-::-webkit-scrollbar {
-    display: none;
+html {
+    scroll-behavior: smooth;
 }
+
+// ::-webkit-scrollbar {
+//     display: none;
+// }
 
 body{
     overflow-x: hidden;
@@ -201,6 +204,82 @@ a:hover, a:visited, a:link, a:active
     opacity: 0;
 }
 
+.masked-overflow {
+    /* scroll bar width, for use in mask calculations */
+    --scrollbar-width: 8px;
+
+    /* mask fade distance, for use in mask calculations */
+    --mask-height: 32px;
+
+    /* If content exceeds height of container, overflow! */
+    overflow-y: scroll;
+
+    /* Our height limit */
+    height: 100%;
+
+    /* Need to make sure container has bottom space,
+  otherwise content at the bottom is always faded out */
+    padding-bottom: var(--mask-height);
+
+
+    /* The content mask is a linear gradient from top to bottom */
+    --mask-image-content: linear-gradient(
+        to bottom,
+        transparent,
+        black var(--mask-height),
+        black calc(100% - var(--mask-height)),
+        transparent
+    );
+
+    /* Here we scale the content gradient to the width of the container 
+  minus the scrollbar width. The height is the full container height */
+    --mask-size-content: 100% 100%;
+
+    /* The scrollbar mask is a black pixel */
+    --mask-image-scrollbar: linear-gradient(black, black);
+
+
+    /* Apply the mask image and mask size variables */
+    mask-image: var(--mask-image-content), var(--mask-image-scrollbar);
+    mask-size: var(--mask-size-content), var(--mask-size-scrollbar);
+
+    /* Position the content gradient in the top left, and the 
+  scroll gradient in the top right */
+    mask-position: 0 0, 100% 0;
+
+    /* We don't repeat our mask images */
+    mask-repeat: no-repeat, no-repeat;
+}
+
+#leaderboard{
+}
+
+#scrollable {
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    height: 200px
+}
+
+.lboard_text{
+    font-size: smaller;
+    width: 100%;
+}
+
+.card-body {
+}
+
+.lboard_text_this{
+    font-size: medium;
+    background-color: darkgreen;
+    border-radius: 5px;
+    padding: 2%;
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
 
 @keyframes pulse {
 	0% {
@@ -282,4 +361,21 @@ a:hover, a:visited, a:link, a:active
     line-height: 1.428571429;
     border-radius: 15px;
 }
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 2px;
+  }
+  
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 

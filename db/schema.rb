@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_01_160130) do
+ActiveRecord::Schema.define(version: 2022_05_01_222941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -201,6 +201,7 @@ ActiveRecord::Schema.define(version: 2022_05_01_160130) do
     t.bigint "business_id"
     t.float "price", default: 0.0, null: false
     t.integer "category_id"
+    t.float "kg_co2_per_pounds"
   end
 
   create_table "products_materials", force: :cascade do |t|

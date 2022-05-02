@@ -52,7 +52,7 @@ end
 
 ## Products
 prng = Random.new
-100.times do |i|
+1000.times do |i|
   Product.where(url: "http://www.test#{i}.com").first_or_create!(
     category_id: Category.find(Category.pluck(:id).sample).id,
     name: Faker::Coffee.blend_name,
