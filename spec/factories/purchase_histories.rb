@@ -4,6 +4,7 @@
 #
 # Table name: purchase_histories
 #
+#  id          :bigint           not null, primary key
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  customer_id :bigint           not null

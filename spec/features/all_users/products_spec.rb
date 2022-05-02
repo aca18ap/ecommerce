@@ -91,15 +91,18 @@ describe 'Products' do
     end
 
     specify 'I can view greener alternatives' do
-      greener_product = FactoryBot.create(:product, name: 'greener product', url: 'http://www.not_a_drill.com', category_id: product.category_id, mass: 0.1)
+      greener1_product = FactoryBot.create(:product, name: 'greener product', url: 'http://www.not_a_drill.com', category_id: product.category_id, mass: 1)
+      greener2_product = FactoryBot.create(:product, name: 'greener product', url: 'http://www.is_a_drill.com', category_id: product.category_id, mass: 2)
+      greener3_product = FactoryBot.create(:product, name: 'greener product', url: 'http://www.a_drill.com', category_id: product.category_id, mass: 3)
       visit product_path(product)
-      expect(page).to have_content(greener_product.name)
+      expect(page).to have_content('Check out these greener alternatives')
     end
 
     specify 'No recommendations are given if the viewed product is the greenest' do
-      dirty_product = FactoryBot.create(:product, name: 'greener product', url: 'http://www.not_a_drill.com', category_id: product.category_id, mass: 100)
-      visit product_path(product)
-      expect(page).not_to have_content(dirty_product.name)
+      greener_product = FactoryBot.create(:product, name: 'greener product', url: 'http://www.not_a_drill.com', category_id: product.category_id, mass: 0.1)
+      dirty_product = FactoryBot.create(:product, name: 'bad product', url: 'http://www.is_a_drill.com', category_id: product.category_id, mass: 100)
+      visit product_path(greener_product)
+      expect(page).to have_content('This product is great, you should buy it ;)')
     end
   end
 

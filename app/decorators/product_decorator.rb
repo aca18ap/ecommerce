@@ -97,9 +97,7 @@ class ProductDecorator < ApplicationDecorator
   def leaderboard_mini
     html_values = ''
     product.category.products.order(:kg_co2_per_pounds).each_with_index do |p, i|
-      if p.kg_co2_per_pounds == nil
-        p.co2_per_pounds
-      end
+      p.co2_per_pounds if p.kg_co2_per_pounds.nil?
       if p.id == id
         html_values += "
           <a id=current_product class='lboard_text_this flex-fill' href=/products/#{p.id}> #{i + 1} | #{p.name} <sub>#{p.kg_co2_per_pounds.round(3)}</sub></a><br>"
