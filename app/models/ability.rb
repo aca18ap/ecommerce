@@ -24,6 +24,7 @@ class Ability
       end
     when Business
       can :create, Product
+      can :destroy, Product, business_id: user.id
       can :read, Product
       can :read, Business
       can :read, Faq

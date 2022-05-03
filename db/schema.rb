@@ -214,7 +214,7 @@ ActiveRecord::Schema.define(version: 2022_05_02_134837) do
     t.index ["product_id"], name: "index_products_materials_on_product_id"
   end
 
-  create_table "purchase_histories", force: :cascade do |t|
+  create_table "purchase_histories", id: false, force: :cascade do |t|
     t.bigint "product_id", null: false
     t.bigint "customer_id", null: false
     t.datetime "created_at", precision: 6, null: false

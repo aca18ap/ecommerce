@@ -3,7 +3,7 @@
 # Product Controller handles management requests of products
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[show edit update destroy]
-  before_action :authenticate_staff!, except: %i[show index new create]
+  before_action :authenticate_staff!, except: %i[show index new create destroy]
   before_action :load_categories, only: %i[new create edit update]
   after_action :affiliate_view, only: :show
   authorize_resource
@@ -73,7 +73,10 @@ class ProductsController < ApplicationController
   # DELETE /products/1
   def destroy
     @product.destroy
-    redirect_to products_path, notice: 'Product was successfully destroyed.'
+
+    redirect_to products_path, notice: 'Product was successfully destroyed.' and return unless current_business
+
+    head :ok if @product.destroyed?
   end
 
   private

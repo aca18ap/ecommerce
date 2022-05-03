@@ -112,7 +112,7 @@ class CalculateMetrics
                     1.hour
                   end
 
-      earliest_time = data_hash.first[0]
+      earliest_time = data_hash.keys.min
 
       data_arr = []
       (earliest_time.to_i..latest_time.to_i).step(step_size) do |date|
