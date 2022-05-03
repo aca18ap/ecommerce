@@ -83,7 +83,7 @@ class ProductDecorator < ApplicationDecorator
 
   ## https://www.carbonindependent.org/17.html#:~:text=A%20second%20estimate%20(not%20used,i.e.%20a%20considerably%20higher%20estimate.
   def co2_in_car_km
-    "#{(difference_with_mean / 0.099).round(2)}<sub>km</sub>".html_safe
+    "#{(difference_with_mean / 0.099).round(2).abs}<sub>km</sub>".html_safe
   end
 
   def difference_with_mean
@@ -91,7 +91,7 @@ class ProductDecorator < ApplicationDecorator
   end
 
   def difference_formatted
-    "#{difference_with_mean}<sub>Kg of CO2</sub>".html_safe
+    "#{difference_with_mean.abs}<sub>Kg of CO2</sub>".html_safe
   end
 
   def leaderboard_mini
@@ -108,4 +108,5 @@ class ProductDecorator < ApplicationDecorator
     end
     html_values.html_safe
   end
+
 end

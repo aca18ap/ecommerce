@@ -81,6 +81,10 @@ body{
     min-width: 12rem;
 }
 
+.w-30 {
+    width: 30%;
+}
+
 .suggested-products{
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
@@ -174,6 +178,10 @@ a:hover, a:visited, a:link, a:active
 
 #buy-price{
     font-size: x-large;
+}
+
+#buy_button_and_price{
+    position: relative;
 }
 
 #co2_right {

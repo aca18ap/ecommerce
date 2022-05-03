@@ -99,7 +99,7 @@ describe 'Products' do
     specify 'No recommendations are given if the viewed product is the greenest' do
       product.category.update_column(:mean_co2, product.co2_produced + 1)
       visit product_path(product)
-      expect(page).to have_content('This product is great, you should buy it ;)')
+      expect(page).to have_content('We recommend this product!!')
     end
   end
 
