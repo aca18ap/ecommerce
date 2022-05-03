@@ -98,13 +98,13 @@ class ProductDecorator < ApplicationDecorator
     html_values = ''
     product.category.products.order(:kg_co2_per_pounds).each_with_index do |p, i|
       p.co2_per_pounds if p.kg_co2_per_pounds.nil?
-      if p.id == id
-        html_values += "
-          <a id=current_product class='lboard_text_this flex-fill' href=/products/#{p.id}> #{i + 1} | #{p.name} <sub>#{p.kg_co2_per_pounds.round(3)}</sub></a><br>"
-      else
-        html_values += "
-          <a class='flex-fill lboard_text' href=/products/#{p.id}> #{i + 1} | #{p.name} <sub>#{p.kg_co2_per_pounds.round(3)}</sub></a><br>"
-      end
+      css_class = if p.id == id
+                    'lboard_text_this flex-fill'
+                  else
+                    'flex-fill lboard_text'
+                  end
+      html_values += "<a class=#{css_class} href=/products/#{p.id}>"
+      html_values += "#{i + 1} | #{p.name} <sub>#{p.kg_co2_per_pounds.round(3)}</sub></a><br>"
     end
     html_values.html_safe
   end

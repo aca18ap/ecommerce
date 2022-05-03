@@ -132,14 +132,14 @@ RSpec.describe ProductDecorator do
 
   describe '.difference_formatted' do
     it 'returns the difference with mean with unit' do
-      expect(product.difference_formatted).to eq(product.difference_with_mean.to_s + '<sub>Kg of CO2</sub>')
+      expect(product.difference_formatted).to eq("#{product.difference_with_mean}<sub>Kg of CO2</sub>")
     end
   end
 
   describe '.co2_in_car_km' do
     it 'returns how much co2 was saved in kilometers driven by car' do
       km = (product.difference_with_mean / 0.099).round(2)
-      expect(product.co2_in_car_km).to eq(km.to_s + "<sub>km</sub>")
+      expect(product.co2_in_car_km).to eq("#{km}<sub>km</sub>")
     end
   end
 end

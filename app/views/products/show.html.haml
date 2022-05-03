@@ -101,10 +101,10 @@
             .div
               .featureName{style: 'visibility: hidden'}= product.name
               = render 'layouts/share_icons'
-        // These values need more thought, just done styling for now
+        // Product statistics
         .row.pt-2.overflow-scroll
           .d-flex.cards.justify-content-between.card-deck
-            .card.w-25#card1
+            .card.m-2#card1
               .align-content-center.p-2
                 .card-body
                   %p.text-success.p-2.rounded.text-center Leaderboard CO2/£
@@ -115,17 +115,16 @@
                 %img= image_tag('footprint.jpg', class: 'card-img-bottom')
             
 
-            // figure out how to calculate
-            .card.w-25#card2
+            // How many of kg saved compared to average value
+            .card.m-2#card2
               .d-flex.align-items-center.h-100
                 .card-body.text-center
                   %h4 A save of
                   %h3{:style => 'font-size: 2em'}= product.difference_formatted
                   %h4 compared to similar products...
               
-            // I thought trees liked co2 lol
-            // will come back to it
-            .card.w-25#card3
+            //Changed it to km driven by car equivalent
+            .card.m-2#card3
               .card-body.text-center.d-flex.flex-column.justify-content-center
                 %h4 ...equivalent to 
                 %h3= product.co2_in_car_km
