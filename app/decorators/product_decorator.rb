@@ -108,5 +108,4 @@ class ProductDecorator < ApplicationDecorator
     end
     html_values.html_safe
   end
-
 end
