@@ -103,6 +103,8 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Exclude:
     - 'lib/rubocop/config_obsoletion.rb'
+    - 'app/decorators/product_decorator.rb'
+
 
 Metrics/ModuleLength:
   Exclude:
