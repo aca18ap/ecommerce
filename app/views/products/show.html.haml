@@ -90,22 +90,7 @@
 
       %br
 
-      - if product.difference_with_mean < 0
-        %h3.text-danger We wouldn't recommend this product
-        %h4.text-success Check out these greener alternatives
-      - else
-        .d-flex.justify-content-between
-          .row
-            %h3 We recommend this product!!
-            %h5 Check out similar green content
-          -# -# - else
-          -# .d-flex.justify-content-between
-          -#   %h3.text-center Understand this product
-       
-          .div
-            .div
-              .featureName{style: 'visibility: hidden'}= product.name
-              = render 'layouts/share_icons'
+      = product.recommendations
           
       .row.overflow-scroll.suggested-products
         .d-flex.flex-no-wrap

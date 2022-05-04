@@ -22,7 +22,7 @@ class ProductsController < ApplicationController
   # GET /products/1
   def show
     related_products = Category.find(@product.category_id).products
-    @suggestions = related_products.where('co2_produced < :mean_co2', { mean_co2: @product.category.mean_co2 })
+    @suggestions = related_products.where('co2_produced < :mean_co2', { mean_co2: (@product.category.mean_co2 * 0.8)})
     @product = @product.decorate
     @co2 = Co2Calculator.new(@product)
     @country = Country.new(@product.manufacturer_country)
