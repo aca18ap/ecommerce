@@ -111,20 +111,17 @@ class ProductDecorator < ApplicationDecorator
 
   def recommendations
     html_values = ''
-    if difference_with_mean < 0
+    if difference_with_mean.negative?
       html_values += '<h3 class=text-danger>We wouldn\'t recommend this product</h3>'
       html_values += '<h4 class=text-success>Check out these greener alternatives</h3>'
     else
       html_values += "<div class='d-flex justify-content-between'>"
-      html_values += '<div class=row>'
-      html_values += '<h3>We recommend this product!!</h3>'
+      html_values += '<div class=row><h3>We recommend this product!!</h3>'
       html_values += '<h5>Check out similar green content</h5></div>'
       html_values += "<div><div><div class=featureName style='visibility: hidden;'>#{product.name}</div>"
       html_values += h.render partial: 'layouts/share_icons'
-      html_values +=  "</div></div></div>"
+      html_values += '</div></div></div>'
     end
     html_values.html_safe
   end
-
-
 end
