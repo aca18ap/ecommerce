@@ -96,6 +96,17 @@ Rails.application.routes.draw do
   ## ===== Metrics ===== ##
   resources :metrics, only: %i[index create]
 
+  ## ===== Metrics Charts ===== #
+  get :product_categories_chart, to: 'metrics_graphs#product_categories_chart'
+  get :time_product_additions_chart, to: 'metrics_graphs#time_product_additions_chart'
+  get :affiliate_categories_chart, to: 'metrics_graphs#affiliate_categories_chart'
+  get :time_affiliate_views_chart, to: 'metrics_graphs#time_affiliate_views_chart'
+  get :visits_by_page_chart, to: 'metrics_graphs#visits_by_page_chart'
+  get :time_visits_chart, to: 'metrics_graphs#time_visits_chart'
+  get :vocation_registrations_chart, to: 'metrics_graphs#vocation_registrations_chart'
+  get :time_registrations_chart, to: 'metrics_graphs#time_registrations_chart'
+  get :feature_interest_chart, to: 'metrics_graphs#feature_interest_chart'
+
   ## ===== Shares ===== ##
   post 'shares', to: 'shares#create'
 

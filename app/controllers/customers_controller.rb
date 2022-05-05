@@ -68,10 +68,10 @@ class CustomersController < ApplicationController
   end
 
   def send_gon_variables
-    gon.timeCO2PerPurchase = CustomerMetrics.time_co2_per_purchase(@customer)
-    gon.timeTotalCO2 = CustomerMetrics.time_total_co2(@customer)
-    gon.timeCO2Saved = CustomerMetrics.time_co2_saved(@customer)
-    gon.timeCO2PerPound = CustomerMetrics.time_co2_per_pound(@customer)
-    gon.timeProductsTotal = CustomerMetrics.time_products_total(@customer)
+    # gon.timeCO2PerPurchase = CustomerMetrics.time_co2_per_purchase(@customer)
+    # gon.timeTotalCO2 = CustomerMetrics.time_total_co2(@customer)
+    # gon.timeCO2Saved = CustomerMetrics.time_co2_saved(@customer)
+    # gon.timeCO2PerPound = CustomerMetrics.time_co2_per_pound(@customer)
+    # gon.timeProductsTotal = CustomerMetrics.time_products_total(@customer)
   end
 end
