@@ -4,7 +4,6 @@
   font-weight: 300;
   background-color: var(--primary);
   font-size: 0.9em;
-  overflow: hidden;
   position:fixed;
   top: 0;
   width:100%;
@@ -22,10 +21,14 @@
   color: #93e5ab;
 }
 
+.dropdown-menu {
+  z-index: 2;
+}
 .dropdown-menu a{
   color: #00241b;
   text-decoration: none;
   padding-left:5px;
+  z-index: 2;
 }
 
 .dropdown-menu a:hover {
