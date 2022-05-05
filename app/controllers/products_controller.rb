@@ -58,7 +58,12 @@ class ProductsController < ApplicationController
 
   # PATCH/PUT /products/1
   def update
+    old_cat = @product.category
     if @product.update(product_params.except(:customer_purchased))
+      if old_cat.id != @product.category_id
+        @product.category.refresh_average
+        old_cat.refresh_average
+      end
       redirect_to @product, notice: 'Product was successfully updated.'
     else
       render :edit

@@ -28,13 +28,10 @@ class Category < ApplicationRecord
 
   # Only over products.size because this method is called on after_destroy hook
   def sub_from_mean_co2(product)
-    update(mean_co2: (((products.size ) * mean_co2) - product.co2_produced) / (products.size + 1))
+    update(mean_co2: (((products.size + 1) * mean_co2) - product.co2_produced) / products.size)
   end
 
-  def refresh_averages
-    Category.all.each do |c|
-      update(mean_co2: c.products.sum(:co2_produced)/c.products.size)
-    end
+  def refresh_average
+    update(mean_co2: (products.sum(:co2_produced) / products.size))
   end
-
 end
