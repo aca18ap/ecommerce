@@ -1,22 +1,23 @@
 = stylesheet_link_tag 'products'
 = include_gon
 
-// Back edit and destroy buttons
-#back-button.d-flex.flex-column.p-2
-  = link_to ' Back', :back, {class: 'fa fa-arrow-left'}
-  - if can?(:manage, Product)
-    %hr
-    = link_to 'Edit', edit_product_path(product)
-    %hr
-    = link_to 'Destroy', product, :method => :delete, :data => { :confirm => 'Are you sure?' }
-  - if can?(:create, ProductReport)
-    %hr
-    = link_to 'Report', new_product_report_path(:product_id => @product.id)
-
 
 .container-fluid.pad-edge
   .pt-2
   %p#notice= notice
+
+  // Back edit and destroy buttons
+  .btn.btn-ecommerce
+    = link_to 'Return', :back, {class: 'fa fa-arrow-left'}
+  .pull-right
+    - if can?(:manage, Product)
+      .btn.btn-ecommerce
+        = link_to 'Edit', edit_product_path(product)
+      .btn.btn-ecommerce
+        = link_to 'Destroy', product, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    - if can?(:create, ProductReport)
+      .btn.btn-ecommerce
+        = link_to 'Report', new_product_report_path(:product_id => @product.id)
 
 
   .row.py-3

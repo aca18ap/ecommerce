@@ -48,7 +48,7 @@
         .form-group
           = f.input :description
       %br
-      %button.btn.btn-primary.nextBtn.pull-right{type: 'button', href: '#'} Next
+      .btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
     .panel.panel-primary.setup-content#step2
       .panel-heading
         %h2.panel-title Mass and Price
@@ -59,7 +59,7 @@
         .form-group
           = f.input :price
       %br
-        %button.btn.btn-primary.nextBtn.pull-right{type: 'button', href: '#'} Next
+      .btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
 
     .panel.panel-primary.setup-content#step3
       .panel-heading
@@ -82,7 +82,7 @@
             %select.category_grandchild
 
         = f.input :category_id, :as => :hidden
-      %button.btn.btn-primary.nextBtn.pull-right{type: 'button', href: '#'} Next
+        .btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
 
     
     .panel.panel-primary.setup-content#step4
@@ -93,14 +93,16 @@
         = f.input :url
         = f.input :manufacturer
         = f.input :manufacturer_country
-      %button.btn.btn-primary.nextBtn.pull-right{type: 'button', href: '#'} Next
+      %br
+      .btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
     .panel.panel-primary.setup-content#step5
       .panel-heading
         %h2.panel-title Image
         %br
       .panel-body
         = f.file_field :image
-      %button.btn.btn-primary.nextBtn.pull-right{type: 'button', href: '#'} Next
+      .btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
+
 
 
   .panel.panel-primary.setup-content#step6
@@ -117,7 +119,8 @@
         .div
           %h4 Your materials should add up to 100%, missing:
           %h3#sum 0
-      %button.btn.btn-primary.nextBtn.pull-right{type: 'button', href: '#'} Next
+
+    .btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
 
   .panel.panel-primary.setup-content#step7
     .panel-heading
@@ -130,4 +133,5 @@
           %h2 Have you purchased this product?  
           = f.input :customer_purchased, label: 'I have purchased this product', as: :boolean, input_html: { checked: false }
         .btn.submit_btn= f.button :submit
+
 
