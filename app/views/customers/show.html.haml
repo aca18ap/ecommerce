@@ -34,15 +34,15 @@
       .container-fluid.tab-content
         .container-fluid.tab-pane.active#co2-purchase-tab
           %h2.d-inline= 'CO<sub>2</sub> Per Purchase'.html_safe
-          %svg#co2-purchased-graph.d-block.m-auto
+          = line_chart Customer.where(id: current_customer.id).joins(:products).group_by_day('purchase_histories.created_at', expand_range: true).average(:co2_produced), colors: ["#198754"], id: 'co2-purchased-graph'
 
         .container-fluid.tab-pane.mb-2#total-co2-tab
           %h2.d-inline= 'Total CO<sub>2</sub>'.html_safe
-          %svg#total-co2-graph.d-block.m-auto
+          = line_chart Customer.where(id: current_customer.id).joins(:products).group_by_day('purchase_histories.created_at', expand_range: true).sum(:co2_produced), colors: ["#198754"], id: 'total-co2-graph'
 
         .container-fluid.tab-pane#co2-saved-tab
           %h2.d-inline= 'CO<sub>2</sub> Saved'.html_safe
-          %svg#co2-saved-graph.d-block.m-auto
+          = line_chart(CustomerMetrics.time_co2_saved(current_customer))
 
         .container-fluid.tab-pane#co2-pound-tab
           %h2.d-inline= 'CO<sub>2</sub> Per £'.html_safe
@@ -50,7 +50,7 @@
 
         .container-fluid.tab-pane#products-added-tab
           %h2.d-inline= 'Products Added'
-          %svg#products-added-graph.d-block.m-auto
+          = line_chart Customer.where(id: current_customer.id).joins(:products).group_by_day('purchase_histories.created_at', expand_range: true).count, colors: ["#198754"], id: 'products-added-graph'
 
     .col-xl-5
       %h2.py-2= 'Recent Purchases'.html_safe

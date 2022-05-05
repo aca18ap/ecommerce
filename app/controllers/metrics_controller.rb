@@ -19,7 +19,7 @@ class MetricsController < ApplicationController
 
   def create
     # Don't track staff only pages
-    return if params[:path].match(/admin|reporter|staff/)
+    return if params[:path].match(/admin|reporter|staff/) || current_staff
 
     # Call to service class to find the longitude and latitude for a visit
     location = RetrieveLocation.new(params, request.remote_ip).location

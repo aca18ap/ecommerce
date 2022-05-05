@@ -22,7 +22,7 @@
 
     #affiliate-views-linechart-div.justify-content-center.bg-light-green.col-xl-6
       %h2#affiliate-views-linechart-title.text-center Affiliate Product Views Over Time (Total: #{@affiliate_views.size})
-      = line_chart Product.where.not(business_id: nil).group_by_day(:created_at, expand_range: true).count, colors: ["#198754"], id: 'affiliate-views-linechart-plot'
+      = line_chart Product.where.not(business_id: nil).group_by_hour(:created_at, expand_range: true).count, colors: ["#198754"], id: 'affiliate-views-linechart-plot'
 
   .row.m-3
     %h1.m-3.text-center Visitor Statistics

@@ -18,7 +18,7 @@ class CustomersController < ApplicationController
   # GET /customer/1
   def show
     # Sets customer if using authenticated customer root
-    @customer = Customer.includes(:products).find(current_customer.id) if @customer.nil?
+    @customer = Customer.includes(products: [:image_attachment]).find(current_customer.id) if @customer.nil?
     @customer = @customer.decorate
 
     send_gon_variables

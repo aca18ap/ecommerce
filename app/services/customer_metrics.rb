@@ -61,28 +61,38 @@ class CustomerMetrics < CalculateMetrics
       )
     end
 
+    def category_mean_co2_per_day(customer)
+      Customer.where(id: customer.id).joins(:categories)
+              .group_by_day('purchase_histories.created_at', expand_range: true)
+              .sum(:mean_co2)
+    end
+
+    def product_co2_produced_per_day(customer)
+      Customer.where(id: customer.id).joins(:products)
+              .group_by_day('purchase_histories.created_at', expand_range: true)
+              .sum(:co2_produced)
+    end
+
     def time_co2_saved(customer)
-      insert_zero_entries(
-        Customer.where(id: customer.id)
-                .joins(:products, :categories)
-                .group("date_trunc('day', purchase_histories.created_at)")
-                .select("date_trunc('day', purchase_histories.created_at) AS day," \
-                        'SUM(categories.mean_co2 - products.co2_produced) / SQRT(COUNT(products)) AS co2_saved')
-                .map { |day| { day.day.to_i => day.co2_saved.round(1) } }
-                .reduce({}, :update)
-      )
+      thing = category_mean_co2_per_day(customer).map { |k, v| { k => v - product_co2_produced_per_day(customer)[k] } }
+      puts thing
+      thing
     end
 
     def time_co2_per_pound(customer)
-      insert_zero_entries(
-        Customer.where(id: customer.id)
-                .joins(:products)
-                .group("date_trunc('day', purchase_histories.created_at)")
-                .select("date_trunc('day', purchase_histories.created_at) AS day," \
-                        'SUM(products.co2_produced) / SUM(products.price) AS co2_per_pound')
-                .map { |day| { day.day.to_i => day.co2_per_pound.round(1) } }
-                .reduce({}, :update)
-      )
+      # insert_zero_entries(
+      #   Customer.where(id: customer.id)
+      #           .joins(:products)
+      #           .group("date_trunc('day', purchase_histories.created_at)")
+      #           .select("date_trunc('day', purchase_histories.created_at) AS day," \
+      #                   'SUM(products.co2_produced) / SUM(products.price) AS co2_per_pound')
+      #           .map { |day| { day.day.to_i => day.co2_per_pound.round(1) } }
+      #           .reduce({}, :update)
+      # )
+
+      products = Customer.where(id: customer.id).joins(:products)
+                         .group_by_day('purchase_histories.created_at', expand_range: true)
+                         .sum(:co2_produced)
     end
 
     def time_products_total(customer)
