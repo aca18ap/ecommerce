@@ -6,6 +6,11 @@ class CustomersController < ApplicationController
   before_action :authenticate_customer!, except: :unlock
   before_action :set_customer, except: %i[create new]
 
+  # GET /customer
+  def index
+    redirect_back fallback_location: root_path
+  end
+
   def create; end
 
   def new; end

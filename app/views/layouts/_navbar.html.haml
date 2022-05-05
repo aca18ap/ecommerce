@@ -11,9 +11,6 @@
           - if can?(:read, Product)
             %li
               = link_to 'Products', products_path, class: 'nav-link px-2', title: 'View products'
-          - if can?(:read, Business)
-            %li
-              = link_to 'Affiliates', businesses_path, class: 'nav-link px-2', title: 'Directory'
           - if can?(:read, Faq)
             %li
               = link_to 'FAQs', faqs_path, class: 'nav-link px-2', title: 'Frequently asked questions'

@@ -6,7 +6,7 @@ RSpec.describe 'Business', type: :request do
   describe 'GET /business/:id/' do
     let(:business) { FactoryBot.create(:business) }
     it 'If I visit the profile URL I see the profile' do
-      get businesses_path(business)
+      get business_path(business)
       expect(response).to be_successful
     end
   end
@@ -48,7 +48,7 @@ RSpec.describe 'Business', type: :request do
     end
 
     it 'I can view a business\' profile' do
-      get businesses_path(business)
+      get business_path(business)
       expect(response).to be_successful
     end
 

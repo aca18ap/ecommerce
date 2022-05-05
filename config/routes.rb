@@ -40,7 +40,7 @@ Rails.application.routes.draw do
   authenticated :staff, ->(u) { u.reporter? } do
     root to: 'staffs#show', as: :authenticated_reporter_root
   end
-  resources :staffs, path: 'staff', only: %i[show edit update destroy] do
+  resources :staffs, path: 'staff', only: %i[show edit index update destroy] do
     patch :unlock, on: :member
     patch :invite, on: :member
   end
