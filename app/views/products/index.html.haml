@@ -35,9 +35,8 @@
   %hr
 
   .products.row
-    - products.each do |product| 
-      .col-3
-        = render partial: 'suggested_product_card', locals: {p: product.decorate}
+    - products.each do |product|
+      = render partial: 'suggested_product_card', locals: {p: product.decorate}
    
   %br
 

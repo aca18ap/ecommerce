@@ -90,7 +90,7 @@ describe 'Customer metrics' do
         expect(CustomerMetrics.time_co2_per_purchase(customer)).to eq nil
       end
 
-      it 'returns the average co2 per purchase per day for a customer if there are purchases' do
+      def test_co2_purchases
         purchase1 = insert_purchases(product.id, customer.id, (Time.now - 2.days))
         purchase2 = insert_purchases(product2.id, customer.id, Time.now)
 
@@ -100,6 +100,18 @@ describe 'Customer metrics' do
            { 'time' => purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => product2.co2_produced.round(1) }]
         )
       end
+
+      it 'returns the correct average co2 per purchase per day for a customer if there are purchases in the morning' do
+        travel_to Time.zone.local(2022, 0o5, 0o5, 0o1, 0o0, 0o0)
+        freeze_time
+        test_co2_purchases
+      end
+
+      it 'returns the correct average co2 per purchase per day for a customer if there are purchases in the afternoon' do
+        travel_to Time.zone.local(2022, 0o5, 0o5, 13, 0o0, 0o0)
+        freeze_time
+        test_co2_purchases
+      end
     end
 
     describe '.time_total_co2' do
@@ -107,7 +119,7 @@ describe 'Customer metrics' do
         expect(CustomerMetrics.time_total_co2(customer)).to eq nil
       end
 
-      it 'returns the total co2 produced per day for a customer if there are purchases' do
+      def test_co2_total
         purchase1 = insert_purchases(product.id, customer.id, (Time.now - 2.days))
         purchase2 = insert_purchases(product2.id, customer.id, Time.now)
 
@@ -117,6 +129,18 @@ describe 'Customer metrics' do
            { 'time' => purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => product2.co2_produced.round(1) }]
         )
       end
+
+      it 'returns the correct total co2 produced per day for a customer if there are purchases in the morning' do
+        travel_to Time.zone.local(2022, 0o5, 0o5, 0o1, 0o0, 0o0)
+        freeze_time
+        test_co2_total
+      end
+
+      it 'returns the correct total co2 produced per day for a customer if there are purchases in the afternoon' do
+        travel_to Time.zone.local(2022, 0o5, 0o5, 13, 0o0, 0o0)
+        freeze_time
+        test_co2_total
+      end
     end
 
     describe '.time_co2_saved' do
@@ -124,7 +148,7 @@ describe 'Customer metrics' do
         expect(CustomerMetrics.time_co2_saved(customer)).to eq nil
       end
 
-      it 'returns the total co2 produced per day for a customer if there are purchases' do
+      def test_co2_saved
         purchase1 = insert_purchases(product.id, customer.id, (Time.now - 2.days))
         purchase2 = insert_purchases(product2.id, customer.id, Time.now)
 
@@ -134,6 +158,18 @@ describe 'Customer metrics' do
            { 'time' => purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => (product.category.mean_co2 - product.co2_produced).round(1) }]
         )
       end
+
+      it 'returns the correct total co2 produced per day for a customer if there are purchases in the morning' do
+        travel_to Time.zone.local(2022, 0o5, 0o5, 0o1, 0o0, 0o0)
+        freeze_time
+        test_co2_saved
+      end
+
+      it 'returns the correct total co2 produced per day for a customer if there are purchases in the afternoon' do
+        travel_to Time.zone.local(2022, 0o5, 0o5, 13, 0o0, 0o0)
+        freeze_time
+        test_co2_saved
+      end
     end
 
     describe '.time_co2_per_pound' do
@@ -141,7 +177,7 @@ describe 'Customer metrics' do
         expect(CustomerMetrics.time_co2_per_pound(customer)).to eq nil
       end
 
-      it 'returns the co2 per pound metric per day for a customer if there are purchases' do
+      def test_co2_per_pound
         purchase1 = insert_purchases(product.id, customer.id, (Time.now - 2.days))
         purchase2 = insert_purchases(product2.id, customer.id, Time.now)
 
@@ -151,6 +187,18 @@ describe 'Customer metrics' do
            { 'time' => purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => (product2.co2_produced / product2.price).round(1) }]
         )
       end
+
+      it 'returns the correct co2 per pound metric per day for a customer if there are purchases in the morning' do
+        travel_to Time.zone.local(2022, 0o5, 0o5, 0o1, 0o0, 0o0)
+        freeze_time
+        test_co2_per_pound
+      end
+
+      it 'returns the correct co2 per pound metric per day for a customer if there are purchases in the afternoon' do
+        travel_to Time.zone.local(2022, 0o5, 0o5, 13, 0o0, 0o0)
+        freeze_time
+        test_co2_per_pound
+      end
     end
 
     describe '.time_products_total' do
@@ -158,7 +206,7 @@ describe 'Customer metrics' do
         expect(CustomerMetrics.time_products_total(customer)).to eq nil
       end
 
-      it 'returns the number of products added per day for a customer if there are purchases' do
+      def test_products_total
         purchase1 = insert_purchases(product.id, customer.id, (Time.now - 2.days))
         purchase2 = insert_purchases(product2.id, customer.id, Time.now)
 
@@ -167,6 +215,18 @@ describe 'Customer metrics' do
            { 'time' => (purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day).to_i, 'value' => 0 },
            { 'time' => purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => 1 }]
         )
+      end
+
+      it 'returns the correct number of products added per day for a customer if there are purchases in the morning' do
+        travel_to Time.zone.local(2022, 0o5, 0o5, 0o1, 0o0, 0o0)
+        freeze_time
+        test_products_total
+      end
+
+      it 'returns the correct number of products added per day for a customer if there are purchases in the afternoon' do
+        travel_to Time.zone.local(2022, 0o5, 0o5, 13, 0o0, 0o0)
+        freeze_time
+        test_products_total
       end
     end
 

@@ -196,6 +196,28 @@ RSpec.describe '/products', type: :request do
       delete product_url(product)
       expect(response).to redirect_to(products_url)
     end
+
+    it 'allows a business to delete their own product' do
+      business = FactoryBot.create(:business)
+      login_as(business, scope: :business)
+
+      product = FactoryBot.create(:product, business_id: business.id)
+      delete product_url(product)
+      expect(response).to be_successful
+    end
+
+    it 'does not allow a business to delete another business\' product' do
+      business = FactoryBot.create(:business)
+      login_as(business, scope: :business)
+
+      product = FactoryBot.create(:product, business_id: 15)
+      puts product.business_id
+      puts business.id
+      puts business.products.first
+      delete product_url(product)
+      puts Product.count
+      expect(response).to_not be_successful
+    end
   end
 
   describe 'If I am not logged in as an admin' do

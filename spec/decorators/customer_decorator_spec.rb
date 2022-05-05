@@ -57,11 +57,14 @@ RSpec.describe CustomerDecorator do
 
   describe '.co2_saved' do
     it 'returns "N/A" if a customer has no products in their purchase history' do
-      expect(customer.total_co2_produced).to eq({ customer: 'N/A', site: 0, valence: 'average' })
+      expect(customer.co2_saved).to eq({ customer: 'N/A', site: 0, valence: 'average' })
     end
 
     it 'returns the total CO2 saved, rounded to one decimal place if there are purchases in their history' do
-      skip 'Needs implementing'
+      insert_purchases
+
+      site_mean = (product.category.mean_co2 - product.co2_produced).round(1)
+      expect(customer.co2_saved).to eq({ customer: (product.category.mean_co2 - product.co2_produced).round(1), site: site_mean, valence: 'average' })
     end
   end
 

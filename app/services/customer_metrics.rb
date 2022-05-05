@@ -62,16 +62,6 @@ class CustomerMetrics < CalculateMetrics
     end
 
     def time_co2_saved(customer)
-      thing = Customer.where(id: customer.id)
-                      .joins(:products, :categories)
-                      .group("date_trunc('day', purchase_histories.created_at)")
-                      .select("date_trunc('day', purchase_histories.created_at) AS day," \
-                              'SUM(categories.mean_co2 - products.co2_produced) / SQRT(COUNT(products)) AS co2_saved')
-                      .map { |day| { day.day.to_i => day.co2_saved.round(1) } }
-                      .reduce({}, :update)
-
-      puts thing
-
       insert_zero_entries(
         Customer.where(id: customer.id)
                 .joins(:products, :categories)
