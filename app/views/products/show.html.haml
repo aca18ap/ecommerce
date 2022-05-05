@@ -28,22 +28,21 @@
         %br
 
       // Buy button and price
-      .offset-y.d-flex.justify-content-between
-        .border.shadow-lg
+      .offset-y.text-center#buy_button_and_price
+        .border.shadow-lg.flex-fill
           %a.btn.fa-solid.fa-cart-shopping#buy-price{:href=>product.url, text: "Buy now"}
             Buy now
             %i=fa_icon('cart-shopping')
+          #buy-price= product.price_with_currency
 
         - if current_customer
-          .border.shadow-lg
+          .border.shadow-lg.flex-fill
             = link_to 'Already Purchased?', new_purchase_history_path(product_id: product.id), id: 'add-to-history-button', remote: true, class: 'btn fa-solid fa-cart-shopping', data: { toggle: "modal", target: '#purchase-history-modal.modal' }
 
-        .border.shadow-lg
-          #buy-price{:style => 'font-size: 1.75em'}= product.price_with_currency
       %br
 
       // Description
-      .row#description
+      .row.w-100#description
         %p.collapse#descriptionText{'aria-expanded' => 'false' }= product.description
         %a.button.collapsed{'data-toggle' => 'collapse', href: '#descriptionText', 'aria-expanded' => 'false', 'aria-controls'=>'descriptionText'}
     
@@ -58,7 +57,10 @@
             %br
 
             %h4.center We estimate that...
-            %h1.center= product.co2_produced_with_unit
+            - if product.difference_with_mean > 0
+              %h1.text-success.center= product.co2_produced_with_unit
+            - else
+              %h1.text-danger.center= product.co2_produced_with_unit
             %h4.center  ...were produced in the making of this product
 
             %br
@@ -87,47 +89,53 @@
                 %h6.breakdown= "...roughly #{content_tag(:strong, (product.co2_produced - @co2.materials_factor).round(2))} kg"
 
       %br
+      = product.category.mean_co2
+      = product.recommendations
+          
+      .row.overflow-scroll.suggested-products
+        .d-flex.flex-no-wrap
+          = product.greener_suggestions(@suggestions)
 
-      - if @suggestions.length > 0
-        %h4 Check out these greener alternatives
-        .row.overflow-scroll.suggested-products
-          .d-flex.flex-no-wrap
-            = product.greener_suggestions(@suggestions)
+    %hr
 
-      - else
-        .d-flex.justify-content-between
-          %h3.text-center This product is great, you should buy it ;)
-          .div
-            .div
-              .featureName{style: 'visibility: hidden'}= product.name
-              = render 'layouts/share_icons'
-        // These values need more thought, just done styling for now
-        .row.pt-2
-          .d-flex.cards.justify-content-between.card-deck
-            .card.w-25
-              .align-content-center.p-2
-                .card-body.text-center
-                  %h4 kgCO2/£
-                  %h3= product.co2_per_pound
-                %img= image_tag('footprint.jpg', class: 'card-img-bottom')
-            
-            // TODO How product compares to others, to
-            // figure out how to calculate
-            .card.w-25
-              .d-flex.align-items-center.h-100
-                .card-body.text-center
-                  %h4 Better than
-                  %h3{:style => 'font-size: 3.5em'} 93%
-                  %h4 of products
-              
-            // TODO I dont even know if trees saved makes sense
-            // I thought trees liked co2 lol
-            // will come back to it
-            .card.w-25
-              .card-body.text-center
-                %h4 Trees saved
-                %h3= 1
-              %img.card-img-bottom= image_tag('trees-saved.gif')
+    // Product statistics
+    .row.pt-2.overflow-scroll
+      %h3 Understand this product
+      .d-flex.cards.justify-content-between.card-deck
+        .card.w-30.m-2#card1
+          .align-content-center.p-2
+            .card-body
+              %p.text-success.p-2.rounded.text-center Leaderboard CO2/£
+              #scrollable.masked-overflow
+                .card-text.d-flex.flex-column.list-group#leaderboard              
+                  = product.leaderboard_mini
+                %p.alert-danger.p-2.rounded.text-center ... not good ...
+            %img= image_tag('footprint.jpg', class: 'card-img-bottom')
+        
+
+        // How many of kg saved compared to average value
+        .card.m-2.w-30#card2
+          .d-flex.align-items-center.h-100
+            .card-body.text-center
+              - if product.difference_with_mean > 0
+                %h4 A save of
+                %h3{:style => 'font-size: 2em'}= product.difference_formatted
+                %h4 compared to similar products...
+              - else
+                %h4 An extra emission of
+                %h3.text-danger{:style => 'font-size: 2em'}= product.difference_formatted
+                %h4 above the average similar product...
+                
+        //Changed it to km driven by car equivalent
+        .card.m-2.w-30#card3
+          .card-body.text-center.d-flex.flex-column.justify-content-center
+            %h4 ...equivalent to 
+            - if product.difference_with_mean > 0
+              %h3= product.co2_in_car_km
+            -else 
+              %h3.text-danger= product.co2_in_car_km
+            %h4 driven by car!
+          %img.card-img-bottom= image_tag('carCO2.jpg')
 
   %hr
 

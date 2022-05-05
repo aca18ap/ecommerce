@@ -1,10 +1,13 @@
 // Place all the styles related to the Products controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
-
-::-webkit-scrollbar {
-    display: none;
+html {
+    scroll-behavior: smooth;
 }
+
+// ::-webkit-scrollbar {
+//     display: none;
+// }
 
 body{
     overflow-x: hidden;
@@ -76,6 +79,10 @@ body{
 .card{
     margin-right: 5px;
     min-width: 12rem;
+}
+
+.w-30 {
+    width: 30%;
 }
 
 .suggested-products{
@@ -173,6 +180,10 @@ a:hover, a:visited, a:link, a:active
     font-size: x-large;
 }
 
+#buy_button_and_price{
+    position: relative;
+}
+
 #co2_right {
     width: 0px;
     //transition: all 0.8s ease;
@@ -186,6 +197,99 @@ a:hover, a:visited, a:link, a:active
 	box-shadow: 15 15 15 5 rgb(50, 87, 6);
     border-radius: 25px;
 	animation: pulse 2s infinite;
+}
+
+#card1 {
+    animation: fadeInAnimation 1s .0s ease-out forwards;
+    opacity: 0;
+}
+#card2 {
+    animation: fadeInAnimation 1s 1.2s ease-out forwards;
+    opacity: 0;
+}
+#card3 {
+    animation: fadeInAnimation 1s 2.4s ease-out forwards;
+    opacity: 0;
+}
+
+.masked-overflow {
+    /* scroll bar width, for use in mask calculations */
+    --scrollbar-width: 8px;
+
+    /* mask fade distance, for use in mask calculations */
+    --mask-height: 32px;
+
+    /* If content exceeds height of container, overflow! */
+    overflow-y: scroll;
+
+    /* Our height limit */
+    height: 100%;
+
+    /* Need to make sure container has bottom space,
+  otherwise content at the bottom is always faded out */
+    padding-bottom: var(--mask-height);
+
+
+    /* The content mask is a linear gradient from top to bottom */
+    --mask-image-content: linear-gradient(
+        to bottom,
+        transparent,
+        black var(--mask-height),
+        black calc(100% - var(--mask-height)),
+        transparent
+    );
+
+    /* Here we scale the content gradient to the width of the container 
+  minus the scrollbar width. The height is the full container height */
+    --mask-size-content: 100% 100%;
+
+    /* The scrollbar mask is a black pixel */
+    --mask-image-scrollbar: linear-gradient(black, black);
+
+
+    /* Apply the mask image and mask size variables */
+    mask-image: var(--mask-image-content), var(--mask-image-scrollbar);
+    mask-size: var(--mask-size-content), var(--mask-size-scrollbar);
+
+    /* Position the content gradient in the top left, and the 
+  scroll gradient in the top right */
+    mask-position: 0 0, 100% 0;
+
+    /* We don't repeat our mask images */
+    mask-repeat: no-repeat, no-repeat;
+}
+
+
+#scrollable {
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    height: 200px
+}
+
+.lboard_text{
+    font-size: smaller;
+    width: 100%;
+}
+
+.lboard_text_this{
+    font-size: medium;
+    background-color: darkgreen;
+    border-radius: 5px;
+    padding: 2%;
+    color: white;
+   
+}
+
+#current_product:hover {
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+a:hover {
+    color: green;
 }
 
 @keyframes pulse {
@@ -268,4 +372,21 @@ a:hover, a:visited, a:link, a:active
     line-height: 1.428571429;
     border-radius: 15px;
 }
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 2px;
+  }
+  
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 

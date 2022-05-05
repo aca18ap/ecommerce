@@ -122,4 +122,24 @@ RSpec.describe ProductDecorator do
       expect(product.full_country_name).to eq 'Vietnam'
     end
   end
+
+  describe '.difference_with_mean' do
+    it 'returns how much co2 is saved than the avg product' do
+      calc = (product.category.mean_co2 - product.co2_produced).round(2)
+      expect(product.difference_with_mean).to eq(calc)
+    end
+  end
+
+  describe '.difference_formatted' do
+    it 'returns the difference with mean with unit' do
+      expect(product.difference_formatted).to eq("#{product.difference_with_mean}<sub>Kg of CO2</sub>")
+    end
+  end
+
+  describe '.co2_in_car_km' do
+    it 'returns how much co2 was saved in kilometers driven by car' do
+      km = (product.difference_with_mean / 0.099).round(2)
+      expect(product.co2_in_car_km).to eq("#{km}<sub>km</sub>")
+    end
+  end
 end

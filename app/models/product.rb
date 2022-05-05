@@ -7,6 +7,7 @@
 #  id                   :bigint           not null, primary key
 #  co2_produced         :float
 #  description          :string
+#  kg_co2_per_pounds    :float
 #  manufacturer         :string
 #  manufacturer_country :string
 #  mass                 :float
@@ -34,6 +35,7 @@ class Product < ApplicationRecord
 
   after_save :co2
   after_save :add_to_category_mean
+  after_save :co2_per_pounds
   after_destroy :sub_from_category_mean
 
   has_one_attached :image, dependent: :destroy
@@ -63,6 +65,10 @@ class Product < ApplicationRecord
   # Gets the 'created_at' time truncated to the nearest hour
   def hour
     DateTime.parse(created_at.to_s).change({ min: 0, sec: 0 })
+  end
+
+  def co2_per_pounds
+    update_column(:kg_co2_per_pounds, co2_produced / price)
   end
 
   private

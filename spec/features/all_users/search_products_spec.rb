@@ -21,25 +21,35 @@ describe 'Search Products' do
     end
 
     specify 'I can sort search results by ascending order' do
-      skip 'Generate required test data with Factorybot'
-      # visit '/'
-      # fill_in 'search_term', with: 'Test'
-      # click_button
-      # select 'name', from: 'sort_by'
-      # select 'ascending', from: 'order_by'
-      # click_button
-      # expect('ProductA').to appear_before('ProductB')
+      (1..9).each do |i|
+        FactoryBot.create(:product, name: "Product #{i}", url: "https://www.test#{i}")
+      end
+      visit products_path
+      fill_in 'search_term', with: 'Product'
+      click_button
+      find(:css, '#filters').click
+      select 'name', from: 'sort_by'
+      select 'ascending', from: 'order_by'
+      find(:css, '#submit_filter').click
+      within(:css, '.products') do
+        expect('Product 1').to appear_before('Product 2')
+      end
     end
 
     specify 'I can sort search results by descending order' do
-      skip 'Generate required test data with Factorybot'
-      # visit '/'
-      # fill_in 'search_term', with: 'Test'
-      # click_button
-      # select 'name', from: 'sort_by'
-      # select 'descending', from: 'order_by'
-      # click_button
-      # expect('ProductB').to appear_before('ProductA')
+      (1..9).each do |i|
+        FactoryBot.create(:product, name: "Product #{i}", url: "https://www.test#{i}")
+      end
+      visit products_path
+      fill_in 'search_term', with: 'Product'
+      click_button
+      find(:css, '#filters').click
+      select 'name', from: 'sort_by'
+      select 'descending', from: 'order_by'
+      find(:css, '#submit_filter').click
+      within(:css, '.products') do
+        expect('Product 2').to appear_before('Product 1')
+      end
     end
 
     specify 'I cannot perform an XSS injection attack' do

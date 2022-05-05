@@ -50,6 +50,11 @@ cats.each do |c|
 end
 
 
+## fix
+Product.all.each do |p|
+  p.update(category_id: Category.find(Category.pluck(:id).sample).id)
+end
+
 ## Products
 prng = Random.new
 100.times do |i|
@@ -63,3 +68,5 @@ prng = Random.new
     price: (prng.rand(1..200) - 0.01),
     products_material: [ProductsMaterial.new(material_id: prng.rand(1..8), percentage: 100)])
 end
+
+

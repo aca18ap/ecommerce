@@ -91,15 +91,15 @@ describe 'Products' do
     end
 
     specify 'I can view greener alternatives' do
-      greener_product = FactoryBot.create(:product, name: 'greener product', url: 'http://www.not_a_drill.com', category_id: product.category_id, mass: 0.1)
+      product.category.update_column(:mean_co2, product.co2_produced - 1)
       visit product_path(product)
-      expect(page).to have_content(greener_product.name)
+      expect(page).to have_content('Check out these greener alternatives')
     end
 
     specify 'No recommendations are given if the viewed product is the greenest' do
-      dirty_product = FactoryBot.create(:product, name: 'greener product', url: 'http://www.not_a_drill.com', category_id: product.category_id, mass: 100)
+      product.category.update_column(:mean_co2, product.co2_produced + 1)
       visit product_path(product)
-      expect(page).not_to have_content(dirty_product.name)
+      expect(page).to have_content('We recommend this product!!')
     end
   end
 

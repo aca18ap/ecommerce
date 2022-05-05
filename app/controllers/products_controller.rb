@@ -21,8 +21,7 @@ class ProductsController < ApplicationController
 
   # GET /products/1
   def show
-    related_products = Category.find(@product.category_id).products
-    @suggestions = related_products.where('co2_produced < :co2_produced', { co2_produced: @product.co2_produced })
+    @suggestions = load_suggestions
     @product = @product.decorate
     @co2 = Co2Calculator.new(@product)
     @country = Country.new(@product.manufacturer_country)
@@ -59,7 +58,12 @@ class ProductsController < ApplicationController
 
   # PATCH/PUT /products/1
   def update
+    old_cat = @product.category
     if @product.update(product_params.except(:customer_purchased))
+      if old_cat.id != @product.category_id
+        @product.category.refresh_average
+        old_cat.refresh_average
+      end
       redirect_to @product, notice: 'Product was successfully updated.'
     else
       render :edit
@@ -110,5 +114,10 @@ class ProductsController < ApplicationController
 
   def load_categories
     gon.push({ categories: Category.arrange_serializable })
+  end
+
+  def load_suggestions
+    related_products = Category.find(@product.category_id).products.where.not(id: @product.id)
+    related_products.where('co2_produced < :mean_co2', { mean_co2: @product.category.mean_co2 })
   end
 end

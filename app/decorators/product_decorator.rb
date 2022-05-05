@@ -29,7 +29,7 @@ class ProductDecorator < ApplicationDecorator
       width = meta['width'] if width.nil?
       h.image_tag(image, class: 'img-fluid', size: "#{height}x#{width}", alt: description)
     else
-      h.image_tag('default-image.jpg', class: 'img-fluid round-image', size: "#{height}x#{width}", alt: description)
+      h.image_tag('default-image.jpg', class: 'img-fluid', size: "#{height}x#{width}", alt: description)
     end
   end
 
@@ -79,5 +79,49 @@ class ProductDecorator < ApplicationDecorator
 
   def full_country_name
     Country.new(manufacturer_country).common_name
+  end
+
+  ## https://www.carbonindependent.org/17.html#:~:text=A%20second%20estimate%20(not%20used,i.e.%20a%20considerably%20higher%20estimate.
+  def co2_in_car_km
+    "#{(difference_with_mean / 0.099).round(2).abs}<sub>km</sub>".html_safe
+  end
+
+  def difference_with_mean
+    (category.mean_co2 - co2_produced).round(2)
+  end
+
+  def difference_formatted
+    "#{difference_with_mean.abs}<sub>Kg of CO2</sub>".html_safe
+  end
+
+  def leaderboard_mini
+    html_values = ''
+    product.category.products.order(:kg_co2_per_pounds).each_with_index do |p, i|
+      p.co2_per_pounds if p.kg_co2_per_pounds.nil?
+      css_class = if p.id == id
+                    'lboard_text_this flex-fill'
+                  else
+                    'flex-fill lboard_text'
+                  end
+      html_values += "<a class=#{css_class} href=/products/#{p.id}>"
+      html_values += "#{i + 1} | #{p.name} <sub>#{p.kg_co2_per_pounds.round(3)}</sub></a><br>"
+    end
+    html_values.html_safe
+  end
+
+  def recommendations
+    html_values = ''
+    if difference_with_mean.negative?
+      html_values += '<h3 class=text-danger>We wouldn\'t recommend this product</h3>'
+      html_values += '<h4 class=text-success>Check out these greener alternatives</h3>'
+    else
+      html_values += "<div class='d-flex justify-content-between'>"
+      html_values += '<div class=row><h3>We recommend this product!!</h3>'
+      html_values += '<h5>Check out similar green content</h5></div>'
+      html_values += "<div><div><div class=featureName style='visibility: hidden;'>#{product.name}</div>"
+      html_values += h.render partial: 'layouts/share_icons'
+      html_values += '</div></div></div>'
+    end
+    html_values.html_safe
   end
 end
