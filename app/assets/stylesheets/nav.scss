@@ -4,6 +4,11 @@
   font-weight: 300;
   background-color: var(--primary);
   font-size: 0.9em;
+  overflow: hidden;
+  position:fixed;
+  top: 0;
+  width:100%;
+  z-index: 9;
 }
 
 .custom-nav-fonts,
