@@ -86,16 +86,12 @@ group :development do
   gem 'capistrano-rvm', require: false
 
   gem 'annotate'
-  gem 'bullet'
   gem 'letter_opener'
 end
 
 group :test do
-<<<<<<< HEAD
-  gem 'bullet'
-=======
   gem 'axe-core-rspec'
->>>>>>> Added accessibility tests
+  gem 'bullet'
   gem 'capybara'
   gem 'factory_bot_rails'
   gem 'webdrivers'
