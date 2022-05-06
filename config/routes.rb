@@ -2,7 +2,6 @@
 
 Rails.application.routes.draw do
 
-  resources :categories
   ## ===== System Users and Accounts ===== ##
   devise_for :customers, path: 'customer',
                          controllers: { sessions: 'customers/sessions', registrations: 'customers/registrations' }
@@ -66,6 +65,12 @@ Rails.application.routes.draw do
   ## ===== Products ===== ## 
   resources :products
   resources :materials
+
+  ## ===== Categories ===== #
+  resources :categories
+
+  ## ===== Affiliate Products ===== ##
+  resources :affiliate_product_view, only: :destroy
 
   ## ==== Product Reports ==== ##
   resources :product_reports, except: [:edit, :update]

@@ -89,7 +89,6 @@
                 %h6.breakdown= "...roughly #{content_tag(:strong, (product.co2_produced - @co2.materials_factor).round(2))} kg"
 
       %br
-      = product.category.mean_co2
       = product.recommendations
           
       .row.overflow-scroll.suggested-products

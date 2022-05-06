@@ -6,7 +6,7 @@ set :application,             'project'
 set :branch,                  -> { fetch(:stage) }
 set :linked_files,
     fetch(:linked_files, fetch(:env_links, [])).push('config/database.yml', 'config/secrets.yml')
-set :linked_dirs,             fetch(:linked_dirs, []).push('log', 'tmp/pids', 'uploads')
+set :linked_dirs,             fetch(:linked_dirs, []).push('log', 'tmp/pids', 'uploads', 'storage')
 # set the locations to look for changed assets to determine whether to precompile
 set :assets_dependencies,     %w[app/assets lib/assets vendor/assets]
 set :branch,                  -> { fetch(:stage) }

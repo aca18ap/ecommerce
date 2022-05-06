@@ -112,7 +112,7 @@ class CalculateMetrics
                     1.hour
                   end
 
-      earliest_time = data_hash.first[0]
+      earliest_time = data_hash.keys.min
 
       data_arr = []
       (earliest_time.to_i..latest_time.to_i).step(step_size) do |date|
@@ -145,11 +145,7 @@ class CalculateMetrics
 
     # Method to return the correct time to stop extra entry being added for any time in the morning
     def latest_time
-      if Time.now.hour > 12
-        (Time.now + 1.day).change({ hour: 0, min: 0, sec: 0 })
-      else
-        (Time.now).change({ hour: 0, min: 0, sec: 0 })
-      end
+      (Time.now + 1.day).change({ hour: 0, min: 0, sec: 0 })
     end
 
     # Identifies whether a session led to a registration by checking for /newsletters/# in path
