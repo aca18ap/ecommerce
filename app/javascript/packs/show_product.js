@@ -1,8 +1,5 @@
 import { Loader } from "@googlemaps/js-api-loader";
 
-document.getElementById("openBtn").addEventListener("click", openNav); 
-document.getElementById("closeBtn").addEventListener("click", closeNav); 
-
 /* Set the width of the sidebar to 250px and the left margin of the page content to 10% (side-padding) */
 function openNav() {
   document.getElementById("mySidebar").style.width = "10%";
@@ -16,14 +13,19 @@ function closeNav() {
 } 
 
 /**
- * Click listener for CO2 breakdown chevron
+ * Click listeners for CO2 breakdown chevron and menus
  */
 $(function(){
   $('#chevron').on('click', function(){
     toggleDetails()
   })
   setTimeout(scrollLeaderboard, 2000)
-  
+  $('#openBtn').on('click', function(){
+    openNav()
+  })
+  $('#closeBtn').on('click', function(){
+    closeNav()
+  })
 })
 
 function scrollLeaderboard(){

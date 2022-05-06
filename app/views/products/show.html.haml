@@ -4,7 +4,7 @@
 // Control options hidden in sidebar menu
 #mySidebar.sidebar
   .admin-tasks.pt-5
-    %a#closeBtn.button.closebtn{:href => "javascript:void(0)", :onclick => "closeNav()"} ×
+    %a#closeBtn.button.closebtn ×
     .btn.btn-ecommerce.w-100
       = link_to 'Return ↶', :back
 
@@ -18,7 +18,7 @@
       .btn.btn-ecommerce.my-2
         = link_to 'Report', new_product_report_path(:product_id => @product.id)
 #main
-  %a#openBtn{:onclick => "openNav()"} > Admin Tasks ☰ 
+  %a#openBtn Admin Tasks ☰ 
 
 .container-fluid.pad-edge
   .pt-2

@@ -82,6 +82,7 @@
             %select.category_grandchild
 
         = f.input :category_id, :as => :hidden
+        %br
         .btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
 
     
@@ -95,14 +96,15 @@
         = f.input :manufacturer_country
       %br
       .btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
+
     .panel.panel-primary.setup-content#step5
       .panel-heading
         %h2.panel-title Image
         %br
       .panel-body
         = f.file_field :image
+      %br
       .btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
-
 
 
   .panel.panel-primary.setup-content#step6
@@ -119,7 +121,7 @@
         .div
           %h4 Your materials should add up to 100%, missing:
           %h3#sum 0
-
+    %br
     .btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
 
   .panel.panel-primary.setup-content#step7
@@ -132,6 +134,7 @@
         - if current_customer
           %h2 Have you purchased this product?  
           = f.input :customer_purchased, label: 'I have purchased this product', as: :boolean, input_html: { checked: false }
-        .btn.submit_btn= f.button :submit
-
+        .btn.submit_btn.btn.pull-right= f.button :submit
+  .btn.btn-ecommerce.pull-left
+    = link_to 'Back to Products', :back
 
