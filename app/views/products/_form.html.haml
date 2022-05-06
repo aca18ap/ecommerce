@@ -48,7 +48,7 @@
         .form-group
           = f.input :description
       %br
-      .btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
+      %button.btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
     .panel.panel-primary.setup-content#step2
       .panel-heading
         %h2.panel-title Mass and Price
@@ -59,7 +59,7 @@
         .form-group
           = f.input :price
       %br
-      .btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
+      %button.btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
 
     .panel.panel-primary.setup-content#step3
       .panel-heading
@@ -83,7 +83,7 @@
 
         = f.input :category_id, :as => :hidden
         %br
-        .btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
+        %button.btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
 
     
     .panel.panel-primary.setup-content#step4
@@ -95,7 +95,7 @@
         = f.input :manufacturer
         = f.input :manufacturer_country
       %br
-      .btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
+      %button.btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
 
     .panel.panel-primary.setup-content#step5
       .panel-heading
@@ -104,7 +104,7 @@
       .panel-body
         = f.file_field :image
       %br
-      .btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
+      %button.btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
 
 
   .panel.panel-primary.setup-content#step6
@@ -122,7 +122,7 @@
           %h4 Your materials should add up to 100%, missing:
           %h3#sum 0
     %br
-    .btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
+    %button.btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
 
   .panel.panel-primary.setup-content#step7
     .panel-heading
