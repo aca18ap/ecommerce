@@ -47,13 +47,15 @@ class CustomerMetrics < CalculateMetrics
     end
 
     def time_total_co2(customer, period = :day)
-      Customer.where(id: customer.id).joins(:products)
+      Customer.where(id: customer.id)
+              .joins(:products)
               .group_by_period(period, 'purchase_histories.created_at', expand_range: true)
               .sum(:co2_produced)
     end
 
     def time_total_price(customer, period = :day)
-      Customer.where(id: customer.id).joins(:products)
+      Customer.where(id: customer.id)
+              .joins(:products)
               .group_by_period(period, 'purchase_histories.created_at', expand_range: true)
               .sum(:price)
     end
@@ -77,7 +79,9 @@ class CustomerMetrics < CalculateMetrics
     end
 
     def time_co2_per_pound(customer)
-      time_total_co2(customer).map { |time, co2_produced| [time, co2_produced / time_total_price(customer)[time]] }
+      time_total_co2(customer).map do |time, co2_produced|
+        [time, co2_produced / (time_total_price(customer)[time].nonzero? || 1)]
+      end
     end
 
     def time_products_added(customer, period = :day)
