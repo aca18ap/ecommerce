@@ -18,8 +18,9 @@
         = page_entries_info products, :model => 'product'
 
     - if can?(:new, Product)
-      .btn.btn-ecommerce
-        = link_to 'New Product', new_product_path
+      .my-auto
+        .btn.btn-ecommerce
+          = link_to 'New Product', new_product_path
 
       
     - if products.size > 0
