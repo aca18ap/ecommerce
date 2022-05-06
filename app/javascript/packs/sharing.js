@@ -61,7 +61,7 @@ $(function () {
             function () {
                 let mainCard = (e.parentNode.parentNode.parentNode.parentNode);
                 let feature = mainCard.getElementsByClassName("featureName")[0].textContent.replace(/(\r\n|\n|\r)/gm, " ").trim()
-                let social = e.id
+                let social = e.name
 
                 //sending data to record shares statistics
                 sendData(social, feature)

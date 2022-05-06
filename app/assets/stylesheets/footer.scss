@@ -1,0 +1,15 @@
+@import 'variables';
+
+.custom-footer {
+  background-color: var(--secondary);
+  color: var(--theme-white);
+  z-index: 2;
+}
+
+.custom-footer a {
+  color: var(--theme-white);
+}
+
+.custom-footer ul{
+  margin-bottom: 0;
+}

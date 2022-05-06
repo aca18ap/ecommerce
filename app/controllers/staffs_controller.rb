@@ -5,6 +5,11 @@ class StaffsController < ApplicationController
   before_action :authenticate_staff!
   before_action :set_staff, only: %i[show edit update destroy unlock invite]
 
+  # GET /staff
+  def index
+    redirect_back fallback_location: root_path
+  end
+
   # GET /staffs/1
   def show
     redirect_back fallback_location: root_path unless staff_signed_in?

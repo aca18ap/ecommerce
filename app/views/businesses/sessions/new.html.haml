@@ -1,14 +1,16 @@
 .container-fluid.devise-form-container
-  %h2 Business log in
-  = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-    .form-inputs
-      = f.input :email, required: false, autofocus: true, input_html: { autocomplete: "email" }
-      = f.input :password, required: false, input_html: { autocomplete: "current-password" } |
-      = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
-    .form-actions
-      = f.button :submit, "Log in"
-  = render "businesses/shared/links"
-  - if devise_mapping.omniauthable?
-    - resource_class.omniauth_providers.each do |provider|
-      = link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), method: :post
+  .p-5
+    %h1.text-center Business log in
+    = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      .form-inputs
+        = f.input :email, required: false, autofocus: true, input_html: { autocomplete: "email" }
+        = f.input :password, required: false, input_html: { autocomplete: "current-password" } |
+        = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+      .form-actions
+        = f.button :submit, "Log in", class: 'btn btn-ecommerce mt-4 w-100' 
+  .p-2.bg-shade.text-center
+    = render "businesses/shared/links"
+    - if devise_mapping.omniauthable?
+      - resource_class.omniauth_providers.each do |provider|
+        = link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), method: :post
       %br

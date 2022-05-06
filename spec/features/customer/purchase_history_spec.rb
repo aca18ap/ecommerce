@@ -11,12 +11,12 @@ describe 'Products' do
     before { customer.products << product }
 
     specify 'I can see a list of them on my dashboard' do
-      visit root_path
+      visit customer_show_path
       expect(page).to have_content product.name
     end
 
     specify 'I can remove products from my purchase history', js: true do
-      visit root_path
+      visit customer_show_path
       expect(customer.products.count).to eq 1
 
       accept_confirm do

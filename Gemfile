@@ -79,18 +79,19 @@ group :development do
   gem 'listen'
   gem 'web-console'
 
+  gem 'annotate'
+  gem 'bullet'
   gem 'capistrano'
   gem 'capistrano-bundler', require: false
   gem 'capistrano-passenger', require: false
   gem 'capistrano-rails', require: false
   gem 'capistrano-rvm', require: false
-
-  gem 'annotate'
   gem 'letter_opener'
 end
 
 group :test do
-  gem 'bullet'
+  gem 'axe-core-rspec'
+
   gem 'capybara'
   gem 'factory_bot_rails'
   gem 'webdrivers'
