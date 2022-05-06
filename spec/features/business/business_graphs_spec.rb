@@ -16,7 +16,7 @@ describe 'Business Metrics Graphs', js: true do
 
   context 'If there are no products for a business' do
     specify 'The graphs should show an appropriate message' do
-      visit authenticated_business_root_path
+      visit dashboard_path
 
       within(:css, '#total-views-stat') { expect(page).to have_content '0' }
       within(:css, '#customer-purchases-stat') { expect(page).to have_content '0' }
@@ -36,8 +36,7 @@ describe 'Business Metrics Graphs', js: true do
     let(:customer) { FactoryBot.create(:customer) }
 
     specify 'the appropriate page statistics should update' do
-      visit authenticated_business_root_path
-
+      visit dashboard_path
       within(:css, '#affiliate-products-stat') { expect(page).to have_content '1' }
       within(:css, '#unique-categories-stat') { expect(page).to have_content '1' }
     end
@@ -45,7 +44,7 @@ describe 'Business Metrics Graphs', js: true do
     context 'If there are affiliate views' do
       specify 'the appropriate page statistics anf graphs should update' do
         AffiliateProductView.new(product_id: product.id, customer_id: customer.id).save
-        visit authenticated_business_root_path
+        visit dashboard_path
 
         within(:css, '#total-views-stat') { expect(page).to have_content '1' }
         plot_is_populated('#total-product-views-graph')
@@ -59,7 +58,7 @@ describe 'Business Metrics Graphs', js: true do
     context 'If there are customer purchases of affiliate products' do
       specify 'the appropriate page statistics should update' do
         customer.products << product
-        visit authenticated_business_root_path
+        visit dashboard_path
 
         within(:css, '#customer-purchases-stat') { expect(page).to have_content '1' }
       end

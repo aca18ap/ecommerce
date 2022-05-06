@@ -7,7 +7,7 @@ class BusinessesController < ApplicationController
 
   # GET /businesses
   def index
-    @businesses = Business.order('created_at DESC').all.decorate
+    redirect_back fallback_location: root_path
   end
 
   # GET /businesses/1

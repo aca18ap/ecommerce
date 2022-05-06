@@ -2,12 +2,12 @@
 
 Rails.application.routes.draw do
 
-  resources :categories
   ## ===== System Users and Accounts ===== ##
   devise_for :customers, path: 'customer',
                          controllers: { sessions: 'customers/sessions', registrations: 'customers/registrations' }
   authenticated :customer do
-    root to: 'customers#show', as: :authenticated_customer_root
+    root to: 'pages#home', as: :authenticated_customer_root
+    get '/dashboard', to: 'customers#show'
   end
   resources :customers, path: 'customer' do
     patch :unlock, on: :member
@@ -19,7 +19,8 @@ Rails.application.routes.draw do
                       controllers: { sessions: 'staffs/sessions', registrations: 'staffs/registrations',
                                      invitations: 'staffs/invitations' }
   authenticated :staff, ->(u) { u.admin? } do
-    root to: 'staffs#show', as: :authenticated_admin_root
+    root to: 'pages#home', as: :authenticated_admin_root
+    get '/dashboard', to: 'staffs#show'
   end
   namespace :admin do
     get '/users', to: '/admin/users#index'
@@ -39,7 +40,7 @@ Rails.application.routes.draw do
   authenticated :staff, ->(u) { u.reporter? } do
     root to: 'staffs#show', as: :authenticated_reporter_root
   end
-  resources :staffs, path: 'staff', only: %i[show edit update destroy] do
+  resources :staffs, path: 'staff', only: %i[show edit index update destroy] do
     patch :unlock, on: :member
     patch :invite, on: :member
   end
@@ -50,7 +51,8 @@ Rails.application.routes.draw do
                           controllers: { sessions: 'businesses/sessions', registrations: 'businesses/registrations',
                                          invitations: 'businesses/invitations' }
   authenticated :business do
-    root to: 'businesses#dashboard', as: :authenticated_business_root
+    root to: 'pages#home', as: :authenticated_business_root
+    get '/dashboard', to: 'businesses#dashboard'
   end
   resources :businesses, path: 'business', only: %i[show dashboard index edit update destroy] do
     patch :unlock, on: :member
@@ -66,6 +68,12 @@ Rails.application.routes.draw do
   ## ===== Products ===== ## 
   resources :products
   resources :materials
+
+  ## ===== Categories ===== #
+  resources :categories
+
+  ## ===== Affiliate Products ===== ##
+  resources :affiliate_product_view, only: :destroy
 
   ## ==== Product Reports ==== ##
   resources :product_reports, except: [:edit, :update]

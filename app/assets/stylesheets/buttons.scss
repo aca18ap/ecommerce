@@ -38,5 +38,51 @@
   outline: medium none;
   padding: 12px 30px;
   text-decoration: none;
-  text-transform: uppercase;
+}
+
+
+.btn-ecommerce { 
+  color: #47251F;
+  background-color: var(--br4); 
+  border-color: var(--br4); 
+} 
+ 
+.btn-ecommerce:hover, 
+.btn-ecommerce:focus, 
+.btn-ecommerce:active, 
+.btn-ecommerce.active, 
+.open .dropdown-toggle.btn-ecommerce { 
+  color: #FFFFFF; 
+  background-color: #bc9464; 
+  border-color: var(--br4); 
+} 
+ 
+.btn-ecommerce:active, 
+.btn-ecommerce.active, 
+.open .dropdown-toggle.btn-ecommerce { 
+  background-image: none; 
+} 
+ 
+.btn-ecommerce.disabled, 
+.btn-ecommerce[disabled], 
+fieldset[disabled] .btn-ecommerce, 
+.btn-ecommerce.disabled:hover, 
+.btn-ecommerce[disabled]:hover, 
+fieldset[disabled] .btn-ecommerce:hover, 
+.btn-ecommerce.disabled:focus, 
+.btn-ecommerce[disabled]:focus, 
+fieldset[disabled] .btn-ecommerce:focus, 
+.btn-ecommerce.disabled:active, 
+.btn-ecommerce[disabled]:active, 
+fieldset[disabled] .btn-ecommerce:active, 
+.btn-ecommerce.disabled.active, 
+.btn-ecommerce[disabled].active, 
+fieldset[disabled] .btn-ecommerce.active { 
+  background-color: var(--br4); 
+  border-color: var(--br4); 
+} 
+ 
+.btn-ecommerce .badge { 
+  color: var(--br4); 
+  background-color: #FFFFFF; 
 }

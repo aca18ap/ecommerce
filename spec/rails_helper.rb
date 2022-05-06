@@ -22,6 +22,7 @@ Shoulda::Matchers.configure do |config|
 end
 
 require 'webdrivers'
+require 'axe-rspec'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -55,6 +56,7 @@ RSpec.configure do |config|
   config.include Warden::Test::Helpers
   config.include Rails.application.routes.url_helpers
   config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include ActiveSupport::Testing::TimeHelpers
 
   # Ensure our database is definitely empty before running the suite
   # (e.g. if a process got killed and things weren't cleaned up)

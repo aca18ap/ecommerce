@@ -1,5 +1,7 @@
+- content_for :title, " - Ecommerce"
+
 !!!
-%html
+%html{:lang => "en", "color-mode" => "light"}
   %head
     %title #{content_for(:title)}
     %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }
@@ -16,18 +18,14 @@
     = favicon_link_tag '/images/logo-icon.png'
     = csrf_meta_tags
 
-  %body.bg-light
+  %body
 
-  = render partial: 'layouts/navbar'
+    = render partial: 'layouts/navbar'
 
   %main
-    .text-center
-      - if !notice.nil? then
-        .alert.alert-secondary#notice= notice
-      - if !alert.nil? then
-        .alert.alert-secondary#notice= alert
-    .container-fluid.p-0.m-0
-      = yield
+  
+    = render partial: 'layouts/notice'
+    = yield
 
   = render partial: 'layouts/footer'
 

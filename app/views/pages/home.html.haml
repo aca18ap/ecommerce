@@ -1,4 +1,4 @@
-- content_for :title, "Team 4 Home"
+- content_for :title, "Home"
 
 .container-fluid
   .row.text-center.text-feldgrau.py-5.grabber
@@ -50,7 +50,7 @@
 
 
   .row.pad-edge.pt-5.text-center
-    %h3 Click below to learn more!
+    %h2 Click below to learn more!
   .row.pad-edge
     .col.text-end
       .btn-custom-active.clearfix
@@ -86,13 +86,13 @@
           .h3.pb-2 Why is the solution a good solution?
           .p We know it’s not as simple as redirecting traffic to alternative retailers. That’s why we ensure all our eco-approved suppliers conform to ISO 14000. Not only this, but we ask all affiliates to provide us with information about where they manufacture their products. We also know that life is busy and finding the time and energy to solve a problem that seems far off in the distance can be a challenge. That’s why we’ve made it as easy as possible to use. Simply download and install the browser extension, do your shopping as normal, and alternative suggestions will be one click away!
 
-  .row.text-feldgrau.text-center.pad-edge.pb-3
-    .col-lg.m-autoA#carbon-footprint-feature
+  #features-links.row.text-feldgrau.text-center.pad-edge.pb-3
+    #fb-root.col-lg.m-autoA#carbon-footprint-feature
       .m-auto.card-transparent{:style => "width: 75%;"}
         %img.card-img-top{:alt => "...", :src => "images/image-business.svg"}/
         .card-body.carbon-footprint-feature
-          %a#features-links.featureName{ :href => carbon_footprint_viewer_url }
-            %h3.card-title#features-links Carbon Footprint Viewer
+          %a{ :href => carbon_footprint_viewer_url, :aria-label => "Share feature: Carbon Footprint Viewier" }
+            %h3.card-title.featureName Carbon Footprint Viewer
           %p.card-text Subscribers can view an estimate of their online carbon footprint, helping them to understand their impact.
           //divs necessary for JS to fill fields and redirect properly
           .div
@@ -100,10 +100,10 @@
               = render 'layouts/share_icons'
     .col-lg.m-auto 
       .m-auto.card-transparent{:style => "width: 75%;"}
-        %img.card-img-top{:alt => "...", :src => "images/image-customer.svg"}/
+        %img.card-img-top{:alt => "...", :src => "images/image-customer.svg" }/
         .card-body
-          %a#features-links.featureName{ :href => extension_features_url }
-            %h3.card-title#features-links Browser Extension
+          %a{ :href => extension_features_url, :aria-label => "Share feature: Browser Extension"}
+            %h3.card-title.featureName Browser Extension
           %p.card-text Get eco-friendly product alternatives at the click of a button when shopping online.
           //divs necessary for JS to fill fields and redirect properly
           .div
@@ -111,10 +111,10 @@
               = render 'layouts/share_icons'
     .col-lg.m-auto
       .m-auto.card-transparent{ :style => "width: 75%;" }
-        %img.card-img-top{:alt => "...", :src => "Volunteering-bro.png"}/
+        %img.card-img-top{:alt => "...", :src => "Volunteering-bro.png" }/
         .card-body
-          %a#features-links.featureName{ :href => crowdsourced_feature_url }
-            %h3.card-title#features-links Crowdsourced Data
+          %a{ :href => crowdsourced_feature_url, :aria-label => "Share feature: Crowdsourced Data"}
+            %h3.card-title.featureName Crowdsourced Data
           %p.card-text The data is collected thanks to you! This means a constantly updated database and a lot of options to choose from!
           //divs necessary for JS to fill fields and redirect properly
           .div

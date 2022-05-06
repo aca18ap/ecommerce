@@ -1,8 +1,6 @@
-= stylesheet_link_tag 'products'
-#back-button.d-flex.flex-column.p-2
-  - if can?(:new, Product)
-    = link_to 'New Product', new_product_path
+- content_for :title, "View Products"
 
+= stylesheet_link_tag 'products'
 
 .container-fluid.pad-edge
   %h1.pt-5
@@ -13,10 +11,16 @@
     - else 
       Our crowdsourced products 
 
+
   .d-flex.flex-row.pb-3
     .me-auto.my-auto
       %h5.my-auto
         = page_entries_info products, :model => 'product'
+
+    - if can?(:new, Product)
+      .my-auto
+        .btn.btn-ecommerce
+          = link_to 'New Product', new_product_path
 
       
     - if products.size > 0
@@ -34,13 +38,15 @@
       %p Filters
   %hr
 
+
+
+
   .products.row
-    - products.each do |product| 
-      .col-3
-        = render partial: 'suggested_product_card', locals: {p: product.decorate}
+    - products.each do |product|
+      = render partial: 'suggested_product_card', locals: {p: product.decorate}
    
   %br
 
-  .justify-content-center.pagination
+  .justify-content-center.pagination.mb-5
     = will_paginate(products, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer)
 

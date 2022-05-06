@@ -2,8 +2,10 @@
   = link_to 'View Profile', current_business, :class => 'dropdown-link'
 %hr.dropdown-divider
 %li
+  = link_to 'View Dashboard', dashboard_path, :class => 'dropdown-link'
+%li
   -# TODO: This needs to link to the actual managing products page
-  = link_to 'Manage Products', products_path, :class => 'dropdown-link', title: 'Manage products'
+  = link_to 'Manage Products', products_path, :class => 'dropdown-link'
 %hr.dropdown-divider
 %li
   = link_to 'Account Settings', business_edit_path, :class => 'dropdown-link'

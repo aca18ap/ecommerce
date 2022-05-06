@@ -1,51 +1,52 @@
+@import 'variables';
 
 .grabber h1 {
   font-family: 'Fredericka the Great';
   font-size: 3.2em;
 }
 
-h2 {
-  font-weight: 200;
-}
+// h2 {
+//   font-weight: 200;
+// }
 
-h3 {
-  color: #5e8d66;
-}
+// h3 {
+//   color: #5e8d66;
+// }
 
-h4 {
-  color: #00241b;
-  font-weight: 200;
-  font-size: 1.2em
-}
+// h4 {
+//   color: #00241b;
+//   font-weight: 200;
+//   font-size: 1.2em
+// }
 
-.segment-font {
-  font-size: 1.2em;
-}
+// .segment-font {
+//   font-size: 1.2em;
+// }
 
-.bg-green{
-  background-color: mediumseagreen;
-}
+// .bg-green{
+//   background-color: mediumseagreen;
+// }
 
-.bg-light-green {
-  background-color: rgba(38, 166, 91, 0.1)
-}
+// .bg-light-green {
+//   background-color: rgba(38, 166, 91, 0.1)
+// }
 
-.bg-brown-sugar {background-color: #9F684B}
-.bg-russian-green {background-color: #5E8D66;}
-.bg-feldgrau {background-color:#3E4F44;}
+// .bg-brown-sugar {background-color: #9F684B}
+// .bg-russian-green {background-color: #5E8D66;}
+// .bg-feldgrau {background-color:#3E4F44;}
 
-.text-bluegrey {color: #263238;}
+// .text-bluegrey {color: #263238;}
 
-.text-green {color: mediumseagreen; }
-.text-brown-sugar {color: #9F684B;}
-.text-dutch-white {color: #EEDBBE;}
-.text-opal {color: #C2D6C5;}
-.text-russian-green { color: #5E8D66;}
-.text-feldgrau { color: #3E4F44;}
+// .text-green {color: mediumseagreen; }
+// .text-brown-sugar {color: #9F684B;}
+// .text-dutch-white {color: #EEDBBE;}
+// .text-opal {color: #C2D6C5;}
+// .text-russian-green { color: #5E8D66;}
+// .text-feldgrau { color: #3E4F44;}
 
-.text-shadow{
-  text-shadow: 0 0 0.5em black;
-}
+// .text-shadow{
+//   text-shadow: 0 0 0.5em black;
+// }
 
 .pad-edge{
   padding-left: 10%;
@@ -57,7 +58,6 @@ h4 {
   padding-top: 150px;
   padding-bottom: 100px;
 }
-
 
 
 .overlay {
@@ -78,15 +78,6 @@ h4 {
   background: linear-gradient(to top, #8888FFFF, #EEDBBEEE), url("/images/bg-wind-turbines.jpg") repeat center center;
   background-size: cover;
 
-}
-
-#features-links {
-  text-decoration: none;
-  transition: box-shadow .3s;
-}
-
-#features-links:hover {
-  box-shadow: 0px 10px 10px rgba(38, 166, 91, 0.5);
 }
 
 .transition-wrapper {
@@ -113,8 +104,13 @@ h4 {
 }
 
 .custom-shape-divider-top-1637446340 .shape-fill {
-  fill: #f7f7f7;
+  fill: var(--light1);
 }
+
+.custom-shape-divider-bottom-1637446340 .shape-fill {
+  fill: var(--light1);
+}
+
 
 .custom-shape-divider-bottom-1637446340 {
   position: absolute;
@@ -135,11 +131,6 @@ h4 {
   transform: rotateY(180deg);
 }
 
-.custom-shape-divider-bottom-1637446340 .shape-fill {
-  fill: #f7f7f7;
-}
-
-
 .fixed-padding-top {
   padding-top:200px;
   padding-bottom:200px;
@@ -148,7 +139,7 @@ h4 {
 .highlight-dyk {
   color: white;
   font-weight: bold;
-  background-color: #65b891;
+  background-color: #3E4F44;
   padding: 0.2em 0.5em;
   border-radius: 25px 25px; 
   font-size:0.8em;

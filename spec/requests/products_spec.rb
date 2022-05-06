@@ -40,7 +40,9 @@ RSpec.describe '/products', type: :request do
                                      { material_id: material2.id, percentage: 60 }] }
   end
 
-  before { login_as(FactoryBot.create(:admin), scope: :staff) }
+  let(:authentication_resource) { FactoryBot.create(:admin) }
+  let(:authentication_scope) { :staff }
+  before { login_as(authentication_resource, scope: authentication_scope) }
 
   describe 'GET /index' do
     it 'renders a successful response' do
@@ -195,6 +197,26 @@ RSpec.describe '/products', type: :request do
       product = Product.create! valid_attributes
       delete product_url(product)
       expect(response).to redirect_to(products_url)
+    end
+
+    context 'As a business' do
+      let(:authentication_resource) { FactoryBot.create(:business) }
+      let(:authentication_scope) { :business }
+
+      it 'allows a business to delete their own product' do
+        product = FactoryBot.create(:product, business_id: authentication_resource.id)
+        delete product_url(product)
+        expect(response).to be_successful
+      end
+
+      it 'does not allow a business to delete another business\' product' do
+        business2 = FactoryBot.create(:business, email: 'business2@team04.com')
+
+        product = FactoryBot.create(:product, business_id: business2.id)
+
+        delete product_url(product)
+        expect(response).to_not be_successful
+      end
     end
   end
 

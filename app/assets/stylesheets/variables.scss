@@ -1,4 +1,109 @@
 @import "bootstrap/functions";
 @import "bootstrap/variables";
 
-// Add project variables here
+/* Define dark and light palettes with CSS variables */
+
+:root {
+  --radius: 50px;
+  --sans: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen, ubuntu,
+    cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --theme-white: #e6e6e6;
+}
+
+:root[color-mode="light"] {
+  --primary: #00241B;
+  --secondary: #245444;
+  --br2: #65b891;
+  --br2light: #bfe2d1;
+  --br3: #b8658c;
+  --br3light: #e2bfd0;
+  --br4: #bc9464; 
+  --light1: #f2f2f2;
+  --light2: #CDD1D5;
+  --light3: #e6e6e6;
+  --dark1: #333333;
+  --dark2: #262626;
+  --accent1: #262626;
+  --accent2: #333333;
+  --accent3: #404040;
+}
+
+:root[color-mode="dark"] {
+  --primary: #00241B;
+  --secondary: #245444;
+  --light1: #262626;
+  --light2: #333333;
+  --light3: #404040;
+  --dark1: #eeeeee;
+  --dark2: #CDD1D5;
+  --br1: #00241B;
+  --br4: #bc7164;
+  --accent1: #e6e6e6;
+  --accent2: #f2f2f2;
+  --accent3: #ffffff;
+}
+
+// $colors: (
+//     light: (
+//       "surface1": #e6e6e6,
+//       "surface2": #f2f2f2,
+//       "surface3": #ffffff,
+//       "element1": #111111,
+//       "element2": #222222,
+//       "element3": #333333,
+//       "elementInverse": #eee,
+//       "primary": #01408e,
+//       "secondary": #3c5d5c,
+//       "tertiary": #fff7d6
+//     ),
+//     dark: (
+//       "surface1": #262626,
+//       "surface2": #333333,
+//       "surface3": #404040,
+//       "element1": #eeeeee,
+//       "element2": #dddddd,
+//       "element3": #cccccc,
+//       "elementInverse": #111,
+//       "primary": #8fceff,
+//       "secondary": #72faca,
+//       "tertiary": #eee8a9
+//     )
+// );
+
+// @function color($color,$tone){
+//   @warn map-get($colors,$color);
+//   @if map-has-key($colors,$color){
+//       $color: map-get($colors,$color);
+//           @if map-has-key($color,$tone){
+//               $tone: map-get($color,$tone);
+//               @return $tone;
+//           }
+//           @warn "unknown tone `#{$tone}` in color";
+//           @return null;        
+//   }
+//   @warn "unknown color `#{$color}` in palette";
+//   @return null;
+// }
+
+:root {
+	--gray-5:#010101; /*dark*/
+	--gray-10:#040404;
+	--gray-15:#070808;
+	--gray-20:#0D0D0E;
+	--gray-25:#141516;
+	--gray-30:#1E2022;
+	--gray-35:#2D2F31;
+	--gray-40:#404346;
+	--gray-45:#5B5E62;
+	--gray-50:#7C8084;
+	--gray-55:#9DA1A5;
+	--gray-60:#B9BDC1;
+	--gray-65:#CDD1D5;
+	--gray-70:#DCE0E3;
+	--gray-75:#E7EAED;
+	--gray-80:#EFF2F5;
+	--gray-85:#F4F7FA;
+	--gray-90:#F7FAFD;
+	--gray-95:#FCFEFE; /*light*/
+	--animate:200ms;
+}

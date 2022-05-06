@@ -1,7 +1,13 @@
+@import 'variables';
+
 .custom-nav {
   font-weight: 300;
-  background-color: #00241B;
+  background-color: var(--primary);
   font-size: 0.9em;
+  position:fixed;
+  top: 0;
+  width:100%;
+  z-index: 2;
 }
 
 .custom-nav-fonts,
@@ -15,14 +21,22 @@
   color: #93e5ab;
 }
 
+.dropdown-menu {
+  z-index: 2;
+}
 .dropdown-menu a{
   color: #00241b;
   text-decoration: none;
   padding-left:5px;
+  z-index: 3;
 }
-
 
 .dropdown-menu a:hover {
   color: #337054;
+}
+
+.nav ul {
+  display: flex;
+  list-style-type: none;
 }
 
