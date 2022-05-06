@@ -12,10 +12,14 @@ class MetricsController < ApplicationController
     @products = Product.all
     @affiliate_products = @products.reject { |product| product.business_id.nil? }
     @affiliate_views = AffiliateProductView.all
+
+    gon.visits = @visits
+    gon.registrations = @registrations
+    gon.sessionFlows = CalculateMetrics.session_flows(@visits)
   end
 
   def create
-    # Don't track staff only pages
+    # Don't track staff only pages or any page when a staff member is logged in
     return if params[:path].match(/admin|reporter|staff/) || current_staff
 
     # Call to service class to find the longitude and latitude for a visit
