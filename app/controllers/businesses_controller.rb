@@ -17,10 +17,6 @@ class BusinessesController < ApplicationController
   def dashboard
     @business = current_business
     @business = @business.decorate
-
-    gon.timeAffiliateViews = BusinessMetrics.time_affiliate_views(@business)
-    gon.viewsByProduct = BusinessMetrics.views_by_product(@business)
-    gon.viewsByCategory = BusinessMetrics.views_by_category(@business)
   end
 
   # GET /businesses/1/edit

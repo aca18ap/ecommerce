@@ -12,9 +12,6 @@ class MetricsController < ApplicationController
     @products = Product.all
     @affiliate_products = @products.reject { |product| product.business_id.nil? }
     @affiliate_views = AffiliateProductView.all
-
-    # Sends the gon gem variables to the js front end
-    send_gon_variables
   end
 
   def create
@@ -34,32 +31,5 @@ class MetricsController < ApplicationController
                  session_identifier: session.id)
 
     head :ok
-  end
-
-  private
-
-  def send_gon_variables
-    # Visits
-    gon.visits = @visits
-    gon.pageVisits = CalculateMetrics.page_visits(@visits)
-    gon.timeVisits = CalculateMetrics.time_visits(@visits)
-    gon.sessionFlows = CalculateMetrics.session_flows(@visits)
-    gon.timeVisits = CalculateMetrics.time_visits(@visits)
-
-    # Registrations
-    gon.registrations = @registrations
-    gon.vocationRegistrations = CalculateMetrics.vocation_registrations(@registrations)
-    gon.timeRegistrations = CalculateMetrics.time_registrations(@registrations)
-
-    # Shares
-    gon.shares = @shares
-    gon.featureShares = CalculateMetrics.feature_shares(@shares)
-
-    # Products
-    gon.products = @products
-    gon.timeProducts = CalculateMetrics.time_products(@products)
-    gon.productCategories = CalculateMetrics.product_categories
-    gon.affiliateProductCategories = CalculateMetrics.affiliate_product_categories
-    gon.timeAffiliateViews = CalculateMetrics.time_affiliate_views
   end
 end

@@ -10,29 +10,29 @@
     %h1.m-3.text-center Products Statistics
     #products-barchart-div.justify-content-center.bg-light-green.col-xl-6
       %h2#products-barchart-title.text-center Product Additions By Category (Total: #{@products.size})
-      = bar_chart product_categories_chart_path, colors: ["#198754"], id: 'products-barchart-plot', height: '500px'
+      = bar_chart product_categories_chart_path, colors: ["#198754"], id: 'products-barchart-plot', height: '400px'
 
     #products-linechart-div.justify-content-center.bg-light-green.col-xl-6
       %h2#products-linechart-title.text-center Product Additions Over Time
-      = line_chart time_product_additions_chart_path, colors: ["#198754"], id: 'products-linechart-plot'
+      = line_chart time_product_additions_chart_path, colors: ["#198754"], id: 'products-linechart-plot', height: '400px'
 
     #products-barchart-div.justify-content-center.bg-light-green.col-xl-6
       %h2#affiliates-barchart-title.text-center Affiliate Product Additions By Category (Total: #{@affiliate_products.size})
-      = bar_chart affiliate_categories_chart_path, colors: ["#198754"], id: 'affiliates-barchart-plot'
+      = bar_chart affiliate_categories_chart_path, colors: ["#198754"], id: 'affiliates-barchart-plot', height: '400px'
 
     #affiliate-views-linechart-div.justify-content-center.bg-light-green.col-xl-6
       %h2#affiliate-views-linechart-title.text-center Affiliate Product Views Over Time (Total: #{@affiliate_views.size})
-      = line_chart time_affiliate_views_chart_path, colors: ["#198754"], id: 'affiliate-views-linechart-plot'
+      = line_chart time_affiliate_views_chart_path, colors: ["#198754"], id: 'affiliate-views-linechart-plot', height: '400px'
 
   .row.m-3
     %h1.m-3.text-center Visitor Statistics
     #visits-barchart-div.justify-content-center.bg-light-green.col-xl-6
       %h2#visits-barchart-title.text-center Site Visits by Page (Total: #{@visits.size})
-      = bar_chart visits_by_page_chart_path, colors: ["#198754"], id: 'visits-barchart-plot'
+      = bar_chart visits_by_page_chart_path, colors: ["#198754"], id: 'visits-barchart-plot', height: '400px'
 
     #visits-linechart-div.justify-content-center.bg-light-green.col-xl-6
       %h2#visits-linechart-title.text-center Landing Page Visits Over Time
-      = line_chart time_visits_chart_path, colors: ["#198754"], id: 'visits-linechart-plot'
+      = line_chart time_visits_chart_path, colors: ["#198754"], id: 'visits-linechart-plot', height: '400px'
 
   .row.m-3
     %h1.mt-5.mb-3.text-center Visitor Geography Statistics
@@ -53,11 +53,11 @@
     %h1.mt-5.mb-3.text-center Registration Statistics
     #registrations-barchart-div.justify-content-center.bg-light-green.col-xl-6
       %h2#registrations-barchart-title.text-center Site Registrations by Vocation (Total: #{@registrations.size})
-      = bar_chart vocation_registrations_chart_path, colors: ["#198754"], id: 'registrations-barchart-plot'
+      = bar_chart vocation_registrations_chart_path, colors: ["#198754"], id: 'registrations-barchart-plot', height: '400px'
 
     #registrations-linechart-div.justify-content-center.bg-light-green.col-xl-6
       %h2#registrations-linechart-title.text-center Site Registrations Over Time
-      = line_chart time_registrations_chart_path, colors: ["#198754"], id: 'registrations-linechart-plot'
+      = line_chart time_registrations_chart_path, colors: ["#198754"], id: 'registrations-linechart-plot', height: '400px'
 
   .row.m-3
     %h1.mt-5.mb-3.text-center Registration Geography Statistics
@@ -78,7 +78,7 @@
     %h1.mt-5.mb-3.text-center Feature Interest Statistics
     #feature-shares-div.justify-content-center.bg-light-green
       %h2#feature-shares-barchart-title.text-center Shares By Feature (Total: #{@shares.size})
-      = bar_chart feature_interest_chart_path, colors: ["#198754"], id: 'feature-shares-barchart-plot'
+      = bar_chart feature_interest_chart_path, colors: ["#198754"], id: 'feature-shares-barchart-plot', height: '400px'
 
 
   .row.m-3

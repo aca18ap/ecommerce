@@ -7,11 +7,11 @@ describe 'Business Metrics Graphs', js: true do
   before { login_as(business, scope: :business) }
 
   def plot_is_empty(css_id)
-    within(:css, css_id) { expect(page).to have_content 'There is no data for this metric yet' }
+    within(:css, css_id) { expect(page).to have_content 'No Data' }
   end
 
   def plot_is_populated(css_id)
-    within(:css, css_id) { expect(page).to_not have_content 'There is no data for this metric yet' }
+    within(:css, css_id) { expect(page).to_not have_content 'No Data' }
   end
 
   context 'If there are no products for a business' do

@@ -3,38 +3,38 @@
 # Handles the end points for metrics graphs to improve page load times on metrics page
 class MetricsGraphsController < StaffsController
   def product_categories_chart
-    render json: Category.joins(:products).group(:name).count
+    render json: CalculateMetrics.product_categories
   end
 
   def time_product_additions_chart
-    render json: Product.group_by_period(:day, :created_at, expand_range: true).count
+    render json: CalculateMetrics.time_product_additions
   end
 
   def affiliate_categories_chart
-    render json: Product.where.not(business_id: nil).joins(:category).group('categories.name').count
+    render json: CalculateMetrics.affiliate_categories
   end
 
   def time_affiliate_views_chart
-    render json: Product.where.not(business_id: nil).group_by_period(:day, :created_at, expand_range: true).count
+    render json: CalculateMetrics.time_affiliate_views
   end
 
   def visits_by_page_chart
-    render json: Visit.group(:path).count
+    render json: CalculateMetrics.visits_by_page
   end
 
   def time_visits_chart
-    render json: Visit.group_by_period(:day, :from, expand_range: true).count
+    render json: CalculateMetrics.time_visits
   end
 
   def vocation_registrations_chart
-    render json: Registration.group(:vocation).count
+    render json: CalculateMetrics.vocation_registrations
   end
 
   def time_registrations_chart
-    render json: Registration.group_by_period(:day, :created_at, expand_range: true).count
+    render json: CalculateMetrics.time_registrations
   end
 
   def feature_interest_chart
-    render json: Share.group(:feature).count
+    render json: CalculateMetrics.feature_interest
   end
 end
