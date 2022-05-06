@@ -207,16 +207,14 @@ RSpec.describe '/products', type: :request do
     end
 
     it 'does not allow a business to delete another business\' product' do
-      skip 'Come and fix this test'
       business = FactoryBot.create(:business)
+      business2 = FactoryBot.create(:business, email: 'business2@team04.com')
+      #logout(:staff)
       login_as(business, scope: :business)
 
-      product = FactoryBot.create(:product, business_id: 15)
-      puts product.business_id
-      puts business.id
-      puts business.products.first
+      product = FactoryBot.create(:product, business_id: business2.id)
+
       delete product_url(product)
-      puts Product.count
       expect(response).to_not be_successful
     end
   end

@@ -7,7 +7,13 @@ class ProductsController < ApplicationController
   before_action :load_categories, only: %i[new create edit update]
   after_action :affiliate_view, only: :show
   authorize_resource
+  before_action :check_product
   decorates_assigned :products, :product
+
+  def check_product
+    debugger
+    puts ''
+  end
 
   # GET /products
   def index
