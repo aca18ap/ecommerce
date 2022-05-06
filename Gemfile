@@ -84,14 +84,14 @@ group :development do
   gem 'capistrano-passenger', require: false
   gem 'capistrano-rails', require: false
   gem 'capistrano-rvm', require: false
-
+  gem 'bullet'
   gem 'annotate'
   gem 'letter_opener'
 end
 
 group :test do
   gem 'axe-core-rspec'
-  gem 'bullet'
+ 
   gem 'capybara'
   gem 'factory_bot_rails'
   gem 'webdrivers'
