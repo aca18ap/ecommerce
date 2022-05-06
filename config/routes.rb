@@ -107,6 +107,13 @@ Rails.application.routes.draw do
   get :time_registrations_chart, to: 'metrics_graphs#time_registrations_chart'
   get :feature_interest_chart, to: 'metrics_graphs#feature_interest_chart'
 
+  ## ===== Customer Graphs ===== ##
+  get :time_co2_per_purchase_chart, to: 'customer_graphs#time_co2_per_purchase_chart'
+  get :time_total_co2_chart, to: 'customer_graphs#time_total_co2_chart'
+  get :time_co2_saved_chart, to: 'customer_graphs#time_co2_saved_chart'
+  get :time_co2_per_pound_chart, to: 'customer_graphs#time_co2_per_pound_chart'
+  get :time_products_added_chart, to: 'customer_graphs#time_products_added_chart'
+
   ## ===== Shares ===== ##
   post 'shares', to: 'shares#create'
 

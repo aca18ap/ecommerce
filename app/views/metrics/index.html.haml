@@ -10,7 +10,7 @@
     %h1.m-3.text-center Products Statistics
     #products-barchart-div.justify-content-center.bg-light-green.col-xl-6
       %h2#products-barchart-title.text-center Product Additions By Category (Total: #{@products.size})
-      = bar_chart product_categories_chart_path, colors: ["#198754"], id: 'products-barchart-plot'
+      = bar_chart product_categories_chart_path, colors: ["#198754"], id: 'products-barchart-plot', height: '500px'
 
     #products-linechart-div.justify-content-center.bg-light-green.col-xl-6
       %h2#products-linechart-title.text-center Product Additions Over Time

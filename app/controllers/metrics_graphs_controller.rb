@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Handles the end points for metrics graphs to improve page load times on metrics page
-class MetricsGraphsController < ApplicationController
+class MetricsGraphsController < StaffsController
   def product_categories_chart
     render json: Category.joins(:products).group(:name).count
   end
