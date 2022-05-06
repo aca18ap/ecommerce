@@ -2,7 +2,7 @@
 
 # Handles the end points for business graphs to improve page load times on business dashboard
 class BusinessGraphsController < ApplicationController
-  def time_affiliate_views_chart
+  def time_product_views_chart
     render json: BusinessMetrics.time_affiliate_views(current_business)
   end
 
