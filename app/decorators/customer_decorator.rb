@@ -46,6 +46,7 @@ class CustomerDecorator < Draper::Decorator
 
     customer = products.map { |p| p.category.mean_co2 - p.co2_produced }.sum.round(1)
     site = CustomerMetrics.site_co2_saved
+
     {
       customer: customer,
       site: site,
