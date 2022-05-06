@@ -2,18 +2,12 @@
 
 # Product Controller handles management requests of products
 class ProductsController < ApplicationController
-  before_action :set_product, only: %i[show edit update destroy]
+  before_action :set_product, only: %i[show edit update]
   before_action :authenticate_staff!, except: %i[show index new create destroy]
   before_action :load_categories, only: %i[new create edit update]
   after_action :affiliate_view, only: :show
-  authorize_resource
-  before_action :check_product
+  load_and_authorize_resource
   decorates_assigned :products, :product
-
-  def check_product
-    debugger
-    puts ''
-  end
 
   # GET /products
   def index
