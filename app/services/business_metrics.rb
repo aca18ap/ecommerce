@@ -4,34 +4,19 @@
 # Inherits some methods from CalculateMetrics
 class BusinessMetrics < CalculateMetrics
   class << self
-    def time_affiliate_views(business)
-      insert_zero_entries(
-        Product.joins(:affiliate_product_views)
-               .where(business_id: business.id)
-               .group("date_trunc('day', affiliate_product_views.created_at)")
-               .count
-               .transform_keys(&:to_i)
-      )
+    def time_affiliate_views(business, period = :day)
+      Product.joins(:affiliate_product_views)
+             .where(business_id: business.id)
+             .group_by_period(period, 'affiliate_product_views.created_at')
+             .count
     end
 
     def views_by_product(business)
-      Product.joins(:affiliate_product_views)
-             .where(business_id: business.id)
-             .group('affiliate_product_views.product_id', 'products.name')
-             .select('COUNT(affiliate_product_views.product_id) AS count, products.name AS product_name,' \
-                     'affiliate_product_views.product_id as product_id')
-             .map do |product|
-        { 'name' => "#{product.product_name} (#{product.product_id})",
-          'count' => product.count }
-      end
+      Product.joins(:affiliate_product_views).where(business_id: business.id).group('products.name').count
     end
 
     def views_by_category(business)
-      Product.joins(:affiliate_product_views)
-             .where(business_id: business.id)
-             .group('products.category_id')
-             .count
-             .map { |category, count| { 'category' => category, 'count' => count } }
+      Product.joins(:affiliate_product_views, :category).where(business_id: business.id).group('categories.name').count
     end
   end
 end

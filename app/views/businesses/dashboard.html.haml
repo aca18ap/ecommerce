@@ -25,15 +25,15 @@
       .container-fluid.tab-content
         .container-fluid.tab-pane.active#total-product-views-tab
           %h2.d-inline Total Product Views
-          %svg#total-product-views-graph.d-block.m-auto
+          = line_chart time_affiliate_views_chart_path, colors: ["#198754"], id: 'total-product-views-graph'
 
         .container-fluid.tab-pane.mb-2#product-views-tab
           %h2.d-inline Views By Product
-          %svg#product-views-graph.d-block.m-auto
+          = bar_chart views_by_product_chart_path, colors: ["#198754"], id: 'product-views-graph'
 
         .container-fluid.tab-pane#category-views-tab
           %h2.d-inline Views By Category
-          %svg#category-views-graph.d-block.m-auto
+          = bar_chart views_by_category_chart_path, colors: ["#198754"], id: 'category-views-graph'
 
     .col-xl-5
       %h2.py-2 Affiliate Products

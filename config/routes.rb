@@ -114,6 +114,11 @@ Rails.application.routes.draw do
   get :time_co2_per_pound_chart, to: 'customer_graphs#time_co2_per_pound_chart'
   get :time_products_added_chart, to: 'customer_graphs#time_products_added_chart'
 
+  ## ===== Business Graphs ===== ##
+  get :time_affiliate_views_chart, to: 'business_graphs#time_affiliate_views_chart'
+  get :views_by_product_chart, to: 'business_graphs#views_by_product_chart'
+  get :views_by_category_chart, to: 'business_graphs#views_by_category_chart'
+
   ## ===== Shares ===== ##
   post 'shares', to: 'shares#create'
 

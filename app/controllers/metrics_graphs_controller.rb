@@ -7,7 +7,7 @@ class MetricsGraphsController < StaffsController
   end
 
   def time_product_additions_chart
-    render json: Product.group_by_day(:created_at, expand_range: true).count
+    render json: Product.group_by_period(:day, :created_at, expand_range: true).count
   end
 
   def affiliate_categories_chart
@@ -15,7 +15,7 @@ class MetricsGraphsController < StaffsController
   end
 
   def time_affiliate_views_chart
-    render json: Product.where.not(business_id: nil).group_by_hour(:created_at, expand_range: true).count
+    render json: Product.where.not(business_id: nil).group_by_period(:day, :created_at, expand_range: true).count
   end
 
   def visits_by_page_chart
@@ -23,7 +23,7 @@ class MetricsGraphsController < StaffsController
   end
 
   def time_visits_chart
-    render json: Visit.group_by_day(:from, expand_range: true).count
+    render json: Visit.group_by_period(:day, :from, expand_range: true).count
   end
 
   def vocation_registrations_chart
@@ -31,7 +31,7 @@ class MetricsGraphsController < StaffsController
   end
 
   def time_registrations_chart
-    render json: Registration.group_by_day(:created_at, expand_range: true).count
+    render json: Registration.group_by_period(:day, :created_at, expand_range: true).count
   end
 
   def feature_interest_chart
