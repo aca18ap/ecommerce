@@ -7,12 +7,48 @@
       By 2050, global freight will account for over a quarter of the world's carbon footprint?
 
     %h1
-      Introducing ecommerce, the
-      %span.highlight-text green
-      browser extension
+      Welcome to 
+      %span.highlight-text ecommerce
+    %h4.fst-italic The only ecommerce website with the environment as its n.1 priority
+      
+  %br
 
-  .row.pad-edge.w-75.mx-auto 
-    = render 'carousel'
+  .row.pad-edge.w-100.align-content-start.mx-auto.text-center
+    -# = render 'carousel'
+    %h2
+      Together we already saved 
+    %h1.text-success= CustomerMetrics.site_total_co2_saved
+
+  %br
+
+  .card-group
+    .card.m-5
+      .card-body.text-center
+        .card-title
+          %h1= Product.all.size
+        .card-text
+          %p The products added by people just like you!
+      .card-img-bottom
+        %img= image_tag 'clothes.png', height: '100%', width: '100%', class: 'p-3'
+    .card.m-5
+      .card-body.text-center
+        .card-title
+          %h3= Customer.all.size
+        .card-text
+          %p The users that have joined us for our cause
+      .card-img-bottom
+        %img= image_tag 'users.png', height: '100%', width: '100%', class: 'p-3'
+
+    .card.m-5
+      .card-body.text-center
+        .card-title
+          %h3= (CustomerMetrics.site_total_co2_saved.to_f / 590).round(2)  #https://travelnav.com/emissions-from-london-united-kingdom-to-new-york-ny#:~:text=Flight%20emissions,tonnes%20of%20carbon%20dioxide%20equivalents.)
+        .card-text
+          %p Flights from London to New York saved
+        .card-img-bottom
+          %img= image_tag 'clothes.png', height: '100%', width: '100%', class: 'p-3'
+
+
   .row.pad-edge.pt-5.text-center
     %h3 Click below to learn more!
   .row.pad-edge

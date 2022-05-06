@@ -8,6 +8,14 @@ class CustomerMetrics < CalculateMetrics
       PurchaseHistory.joins(:product).average(:co2_produced).to_f.round(1)
     end
 
+    def site_total_co2_saved
+      customer_co2_saved = Customer.joins(:products, :categories)
+                                   .group('customers.id')
+                                   .select('SUM(categories.mean_co2 - products.co2_produced) / SQRT(COUNT(products))' \
+                                           'AS co2_saved')
+      customer_co2_saved.sum(&:co2_saved).round(2)
+    end
+
     def site_total_co2_produced
       customer_totals = Customer.joins(:products).group(:customer_id).sum(:co2_produced)
 
@@ -26,6 +34,7 @@ class CustomerMetrics < CalculateMetrics
 
       (customer_co2_saved.map(&:co2_saved).sum / customer_co2_saved.size).round(1)
     end
+
 
     def site_co2_per_pound
       PurchaseHistory.joins(:product).pluck(Arel.sql('sum(co2_produced) / sum(price)')).first.to_f.round(1)

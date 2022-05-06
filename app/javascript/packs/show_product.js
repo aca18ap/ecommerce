@@ -12,7 +12,7 @@ $(function(){
 })
 
 function scrollLeaderboard(){
-  $("#scrollable").scrollTo("#current_product");
+  $("#scrollable").scrollTo(".lboard_text_this");
 }
 
 /**
