@@ -1,63 +1,83 @@
 - content_for :title, "Home"
 
 .container-fluid
-  .row.text-center.text-feldgrau.py-5.grabber
-    %h4
-      %span.highlight-dyk Did you know?
-      By 2050, global freight will account for over a quarter of the world's carbon footprint?
+  .row#main_home_stats
 
-    %h1
-      Welcome to 
-      %span.highlight-text ecommerce
-    %h4.fst-italic The only ecommerce website with the environment as its n.1 priority
-      
-  %br
+    .row.text-center.text-feldgrau.py-3.grabber
+      %h4
+        %span.highlight-dyk Did you know?
+        By 2050, global freight will account for over a quarter of the world's carbon footprint?
 
-  .row.pad-edge.w-100.align-content-start.mx-auto.text-center
-    -# = render 'carousel'
-    %h2
-      Together we already saved 
-    %h1.text-success= CustomerMetrics.site_total_co2_saved
+      %h1
+        Welcome to 
+        %span.highlight-text ecommerce
+      %h4.fst-italic The only ecommerce website with the environment as its n.1 priority
+        
+    %br
+    %br
 
-  %br
+    .row.pad-edge.w-100.align-content-start.mx-auto.text-center
+      -# = render 'carousel'
+      %h1.text-success#total_co2_saved
+        = CustomerMetrics.site_total_co2_saved
+        %sub Kg of CO2
+        %br
+      %h3
+        saved so far by ecommerce's users
 
-  .card-group
-    .card.m-5
-      .card-body.text-center
-        .card-title
-          %h1= Product.all.size
-        .card-text
-          %p The products added by people just like you!
-      .card-img-bottom
-        %img= image_tag 'clothes.png', height: '100%', width: '100%', class: 'p-3'
-    .card.m-5
-      .card-body.text-center
-        .card-title
-          %h3= Customer.all.size
-        .card-text
-          %p The users that have joined us for our cause
-      .card-img-bottom
-        %img= image_tag 'users.png', height: '100%', width: '100%', class: 'p-3'
+    %br
+    %br
+    -# .loop-wrapper
+    -#   .mountain
+    -#   .tree 
+    -#   .tree 
+    -#   .tree 
+    -#   .rock 
+    -#   .truck
+    -#   .wheels
+    .card-group
+      .card.m-5.border-0.stats
+        .card-body.text-center
+          .card-title
+            %h1= Product.all.size
+          .card-text
+            %h2 The products added by people just like you!
+        -# .card-img-overlay.opacity-25
+        -#   %img= image_tag 'clothes.png', width: '100%'
 
-    .card.m-5
-      .card-body.text-center
-        .card-title
-          %h3= (CustomerMetrics.site_total_co2_saved.to_f / 590).round(2)  #https://travelnav.com/emissions-from-london-united-kingdom-to-new-york-ny#:~:text=Flight%20emissions,tonnes%20of%20carbon%20dioxide%20equivalents.)
-        .card-text
-          %p Flights from London to New York saved
-        .card-img-bottom
-          %img= image_tag 'clothes.png', height: '100%', width: '100%', class: 'p-3'
+      .card.m-5.border-0.stats
+        .card-body.text-center
+          .card-title
+            %h1= Customer.all.size
+          .card-text
+            %h2 The users that have joined us for our cause
+        -# .card-img-overlay.opacity-25
+        -#   %img= image_tag 'users.png', width: '100%'
+
+      .card.m-5.border-0.stats
+        .card-body.text-center.align-content-center
+          .card-title
+            %h1= (CustomerMetrics.site_total_co2_saved.to_f / 590).round(2)  #https://travelnav.com/emissions-from-london-united-kingdom-to-new-york-ny#:~:text=Flight%20emissions,tonnes%20of%20carbon%20dioxide%20equivalents.)
+          .card-text
+            %h2 Flights from London to New York saved
+          -# .card-img-overlay.opacity-25
+          -#   %img= image_tag 'plane.png', width: '100%'
 
 
-  .row.pad-edge.pt-5.text-center
-    %h2 Click below to learn more!
-  .row.pad-edge
-    .col.text-end
-      .btn-custom-active.clearfix
-        = link_to ("as a customer"), pricing_plans_url, method: :get
-    .col
-      .btn-custom.clearfix
-        = link_to ("as a business"), business_info_url, method: :get
+    %br
+    %br
+
+    .row.bg-transparent
+      .row.pad-edge.pt-5.text-center
+        %h2 Sign up here!
+        %h4.fst-italic or sign in if you already have an account
+      .row.pad-edge
+        .col.text-end
+          .btn-custom-active.clearfix
+            = link_to 'Sign up', new_customer_registration_path, method: :get
+        .col
+          .btn-custom.clearfix
+            = link_to 'Sign In', new_customer_session_path, method: :get
 
   .row.transition-wrapper
     .custom-shape-divider-top-1637446340
