@@ -37,7 +37,7 @@ class CalculateMetrics
     end
 
     def feature_interest
-      Share.group(:feature).count
+      Share.group(:feature, :social).count
     end
 
     def session_flows(visits_arr)

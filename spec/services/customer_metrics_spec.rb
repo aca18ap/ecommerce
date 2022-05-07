@@ -87,17 +87,17 @@ describe 'Customer metrics' do
   describe 'Time based metrics for a customer' do
     describe '.time_co2_per_purchase' do
       it 'returns nil if there are no purchases for a customer' do
-        expect(CustomerMetrics.time_co2_per_purchase(customer)).to eq nil
+        expect(CustomerMetrics.time_co2_per_purchase(customer)).to eq({})
       end
 
       def test_co2_purchases
-        purchase1 = insert_purchases(product.id, customer.id, (Time.now - 2.days))
-        purchase2 = insert_purchases(product2.id, customer.id, Time.now)
+        purchase1 = insert_purchases(product.id, customer.id, (Date.today - 2.days))
+        purchase2 = insert_purchases(product2.id, customer.id, Date.today)
 
         expect(CustomerMetrics.time_co2_per_purchase(customer)).to match_array(
-          [{ 'time' => purchase1.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => product.co2_produced.round(1) },
-           { 'time' => (purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day).to_i, 'value' => 0 },
-           { 'time' => purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => product2.co2_produced.round(1) }]
+          [[Date.today - 2.days, product.co2_produced],
+           [Date.today - 1.day, nil],
+           [Date.today, product2.co2_produced]]
         )
       end
 
@@ -116,7 +116,7 @@ describe 'Customer metrics' do
 
     describe '.time_total_co2' do
       it 'returns nil if there are no purchases for a customer' do
-        expect(CustomerMetrics.time_total_co2(customer)).to eq nil
+        expect(CustomerMetrics.time_total_co2(customer)).to eq({})
       end
 
       def test_co2_total
@@ -124,9 +124,9 @@ describe 'Customer metrics' do
         purchase2 = insert_purchases(product2.id, customer.id, Time.now)
 
         expect(CustomerMetrics.time_total_co2(customer)).to match_array(
-          [{ 'time' => purchase1.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => product.co2_produced.round(1) },
-           { 'time' => (purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day).to_i, 'value' => 0 },
-           { 'time' => purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => product2.co2_produced.round(1) }]
+          [[purchase1.created_at.change({ hour: 0, min: 0, sec: 0 }), product.co2_produced],
+           [(purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day), 0],
+           [purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }), product2.co2_produced]]
         )
       end
 
@@ -145,7 +145,7 @@ describe 'Customer metrics' do
 
     describe '.time_co2_saved' do
       it 'returns nil if there are no purchases for a customer' do
-        expect(CustomerMetrics.time_co2_saved(customer)).to eq nil
+        expect(CustomerMetrics.time_co2_saved(customer)).to eq([])
       end
 
       def test_co2_saved
@@ -153,9 +153,9 @@ describe 'Customer metrics' do
         purchase2 = insert_purchases(product2.id, customer.id, Time.now)
 
         expect(CustomerMetrics.time_co2_saved(customer)).to match_array(
-          [{ 'time' => purchase1.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => (product.category.mean_co2 - product.co2_produced).round(1) },
-           { 'time' => (purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day).to_i, 'value' => 0 },
-           { 'time' => purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => (product.category.mean_co2 - product.co2_produced).round(1) }]
+          [[purchase1.created_at.change({ hour: 0, min: 0, sec: 0 }), (product.category.mean_co2 - product.co2_produced)],
+           [(purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day), 0],
+           [purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }), (product.category.mean_co2 - product.co2_produced)]]
         )
       end
 
@@ -174,7 +174,7 @@ describe 'Customer metrics' do
 
     describe '.time_co2_per_pound' do
       it 'returns nil if there are no purchases for a customer' do
-        expect(CustomerMetrics.time_co2_per_pound(customer)).to eq nil
+        expect(CustomerMetrics.time_co2_per_pound(customer)).to eq([])
       end
 
       def test_co2_per_pound
@@ -182,9 +182,9 @@ describe 'Customer metrics' do
         purchase2 = insert_purchases(product2.id, customer.id, Time.now)
 
         expect(CustomerMetrics.time_co2_per_pound(customer)).to match_array(
-          [{ 'time' => purchase1.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => (product.co2_produced / product.price).round(1) },
-           { 'time' => (purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day).to_i, 'value' => 0 },
-           { 'time' => purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => (product2.co2_produced / product2.price).round(1) }]
+          [[purchase1.created_at.change({ hour: 0, min: 0, sec: 0 }), (product.co2_produced / product.price)],
+           [(purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day), 0],
+           [purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }), (product2.co2_produced / product2.price)]]
         )
       end
 
@@ -201,39 +201,32 @@ describe 'Customer metrics' do
       end
     end
 
-    describe '.time_products_total' do
+    describe '.time_products_added' do
       it 'returns nil if there are no purchases for a customer' do
-        expect(CustomerMetrics.time_products_total(customer)).to eq nil
+        expect(CustomerMetrics.time_products_added(customer)).to eq({})
       end
 
-      def test_products_total
+      def test_products_added
         purchase1 = insert_purchases(product.id, customer.id, (Time.now - 2.days))
         purchase2 = insert_purchases(product2.id, customer.id, Time.now)
 
-        expect(CustomerMetrics.time_products_total(customer)).to match_array(
-          [{ 'time' => purchase1.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => 1 },
-           { 'time' => (purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day).to_i, 'value' => 0 },
-           { 'time' => purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }).to_i, 'value' => 1 }]
+        expect(CustomerMetrics.time_products_added(customer)).to match_array(
+          [[purchase1.created_at.change({ hour: 0, min: 0, sec: 0 }), 1],
+           [(purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day), 0],
+           [purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }), 1]]
         )
       end
 
       it 'returns the correct number of products added per day for a customer if there are purchases in the morning' do
         travel_to Time.zone.local(2022, 0o5, 0o5, 0o1, 0o0, 0o0)
         freeze_time
-        test_products_total
+        test_products_added
       end
 
       it 'returns the correct number of products added per day for a customer if there are purchases in the afternoon' do
         travel_to Time.zone.local(2022, 0o5, 0o5, 13, 0o0, 0o0)
         freeze_time
-        test_products_total
-      end
-    end
-
-    describe '.insert_zero_entries' do
-      it 'returns nil if nil or an empty array is passed' do
-        expect(CustomerMetrics.send(:insert_zero_entries, [])).to eq nil
-        expect(CustomerMetrics.send(:insert_zero_entries, nil)).to eq nil
+        test_products_added
       end
     end
   end

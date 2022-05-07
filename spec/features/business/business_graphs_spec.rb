@@ -33,7 +33,7 @@ describe 'Business Metrics Graphs', js: true do
 
   context 'If there are affiliate products' do
     let!(:product) { FactoryBot.create(:product, business_id: business.id) }
-    let(:customer) { FactoryBot.create(:customer) }
+    let!(:customer) { FactoryBot.create(:customer) }
 
     specify 'the appropriate page statistics should update' do
       visit dashboard_path
@@ -42,7 +42,7 @@ describe 'Business Metrics Graphs', js: true do
     end
 
     context 'If there are affiliate views' do
-      specify 'the appropriate page statistics anf graphs should update' do
+      specify 'the appropriate page statistics and graphs should update' do
         AffiliateProductView.new(product_id: product.id, customer_id: customer.id).save
         visit dashboard_path
 
@@ -56,8 +56,9 @@ describe 'Business Metrics Graphs', js: true do
     end
 
     context 'If there are customer purchases of affiliate products' do
+      before { customer.products << product }
+
       specify 'the appropriate page statistics should update' do
-        customer.products << product
         visit dashboard_path
 
         within(:css, '#customer-purchases-stat') { expect(page).to have_content '1' }
