@@ -94,51 +94,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (gon.sessionFlows && gon.sessionFlows.length > 0) {
         let sessionsList = document.getElementById('sessions-list');
-        for (let s of gon.sessionFlows) {
+        for (let session of gon.sessionFlows) {
             let b = document.createElement('button');
             b.innerText = 'View Flow';
             b.classList += 'btn btn-success';
             b.onclick = () => {
-
+                Object.values(session).forEach(path => {
+                    let flowList = document.getElementById('flow-list');
+                    flowList.innerHTML = '';
+                    for (let [index, page] of path.entries()) {
+                        let row = document.createElement('tr');
+                        let indexCol = document.createElement('td');
+                        let pathCol = document.createElement('td');
+                        let timeCol = document.createElement('td');
+                        indexCol.innerText = (index + 1).toString();
+                        pathCol.innerText = page.path;
+                        timeCol.innerText = page.duration;
+                        row.append(indexCol);
+                        row.append(pathCol);
+                        row.append(timeCol);
+                        flowList.append(row);
+                    }
+                })
             }
-    }
-
-    // if (gon.visits && gon.visits.length > 0) {
-    //     // Gets sessionFlows from gon gem - calculated in CalculateMetrics service class
-    //     let sessionsList = document.getElementById('sessions-list');
-    //     for (let s of gon.sessionFlows) {
-    //         let b = document.createElement('button');
-    //         b.innerText = 'View Flow';
-    //         b.classList += 'btn btn-success';
-    //         b.onclick = () => {
-    //             let flowList = document.getElementById('flow-list');
-    //             flowList.innerHTML = '';
-    //             for (let i = 0; i < s.flow.length; i++) {
-    //                 let row = document.createElement('tr');
-    //                 let indexCol = document.createElement('td');
-    //                 let pathCol = document.createElement('td');
-    //                 let timeCol = document.createElement('td');
-    //                 indexCol.innerText = (i + 1).toString();
-    //                 pathCol.innerText = s.flow[i].path;
-    //                 timeCol.innerText = `${(Date.parse(s.flow[i].to) - Date.parse(s.flow[i].from)) / 1000}s`;
-    //                 row.append(indexCol);
-    //                 row.append(pathCol);
-    //                 row.append(timeCol);
-    //                 flowList.append(row);
-    //             }
-    //         };
-    //         let row = document.createElement('tr');
-    //         let column1 = document.createElement('td');
-    //         let column2 = document.createElement('td');
-    //         column1.innerText = s.registered;
-    //         row.append(column1);
-    //         column2.append(b);
-    //         row.append(column2);
-    //         sessionsList.append(row);
-    //     }
-    // } else {
-    //     emptyCharts.push(
-    //         document.getElementById('flow-report-plot'),
-    //     );
+            let row = document.createElement('tr');
+            let column1 = document.createElement('td');
+            let column2 = document.createElement('td');
+            row.append(column1);
+            column2.append(b);
+            row.append(column2);
+            sessionsList.append(row);
+        }
     }
 });
