@@ -36,5 +36,10 @@ class MetricsGraphsController < StaffsController
 
   def feature_interest_chart
     render json: CalculateMetrics.feature_interest
+                                 .group_by { |a| a.first.last }
+                                 .map { |feature, data|
+                                   { 'name' => feature,
+                                     'data' => data.map { |d| [d.first.first, d.last] } }
+                                 }
   end
 end

@@ -78,7 +78,7 @@
     %h1.mt-5.mb-3.text-center Feature Interest Statistics
     #feature-shares-div.justify-content-center.bg-light-green
       %h2#feature-shares-barchart-title.text-center Shares By Feature (Total: #{@shares.size})
-      = bar_chart feature_interest_chart_path, colors: ["#198754"], id: 'feature-shares-barchart-plot', height: '400px'
+      = bar_chart feature_interest_chart_path, colors: ['#de5246', '#1da1f2', '#4267B2'], id: 'feature-shares-barchart-plot', height: '400px', stacked: true
 
 
   .row.m-3

@@ -15,7 +15,7 @@ class BusinessesController < ApplicationController
 
   # GET /businesses/dashboard
   def dashboard
-    @business = Business.includes(products: [:image_attachment]).with_attached_avatar.find(current_business.id)
+    @business = Business.includes(products: [:image_attachment]).find(current_business.id)
     @business = @business.decorate
   end
 

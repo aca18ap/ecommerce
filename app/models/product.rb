@@ -45,10 +45,10 @@ class Product < ApplicationRecord
   has_many :products_material, inverse_of: :product, dependent: :destroy
   has_many :materials, through: :products_material
 
-  has_many :purchase_histories
+  has_many :purchase_histories, dependent: :destroy
   has_many :customers, through: :purchase_histories
 
-  has_many :affiliate_product_views
+  has_many :affiliate_product_views, dependent: :destroy
 
   belongs_to :business, optional: true
 
