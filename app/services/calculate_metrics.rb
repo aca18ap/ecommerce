@@ -40,13 +40,9 @@ class CalculateMetrics
       Share.group(:feature, :social).count
     end
 
-    def session_flows(visits_arr)
-      return if visits_arr.nil? || visits_arr.empty?
-
-      # { id: session_id, flow: [page_visit_objects], registered: whether_path_included_registration }
-      visits_arr.group_by { |visit| visit.session_identifier.itself }
-                .map do |session_id, visits|
-        { 'id' => session_id, 'flow' => visits, 'registered' => flow_contains_registration?(visits) }
+    def session_flows
+      Visit.select(:session_identifier, :from, :to, :path).group_by(&:session_identifier).map do |session, visits|
+        { session => visits.map { |visit| { 'path' => visit.path, 'duration' => visit.to - visit.from } } }
       end
     end
 

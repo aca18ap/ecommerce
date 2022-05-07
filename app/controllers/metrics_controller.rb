@@ -15,7 +15,7 @@ class MetricsController < ApplicationController
 
     gon.visits = @visits
     gon.registrations = @registrations
-    gon.sessionFlows = CalculateMetrics.session_flows(@visits)
+    gon.sessionFlows = CalculateMetrics.session_flows
   end
 
   def create

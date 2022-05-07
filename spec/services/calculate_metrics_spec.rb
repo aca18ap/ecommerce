@@ -165,17 +165,29 @@ describe 'Calculating metrics' do
 
   describe '.session_flows' do
     it 'returns an empty array if there are no visits in the system' do
-      skip 'Needs reworking'
-      expect(CalculateMetrics.session_flows).to eq({})
+      expect(CalculateMetrics.session_flows).to eq([])
     end
 
     it 'returns the path users take throughout the system and whether they registered on that path' do
-      skip 'Needs reworking'
-      expect(CalculateMetrics.session_flows(visits)).to match_array(
-                                                          [{ 'id' => visit_root.session_identifier, 'flow' => [visit_root], 'registered' => false },
-                                                           { 'id' => visit_reviews.session_identifier, 'flow' => [visit_reviews], 'registered' => false },
-                                                           { 'id' => visit_newsletters.session_identifier, 'flow' => [visit_newsletters], 'registered' => true }]
-                                                        )
+      s1 = 1
+      s2 = 2
+
+      v1 = FactoryBot.create(:visit, path: '/', session_identifier: s1)
+      v2 = FactoryBot.create(:visit, path: '/reviews', session_identifier: s1)
+
+      v3 = FactoryBot.create(:visit, path: '/', session_identifier: s2)
+      v4 = FactoryBot.create(:visit, path: '/home', session_identifier: s2)
+      v5 = FactoryBot.create(:visit, path: '/newsletters/1', session_identifier: s2)
+
+      expect(CalculateMetrics.session_flows).to match_array(
+        [{ s1.to_s =>
+            [{ 'path' => v1.path, 'duration' => v1.to - v1.from },
+             { 'path' => v2.path, 'duration' => v2.to - v2.from }] },
+         { s2.to_s =>
+            [{ 'path' => v3.path, 'duration' => v3.to - v3.from },
+             { 'path' => v4.path, 'duration' => v4.to - v4.from },
+             { 'path' => v5.path, 'duration' => v5.to - v5.from }] }]
+      )
     end
   end
 end
