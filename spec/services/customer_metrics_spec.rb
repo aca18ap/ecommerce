@@ -91,12 +91,16 @@ describe 'Customer metrics' do
       end
 
       def test_co2_purchases
-        purchase1 = insert_purchases(product.id, customer.id, (Date.today - 2.days))
-        purchase2 = insert_purchases(product2.id, customer.id, Date.today)
+        insert_purchases(product.id, customer.id, (Date.today - 2.days))
+        insert_purchases(product2.id, customer.id, Date.today)
 
-        expect(CustomerMetrics.time_co2_per_purchase(customer)).to match_array(
+        # Need to cast calculated averages to float to allow rspec to match in array https://github.com/rspec/rspec-core/issues/2383
+        results = CustomerMetrics.time_co2_per_purchase(customer)
+        results = results.map { |r| [r[0], r[1].to_f] }
+
+        expect(results).to match_array(
           [[Date.today - 2.days, product.co2_produced],
-           [Date.today - 1.day, nil],
+           [Date.today - 1.day, 0],
            [Date.today, product2.co2_produced]]
         )
       end

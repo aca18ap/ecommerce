@@ -3,8 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe '/metrics', type: :request do
-  before { login_as(create(:admin), scope: :staff) }
-
   def post_to_metrics(path)
     post '/metrics', params: {
       pageVisitedFrom: '1643892998084',
@@ -12,6 +10,41 @@ RSpec.describe '/metrics', type: :request do
       path: path,
       csrf_token: ''
     }
+  end
+
+  describe 'GET /metrics' do
+    context 'If logged in as a staff member' do
+      it 'allows the page to be accessed if logged in as an admin' do
+        login_as(FactoryBot.create(:admin), scope: :staff)
+        get metrics_path
+        expect(response).to be_successful
+      end
+
+      it 'allows the page to be accessed if logged in as an admin' do
+        login_as(FactoryBot.create(:reporter), scope: :staff)
+        get metrics_path
+        expect(response).to be_successful
+      end
+    end
+
+    context 'If not logged in as a staff member' do
+      it 'Does not allow the page to be accessed by logged out users' do
+        get metrics_path
+        expect(response).to_not be_successful
+      end
+
+      it 'Does not allow the page to be accessed by customers' do
+        login_as(FactoryBot.create(:customer), scope: :customer)
+        get metrics_path
+        expect(response).to_not be_successful
+      end
+
+      it 'Does not allow the page to be accessed by businesses' do
+        login_as(FactoryBot.create(:business), scope: :business)
+        get metrics_path
+        expect(response).to_not be_successful
+      end
+    end
   end
 
   describe 'POST /metrics' do

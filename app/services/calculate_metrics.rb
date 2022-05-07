@@ -17,7 +17,7 @@ class CalculateMetrics
     end
 
     def time_affiliate_views(period = :day)
-      Product.where.not(business_id: nil).group_by_period(period, :created_at, expand_range: true).count
+      AffiliateProductView.group_by_period(period, :created_at, expand_range: true).count
     end
 
     def visits_by_page
