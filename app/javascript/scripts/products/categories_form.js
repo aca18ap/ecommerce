@@ -1,27 +1,61 @@
 let categories;
 let path; 
-
+let flattened_categories;
 
 $(function(){
     if(gon){
         categories = gon.categories
         path = gon.cat_path
-        console.log(path)
+        flattened_categories = gon.all_cat_flat
     }
     initParents()
     $('.category_parent').hide()
     $('.category_child').hide()
     $('.category_grandchild').hide()
 
-    if(path.length !== 0){
-        console.log('Initializing categories')
+    if(path){
         initCategory()
     }
+
+    $('#search_category').on('input', ()=>{
+        updateResults()
+    })
 })
+
+function updateResults(){
+    let query = $('#search_category').val().toLowerCase()
+    let result = flattened_categories.filter(o => o.name.toLowerCase().includes(query))
+    $('#search_results').empty()
+    if (query !== ''){
+        result.forEach(r =>{
+            $('#search_results').append(`<p id=${r.id}>` + r.name + '</p>')
+            $(`#${r.id}`).on('click',(e)=>{
+                setPath(r.ancestry, r.id)
+                initCategory()
+            })
+        })
+    }
+}
+
+function setPath(ancestry, selected_option_id){
+    path = []
+    let categories_ids = []
+    if (ancestry !== null){
+        categories_ids = ancestry.split('/')
+    }
+    categories_ids.push(selected_option_id)
+    categories_ids.forEach(id =>{
+        path.push(flattened_categories.find(c => c.id === parseInt(id)))
+    })
+    console.log(path)
+}
+
 
 $('#product_form').on('submit', function(){
     fillCategory()
 })
+
+
 
 function initParents(){
     categories.forEach(c=>{
@@ -66,7 +100,8 @@ function updateChildren(parent_id){
 
     $('.category_child').html('')
     $('.category_grandchild').hide()
-    parent_node = categories[0].children.find((category) => {
+    let grandparent_id = $('.category_grandparent').val()
+    parent_node = categories.find(x => x.id === parseInt(grandparent_id)).children.find((category) => {
         if(category.id == parent_id){
             return category
         }
@@ -87,22 +122,34 @@ function updateChildren(parent_id){
 }
 
 function updateGrandchildren(child_id){
-    let parent_node
+    console.log(child_id)
     $('.category_grandchild').html('')
     $('.category_grandchild').show()
-    child = categories[0].children.find(c=>{
-        if (c.id == $('.category_parent').val()){
-            return c
+
+    let grandparent_id = parseInt($('.category_grandparent').val())
+    let parent_id = parseInt($('.category_parent').val())
+
+    let grandparent = categories.find(x => {
+        if(x.id == grandparent_id){
+            return x
         }
     })
-    parent_node = child.children.find(gc => {
-        if (gc.id == child_id){
-            return gc
+    console.log(grandparent)
+    let parent = grandparent.children.find(y => {
+        if(y.id === parent_id){
+            return y
         }
     })
-    
-    if (parent_node.children !== []){
-        parent_node.children.forEach(c=>{
+    console.log(parent.children)
+    let child = parent.children.find(z => {
+        if(z.id === parseInt(child_id)){
+            return z
+        }
+    })
+    console.log(child)
+        
+    if (child.children){
+        child.children.forEach(c=>{
             $('.category_grandchild').append(new Option(c.name, c.id))
         })
     }
@@ -131,7 +178,6 @@ function fillCategory(){
 
 function initCategory(){
     for(let i=0; i < path.length; i++){
-        console.log(path[i].id)
         if(i==0){
             $('.category_grandparent').val(path[i].id)
             updateParent(path[i].id)

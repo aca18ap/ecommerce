@@ -37,12 +37,13 @@ class ProductsController < ApplicationController
     else
       redirect_to new_customer_registration_path, alert: 'You need to sign up before adding a new product!'
     end
+    gon.push({all_cat_flat: Category.all})
   end
 
   # GET /products/1/edit
   def edit
     load_categories
-    gon.push({cat_path: @product.category.path})
+    gon.push({cat_path: @product.category.path, all_cat_flat: Category.all})
   end
 
   # POST /products

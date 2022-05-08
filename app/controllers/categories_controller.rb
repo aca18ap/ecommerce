@@ -47,6 +47,10 @@ class CategoriesController < ApplicationController
     redirect_to categories_url, notice: 'Category was successfully destroyed.'
   end
 
+  def search
+
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -58,4 +62,5 @@ class CategoriesController < ApplicationController
   def category_params
     params.require(:category).permit(:name, :parent_id, :image)
   end
+
 end
