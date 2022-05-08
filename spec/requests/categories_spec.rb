@@ -124,10 +124,10 @@ RSpec.describe '/categories', type: :request do
       category = Category.create! valid_attributes
 
       get categories_url
-      expect(response).to_not be_successful
+      expect(response).to be_successful
 
       get category_url(category)
-      expect(response).to_not be_successful
+      expect(response).to be_successful
 
       get new_category_url
       expect(response).to_not be_successful
