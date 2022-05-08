@@ -70,7 +70,7 @@
       .panel-body
         .row
          
-          .col-3.form-group.float.required.product_category.form-group-valid
+          .col-4.form-group.float.required.product_category.form-group-valid
             .float.required.d-none= f.label 'Category', :category
             .d-flex.flex-column
               %select.category_grandparent
@@ -84,9 +84,12 @@
 
               %select.category_grandchild
 
-          .col-3
+          .col-4
             %input#search_category{placeholder: 'Search for a category'}
-            .d-flex.flex-column#search_results
+            .card-body
+              #scrollable
+                .d-flex.flex-column{height: '300px'}
+                  .d-block.sticky-lg-top#search_results
 
           = f.input :category_id, :as => :hidden
         %br

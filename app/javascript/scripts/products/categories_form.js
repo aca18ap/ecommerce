@@ -28,7 +28,7 @@ function updateResults(){
     $('#search_results').empty()
     if (query !== ''){
         result.forEach(r =>{
-            $('#search_results').append(`<p id=${r.id}>` + r.name + '</p>')
+            $('#search_results').append(`<p id=${r.id} font-size=0.5>` + r.name + '</p>')
             $(`#${r.id}`).on('click',(e)=>{
                 setPath(r.ancestry, r.id)
                 initCategory()
