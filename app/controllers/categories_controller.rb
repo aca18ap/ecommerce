@@ -46,6 +46,8 @@ class CategoriesController < ApplicationController
     redirect_to categories_url, notice: 'Category was successfully destroyed.'
   end
 
+
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

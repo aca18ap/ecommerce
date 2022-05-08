@@ -1,0 +1,5 @@
+%ul
+    - categories.each do |category, children|
+        %li
+            =link_to_unless_current "\t #{category.name}", category
+            =render 'submenu_categories', categories: children if children.present?

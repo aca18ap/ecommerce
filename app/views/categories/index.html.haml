@@ -1,22 +1,31 @@
 %h1 Listing categories
 
-%table
-  %thead
-    %tr
-      %th Name
-      %th Children
-      %th
-      %th
-      %th
+.container-fluid
+  .row
+    - Category.roots.each do |category|
+      .col-3
+        .card.bg-light.my-3
+          .card-body.d-flex.flex-column.justify-content-around  
+            = link_to category.name, category 
 
-  %tbody
-    - @categories.each do |category|
-      %tr
-        %td= category.name
-        %td= category.has_children?
-        %td= link_to 'Show', category
-        %td= link_to 'Edit', edit_category_path(category)
-        %td= link_to 'Destroy', category, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+-# %table
+-#   %thead
+-#     %tr
+-#       %th Name
+-#       %th Children
+-#       %th
+-#       %th
+-#       %th
+
+-#   %tbody
+-#     - @categories.each do |category|
+-#       %tr
+-#         %td= category.name
+-#         %td= category.has_children?
+-#         %td= link_to 'Show', category
+-#         %td= link_to 'Edit', edit_category_path(category)
+-#         %td= link_to 'Destroy', category, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 
