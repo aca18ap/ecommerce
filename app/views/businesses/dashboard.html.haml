@@ -25,7 +25,7 @@
       .container-fluid.tab-content
         .container-fluid.tab-pane.active#total-product-views-tab
           %h2.d-inline Total Product Views
-          = line_chart time_product_views_chart_path, id: 'total-product-views-graph', height: '400px', ytitle: 'Product Views', xtitle: 'Day'
+          = line_chart time_product_views_chart_path, colors: ["#198754"], id: 'total-product-views-graph', height: '400px', ytitle: 'Product Views', xtitle: 'Day'
 
         .container-fluid.tab-pane.mb-2#product-views-tab
           %h2.d-inline Views By Product

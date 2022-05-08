@@ -12,6 +12,11 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
+# Indexes
+#
+#  index_reviews_on_rank    (rank)
+#  index_reviews_on_rating  (rating)
+#
 require 'rails_helper'
 
 RSpec.describe Review, type: :model do
