@@ -97,3 +97,10 @@ fieldset[disabled] .btn-ecommerce.active {
   color: var(--br4); 
   background-color: #FFFFFF; 
 }
+
+#openBtn {
+  position: fixed;
+  font-size: 2em;
+  top: 60px;
+  left: 10%;
+}

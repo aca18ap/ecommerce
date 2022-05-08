@@ -1,29 +1,12 @@
+- content_for :title, product.name
 = stylesheet_link_tag 'products'
 = include_gon
 = additional_javascript('products')
-
-// Control options hidden in sidebar menu
 
 .container-fluid.pad-edge
   .pt-2
   %p#notice= notice
 
-  - if can?(:manage, Product)
-    .btn.btn-ecommerce.my-2
-      = link_to 'Edit', edit_product_path(product)
-    .btn.btn-ecommerce.my-2
-      = link_to 'Destroy', product, :method => :delete, :data => { :confirm => 'Are you sure?' }
-  - if can?(:create, ProductReport)
-    .btn.btn-ecommerce.my-2
-      = link_to 'Report', new_product_report_path(:product_id => @product.id)
-  
-  .row
-    %nav{'aria-label'=>'breadcrumb'}
-      %ol.breadcrumb
-        %li.breadcrumb-item=link_to 'All Categories', categories_path
-        - @product.category.ancestors.each do |category|
-          %li.breadcrumb-item= link_to category.name, category
-        %li.breadcrumb-item=link_to @product.category.name, @product.category
   .row.py-3
     .col-xl-4
 
@@ -56,11 +39,24 @@
       .row
         .d-flex#co2_left
           .eco-stats.d-flex.flex-column.w-100
-            %h1= product.name
+            %h1
+              = product.name
+              .pull-right
+                - if can?(:manage, Product)
+                  .btn.btn-ecommerce
+                    %i.fa.fa-edit
+                    = link_to 'Edit', edit_product_path(product)
+                  .btn.btn-ecommerce
+                    %i.fa.fa-trash
+                    = link_to 'Destroy', product, :method => :delete, :data => { :confirm => 'Are you sure?' }
+                - if can?(:create, ProductReport)
+                  .btn.btn-ecommerce
+                    %i.fa.fa-flag
+                    = link_to 'Report', new_product_report_path(:product_id => @product.id)
+            
             %h3= product.manufacturer
 
             %br
-
             %h4.center We estimate that...
             - if product.difference_with_mean > 0
               %h1.text-success.center= product.co2_produced_with_unit

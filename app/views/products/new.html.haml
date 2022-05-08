@@ -1,8 +1,12 @@
 = additional_javascript('products')
-#back-button.d-flex.flex-column.p-2
 
+- content_for :title, "New Product"
 
 .container-fluid.pad-edge
-  %h1.pt-5 New product
-
+  .pt-5
+    .pull-right
+      .btn.btn-ecommerce
+        %i.fa.fa-rotate-left
+        = link_to 'Back', :back
+  %h1 New Product
   = render 'form'

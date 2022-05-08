@@ -33,13 +33,13 @@
               = faq.faq_vote.sum(:value)
           .col.btn-group.my-auto{:role => "group"}
             - if can? :read, faq then
-              = link_to 'View', faq, :class => "btn btn-primary"
+              = link_to 'View', faq, :class => "btn btn-ecommerce"
             - if can? :edit, faq then
-              = link_to 'Edit', edit_faq_path(faq), :class => "btn btn-secondary"
+              = link_to 'Edit', edit_faq_path(faq), :class => "mx-2 btn btn-ecommerce"
             - if can? :destroy, faq then
               = link_to 'Destroy', faq, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => "btn btn-danger"
             - if can? :answer, faq then
-              = link_to 'Answer', answer_faq_path(faq), :class => "btn btn-primary"
+              = link_to 'Answer', answer_faq_path(faq), :class => "mx-2 btn btn-ecommerce"
       %hr
     
     .justify-content-center.pagination.mb-5
