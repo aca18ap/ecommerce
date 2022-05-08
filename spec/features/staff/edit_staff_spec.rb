@@ -71,7 +71,7 @@ describe 'staff' do
   context 'If I no longer want to have an account' do
     specify 'I can delete my account', js: true do
       accept_confirm do
-        click_link 'Cancel my account'
+        click_link 'Delete account'
       end
 
       expect(page).to have_current_path '/'

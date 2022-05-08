@@ -1,6 +1,7 @@
-%li
-  = link_to 'Staff Dashboard', staff_show_path, :class => 'dropdown-link'
-%hr.dropdown-divider
+- if can?(:read, :metrics)
+  %li
+    = link_to 'View Metrics', metrics_path, class: 'dropdown-link', title: 'Site metrics'
+  %hr.dropdown-divider
 %li
   = link_to 'Manage Users', admin_users_path, class: 'dropdown-link', title: 'Manage accounts'
 - if can?(:manage, Material)
@@ -13,9 +14,7 @@
 - if can?(:destroy, ProductReport)
   %li 
     = link_to 'Manage Reports', product_reports_path, class: 'dropdown-link', title: 'Manage Reports'
-- if can?(:read, :metrics)
-  %li
-    = link_to 'View Metrics', metrics_path, class: 'dropdown-link', title: 'Site metrics'
+
 %hr.dropdown-divider
 %li
   = link_to 'Account Settings', staff_edit_path, :class => 'dropdown-link'

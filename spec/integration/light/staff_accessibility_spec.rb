@@ -6,13 +6,6 @@ describe 'Staff accessibility' do
   let!(:staff) { FactoryBot.create(:admin) }
   before { login_as(staff, scope: :staff) }
 
-  feature 'Staff dashboard', js: true do
-    scenario 'is accessible' do
-      visit dashboard_path
-      expect(page).to be_axe_clean
-    end
-  end
-
   feature 'Edit staff', js: true do
     scenario 'is accessible' do
       visit edit_staff_registration_path

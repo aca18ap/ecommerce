@@ -20,7 +20,7 @@ Rails.application.routes.draw do
                                      invitations: 'staffs/invitations' }
   authenticated :staff, ->(u) { u.admin? } do
     root to: 'pages#home', as: :authenticated_admin_root
-    get '/dashboard', to: 'staffs#show'
+    get '/dashboard', to: 'metrics#index'
   end
   namespace :admin do
     get '/users', to: '/admin/users#index'
@@ -40,11 +40,10 @@ Rails.application.routes.draw do
   authenticated :staff, ->(u) { u.reporter? } do
     root to: 'staffs#show', as: :authenticated_reporter_root
   end
-  resources :staffs, path: 'staff', only: %i[show edit update destroy] do
+  resources :staffs, path: 'staff', only: %i[edit update destroy] do
     patch :unlock, on: :member
     patch :invite, on: :member
   end
-  get '/staff/show'
   get '/staff/edit'
 
   devise_for :businesses, path: 'business',

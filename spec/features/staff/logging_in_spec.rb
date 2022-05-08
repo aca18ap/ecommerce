@@ -57,7 +57,7 @@ describe 'staff logging in in' do
       fill_in 'staff[email]', with: staff.email
       fill_in 'staff[password]', with: "incorrect_password') OR '1'--"
       click_button 'Log in'
-      expect(page).not_to have_current_path staff_show_path
+      expect(page).not_to have_current_path metrics_path
     end
   end
 
