@@ -5,11 +5,6 @@ class BusinessesController < ApplicationController
   before_action :set_business, only: %i[show edit update destroy unlock invite]
   load_and_authorize_resource except: :dashboard
 
-  # GET /businesses
-  def index
-    redirect_back fallback_location: root_path
-  end
-
   # GET /businesses/1
   def show; end
 

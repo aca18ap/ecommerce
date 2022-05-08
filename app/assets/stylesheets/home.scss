@@ -83,70 +83,20 @@
 
 }
 
-// h2 {
-//   font-weight: 200;
-// }
-
-// h3 {
-//   color: #5e8d66;
-// }
-
-// h4 {
-//   color: #00241b;
-//   font-weight: 200;
-//   font-size: 1.2em
-// }
-
-// .segment-font {
-//   font-size: 1.2em;
-// }
-
-// .bg-green{
-//   background-color: mediumseagreen;
-// }
-
-// .bg-light-green {
-//   background-color: rgba(38, 166, 91, 0.1)
-// }
-
-// .bg-brown-sugar {background-color: #9F684B}
-// .bg-russian-green {background-color: #5E8D66;}
-// .bg-feldgrau {background-color:#3E4F44;}
-
-// .text-bluegrey {color: #263238;}
-
-// .text-green {color: mediumseagreen; }
-// .text-brown-sugar {color: #9F684B;}
-// .text-dutch-white {color: #EEDBBE;}
-// .text-opal {color: #C2D6C5;}
-// .text-russian-green { color: #5E8D66;}
-// .text-feldgrau { color: #3E4F44;}
-
-// .text-shadow{
-//   text-shadow: 0 0 0.5em black;
-// }
-
 .pad-edge{
   padding-left: 10%;
   padding-right: 10%;
 }
-
 
 .pad-vertically {
   padding-top: 150px;
   padding-bottom: 100px;
 }
 
-
 .overlay {
   position:absolute;
   top: 0;
 }
-
-/* .bg-segment {
-  background: linear-gradient(to top, #65b891FF, #65b891FF), url("/images/bg-forest.jpg") repeat center center;
-  background-size: cover;
-} */
 
 .bg-segment {
   background-color: #337054;
@@ -188,7 +138,6 @@
 .custom-shape-divider-bottom-1637446340 .shape-fill {
   fill: var(--light1);
 }
-
 
 .custom-shape-divider-bottom-1637446340 {
   position: absolute;
@@ -235,11 +184,6 @@
   cursor: default;
 }
 
-
-/* .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-  background-color: #3e4f44;
-} */
-
 ul.feature-list li { 
   list-style-type: none;
   background: url('/images/tick_medium.png') no-repeat left center;
@@ -251,14 +195,7 @@ ul.feature-list li {
   color: #3E4F44;
 } 
 
-Button a {
-  color: white;
-  text-decoration: none;
-}
 
-Button a:hover {
-  color: white;
-}
 
 .segment-font .h3 {
   color: #93e5ab;

@@ -6,10 +6,11 @@
  *= require font_setup
  *= require layout
  *= require home
- *= require pricing_plans
+ *= require dark_toggle
  *= require buttons
  *= require nav
  *= require footer
  *= require features
+ *= require sidebar
  *= require select2
  */
