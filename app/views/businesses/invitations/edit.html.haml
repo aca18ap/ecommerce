@@ -1,4 +1,4 @@
-.container-fluid.devise-form-container
+.container-fluid.devise-form-container.vertical-center
   %h2= t "devise.invitations.edit.header"
   = simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put }) do |f|
     = f.error_notification

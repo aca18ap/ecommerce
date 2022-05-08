@@ -1,4 +1,6 @@
-.container-fluid.devise-form-container
+- content_for :title, "Business log in"
+
+.container-fluid.devise-form-container.vertical-center
   .p-5
     %h1.text-center Business log in
     = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|

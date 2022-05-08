@@ -1,4 +1,6 @@
-.container-fluid.devise-form-container
+- content_for :title, "Send Invitation"
+
+.container-fluid.devise-form-container.vertical-center
   %h2= 'Send Invitation'
   = simple_form_for(resource, as: resource_name, url: staff_invitation_path) do |f|
     .form-inputs

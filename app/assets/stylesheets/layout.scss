@@ -62,3 +62,51 @@ $mynewcolor: #bc7164;
   background-color: var(--light3);
   border-radius: 0px 0px 10px 10px;
 }
+
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+
+}
+
+#dashboard-tabs {
+  border-style: none;
+}
+
+#dashboard-tabs .nav-link {
+  // font-size:1em;
+  font-weight: bold;
+  color: var(--dark1);
+  border-style: none;
+}
+
+#dashboard-tabs .active {
+  background-color: var(--tertiary);
+  color: var(--light1);
+}
+
+.customer-dashboard {
+  background-color: var(--light3);
+
+}
+
+.figure-border{
+  border-style: solid;
+  border-color: var(--light2);
+}
+
+.text-product{
+  color: var(--dark1);
+  font-size:1.4em;
+  background-color: var(--light3);
+}
+
+.text-product:hover {
+  color: var(--light1);
+  background-color: var(--tertiary);
+}

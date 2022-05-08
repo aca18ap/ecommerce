@@ -1,6 +1,8 @@
-.container-fluid.devise-form-container
+- content_for :title, "Staff log in"
+
+.container-fluid.devise-form-container.vertical-center
   .p-5
-    %h1.text-center Admin log in
+    %h1.text-center Staff log in
     = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
       .form-inputs
         = f.input :email,

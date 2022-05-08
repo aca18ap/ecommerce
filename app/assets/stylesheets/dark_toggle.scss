@@ -30,16 +30,18 @@ body.dark .label-dark,
 body.dark .label-light {
 	color:var(--gray-60);
 }
-.label-dark:hover {
-	color:var(--gray-50);
+.label-dark:hover,
+.label-light:hover {
+	color:var(--gray-60);
 }
 .label-dark:active {
 	color:var(--gray-50);
 }
-body.dark .label-dark {
-	pointer-events:none;
-}
-body.dark .label-light:hover {
+
+body.dark .label-light:hover,
+body.dark .label-dark:hover,
+.label-light:hover,
+.label-dark:hover {
 	color:var(--gray-95);
 }
 body.dark .label-light:active {

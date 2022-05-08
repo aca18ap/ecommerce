@@ -6,7 +6,7 @@
 .container-fluid.pad-edge
   .pt-2
   %p#notice= notice
-
+  
   .row.py-3
     .col-xl-4
 
@@ -42,7 +42,7 @@
             %h1
               = product.name
               .pull-right
-                - if can?(:manage, Product)
+                - if can?(:edit, Product)
                   .btn.btn-ecommerce
                     %i.fa.fa-edit
                     = link_to 'Edit', edit_product_path(product)

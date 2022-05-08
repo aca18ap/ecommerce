@@ -24,7 +24,6 @@
       .form-actions
         = f.button :submit, "Update", class: 'btn btn-ecommerce mt-4 w-100' 
   .p-2.bg-shade.text-center
-
     %p
       #{link_to "Delete account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
       %br 

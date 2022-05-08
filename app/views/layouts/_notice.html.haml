@@ -13,7 +13,6 @@
     .alert.alert-primary.alert-dismissible.fade.show.mx-auto{:role => "alert"}
       %svg.bi.flex-shrink-0.me-2{"aria-label" => "Info:", :height => "24", :role => "img", :width => "24"}
         %use{"xlink:href" => "#info-fill"}
-      %strong Info
       = notice
       %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "alert", :type => "button"}
         .container-fluid.p-0.m-0
@@ -23,7 +22,6 @@
     .alert.alert-warning.alert-dismissible.fade.show.mx-auto{:role => "alert"}
       %svg.bi.flex-shrink-0.me-2{"aria-label" => "Info:", :height => "24", :role => "img", :width => "24"}
         %use{"xlink:href" => "#exclamation-triangle-fill"}
-      %strong Error
       = alert
       %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "alert", :type => "button"}
         .container-fluid.p-0.m-0
