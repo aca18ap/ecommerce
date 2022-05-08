@@ -1,13 +1,16 @@
 %p#notice= notice
 = stylesheet_link_tag 'categories'
 .container-fluid.pad-edge
-  %nav{'aria-label'=>'breadcrumb'}
-    %ol.breadcrumb
-      - @category.ancestors.each do |category|
-        %li.breadcrumb-item= link_to category.name, category
-      %li.breadcrumb-item.active{'aria-current'=>"#{@category}"}= @category.name
   .row
-    .col-xl-4.border-right
+    %nav{'aria-label'=>'breadcrumb'}
+      %ol.breadcrumb
+        %li.breadcrumb-item=link_to 'All Categories', categories_path
+        - @category.ancestors.each do |category|
+          %li.breadcrumb-item= link_to category.name, category
+        %li.breadcrumb-item.active{'aria-current'=>"#{@category}"}= @category.name
+    
+  .row
+    .col-xl-3.border-right
       %h1
         %b= @category.name
 
@@ -15,7 +18,7 @@
       #submenu
         = render 'submenu_categories', categories: @category.root.descendants.arrange
 
-    .col-xl-8
+    .col-xl-9
       - @category.products.each do |product|
         = render partial: 'products/suggested_product_card', locals: {p: product.decorate}
 

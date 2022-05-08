@@ -1,6 +1,6 @@
-%h1 Listing categories
 
-.container-fluid
+.container
+  %h1 Listing categories
   .row
     - Category.roots.each do |category|
       .col-3
@@ -8,25 +8,7 @@
           .card-body.d-flex.flex-column.justify-content-around  
             = link_to category.name, category 
 
+  %br
 
--# %table
--#   %thead
--#     %tr
--#       %th Name
--#       %th Children
--#       %th
--#       %th
--#       %th
-
--#   %tbody
--#     - @categories.each do |category|
--#       %tr
--#         %td= category.name
--#         %td= category.has_children?
--#         %td= link_to 'Show', category
--#         %td= link_to 'Edit', edit_category_path(category)
--#         %td= link_to 'Destroy', category, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Category', new_category_path
+  - if can?(manage:, :categories)
+    = link_to 'New Category', new_category_path
