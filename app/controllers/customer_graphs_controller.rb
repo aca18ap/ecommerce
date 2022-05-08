@@ -2,6 +2,8 @@
 
 # Handles the end points for customer graphs to improve page load times on customer dashboard
 class CustomerGraphsController < ApplicationController
+  before_action :authenticate_customer!
+
   def time_co2_per_purchase_chart
     render json: CustomerMetrics.time_co2_per_purchase(current_customer).transform_values(&:to_i)
   end
