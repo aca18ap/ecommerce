@@ -10,7 +10,7 @@ class Ability
     case user
     when Staff
       if user.admin?
-        can :manage, [Staff, Customer, Business, Review, Visit, Newsletter, Faq, :metrics, Product, Material]
+        can :manage, [Staff, Customer, Business, Review, Visit, Newsletter, Faq, :metrics, Product, Material, Category]
         can :read, :all
         can %i[create destroy delete], ProductReport
       elsif user.reporter?
@@ -21,6 +21,7 @@ class Ability
         can :like, Faq
         can :dislike, Faq
         can :create, ProductReport
+        can :read, Category
       end
     when Business
       can :create, Product
@@ -31,12 +32,14 @@ class Ability
       can :manage, :dashboard
       can :create, ProductReport
       can :read, AffiliateProductView
+      can :read, Category
     when Customer
       can :create, Product
       can :read, Product
       can :read, Business
       can :read, Faq
       can :create, ProductReport
+      can :read, Category
     else
       can :new, Review
       can :create, [Review, Faq, Newsletter]
@@ -49,6 +52,7 @@ class Ability
       cannot :manage, Visit
       can :read, Product
       can :read, Business
+      can :read, Category
     end
     #
     # The first argument to `can` is the action you are giving the user

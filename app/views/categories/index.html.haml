@@ -10,5 +10,5 @@
 
   %br
 
-  - if can?(manage:, :categories)
+  - if can?(:manage, Category)
     = link_to 'New Category', new_category_path

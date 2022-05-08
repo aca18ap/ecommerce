@@ -2,7 +2,7 @@
 
 # Categories controll for staff to manage product acetgories
 class CategoriesController < ApplicationController
-  before_action :authenticate_staff!
+  before_action :authenticate_staff!, except: %i[index show]
   before_action :set_category, only: %i[show edit update destroy]
 
   # GET /categories
