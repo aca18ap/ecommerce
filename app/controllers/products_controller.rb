@@ -40,7 +40,10 @@ class ProductsController < ApplicationController
   end
 
   # GET /products/1/edit
-  def edit; end
+  def edit
+    load_categories
+    gon.push({cat_path: @product.category.path})
+  end
 
   # POST /products
   def create

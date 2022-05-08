@@ -1,13 +1,22 @@
 let categories;
+let path; 
+
 
 $(function(){
     if(gon){
         categories = gon.categories
+        path = gon.cat_path
+        console.log(path)
     }
     initParents()
     $('.category_parent').hide()
     $('.category_child').hide()
     $('.category_grandchild').hide()
+
+    if(path.length !== 0){
+        console.log('Initializing categories')
+        initCategory()
+    }
 })
 
 $('#product_form').on('submit', function(){
@@ -116,5 +125,24 @@ function fillCategory(){
         $('#product_category_id').val(p)
     }else{
         $('#product_category_id').val(gp)
+    }
+}
+
+
+function initCategory(){
+    for(let i=0; i < path.length; i++){
+        console.log(path[i].id)
+        if(i==0){
+            $('.category_grandparent').val(path[i].id)
+            updateParent(path[i].id)
+        }else if(i==1){
+            $('.category_parent').val(path[i].id).show()
+            updateChildren(path[i].id)
+        }else if(i==2){
+            $('.category_child').val(path[i].id).show()
+            updateGrandchildren(path[i].id)
+        }else if(i==3){
+            $('.category_grandchild').val(path[i].id).show()
+        }
     }
 }
