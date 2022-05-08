@@ -35,7 +35,6 @@ class CustomerMetrics < CalculateMetrics
       (customer_co2_saved.map(&:co2_saved).sum / customer_co2_saved.size).round(1)
     end
 
-
     def site_co2_per_pound
       PurchaseHistory.joins(:product).pluck(Arel.sql('sum(co2_produced) / sum(price)')).first.to_f.round(1)
     end

@@ -21,6 +21,8 @@ class Category < ApplicationRecord
   has_many :products
   validates :name, presence: true
 
+  has_one_attached :image, dependent: :destroy
+
   # Only over products.size because this method is called on after_save hook
   # needed to -1 the product.size corresponding to the old average.
   def add_to_mean_co2(product)
