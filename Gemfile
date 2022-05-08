@@ -72,6 +72,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'sqlite3'
+  gem 'bullet'
 end
 
 group :development do
@@ -81,7 +82,7 @@ group :development do
   gem 'web-console'
 
   gem 'annotate'
-  gem 'bullet'
+
   gem 'capistrano'
   gem 'capistrano-bundler', require: false
   gem 'capistrano-passenger', require: false
