@@ -55,6 +55,7 @@
               %p Enter the name and a brief description of the product you're adding
       %br
       %button.btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
+
     .panel.panel-primary.setup-content#step2
       .panel-heading
         %h2.panel-title Mass and Price
@@ -94,6 +95,7 @@
             .text-center
               %p Select the weight and tell us the price the product you're adding costs
       %br
+      %button.btn.btn-ecommerce.prevBtn{type: 'button', href: '#'} Previous
       %button.btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
 
     .panel.panel-primary.setup-content#step3
@@ -127,7 +129,7 @@
 
           = f.input :category_id, :as => :hidden
         %br
-
+        %button.btn.btn-ecommerce.prevBtn{type: 'button', href: '#'} Previous
         %button.btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
 
       
@@ -148,6 +150,7 @@
               %p Enter the manufacturing country of the product (all labels have a Made in ...)
           
       %br
+      %button.btn.btn-ecommerce.prevBtn{type: 'button', href: '#'} Previous
       %button.btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
 
     .panel.panel-primary.setup-content#step5
@@ -163,6 +166,7 @@
             .w-100.image
               #image_preview
       %br
+      %button.btn.btn-ecommerce.prevBtn{type: 'button', href: '#'} Previous
       %button.btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
 
 
@@ -182,17 +186,25 @@
           %h4 Your materials should add up to 100%, missing:
           %h3#sum 0
     %br
+    %button.btn.btn-ecommerce.prevBtn{type: 'button', href: '#'} Previous
     %button.btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
 
   .panel.panel-primary.setup-content#step7
     .panel-heading
       %h2.panel-title Submit Product
       %br
-    .panel-body        
-      %br
-      .form-actions
-        - if current_customer
-          %h2 Have you purchased this product?  
-          = f.input :customer_purchased, label: 'I have purchased this product', as: :boolean, input_html: { checked: false }
-        .btn.submit_btn.btn.pull-right= f.button :submit
+    
+    .panel-body
+      .row
+        .col-6        
+          %br
+          .form-actions
+            - if current_customer
+              .h4 Have you purchased this product?  
+              = f.input :customer_purchased, label: 'I have purchased this product', as: :boolean, input_html: { checked: false }
+        .col-6
+          .align-self-start
+            .btn.submit_btn.btn.pull-left= f.button :submit
+%br
+
 

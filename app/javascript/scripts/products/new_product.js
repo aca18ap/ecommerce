@@ -56,7 +56,8 @@ function setupFormSteps(){
 
     var navListItems = $('.setup-panel a'),
         allWells = $('.setup-content'),
-        allNextBtn = $('.nextBtn');
+        allNextBtn = $('.nextBtn'),
+        allPrevBtn = $('.prevBtn');
 
     allWells.hide();
 
@@ -92,6 +93,23 @@ function setupFormSteps(){
         if (isValid) nextStepWizard.removeAttr('disabled').trigger('click');
     });
 
+    allPrevBtn.click(function(){
+        var curStep = $(this).closest(".setup-content"),
+            curStepBtn = curStep.attr("id"),
+            prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a"),
+            curInputs = curStep.find("input[type='text'],input[type='url']"),
+            isValid = true;
+
+        $('.form-group').removeClass("has-error");
+        for (var i = 0; i < curInputs.length; i++){
+            if (!curInputs[i].validity.valid){
+                isValid = false;
+                $(curInputs[i]).closest(".form-group").addClass("has-error")
+            }
+        }
+
+        if (isValid) prevStepWizard.removeAttr('disabled').trigger('click');
+    });
     $('div.setup-panel div a.btn-success').trigger('click');
 }
 
