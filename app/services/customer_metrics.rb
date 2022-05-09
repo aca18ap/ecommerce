@@ -54,35 +54,40 @@ class CustomerMetrics < CalculateMetrics
     def time_co2_per_purchase(customer, period = :day)
       Customer.where(id: customer.id)
               .joins(:products)
-              .group_by_period(period, 'purchase_histories.created_at', expand_range: true)
+              .group_by_period(period, 'purchase_histories.created_at',
+                               expand_range: true, range: 1.month.ago..Date.today)
               .average(:co2_produced)
     end
 
     def time_total_co2(customer, period = :day)
       Customer.where(id: customer.id)
               .joins(:products)
-              .group_by_period(period, 'purchase_histories.created_at', expand_range: true)
+              .group_by_period(period, 'purchase_histories.created_at',
+                               expand_range: true, range: 1.month.ago..Date.today)
               .sum(:co2_produced)
     end
 
     def time_total_price(customer, period = :day)
       Customer.where(id: customer.id)
               .joins(:products)
-              .group_by_period(period, 'purchase_histories.created_at', expand_range: true)
+              .group_by_period(period, 'purchase_histories.created_at',
+                               expand_range: true, range: 1.month.ago..Date.today)
               .sum(:price)
     end
 
     def category_mean_co2_per_day(customer, period = :day)
       Customer.where(id: customer.id)
               .joins(:categories)
-              .group_by_period(period, 'purchase_histories.created_at', expand_range: true)
+              .group_by_period(period, 'purchase_histories.created_at',
+                               expand_range: true, range: 1.month.ago..Date.today)
               .sum(:mean_co2)
     end
 
     def product_co2_produced_per_day(customer, period = :day)
       Customer.where(id: customer.id)
               .joins(:products)
-              .group_by_period(period, 'purchase_histories.created_at', expand_range: true)
+              .group_by_period(period, 'purchase_histories.created_at',
+                               expand_range: true, range: 1.month.ago..Date.today)
               .sum(:co2_produced)
     end
 
@@ -101,7 +106,8 @@ class CustomerMetrics < CalculateMetrics
     def time_products_added(customer, period = :day)
       Customer.where(id: customer.id)
               .joins(:products)
-              .group_by_period(period, 'purchase_histories.created_at', expand_range: true)
+              .group_by_period(period, 'purchase_histories.created_at',
+                               expand_range: true, range: 1.month.ago..Date.today)
               .count
     end
   end

@@ -1,12 +1,11 @@
 .row
-  %h1.m-3.text-center Visitor Statistics
   #visits-barchart-div.justify-content-center.bg-light-green.col-xl-6
     %h2#visits-barchart-title.text-center Site Visits by Page (Total: #{@visits.size})
-    = bar_chart visits_by_page_chart_path, id: 'visits-barchart-plot', ytitle: 'Page', xtitle: 'Visits'
+    = bar_chart visits_by_page_chart_path, id: 'visits-barchart-plot', ytitle: 'Page', xtitle: 'Visits', title: 'Top 30 Most Visited Pages'
 
   #visits-linechart-div.justify-content-center.bg-light-green.col-xl-6
     %h2#visits-linechart-title.text-center Landing Page Visits Over Time
-    = line_chart time_visits_chart_path, id: 'visits-linechart-plot', ytitle: 'Visits', xtitle: 'Day'
+    = line_chart time_visits_chart_path, id: 'visits-linechart-plot', ytitle: 'Visits', xtitle: 'Day', title: 'Page Visits Over the Last Month'
 
   %h1.mt-5.mb-3.text-center Visitor Geography Statistics
   #visits-geochart-div.justify-content-center.bg-light-green.col-xl-6

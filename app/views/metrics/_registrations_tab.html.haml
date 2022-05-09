@@ -1,12 +1,11 @@
 .row
-  %h1.mt-5.mb-3.text-center Registration Statistics
   #registrations-barchart-div.justify-content-center.bg-light-green.col-xl-6
     %h2#registrations-barchart-title.text-center Site Registrations by Vocation (Total: #{@registrations.size})
-    = bar_chart vocation_registrations_chart_path, id: 'registrations-barchart-plot', ytitle: 'Vocation', xtitle: 'Registrations'
+    = bar_chart vocation_registrations_chart_path, id: 'registrations-barchart-plot', ytitle: 'Vocation', xtitle: 'Registrations', title: 'Site Registrations by Vocation'
 
   #registrations-linechart-div.justify-content-center.bg-light-green.col-xl-6
     %h2#registrations-linechart-title.text-center Site Registrations Over Time
-    = line_chart time_registrations_chart_path, id: 'registrations-linechart-plot', ytitle: 'Registrations', xtitle: 'Day'
+    = line_chart time_registrations_chart_path, id: 'registrations-linechart-plot', ytitle: 'Registrations', xtitle: 'Day', title: 'Site Registrations Over the Last Month'
 
   %h1.mt-5.mb-3.text-center Registration Geography Statistics
   #registrations-geochart-div.justify-content-center.bg-light-green.col-xl-6

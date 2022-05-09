@@ -7,16 +7,19 @@ class BusinessMetrics < CalculateMetrics
     def time_affiliate_views(business, period = :day)
       Product.joins(:affiliate_product_views)
              .where(business_id: business.id)
-             .group_by_period(period, 'affiliate_product_views.created_at')
+             .group_by_period(period, 'affiliate_product_views.created_at',
+                              expand_range: true, range: 1.month.ago..Date.today)
              .count
     end
 
     def views_by_product(business)
-      Product.joins(:affiliate_product_views).where(business_id: business.id).group('products.name').count
+      Product.joins(:affiliate_product_views).where(business_id: business.id).group('products.name')
+             .order('count_all desc').limit(30).count
     end
 
     def views_by_category(business)
-      Product.joins(:affiliate_product_views, :category).where(business_id: business.id).group('categories.name').count
+      Product.joins(:affiliate_product_views, :category).where(business_id: business.id).group('categories.name')
+             .order('count_all desc').limit(30).count
     end
   end
 end
