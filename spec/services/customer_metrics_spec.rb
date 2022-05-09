@@ -61,7 +61,7 @@ describe 'Customer metrics' do
         customer.products << product
         customer.products << product2
         expected_total = ((product.category.mean_co2 - product.co2_produced) + (product2.category.mean_co2 - product2.co2_produced)).round(2)
-        expect(CustomerMetrics.site_total_co2_saved).to eq expected_total  
+        expect(CustomerMetrics.site_total_co2_saved).to eq expected_total
       end
     end
 
