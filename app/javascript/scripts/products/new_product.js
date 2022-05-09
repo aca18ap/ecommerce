@@ -1,5 +1,9 @@
 setupListeners()
-
+const weights = {
+    "Light": 0.5,
+    "Medium": 1,
+    "Heavy": 1.5
+}
 
 $(document).ready(function(){
     setupFormSteps()
@@ -90,4 +94,12 @@ function setupFormSteps(){
 
     $('div.setup-panel div a.btn-success').trigger('click');
 }
+
+$('.weight').on('click', (e)=>{
+    $('#mass').val(weights[e.target.innerHTML])
+    $('.weight').removeClass("active")
+    $(e.currentTarget).addClass("active")
+})
+
+
 

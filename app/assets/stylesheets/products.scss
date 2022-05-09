@@ -137,6 +137,15 @@ body{
     }
 }
 
+.weight{
+    cursor: pointer;
+}
+
+.active{
+    background-color: var(--dark1);
+    background: var(--light1);
+}
+
 #back-button {
     // z-index: 1;
     // position: absolute;

@@ -34,7 +34,7 @@ class ProductDecorator < ApplicationDecorator
   end
 
   def product_image_thumbnail(height = nil, width = nil)
-    if image.attached?
+    if with_image_attached.image.attached?
       meta = ActiveStorage::Analyzer::ImageAnalyzer.new(image).metadata
       height = meta['width'] if height.nil?
       width = meta['width'] if width.nil?
