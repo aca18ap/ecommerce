@@ -123,4 +123,13 @@ class ProductDecorator < ApplicationDecorator
     end
     html_values.html_safe
   end
+
+  def expand_description
+    if description.size > 160
+      html_values = ''
+      html_values += '<a class="button collapsed" data-toggle=collapse href=#descriptionText '
+      html_values += 'aria-expanded=false aria-controls=descrpitionText></a>'
+      html_values.html_safe
+    end
+  end
 end
