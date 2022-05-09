@@ -9,10 +9,16 @@ class Co2Calculator
   SEA_PERC = 0.92 # % of the way by sea
 
   def initialize(product)
-    @materials_co2 = product.materials.map(&:kg_co2_per_kg)
-    @materials_percentages = product.products_material.map(&:percentage)
     @manufacturer_country = product.manufacturer_country
     @mass = product.mass
+
+    product_with_product_materials = Product.where(id: product.id).includes(:products_material).first
+    @materials_percentages = product_with_product_materials.products_material.map(&:percentage)
+
+    @materials_co2 = []
+    if product_with_product_materials.products_material.length > 0 then
+      @materials_co2 = product_with_product_materials.products_material.map{ |m| m.material.kg_co2_per_kg}
+    end
   end
 
   def calculate_co2
