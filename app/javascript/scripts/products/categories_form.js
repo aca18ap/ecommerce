@@ -47,7 +47,7 @@ function setPath(ancestry, selected_option_id){
     categories_ids.forEach(id =>{
         path.push(flattened_categories.find(c => c.id === parseInt(id)))
     })
-    console.log(path)
+
 }
 
 
@@ -122,7 +122,7 @@ function updateChildren(parent_id){
 }
 
 function updateGrandchildren(child_id){
-    console.log(child_id)
+
     $('.category_grandchild').html('')
     $('.category_grandchild').show()
 
@@ -134,19 +134,19 @@ function updateGrandchildren(child_id){
             return x
         }
     })
-    console.log(grandparent)
+
     let parent = grandparent.children.find(y => {
         if(y.id === parent_id){
             return y
         }
     })
-    console.log(parent.children)
+
     let child = parent.children.find(z => {
         if(z.id === parseInt(child_id)){
             return z
         }
     })
-    console.log(child)
+
         
     if (child.children){
         child.children.forEach(c=>{
