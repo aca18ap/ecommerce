@@ -8,7 +8,7 @@ class ProductReportsController < ApplicationController
 
   # GET /product_reports
   def index
-    @product_reports = ProductReport.accessible_by(current_ability).decorate
+    @product_reports = ProductReport.includes([:staff,:business]).accessible_by(current_ability).decorate
   end
 
   # GET /product_reports/1
