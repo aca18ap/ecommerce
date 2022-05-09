@@ -15,12 +15,8 @@ class BusinessesController < ApplicationController
 
   # GET /businesses/dashboard
   def dashboard
-    @business = current_business
+    @business = Business.includes(products: [:image_attachment]).find(current_business.id)
     @business = @business.decorate
-
-    gon.timeAffiliateViews = BusinessMetrics.time_affiliate_views(@business)
-    gon.viewsByProduct = BusinessMetrics.views_by_product(@business)
-    gon.viewsByCategory = BusinessMetrics.views_by_category(@business)
   end
 
   # GET /businesses/1/edit

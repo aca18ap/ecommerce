@@ -10,78 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const width = 1000;
     const height = 500;
 
-    let emptyCharts = [];
-
-    if (gon.timeAffiliateViews && Object.keys(gon.timeAffiliateViews).length > 0) {
-        graphs.LineChart(gon.timeAffiliateViews, {
-            x: d => d.time,
-            y: d => d.value,
-            width,
-            height,
-            color: 'green',
-            marginTop: 30,
-            marginLeft: 40,
-            marginRight: 20,
-            xType: d3.scaleTime,
-            yLabel: 'Affiliate Products Added',
-            svgElement: document.getElementById('affiliate-views-linechart-plot'),
-        });
-    } else {
-        emptyCharts.push(document.getElementById('affiliate-views-linechart-plot'));
-    }
-
-    if (gon.affiliateProductCategories && Object.keys(gon.affiliateProductCategories).length > 0) {
-        // Gets pageVisits from gon gem - calculated in CalculateMetrics service class
-        graphs.HorizontalBarChart(gon.affiliateProductCategories, {
-            x: d => d.products,
-            y: d => d.category,
-            yDomain: d3.groupSort(gon.affiliateProductCategories, ([d]) => -d.products, d => d.category), // sort by descending frequency
-            width,
-            height,
-            color: 'green',
-            marginLeft: 70,
-            marginRight: 10,
-            xLabel: 'Visits',
-            svgElement: document.getElementById('affiliates-barchart-plot')
-        });
-    } else {
-        // Set text of chart areas to indicate that there is no data
-        emptyCharts.push(document.getElementById('affiliates-barchart-plot'));
-    }
-
-    // Only update graphs if there are any site tracking metrics in the system
-    if (gon.visits && gon.visits.length > 0) {
-        // Gets pageVisits from gon gem - calculated in CalculateMetrics service class
-        let pageVisitCountsChart = graphs.HorizontalBarChart(gon.pageVisits, {
-            x: d => d.visits,
-            y: d => d.page,
-            yDomain: d3.groupSort(gon.pageVisits, ([d]) => -d.visits, d => d.page), // sort by descending frequency
-            width,
-            height,
-            color: 'green',
-            marginLeft: 70,
-            marginRight: 10,
-            xLabel: 'Visits',
-            svgElement: document.getElementById('visits-barchart-plot')
-        });
-
-        // Gets timeVisits from gon gem - calculated in CalculateMetrics service class
-        let visitsOverTimeChart = graphs.LineChart(gon.timeVisits, {
-            x: d => d.time,
-            y: d => d.visits,
-            yLabel: 'Visits',
-            width,
-            height,
-            color: 'green',
-            svgElement: document.getElementById('visits-linechart-plot'),
-        });
-    } else {
-        // Set text of chart areas to indicate that there is no data
-        emptyCharts.push(
-            document.getElementById('visits-barchart-plot'),
-            document.getElementById('visits-linechart-plot'));
-    }
-
     let projection = d3.geoAlbers()
         .center([0, 55.4])
         .rotate([4.4, 0])
@@ -128,43 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
         countyVisits.append(row);
     });
 
-
-    // Only update graphs if there are any registrations in the system
-    if (gon.registrations && gon.registrations.length > 0) {
-        // Gets pageVisits from gon gem - calculated in CalculateMetrics service class
-        let vocationRegsCountsChart = graphs.HorizontalBarChart(gon.vocationRegistrations, {
-            x: d => d.registrations,
-            y: d => d.vocation,
-            yDomain: d3.groupSort(gon.vocationRegistrations, ([d]) => -d.registrations, d => d.vocation), // sort by descending frequency
-            width,
-            height,
-            color: 'green',
-            marginLeft: 70,
-            marginRight: 10,
-            xLabel: 'Registrations',
-            svgElement: document.getElementById('registrations-barchart-plot')
-        });
-
-        // Gets timeRegistrations from gon gem - calculated in CalculateMetrics service class
-        let regsOverTimeChart = graphs.LineChart(gon.timeRegistrations, {
-            x: d => d.time,
-            y: d => d.registrations,
-            z: d => d.vocation,
-            yLabel: 'Registrations',
-            width,
-            height,
-            color: 'green',
-            svgElement: document.getElementById('registrations-linechart-plot')
-        });
-
-    } else {
-        // Set text of chart areas to indicate that there is no data
-        emptyCharts.push(
-            document.getElementById('registrations-barchart-plot'),
-            document.getElementById('registrations-linechart-plot'),
-        );
-    }
-
     let regsPlotData = d3_graph_utils.create_feature_dict(uk.features, gon.registrations);
     let regs_values = Object.values(regsPlotData);
     let regs_min = graph_utils.get_min(regs_values);
@@ -201,125 +92,38 @@ document.addEventListener('DOMContentLoaded', () => {
         countyRegistration.append(row);
     });
 
-    if (gon.featureShares && gon.featureShares.length > 0) {
-        // Get all unique social media types from arrays
-        let socials = new Set()
-        gon.featureShares.forEach(featureShare => socials.add(featureShare['social']))
-        // TODO: Make this more dynamic for if new socials get added
-        let colour_map = {'facebook': '#3B5998', 'twitter': '#00ACEE', 'email': '#DB4437'}
-
-        let featureSharesChart = graphs.StackedBarChart(gon.featureShares, {
-            x: d => d.count,
-            y: d => d.feature,
-            z: d => d.social,
-            xLabel: "No. Shares",
-            yDomain: d3.groupSort(gon.featureShares, D => d3.sum(D, d => d.count), d => d.feature), // sort y by x
-            zDomain: socials,
-            color_map: colour_map,
-            colors: d3.schemeSpectral[socials.length],
-            width,
-            height,
-            marginLeft: 80,
-            marginRight: 10,
-            svgElement: document.getElementById('feature-shares-barchart-plot')
-        });
-    } else {
-        emptyCharts.push(
-            document.getElementById('feature-shares-barchart-plot')
-        )
-    }
-
-    // TODO: Update to views once the feature has been implemented
-    if (gon.shares && gon.shares.length > 0) {
-        let featureSharesChart = graphs.HorizontalBarChart(gon.shares, {
-            x: d => d.shares,
-            y: d => d.feature,
-            yDomain: d3.groupSort(gon.shares, ([d]) => -d.shares, d => d.feature), // sort by descending frequency
-            width,
-            height,
-            color: 'green',
-            marginLeft: 80,
-            marginRight: 10,
-            xLabel: 'Shares',
-            svgElement: document.getElementById('feature-views-barchart-plot')
-        });
-    } else {
-        emptyCharts.push(
-            document.getElementById('feature-views-barchart-plot')
-        )
-    }
-
-    if (gon.visits && gon.visits.length > 0) {
-        // Gets sessionFlows from gon gem - calculated in CalculateMetrics service class
+    if (gon.sessionFlows && gon.sessionFlows.length > 0) {
         let sessionsList = document.getElementById('sessions-list');
-        for (let s of gon.sessionFlows) {
+        for (let session of gon.sessionFlows) {
             let b = document.createElement('button');
             b.innerText = 'View Flow';
             b.classList += 'btn btn-success';
             b.onclick = () => {
-                let flowList = document.getElementById('flow-list');
-                flowList.innerHTML = '';
-                for (let i = 0; i < s.flow.length; i++) {
-                    let row = document.createElement('tr');
-                    let indexCol = document.createElement('td');
-                    let pathCol = document.createElement('td');
-                    let timeCol = document.createElement('td');
-                    indexCol.innerText = (i + 1).toString();
-                    pathCol.innerText = s.flow[i].path;
-                    timeCol.innerText = `${(Date.parse(s.flow[i].to) - Date.parse(s.flow[i].from)) / 1000}s`;
-                    row.append(indexCol);
-                    row.append(pathCol);
-                    row.append(timeCol);
-                    flowList.append(row);
-                }
-            };
+                Object.values(session).forEach(path => {
+                    let flowList = document.getElementById('flow-list');
+                    flowList.innerHTML = '';
+                    for (let [index, page] of path.entries()) {
+                        let row = document.createElement('tr');
+                        let indexCol = document.createElement('td');
+                        let pathCol = document.createElement('td');
+                        let timeCol = document.createElement('td');
+                        indexCol.innerText = (index + 1).toString();
+                        pathCol.innerText = page.path;
+                        timeCol.innerText = page.duration;
+                        row.append(indexCol);
+                        row.append(pathCol);
+                        row.append(timeCol);
+                        flowList.append(row);
+                    }
+                })
+            }
             let row = document.createElement('tr');
             let column1 = document.createElement('td');
             let column2 = document.createElement('td');
-            column1.innerText = s.registered;
             row.append(column1);
             column2.append(b);
             row.append(column2);
             sessionsList.append(row);
         }
-    } else {
-        emptyCharts.push(
-            document.getElementById('flow-report-plot'),
-        );
     }
-
-    if (gon.products && gon.products.length > 0) {
-        // Gets productCategories from gon gem - calculated in CalculateMetrics service class
-        let productCategoriesCountChart = graphs.HorizontalBarChart(gon.productCategories, {
-            x: d => d.products,
-            y: d => d.category,
-            yDomain: d3.groupSort(gon.productCategories, ([d]) => -d.products, d => d.category), // sort by descending frequency
-            width,
-            height,
-            color: 'green',
-            marginLeft: 70,
-            marginRight: 10,
-            xLabel: 'Products',
-            svgElement: document.getElementById('products-barchart-plot')
-        });
-
-        // Gets timeProducts from gon gem - calculated in CalculateMetrics service class
-        let productsOverTimeChart = graphs.LineChart(gon.timeProducts, {
-            x: d => d.time,
-            y: d => d.products,
-            yLabel: 'Products',
-            width,
-            height,
-            color: 'green',
-            svgElement: document.getElementById('products-linechart-plot'),
-        });
-    } else {
-        // Set text of chart areas to indicate that there is no data
-        emptyCharts.push(
-            document.getElementById('products-barchart-plot'),
-            document.getElementById('products-linechart-plot'));
-    }
-
-    // Add missing data message to appropriate chart areas
-    for (let chart of emptyCharts) d3_graph_utils.insert_empty_chart_message(chart, width, height);
 });

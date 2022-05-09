@@ -39,59 +39,58 @@ class CustomerMetrics < CalculateMetrics
       customer_products.values.sum / customer_products.size
     end
 
-    def time_co2_per_purchase(customer)
-      insert_zero_entries(
-        Customer.where(id: customer.id)
-                .joins(:products)
-                .group("date_trunc('day', purchase_histories.created_at)")
-                .average(:co2_produced)
-                .transform_keys(&:to_i)
-                .transform_values { |average| average.round(1) }
-      )
+    def time_co2_per_purchase(customer, period = :day)
+      Customer.where(id: customer.id)
+              .joins(:products)
+              .group_by_period(period, 'purchase_histories.created_at', expand_range: true)
+              .average(:co2_produced)
     end
 
-    def time_total_co2(customer)
-      insert_zero_entries(
-        Customer.where(id: customer.id)
-                .joins(:products)
-                .group("date_trunc('day', purchase_histories.created_at)")
-                .sum(:co2_produced)
-                .transform_keys(&:to_i)
-                .transform_values { |average| average.round(1) }
-      )
+    def time_total_co2(customer, period = :day)
+      Customer.where(id: customer.id)
+              .joins(:products)
+              .group_by_period(period, 'purchase_histories.created_at', expand_range: true)
+              .sum(:co2_produced)
+    end
+
+    def time_total_price(customer, period = :day)
+      Customer.where(id: customer.id)
+              .joins(:products)
+              .group_by_period(period, 'purchase_histories.created_at', expand_range: true)
+              .sum(:price)
+    end
+
+    def category_mean_co2_per_day(customer, period = :day)
+      Customer.where(id: customer.id)
+              .joins(:categories)
+              .group_by_period(period, 'purchase_histories.created_at', expand_range: true)
+              .sum(:mean_co2)
+    end
+
+    def product_co2_produced_per_day(customer, period = :day)
+      Customer.where(id: customer.id)
+              .joins(:products)
+              .group_by_period(period, 'purchase_histories.created_at', expand_range: true)
+              .sum(:co2_produced)
     end
 
     def time_co2_saved(customer)
-      insert_zero_entries(
-        Customer.where(id: customer.id)
-                .joins(:products, :categories)
-                .group("date_trunc('day', purchase_histories.created_at)")
-                .select("date_trunc('day', purchase_histories.created_at) AS day," \
-                        'SUM(categories.mean_co2 - products.co2_produced) / SQRT(COUNT(products)) AS co2_saved')
-                .map { |day| { day.day.to_i => day.co2_saved.round(1) } }
-                .reduce({}, :update)
-      )
+      category_mean_co2_per_day(customer).map do |time, mean_co2|
+        [time, mean_co2 - product_co2_produced_per_day(customer)[time]]
+      end
     end
 
     def time_co2_per_pound(customer)
-      insert_zero_entries(
-        Customer.where(id: customer.id)
-                .joins(:products)
-                .group("date_trunc('day', purchase_histories.created_at)")
-                .select("date_trunc('day', purchase_histories.created_at) AS day," \
-                        'SUM(products.co2_produced) / SUM(products.price) AS co2_per_pound')
-                .map { |day| { day.day.to_i => day.co2_per_pound.round(1) } }
-                .reduce({}, :update)
-      )
+      time_total_co2(customer).map do |time, co2_produced|
+        [time, co2_produced / (time_total_price(customer)[time].nonzero? || 1)]
+      end
     end
 
-    def time_products_total(customer)
-      insert_zero_entries(
-        Customer.where(id: customer.id).joins(:products)
-                .group("date_trunc('day', purchase_histories.created_at)")
-                .count
-                .transform_keys(&:to_i)
-      )
+    def time_products_added(customer, period = :day)
+      Customer.where(id: customer.id)
+              .joins(:products)
+              .group_by_period(period, 'purchase_histories.created_at', expand_range: true)
+              .count
     end
   end
 end

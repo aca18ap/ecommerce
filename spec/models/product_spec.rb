@@ -19,6 +19,15 @@
 #  business_id          :bigint
 #  category_id          :integer
 #
+# Indexes
+#
+#  index_products_on_business_id        (business_id)
+#  index_products_on_category_id        (category_id)
+#  index_products_on_co2_produced       (co2_produced)
+#  index_products_on_kg_co2_per_pounds  (kg_co2_per_pounds)
+#  index_products_on_name               (name)
+#  index_products_on_price              (price)
+#
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do

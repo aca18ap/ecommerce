@@ -16,7 +16,9 @@ class PurchaseHistoriesController < ApplicationController
   end
 
   def create
-    @purchase = PurchaseHistory.new(purchase_params.merge(customer_id: current_customer.id))
+    created_at = Time.parse(purchase_params[:created_at])
+    @purchase = PurchaseHistory.new(product_id: purchase_params[:product_id], created_at: created_at,
+                                    customer_id: current_customer.id)
     head :ok if @purchase.save
   end
 

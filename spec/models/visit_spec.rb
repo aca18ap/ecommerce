@@ -16,6 +16,10 @@
 #  updated_at         :datetime         not null
 #  user_id            :integer
 #
+# Indexes
+#
+#  index_visits_on_path  (path)
+#
 require 'rails_helper'
 
 RSpec.describe Visit, type: :model do

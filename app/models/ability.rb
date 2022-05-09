@@ -30,6 +30,7 @@ class Ability
       can :read, Faq
       can :manage, :dashboard
       can :create, ProductReport
+      can :read, AffiliateProductView
     when Customer
       can :create, Product
       can :read, Product

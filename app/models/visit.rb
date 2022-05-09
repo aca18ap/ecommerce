@@ -16,6 +16,10 @@
 #  updated_at         :datetime         not null
 #  user_id            :integer
 #
+# Indexes
+#
+#  index_visits_on_path  (path)
+#
 class Visit < ApplicationRecord
   # Gets the 'from' time truncated to the nearest hour
   def hour

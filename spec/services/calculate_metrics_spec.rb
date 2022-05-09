@@ -3,147 +3,191 @@
 require 'rails_helper'
 
 describe 'Calculating metrics' do
-  # Visits
-  let(:visit_root) { FactoryBot.create(:visit, path: '/', session_identifier: 'Session1') }
-  let(:visit_reviews) { FactoryBot.create(:visit, path: '/reviews', session_identifier: 'Session2') }
-  let(:visit_newsletters) { FactoryBot.create(:visit, path: '/newsletters/1', session_identifier: 'Session3') }
+  let(:business) { FactoryBot.create(:business) }
 
-  # Registrations
-  let(:customer_registration) { FactoryBot.create(:customer_registration) }
-  let(:customer_registration2) { FactoryBot.create(:customer_registration) }
-  let(:business_registration) { FactoryBot.create(:business_registration) }
-
-  # Category
   let(:category) { FactoryBot.create(:category, name: 'shoes') }
   let(:category2) { FactoryBot.create(:category, name: 'shirt') }
 
-  # Products
-  let!(:product1) { FactoryBot.create(:product, created_at: '2021-11-27 16:39:22', category_id: category.id) }
-  let!(:product2) { FactoryBot.create(:product, created_at: '2021-11-27 16:39:22', url: 'https://something.com', category_id: category2.id) }
-  let!(:product3) { FactoryBot.create(:product, created_at: Time.now, url: 'https://somethingelse.com', category_id: category2.id) }
+  describe '.product_categories' do
+    it 'returns an empty array if there are no products in the system' do
+      expect(CalculateMetrics.product_categories).to eq({})
+    end
 
-  let(:visits) { [visit_root, visit_reviews, visit_newsletters] }
-  let(:regs) { [customer_registration, customer_registration2, business_registration] }
-  let(:products) { [product1, product2, product3] }
+    it 'returns the number of products, grouped by category' do
+      n1 = 3
+      n2 = 5
+      n1.times { |x| FactoryBot.create(:product, url: "https://category_1_#{x}.com", category_id: category.id) }
+      n2.times { |x| FactoryBot.create(:product, url: "https://category_2_#{x}.com", category_id: category2.id) }
 
-  it 'Calculates visits to each site page' do
-    expect(CalculateMetrics.page_visits(visits)).to match_array([{ 'page' => '/', 'visits' => 1 },
-                                                                 { 'page' => '/reviews', 'visits' => 1 },
-                                                                 { 'page' => '/newsletters/1', 'visits' => 1 }])
+      expect(CalculateMetrics.product_categories).to match_array([[category.name, n1], [category2.name, n2]])
+    end
   end
 
-  it 'Calculates the number of registrations by vocation' do
-    expect(CalculateMetrics.vocation_registrations(regs)).to match_array(
-      [{ 'vocation' => 'customer', 'registrations' => 2 },
-       { 'vocation' => 'business', 'registrations' => 1 }]
-    )
+  describe '.time_product_additions' do
+    it 'returns an empty array if there are no products in the system' do
+      expect(CalculateMetrics.time_product_additions).to eq({})
+    end
+
+    it 'returns the number of products per day' do
+      [0, 1, 3].each { |x| FactoryBot.create(:product, url: "https://test_#{x}.com", created_at: Date.today - x.days) }
+
+      expect(CalculateMetrics.time_product_additions).to match_array([[Date.today - 3.days, 1],
+                                                                      [Date.today - 2.days, 0],
+                                                                      [Date.today - 1.day, 1],
+                                                                      [Date.today, 1]])
+    end
   end
 
-  it 'Calculates the session flows for a user session' do
-    expect(CalculateMetrics.session_flows(visits)).to match_array(
-      [{ 'id' => visit_root.session_identifier, 'flow' => [visit_root], 'registered' => false },
-       { 'id' => visit_reviews.session_identifier, 'flow' => [visit_reviews], 'registered' => false },
-       { 'id' => visit_newsletters.session_identifier, 'flow' => [visit_newsletters], 'registered' => true }]
-    )
+  describe '.affiliate_categories' do
+    it 'returns an empty array if there are no affiliate products' do
+      expect(CalculateMetrics.affiliate_categories).to eq({})
+    end
+
+    it 'returns the number of affiliate products for each category' do
+      n1 = 3
+      n2 = 5
+      n1.times { |x| FactoryBot.create(:product, url: "https://category_1_#{x}.com", category_id: category.id, business_id: business.id) }
+      n2.times { |x| FactoryBot.create(:product, url: "https://category_2_#{x}.com", category_id: category2.id, business_id: business.id) }
+
+      expect(CustomerMetrics.affiliate_categories).to match_array([[category.name, n1], [category2.name, n2]])
+    end
   end
 
-  it 'Calculates the number of visits per hour' do
-    CalculateMetrics.time_visits(visits).each do |time_visits|
-      if time_visits['time'] == DateTime.parse('2021-11-27 16:39:22').change({ min: 0, sec: 0 }).to_i
-        expect(time_visits['visits']).to eq(3)
-      else
-        expect(time_visits['visits']).to eq(0)
+  describe '.time_affiliate_views' do
+    let(:customer) { FactoryBot.create(:customer) }
+    let(:product) { FactoryBot.create(:product, business_id: business.id) }
+
+    it 'returns an empty array if there are no affiliate views or affiliate products' do
+      expect(CalculateMetrics.time_affiliate_views).to eq({})
+    end
+
+    it 'gets the number of affiliate views per day' do
+      [0, 1, 3].each { |x| AffiliateProductView.new(product_id: product.id, customer_id: customer.id, created_at: Date.today - x.days).save }
+
+      expect(CalculateMetrics.time_affiliate_views).to match_array([[Date.today - 3.days, 1],
+                                                                    [Date.today - 2.days, 0],
+                                                                    [Date.today - 1.day, 1],
+                                                                    [Date.today, 1]])
+    end
+  end
+
+  describe '.visits_by_page' do
+    it 'returns an empty array if there are no visits in the system' do
+      expect(CalculateMetrics.visits_by_page).to eq({})
+    end
+
+    it 'returns the number of visits by page' do
+      n1 = 3
+      n2 = 5
+      n1.times { FactoryBot.create(:visit, path: '/') }
+      n2.times { FactoryBot.create(:visit, path: '/reviews') }
+
+      expect(CalculateMetrics.visits_by_page).to match_array([['/', n1], ['/reviews', n2]])
+    end
+  end
+
+  describe '.time_visits' do
+    it 'returns an empty array if there are no visits in the system' do
+      expect(CalculateMetrics.time_visits).to eq({})
+    end
+
+    it 'returns the number of visit per day if there' do
+      [0, 1, 3].each { |x| FactoryBot.create(:visit, from: Date.today - x.days) }
+
+      expect(CalculateMetrics.time_visits).to match_array([[Date.today - 3.days, 1],
+                                                           [Date.today - 2.days, 0],
+                                                           [Date.today - 1.day, 1],
+                                                           [Date.today, 1]])
+    end
+  end
+
+  describe '.vocation_registrations' do
+    it 'returns an empty array if there are no registrations in the system' do
+      expect(CalculateMetrics.vocation_registrations).to eq({})
+    end
+
+    it 'returns the number of registrations, grouped by vocation' do
+      n1 = 3
+      n2 = 5
+      n1.times { Registration.new(vocation: Registration.vocations[:customer]).save }
+      n2.times { Registration.new(vocation: Registration.vocations[:business]).save }
+
+      expect(CalculateMetrics.vocation_registrations).to match_array([['customer', n1], ['business', n2]])
+    end
+  end
+
+  describe '.time_registrations' do
+    it 'returns an empty array if there are no registrations in the system' do
+      expect(CalculateMetrics.time_registrations).to eq({})
+    end
+
+    it 'returns the number of registrations each day' do
+      [0, 1, 3].each { |x| Registration.new(vocation: Registration.vocations[:customer], created_at: Date.today - x.days).save }
+
+      expect(CalculateMetrics.time_registrations).to match_array([[Date.today - 3.days, 1],
+                                                                  [Date.today - 2.days, 0],
+                                                                  [Date.today - 1.day, 1],
+                                                                  [Date.today, 1]])
+    end
+  end
+
+  describe '.feature_interest' do
+    it 'returns an empty array if there are no shares in the system' do
+      expect(CalculateMetrics.feature_interest).to eq({})
+    end
+
+    it 'gets the number of times a feature is share to which social network' do
+      n1 = 3
+      n2 = 5
+
+      n1.times do
+        FactoryBot.create(:share, feature: 'Feature2', social: 'email')
+        FactoryBot.create(:share, feature: 'Feature1', social: 'twitter')
+        FactoryBot.create(:share, feature: 'Feature2', social: 'facebook')
       end
-    end
-  end
 
-  it 'Calculates the number of registrations at each hour, for each vocation (and total)' do
-    CalculateMetrics.time_registrations(regs).each do |time_registrations|
-      if time_registrations['time'] == DateTime.parse('2021-11-27 16:39:22').change({ min: 0, sec: 0 }).to_i
-        case time_registrations['vocation']
-        when 'total'
-          expect(time_registrations['registrations']).to eq(3)
-        when 'customer'
-          expect(time_registrations['registrations']).to eq(2)
-        when 'business'
-          expect(time_registrations['registrations']).to eq(1)
-        else
-          raise 'Unexpected vocation'
-        end
-      else
-        expect(time_registrations['registrations']).to eq(0)
+      n2.times do
+        FactoryBot.create(:share, feature: 'Feature1', social: 'email')
+        FactoryBot.create(:share, feature: 'Feature2', social: 'twitter')
+        FactoryBot.create(:share, feature: 'Feature1', social: 'facebook')
       end
+
+      expect(CalculateMetrics.feature_interest).to match_array(
+        [[%w[Feature1 email], n2],
+         [%w[Feature1 twitter], n1],
+         [%w[Feature1 facebook], n2],
+         [%w[Feature2 email], n1],
+         [%w[Feature2 twitter], n2],
+         [%w[Feature2 facebook], n1]]
+      )
     end
   end
 
-  it 'gets the number of times a feature is share to which social network' do
-    10.times do
-      FactoryBot.create(:share, feature: 'Feature2', social: 'email')
-      FactoryBot.create(:share, feature: 'Feature1', social: 'twitter')
-      FactoryBot.create(:share, feature: 'Feature2', social: 'facebook')
+  describe '.session_flows' do
+    it 'returns an empty array if there are no visits in the system' do
+      expect(CalculateMetrics.session_flows).to eq([])
     end
 
-    5.times do
-      FactoryBot.create(:share, feature: 'Feature1', social: 'email')
-      FactoryBot.create(:share, feature: 'Feature2', social: 'twitter')
-      FactoryBot.create(:share, feature: 'Feature1', social: 'facebook')
+    it 'returns the path users take throughout the system and whether they registered on that path' do
+      s1 = 1
+      s2 = 2
+
+      v1 = FactoryBot.create(:visit, path: '/', session_identifier: s1)
+      v2 = FactoryBot.create(:visit, path: '/reviews', session_identifier: s1)
+
+      v3 = FactoryBot.create(:visit, path: '/', session_identifier: s2)
+      v4 = FactoryBot.create(:visit, path: '/home', session_identifier: s2)
+      v5 = FactoryBot.create(:visit, path: '/newsletters/1', session_identifier: s2)
+
+      expect(CalculateMetrics.session_flows).to match_array(
+        [{ s1.to_s =>
+            [{ 'path' => v1.path, 'duration' => v1.to - v1.from },
+             { 'path' => v2.path, 'duration' => v2.to - v2.from }] },
+         { s2.to_s =>
+            [{ 'path' => v3.path, 'duration' => v3.to - v3.from },
+             { 'path' => v4.path, 'duration' => v4.to - v4.from },
+             { 'path' => v5.path, 'duration' => v5.to - v5.from }] }]
+      )
     end
-
-    expect(CalculateMetrics.feature_shares(Share.all)).to match_array(
-      [{ 'feature' => 'Feature1', 'social' => 'email', 'count' => 5 },
-       { 'feature' => 'Feature1', 'social' => 'twitter', 'count' => 10 },
-       { 'feature' => 'Feature1', 'social' => 'facebook', 'count' => 5 },
-       { 'feature' => 'Feature2', 'social' => 'email', 'count' => 10 },
-       { 'feature' => 'Feature2', 'social' => 'twitter', 'count' => 5 },
-       { 'feature' => 'Feature2', 'social' => 'facebook', 'count' => 10 }]
-    )
-  end
-
-  it 'gets the number of product additions per hour' do
-    CalculateMetrics.time_products(products).each do |time_products|
-      if time_products['time'] == product1.created_at.change({ min: 0, sec: 0 }).to_i
-        expect(time_products['products']).to eq 2
-      elsif time_products['time'] == product3.created_at.change({ min: 0, sec: 0 }).to_i
-        expect(time_products['products']).to eq 1
-      else
-        expect(time_products['products']).to eq(0)
-      end
-    end
-  end
-
-  it 'gets the number of products by category' do
-    expect(CalculateMetrics.product_categories).to match_array(
-      [{ 'category' => 'shirt', 'products' => 2 },
-       { 'category' => 'shoes', 'products' => 1 }]
-    )
-  end
-
-  it 'Returns nil if there are no visits in the system' do
-    expect(CalculateMetrics.page_visits(nil)).to eq(nil)
-    expect(CalculateMetrics.page_visits([])).to eq(nil)
-
-    expect(CalculateMetrics.time_visits(nil)).to eq(nil)
-    expect(CalculateMetrics.time_visits([])).to eq(nil)
-
-    expect(CalculateMetrics.session_flows(nil)).to eq(nil)
-    expect(CalculateMetrics.session_flows([])).to eq(nil)
-  end
-
-  it 'Returns nil if there are no registrations in the system' do
-    expect(CalculateMetrics.vocation_registrations(nil)).to eq(nil)
-    expect(CalculateMetrics.vocation_registrations([])).to eq(nil)
-
-    expect(CalculateMetrics.time_registrations(nil)).to eq(nil)
-    expect(CalculateMetrics.time_registrations([])).to eq(nil)
-  end
-
-  it 'Returns nil if there are no shares in the system' do
-    expect(CalculateMetrics.feature_shares(nil)).to eq(nil)
-    expect(CalculateMetrics.feature_shares([])).to eq(nil)
-  end
-
-  it 'Returns nil if there are no products in the system' do
-    expect(CalculateMetrics.time_products(nil)).to eq(nil)
-    expect(CalculateMetrics.time_products([])).to eq(nil)
   end
 end
