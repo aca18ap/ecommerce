@@ -1,17 +1,24 @@
+.row.justify-content-center.pt-3
+  .col-8.text-center
+    %h3= "Total Registrations: #{@registrations.size}"
+
 .row
   #registrations-barchart-div.justify-content-center.bg-light-green.col-xl-6
-    %h2#registrations-barchart-title.text-center Site Registrations by Vocation (Total: #{@registrations.size})
-    = bar_chart vocation_registrations_chart_path, id: 'registrations-barchart-plot', ytitle: 'Vocation', xtitle: 'Registrations', title: 'Site Registrations by Vocation'
+    .card.my-3
+      .card-body.m-0.p-0
+        = bar_chart vocation_registrations_chart_path, id: 'registrations-barchart-plot', ytitle: 'Vocation', xtitle: 'Registrations', title: 'Site Registrations by Vocation'
 
   #registrations-linechart-div.justify-content-center.bg-light-green.col-xl-6
-    %h2#registrations-linechart-title.text-center Site Registrations Over Time
-    = line_chart time_registrations_chart_path, id: 'registrations-linechart-plot', ytitle: 'Registrations', xtitle: 'Day', title: 'Site Registrations Over the Last Month'
+    .card.my-3
+      .card-body.m-0.p-0
+        = line_chart time_registrations_chart_path, id: 'registrations-linechart-plot', ytitle: 'Registrations', xtitle: 'Day', title: 'Site Registrations Over the Last Month'
 
+.row.mt-3
   %h1.mt-5.mb-3.text-center Registration Geography Statistics
-  #registrations-geochart-div.justify-content-center.bg-light-green.col-xl-6
+  #registrations-geochart-div.justify-content-center.bg-light-green.col-xl-8
     %svg#registrations-geo-plot.d-block.m-auto{width: "500px", height: "800px"}
 
-  #registrations-geo-div.justify-content-center.bg-light-green.col-xl-6
+  #registrations-geo-div.justify-content-center.bg-light-green.col-xl-4
     %h2#registrations-geo-title.text-center Site Registrations By UK County
     .container
       %table#registrations-geo-table.table.w-75.m-5.d-block.overflow-scroll{'height': '600px'}

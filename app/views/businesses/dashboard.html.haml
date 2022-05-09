@@ -24,13 +24,19 @@
 
       .container-fluid.tab-content
         .container-fluid.tab-pane.active#total-product-views-tab
-          = line_chart time_product_views_chart_path, id: 'total-product-views-graph', ytitle: 'Product Views', xtitle: 'Day', title: 'Product Views Over the Last Month'
+          .card.my-3
+            .card-body.m-0.p-0
+              = line_chart time_product_views_chart_path, id: 'total-product-views-graph', ytitle: 'Product Views', xtitle: 'Day', title: 'Product Views Over the Last Month'
 
         .container-fluid.tab-pane.mb-2#product-views-tab
-          = bar_chart views_by_product_chart_path, id: 'product-views-graph', ytitle: 'Product', xtitle: 'Views', title: 'Top 30 Most Popular Products'
+          .card.my-3
+            .card-body.m-0.p-0
+              = bar_chart views_by_product_chart_path, id: 'product-views-graph', ytitle: 'Product', xtitle: 'Views', title: 'Top 30 Most Popular Products'
 
         .container-fluid.tab-pane#category-views-tab
-          = bar_chart views_by_category_chart_path, id: 'category-views-graph', ytitle: 'Category', xtitle: 'Views', title: 'Top 30 Most Popular Categories'
+          .card.my-3
+            .card-body.m-0.p-0
+              = bar_chart views_by_category_chart_path, id: 'category-views-graph', ytitle: 'Category', xtitle: 'Views', title: 'Top 30 Most Popular Categories'
 
     .col-xl-5
       %h2.py-2 Affiliate Products

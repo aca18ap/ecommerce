@@ -1,9 +1,10 @@
 Chartkick.options = {
-  height: "400px",
+  height: "600px",
   colors: ["#198754"],
   library: {
     chart: {
-      backgroundColor: '#f2f2f2'
+      backgroundColor: '#ffffff'
     }
   }
 }
+#backgroundColor: '#f2f2f2'

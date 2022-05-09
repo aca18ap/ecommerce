@@ -14,9 +14,9 @@ describe 'Customer accessibility' do
 
   feature 'Customer dashboard', js: true do
     scenario 'is accessible' do
-      skip 'Will fix after UX interview'
       login_as(customer, scope: :customer)
       visit customer_show_path
+      sleep(0.5) # Wait for graph to load
       expect(page).to be_axe_clean
     end
   end
