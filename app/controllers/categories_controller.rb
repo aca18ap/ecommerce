@@ -47,9 +47,7 @@ class CategoriesController < ApplicationController
     redirect_to categories_url, notice: 'Category was successfully destroyed.'
   end
 
-  def search
-
-  end
+  def search; end
 
   private
 
@@ -62,5 +60,4 @@ class CategoriesController < ApplicationController
   def category_params
     params.require(:category).permit(:name, :parent_id, :image)
   end
-
 end
