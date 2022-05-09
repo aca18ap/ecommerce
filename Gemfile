@@ -73,6 +73,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'sqlite3'
   gem 'bullet'
+  gem 'rspec-benchmark'
 end
 
 group :development do
