@@ -18,11 +18,35 @@
   margin-top: -80px;
 }
 
+#total_co2_saved{
+  background-color: rgba(33, 70, 54, 0.4);
+  border-radius: 20px;
+  box-shadow: 3px 5px 5px 3px black;
+  padding: 5%;
+  transition: 0.4s ease;
 
+}
 
-#btn-sign-up a{
+#total_co2_saved:hover {
+  box-shadow: 5px 10px 10px 5px black;
+  transition: 0.4s ease;
+}
+
+#btn-left a{
+  background-color: var(--dark1);
+  color: var(--light1);
+}
+
+#btn-right a{
   border: 1px solid white;
   color: white;
+  background-color: rgba(33, 70, 54, 0.2);
+  transition: 0.3s ease;
+}
+
+#btn-right a:hover{
+  background-color: rgba(9, 82, 50, 0.8);
+  transition: 0.3s ease;
 }
 
 #scroll_down{
@@ -30,6 +54,14 @@
   color: white;
   outline: none;
   box-shadow: none;
+}
+
+.font-large{
+  font-size: 3.5em;
+}
+
+.disable_link a:hover, a:visited, a:link, a:active{
+  text-decoration: none;
 }
 
 .pulse{
@@ -234,7 +266,6 @@ Button a:hover {
 
 #total_co2_saved {
   margin-top: 5vh;
-  font-size: 4em;
 }
 
 body { 
