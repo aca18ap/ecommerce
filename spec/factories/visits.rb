@@ -16,6 +16,10 @@
 #  updated_at         :datetime         not null
 #  user_id            :integer
 #
+# Indexes
+#
+#  index_visits_on_path  (path)
+#
 FactoryBot.define do
   factory :visit do
     from { '2021-11-27 16:39:22' }

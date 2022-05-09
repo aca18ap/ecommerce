@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_02_134837) do
+ActiveRecord::Schema.define(version: 2022_05_08_125923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 2022_05_02_134837) do
     t.string "ancestry"
     t.float "mean_co2", default: 0.0, null: false
     t.index ["ancestry"], name: "index_categories_on_ancestry"
+    t.index ["name"], name: "index_categories_on_name"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -202,6 +203,12 @@ ActiveRecord::Schema.define(version: 2022_05_02_134837) do
     t.float "price", default: 0.0, null: false
     t.integer "category_id"
     t.float "kg_co2_per_pounds"
+    t.index ["business_id"], name: "index_products_on_business_id"
+    t.index ["category_id"], name: "index_products_on_category_id"
+    t.index ["co2_produced"], name: "index_products_on_co2_produced"
+    t.index ["kg_co2_per_pounds"], name: "index_products_on_kg_co2_per_pounds"
+    t.index ["name"], name: "index_products_on_name"
+    t.index ["price"], name: "index_products_on_price"
   end
 
   create_table "products_materials", force: :cascade do |t|
@@ -229,6 +236,7 @@ ActiveRecord::Schema.define(version: 2022_05_02_134837) do
     t.integer "vocation", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["vocation"], name: "index_registrations_on_vocation"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -238,6 +246,8 @@ ActiveRecord::Schema.define(version: 2022_05_02_134837) do
     t.integer "rank", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["rank"], name: "index_reviews_on_rank"
+    t.index ["rating"], name: "index_reviews_on_rating"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -254,6 +264,7 @@ ActiveRecord::Schema.define(version: 2022_05_02_134837) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "feature", null: false
+    t.index ["feature", "social"], name: "index_shares_on_feature_and_social"
   end
 
   create_table "staffs", force: :cascade do |t|
@@ -328,6 +339,7 @@ ActiveRecord::Schema.define(version: 2022_05_02_134837) do
     t.datetime "updated_at", precision: 6, null: false
     t.float "longitude"
     t.float "latitude"
+    t.index ["path"], name: "index_visits_on_path"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

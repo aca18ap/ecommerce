@@ -11,6 +11,10 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_registrations_on_vocation  (vocation)
+#
 require 'rails_helper'
 
 RSpec.describe Registration, type: :model do

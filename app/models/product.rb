@@ -19,6 +19,15 @@
 #  business_id          :bigint
 #  category_id          :integer
 #
+# Indexes
+#
+#  index_products_on_business_id        (business_id)
+#  index_products_on_category_id        (category_id)
+#  index_products_on_co2_produced       (co2_produced)
+#  index_products_on_kg_co2_per_pounds  (kg_co2_per_pounds)
+#  index_products_on_name               (name)
+#  index_products_on_price              (price)
+#
 class Product < ApplicationRecord
   # Scopes defined to clean up controller
   scope :filter_by_business_id, ->(business_id) { where business_id: business_id }
@@ -45,10 +54,10 @@ class Product < ApplicationRecord
   has_many :products_material, inverse_of: :product, dependent: :destroy
   has_many :materials, through: :products_material
 
-  has_many :purchase_histories
+  has_many :purchase_histories, dependent: :destroy
   has_many :customers, through: :purchase_histories
 
-  has_many :affiliate_product_views
+  has_many :affiliate_product_views, dependent: :destroy
 
   belongs_to :business, optional: true
 

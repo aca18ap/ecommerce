@@ -96,6 +96,29 @@ Rails.application.routes.draw do
   ## ===== Metrics ===== ##
   resources :metrics, only: %i[index create]
 
+  ## ===== Metrics Charts ===== #
+  get :product_categories_chart, to: 'metrics_graphs#product_categories_chart'
+  get :time_product_additions_chart, to: 'metrics_graphs#time_product_additions_chart'
+  get :affiliate_categories_chart, to: 'metrics_graphs#affiliate_categories_chart'
+  get :time_affiliate_views_chart, to: 'metrics_graphs#time_affiliate_views_chart'
+  get :visits_by_page_chart, to: 'metrics_graphs#visits_by_page_chart'
+  get :time_visits_chart, to: 'metrics_graphs#time_visits_chart'
+  get :vocation_registrations_chart, to: 'metrics_graphs#vocation_registrations_chart'
+  get :time_registrations_chart, to: 'metrics_graphs#time_registrations_chart'
+  get :feature_interest_chart, to: 'metrics_graphs#feature_interest_chart'
+
+  ## ===== Customer Graphs ===== ##
+  get :time_co2_per_purchase_chart, to: 'customer_graphs#time_co2_per_purchase_chart'
+  get :time_total_co2_chart, to: 'customer_graphs#time_total_co2_chart'
+  get :time_co2_saved_chart, to: 'customer_graphs#time_co2_saved_chart'
+  get :time_co2_per_pound_chart, to: 'customer_graphs#time_co2_per_pound_chart'
+  get :time_products_added_chart, to: 'customer_graphs#time_products_added_chart'
+
+  ## ===== Business Graphs ===== ##
+  get :time_product_views_chart, to: 'business_graphs#time_product_views_chart'
+  get :views_by_product_chart, to: 'business_graphs#views_by_product_chart'
+  get :views_by_category_chart, to: 'business_graphs#views_by_category_chart'
+
   ## ===== Shares ===== ##
   post 'shares', to: 'shares#create'
 

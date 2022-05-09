@@ -10,6 +10,10 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_shares_on_feature_and_social  (feature,social)
+#
 require 'rails_helper'
 
 RSpec.describe Share, type: :model do

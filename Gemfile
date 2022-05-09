@@ -38,6 +38,7 @@ gem 'simple_form'
 
 gem 'ancestry'
 gem 'bootstrap'
+gem 'chartkick'
 gem 'cocoon'
 gem 'font-awesome-rails'
 gem 'font-awesome-sass'

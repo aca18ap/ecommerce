@@ -14,6 +14,7 @@
 # Indexes
 #
 #  index_categories_on_ancestry  (ancestry)
+#  index_categories_on_name      (name)
 #
 require 'rails_helper'
 

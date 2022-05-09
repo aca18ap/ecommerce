@@ -4,11 +4,11 @@ require 'rails_helper'
 
 describe 'Customer Metrics Graphs', js: true do
   def plot_is_empty(css_id)
-    within(:css, css_id) { expect(page).to have_content 'There is no data for this metric yet' }
+    within(:css, css_id) { expect(page).to have_content 'No data' }
   end
 
   def plot_is_populated(css_id)
-    within(:css, css_id) { expect(page).to_not have_content 'There is no data for this metric yet' }
+    within(:css, css_id) { expect(page).to_not have_content 'No data' }
   end
 
   context 'If there are no purchases for a customer' do

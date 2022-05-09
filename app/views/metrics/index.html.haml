@@ -10,29 +10,29 @@
     %h1.m-3.text-center Products Statistics
     #products-barchart-div.justify-content-center.bg-light-green.col-xl-6
       %h2#products-barchart-title.text-center Product Additions By Category (Total: #{@products.size})
-      %svg#products-barchart-plot.d-block.m-auto
+      = bar_chart product_categories_chart_path, id: 'products-barchart-plot', ytitle: 'Category', xtitle: 'Additions'
 
     #products-linechart-div.justify-content-center.bg-light-green.col-xl-6
       %h2#products-linechart-title.text-center Product Additions Over Time
-      %svg#products-linechart-plot.d-block.m-auto
+      = line_chart time_product_additions_chart_path, id: 'products-linechart-plot', ytitle: 'Additions', xtitle: 'Day'
 
     #products-barchart-div.justify-content-center.bg-light-green.col-xl-6
       %h2#affiliates-barchart-title.text-center Affiliate Product Additions By Category (Total: #{@affiliate_products.size})
-      %svg#affiliates-barchart-plot.d-block.m-auto
+      = bar_chart affiliate_categories_chart_path, id: 'affiliates-barchart-plot', ytitle: 'Category', xtitle: 'Additions'
 
     #affiliate-views-linechart-div.justify-content-center.bg-light-green.col-xl-6
       %h2#affiliate-views-linechart-title.text-center Affiliate Product Views Over Time (Total: #{@affiliate_views.size})
-      %svg#affiliate-views-linechart-plot.d-block.m-auto
+      = line_chart time_affiliate_views_chart_path, id: 'affiliate-views-linechart-plot', ytitle: 'Views', xtitle: 'Day'
 
   .row.m-3
     %h1.m-3.text-center Visitor Statistics
     #visits-barchart-div.justify-content-center.bg-light-green.col-xl-6
       %h2#visits-barchart-title.text-center Site Visits by Page (Total: #{@visits.size})
-      %svg#visits-barchart-plot.d-block.m-auto
+      = bar_chart visits_by_page_chart_path, id: 'visits-barchart-plot', ytitle: 'Page', xtitle: 'Visits'
 
     #visits-linechart-div.justify-content-center.bg-light-green.col-xl-6
       %h2#visits-linechart-title.text-center Landing Page Visits Over Time
-      %svg#visits-linechart-plot.d-block.m-auto
+      = line_chart time_visits_chart_path, id: 'visits-linechart-plot', ytitle: 'Visits', xtitle: 'Day'
 
   .row.m-3
     %h1.mt-5.mb-3.text-center Visitor Geography Statistics
@@ -53,11 +53,11 @@
     %h1.mt-5.mb-3.text-center Registration Statistics
     #registrations-barchart-div.justify-content-center.bg-light-green.col-xl-6
       %h2#registrations-barchart-title.text-center Site Registrations by Vocation (Total: #{@registrations.size})
-      %svg#registrations-barchart-plot.d-block.m-auto
+      = bar_chart vocation_registrations_chart_path, id: 'registrations-barchart-plot', ytitle: 'Vocation', xtitle: 'Registrations'
 
     #registrations-linechart-div.justify-content-center.bg-light-green.col-xl-6
       %h2#registrations-linechart-title.text-center Site Registrations Over Time
-      %svg#registrations-linechart-plot.d-block.m-auto
+      = line_chart time_registrations_chart_path, id: 'registrations-linechart-plot', ytitle: 'Registrations', xtitle: 'Day'
 
   .row.m-3
     %h1.mt-5.mb-3.text-center Registration Geography Statistics
@@ -78,8 +78,7 @@
     %h1.mt-5.mb-3.text-center Feature Interest Statistics
     #feature-shares-div.justify-content-center.bg-light-green
       %h2#feature-shares-barchart-title.text-center Shares By Feature (Total: #{@shares.size})
-      %svg#feature-shares-barchart-plot.d-block.m-auto
-
+      = bar_chart feature_interest_chart_path, colors: %w[#de5246 #1da1f2 #4267B2], id: 'feature-shares-barchart-plot', stacked: true, ytitle: 'Feature', xtitle: 'Shares'
 
   .row.m-3
     %h1#flow-report-title.text-center User Flow Report

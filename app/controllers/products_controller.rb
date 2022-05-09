@@ -11,7 +11,7 @@ class ProductsController < ApplicationController
 
   # GET /products
   def index
-    @products = Product.with_attached_image.where(nil).includes(:materials)
+    @products = Product.with_attached_image.where(nil)
     filtering_params(params).each do |key, value|
       @products = @products.public_send("filter_by_#{key}", value) if value.present?
     end

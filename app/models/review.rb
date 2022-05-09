@@ -12,6 +12,11 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
+# Indexes
+#
+#  index_reviews_on_rank    (rank)
+#  index_reviews_on_rating  (rating)
+#
 class Review < ApplicationRecord
   validates :description, presence: true
   validates :rank, numericality: { greater_than_or_equal_to: 0 }

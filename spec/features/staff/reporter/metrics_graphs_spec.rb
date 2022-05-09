@@ -4,11 +4,11 @@ require 'rails_helper'
 
 describe 'Metrics management', js: true do
   def plot_is_empty(css_id)
-    within(:css, css_id) { expect(page).to have_content 'There is no data for this metric yet' }
+    within(:css, css_id) { expect(page).to have_content 'No data' }
   end
 
   def plot_is_populated(css_id)
-    within(:css, css_id) { expect(page).to_not have_content 'There is no data for this metric yet' }
+    within(:css, css_id) { expect(page).to_not have_content 'no Data' }
   end
 
   context 'If there is no data in the system' do

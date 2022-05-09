@@ -4,152 +4,51 @@
 # D3 graphs represented on metrics/index
 class CalculateMetrics
   class << self
-    # Calculates the number of visits for each page
-    def page_visits(visits_arr)
-      return if visits_arr.nil? || visits_arr.empty?
-
-      # { page: page_path, visits: num_visits }
-      visits_arr.group_by { |visit| visit.path.itself }
-                .map { |path, visits| { 'page' => path, 'visits' => visits.length } }
-    end
-
-    # Calculates the number of registrations for each vocation
-    def vocation_registrations(registrations_arr)
-      return if registrations_arr.nil? || registrations_arr.empty?
-
-      # { vocation: vocation_type, registrations: num_registrations }
-      registrations_arr.group_by { |registration| registration.vocation.itself }
-                       .map do |vocation, registrations|
-        { 'vocation' => vocation, 'registrations' => registrations.length }
-      end
-    end
-
-    # Calculates all pages visited using a specific session cookie in order of time to build a site path
-    def session_flows(visits_arr)
-      return if visits_arr.nil? || visits_arr.empty?
-
-      # { id: session_id, flow: [page_visit_objects], registered: whether_path_included_registration }
-      visits_arr.group_by { |visit| visit.session_identifier.itself }
-                .map do |session_id, visits|
-        { 'id' => session_id, 'flow' => visits, 'registered' => flow_contains_registration?(visits) }
-      end
-    end
-
-    # Calculates number of visits at each hour from the hour of the first visit
-    def time_visits(visits_arr)
-      return if visits_arr.nil? || visits_arr.empty?
-
-      time_visit_counts = calculate_time_counts(visits_arr)
-
-      # { time: time_by_hour, visits: num_visits_at_hour }
-      time_visit_counts.map { |time, visits| { 'time' => time, 'visits' => visits } }
-    end
-
-    # Calculates number of registrations at each hour, for each vocation and total from the hour of the first
-    # registration
-    def time_registrations(registrations_arr)
-      return if registrations_arr.nil? || registrations_arr.empty?
-
-      time_regs = calculate_time_counts(registrations_arr)
-                  .map { |time, regs| { 'vocation' => 'total', 'time' => time, 'registrations' => regs } }
-
-      registrations_arr.group_by { |registration| registration.vocation.itself }.each do |vocation, registrations|
-        time_regs.concat(calculate_time_counts(registrations)
-                           .map { |time, regs| { 'vocation' => vocation, 'time' => time, 'registrations' => regs } })
-      end
-
-      # { time: time_by_hour, registrations: num_registrations_at_hour }
-      time_regs
-    end
-
-    # Calculates the number of times each feature was shared to social media site
-    def feature_shares(shares_arr)
-      return if shares_arr.nil? || shares_arr.empty?
-
-      # { feature: feature, social: social_type, count: num_social_shares_for_feature }
-      shares_arr.group_by { |share| [share.feature, share.social] }
-                .map { |feature, shares| { 'feature' => feature[0], 'social' => feature[1], 'count' => shares.length } }
-    end
-
-    # Calculates number of product entries over time
-    def time_products(products_arr)
-      return if products_arr.nil? || products_arr.empty?
-
-      time_product_counts = calculate_time_counts(products_arr)
-
-      # { time: time_by_hour, products: num_products_at_hour }
-      time_product_counts.map { |time, products| { 'time' => time, 'products' => products } }
-    end
-
-    # Calculates the number of products in each category
     def product_categories
-      Product.group(:category).count.map { |category, count| { 'category' => category.name, 'products' => count } }
+      Category.joins(:products).group(:name).count
     end
 
-    # Calculates the number of affiliate products in each category
-    def affiliate_product_categories
-      Product.where.not(business_id: nil)
-             .group(:category).count.map { |category, count| { 'category' => category.name, 'products' => count } }
+    def time_product_additions(period = :day)
+      Product.group_by_period(period, :created_at, expand_range: true).count
     end
 
-    # Calculates the number of affiliate product views over time
-    def time_affiliate_views
-      insert_zero_entries(
-        AffiliateProductView.group("date_trunc('hour', created_at)").count.transform_keys(&:to_i), 'hour'
-      )
+    def affiliate_categories
+      Product.where.not(business_id: nil).joins(:category).group('categories.name').count
     end
 
-    protected
+    def time_affiliate_views(period = :day)
+      AffiliateProductView.group_by_period(period, :created_at, expand_range: true).count
+    end
 
-    # Inserts 0 entries for intervals of time which don't have any data
-    def insert_zero_entries(data_hash, step = 'day')
-      return if data_hash.nil? || data_hash.empty?
+    def visits_by_page
+      Visit.group(:path).count
+    end
 
-      step_size = case step
-                  when 'day'
-                    1.day
-                  else
-                    1.hour
-                  end
+    def time_visits(period = :day)
+      Visit.group_by_period(period, :from, expand_range: true).count
+    end
 
-      earliest_time = data_hash.keys.min
+    def vocation_registrations
+      Registration.group(:vocation).count
+    end
 
-      data_arr = []
-      (earliest_time.to_i..latest_time.to_i).step(step_size) do |date|
-        data_arr.append({ 'time' => date, 'value' => data_hash.key?(date) ? data_hash[date] : 0 })
+    def time_registrations(period = :day)
+      Registration.group_by_period(period, :created_at, expand_range: true).count
+    end
+
+    def feature_interest
+      Share.group(:feature, :social).count
+    end
+
+    def session_flows
+      Visit.select(:session_identifier, :from, :to, :path).group_by(&:session_identifier).map do |session, visits|
+        { session => visits.map { |visit| { 'path' => visit.path, 'duration' => visit.to - visit.from } } }
       end
-
-      data_arr
     end
 
     private
 
-    # Calculates the number of elements in an array that occur at each hour between a start and end time
-    # TODO Deprecate
-    def calculate_time_counts(element_array)
-      time_counts = {}
-
-      # Need to create a dict of all hours between start and now to display 0 values correctly
-      earliest_hour = element_array.first.hour
-      latest_hour = DateTime.now.change({ min: 0, sec: 0 })
-      (earliest_hour.to_i..latest_hour.to_i).step(1.hour) do |date|
-        time_counts[date] = 0
-      end
-
-      element_array.each do |element|
-        time_counts[element.hour.to_i] += 1
-      end
-
-      time_counts
-    end
-
-    # Method to return the correct time to stop extra entry being added for any time in the morning
-    def latest_time
-      (Time.now + 1.day).change({ hour: 0, min: 0, sec: 0 })
-    end
-
     # Identifies whether a session led to a registration by checking for /newsletters/# in path
-    # TODO: update to use signups instead of newsletters
     def flow_contains_registration?(flow)
       flow.each do |f|
         return true if f.path.match(%r{.*/newsletters/[0-9]+})
