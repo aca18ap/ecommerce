@@ -155,7 +155,13 @@
         %h2.panel-title Image
         %br
       .panel-body
-        = f.file_field :image
+        .row
+          .col-6.align-self-center
+            = f.file_field :image, id: 'image_input'
+          .col-6
+            .h2 Your preview will appear here
+            .w-100.image
+              #image_preview
       %br
       %button.btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
 
@@ -169,7 +175,8 @@
         #materials
           = f.simple_fields_for :products_material do |products_material|
             = render 'products_material_fields', :f => products_material
-          = link_to_add_association 'Add Material', f, :products_material
+        
+        .btn.btn-outline-primary= link_to_add_association 'Add Material', f, :products_material
       .flex-fill
         .div
           %h4 Your materials should add up to 100%, missing:

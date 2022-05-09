@@ -146,6 +146,15 @@ body{
     background: var(--light1);
 }
 
+#image_preview img{
+    object-fit: contain;
+    width: 66%;
+}
+
+.panel {
+    max-height: 100vh;
+}
+
 #back-button {
     // z-index: 1;
     // position: absolute;

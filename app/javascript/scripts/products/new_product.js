@@ -101,5 +101,18 @@ $('.weight').on('click', (e)=>{
     $(e.currentTarget).addClass("active")
 })
 
-
+$(function(){
+    $('#image_input').on('change', function(e){
+        console.log('triggered')
+        let file = e.target.files[0]
+        let reader = new FileReader()
+        reader.onload = function(file){
+            let img = new Image()
+            console.log(file)
+            img.src = file.target.result
+            $('#image_preview').html(img)
+        }
+        reader.readAsDataURL(file)
+    })
+})
 
