@@ -8,7 +8,7 @@ describe 'Metrics management', js: true do
   end
 
   def plot_is_populated(css_id)
-    within(:css, css_id) { expect(page).to_not have_content 'no Data' }
+    within(:css, css_id) { expect(page).to_not have_content 'no data' }
   end
 
   context 'If there is no data in the system' do
@@ -18,17 +18,7 @@ describe 'Metrics management', js: true do
       visit metrics_path
       expect(page).to have_current_path metrics_path
 
-      plot_is_empty('#visits-barchart-plot')
-      plot_is_empty('#visits-linechart-plot')
-      within(:css, '#visits-barchart-title') { expect(page).to have_content 'Site Visits by Page (Total: 0)' }
-
-      plot_is_empty('#registrations-barchart-plot')
-      plot_is_empty('#registrations-linechart-plot')
-      within(:css, '#registrations-barchart-title') { expect(page).to have_content 'Site Registrations by Vocation (Total: 0)' }
-
-      plot_is_empty('#feature-shares-barchart-plot')
-      within(:css, '#feature-shares-barchart-title') { expect(page).to have_content 'Shares By Feature (Total: 0)' }
-
+      # Products
       plot_is_empty('#products-barchart-plot')
       plot_is_empty('#products-linechart-plot')
       within(:css, '#products-barchart-title') { expect(page).to have_content 'Product Additions By Category (Total: 0)' }
@@ -38,6 +28,23 @@ describe 'Metrics management', js: true do
 
       plot_is_empty('#affiliate-views-linechart-plot')
       within(:css, '#affiliate-views-linechart-title') { expect(page).to have_content 'Affiliate Product Views Over Time (Total: 0)' }
+
+      # Visits
+      find('#open-visitor-metrics-tab').click
+      plot_is_empty('#visits-barchart-plot')
+      plot_is_empty('#visits-linechart-plot')
+      within(:css, '#visits-barchart-title') { expect(page).to have_content 'Site Visits by Page (Total: 0)' }
+
+      # Registrations
+      find('#open-registration-metrics-tab').click
+      plot_is_empty('#registrations-barchart-plot')
+      plot_is_empty('#registrations-linechart-plot')
+      within(:css, '#registrations-barchart-title') { expect(page).to have_content 'Site Registrations by Vocation (Total: 0)' }
+
+      # Shares
+      find('#open-shares-metrics-tab').click
+      plot_is_empty('#feature-shares-barchart-plot')
+      within(:css, '#feature-shares-barchart-title') { expect(page).to have_content 'Shares By Feature (Total: 0)' }
     end
   end
 
@@ -50,6 +57,7 @@ describe 'Metrics management', js: true do
       visit metrics_path
       expect(page).to have_current_path metrics_path
 
+      find('#open-visitor-metrics-tab').click
       plot_is_populated('#visits-barchart-plot')
       plot_is_populated('#visits-barchart-title')
       plot_is_populated('#visits-linechart-plot')
@@ -63,6 +71,7 @@ describe 'Metrics management', js: true do
       visit metrics_path
       expect(page).to have_current_path metrics_path
 
+      find('#open-registration-metrics-tab').click
       plot_is_populated('#registrations-barchart-plot')
       plot_is_populated('#registrations-barchart-title')
       plot_is_populated('#registrations-linechart-plot')
@@ -78,6 +87,7 @@ describe 'Metrics management', js: true do
       visit metrics_path
       expect(page).to have_current_path metrics_path
 
+      find('#open-shares-metrics-tab').click
       plot_is_populated('#feature-shares-barchart-plot')
       within(:css, '#feature-shares-barchart-title') { expect(page).to have_content 'Shares By Feature (Total: 1)' }
     end
