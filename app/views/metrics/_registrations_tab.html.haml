@@ -1,0 +1,23 @@
+.row
+  %h1.mt-5.mb-3.text-center Registration Statistics
+  #registrations-barchart-div.justify-content-center.bg-light-green.col-xl-6
+    %h2#registrations-barchart-title.text-center Site Registrations by Vocation (Total: #{@registrations.size})
+    = bar_chart vocation_registrations_chart_path, id: 'registrations-barchart-plot', ytitle: 'Vocation', xtitle: 'Registrations'
+
+  #registrations-linechart-div.justify-content-center.bg-light-green.col-xl-6
+    %h2#registrations-linechart-title.text-center Site Registrations Over Time
+    = line_chart time_registrations_chart_path, id: 'registrations-linechart-plot', ytitle: 'Registrations', xtitle: 'Day'
+
+  %h1.mt-5.mb-3.text-center Registration Geography Statistics
+  #registrations-geochart-div.justify-content-center.bg-light-green.col-xl-6
+    %svg#registrations-geo-plot.d-block.m-auto{width: "500px", height: "800px"}
+
+  #registrations-geo-div.justify-content-center.bg-light-green.col-xl-6
+    %h2#registrations-geo-title.text-center Site Registrations By UK County
+    .container
+      %table#registrations-geo-table.table.w-75.m-5.d-block.overflow-scroll{'height': '600px'}
+        %thead
+          %tr
+            %th County
+            %th Registrations
+        %tbody#county-registrations-list

@@ -1,0 +1,17 @@
+.row
+  %h1.m-3.text-center Products Statistics
+  #products-barchart-div.justify-content-center.bg-light-green.col-xl-6
+    %h2#products-barchart-title.text-center Product Additions By Category (Total: #{@products.size})
+    = bar_chart product_categories_chart_path, id: 'products-barchart-plot', ytitle: 'Category', xtitle: 'Additions'
+
+  #products-linechart-div.justify-content-center.bg-light-green.col-xl-6
+    %h2#products-linechart-title.text-center Product Additions Over Time
+    = line_chart time_product_additions_chart_path, id: 'products-linechart-plot', ytitle: 'Additions', xtitle: 'Day'
+
+  #products-barchart-div.justify-content-center.bg-light-green.col-xl-6
+    %h2#affiliates-barchart-title.text-center Affiliate Product Additions By Category (Total: #{@affiliate_products.size})
+    = bar_chart affiliate_categories_chart_path, id: 'affiliates-barchart-plot', ytitle: 'Category', xtitle: 'Additions'
+
+  #affiliate-views-linechart-div.justify-content-center.bg-light-green.col-xl-6
+    %h2#affiliate-views-linechart-title.text-center Affiliate Product Views Over Time (Total: #{@affiliate_views.size})
+    = line_chart time_affiliate_views_chart_path, id: 'affiliate-views-linechart-plot', ytitle: 'Views', xtitle: 'Day'
