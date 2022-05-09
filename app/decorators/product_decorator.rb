@@ -96,15 +96,14 @@ class ProductDecorator < ApplicationDecorator
 
   def leaderboard_mini
     html_values = ''
-    product.category.products.order(:kg_co2_per_pounds).each_with_index do |p, i|
-      p.co2_per_pounds if p.kg_co2_per_pounds.nil?
+    product.category.products.order(:co2_produced).each_with_index do |p, i|
       css_class = if p.id == id
                     'lboard_text_this flex-fill'
                   else
                     'flex-fill lboard_text'
                   end
       html_values += "<a class=#{css_class} href=/products/#{p.id}>"
-      html_values += "#{i + 1} | #{p.name} <sub>#{p.kg_co2_per_pounds.round(3)}</sub></a><br>"
+      html_values += "#{i + 1} | #{p.name} <sub>#{p.co2_produced}</sub></a><br>"
     end
     html_values.html_safe
   end
