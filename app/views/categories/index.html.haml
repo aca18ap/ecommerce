@@ -4,7 +4,7 @@
   .row.row-cols-1.row-cols-md-4
     - @categories.each do |category|
       .col.my-3
-        .card.bg-light.h-100
+        .card.h-100
           .card-body.d-flex.flex-column.justify-content-around.text-center
             = link_to category.name, category
           .card-image

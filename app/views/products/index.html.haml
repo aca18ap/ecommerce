@@ -41,7 +41,10 @@
       %p.icon-color Filters
   %hr
 
-  .products.row
+
+
+
+  .products.row.row-cols-1.row-cols-md-4
     - products.each do |product|
       = render partial: 'suggested_product_card', locals: {p: product.decorate}
    

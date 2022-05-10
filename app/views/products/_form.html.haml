@@ -186,7 +186,7 @@
           %h3#sum 0
     %br
     %button.btn.btn-ecommerce.prevBtn{type: 'button', href: '#'} Previous
-    %button.btn.btn-ecommerce.nextBtn.pull-right.summary_trigger{type: 'button', href: '#'} Next
+    %button.btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
 
   .panel.panel-primary.setup-content#step7
     .panel-heading
@@ -205,8 +205,8 @@
           .align-self-start
             .row#summary
 
-            .btn.submit_btn.btn.pull-left= f.button :submit
-    %button.btn.btn-ecommerce.prevBtn{type: 'button', href: '#'} Previous
+            %button.btn.btn-success.btn.pull-left= f.button :submit
+      %button.btn.btn-ecommerce.prevBtn{type: 'button', href: '#'} Previous
 
 %br
 
