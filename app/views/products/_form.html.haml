@@ -29,7 +29,7 @@
       %p  
         %small Materials
     .stepwizard-step.col-xs-2
-      %a.btn.btn-default.btn-circle{href: "#step7", type: "button"}7
+      %a.btn.btn-default.btn-circle.summary_trigger{href: "#step7", type: "button"}7
       %p  
         %small Submit Product
 
@@ -38,7 +38,7 @@
   = f.error_notification
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
   
-  .form-inputs
+  .form-inputs#form
     .panel.panel-primary.setup-content#step1
       .panel-heading
         %h2.panel-title Name and Description
@@ -160,7 +160,7 @@
       .panel-body
         .row
           .col-6.align-self-center
-            = f.file_field :image, id: 'image_input'
+            = f.file_field :image, id: 'product_image'
           .col-6
             .h2 Your preview will appear here
             .w-100.image
@@ -186,7 +186,7 @@
           %h3#sum 0
     %br
     %button.btn.btn-ecommerce.prevBtn{type: 'button', href: '#'} Previous
-    %button.btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
+    %button.btn.btn-ecommerce.nextBtn.pull-right.summary_trigger{type: 'button', href: '#'} Next
 
   .panel.panel-primary.setup-content#step7
     .panel-heading
@@ -203,7 +203,11 @@
               = f.input :customer_purchased, label: 'I have purchased this product', as: :boolean, input_html: { checked: false }
         .col-6
           .align-self-start
+            .row#summary
+
             .btn.submit_btn.btn.pull-left= f.button :submit
+    %button.btn.btn-ecommerce.prevBtn{type: 'button', href: '#'} Previous
+
 %br
 
 

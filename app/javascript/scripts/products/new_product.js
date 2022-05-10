@@ -120,7 +120,7 @@ $('.weight').on('click', (e)=>{
 })
 
 $(function(){
-    $('#image_input').on('change', function(e){
+    $('#product_image').on('change', function(e){
         console.log('triggered')
         let file = e.target.files[0]
         let reader = new FileReader()
@@ -134,3 +134,19 @@ $(function(){
     })
 })
 
+function summarize(){
+    $('#summary').empty()
+    let form = document.querySelectorAll('#form input ')
+    form.forEach((e)=> {
+        $('#summary').append(`<p>${id_to_name(e.id)}: ${e.value}</p>`)
+    })
+}
+
+$('.summary_trigger').on('click', function(){
+    summarize()
+})
+
+function id_to_name(id){
+    let name = id.split('_')[1] 
+    return name.charAt(0).toUpperCase() + name.slice(1)
+}
