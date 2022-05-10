@@ -9,6 +9,7 @@
 
   %tbody
     - @staff.each do |staff|
+      -staff = staff.decorate
       %tr.align-middle{id: "staff-#{staff.id}"}
         %td= staff.email
         %td= staff.role
@@ -20,3 +21,5 @@
         -else
           %td= link_to 'Edit user', edit_admin_staff_path(staff), class: 'btn btn-xs'
           %td= link_to 'Delete user', admin_staff_path(staff), method: :delete, class: 'btn btn-xs', data: { confirm: 'Are you sure you want to delete this staff member?' }
+.justify-content-center.pagination.mb-5
+  = will_paginate(@staff, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer)
