@@ -15,6 +15,9 @@ html, body {
   border-radius: 10px;
   // box-shadow: 2px 2px lightgrey;
 }
+.w-100vw{
+	width: 100vw;
+}
 
 body {
   display: flex;
@@ -27,7 +30,11 @@ body {
   font-size: 1.2em;
 	-webkit-font-smoothing:antialiased;
 	transition:color var(--animate) ease-in-out, background var(--animate) ease-in-out;
-  padding-top: 80px;
+  padding-top: 140px;
+}
+
+#cat_nav{
+    background-color: darkslategrey;
 }
 
 a {

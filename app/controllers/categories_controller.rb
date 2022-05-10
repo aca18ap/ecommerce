@@ -2,12 +2,13 @@
 
 # Categories controll for staff to manage product acetgories
 class CategoriesController < ApplicationController
-  before_action :authenticate_staff!
+  before_action :authenticate_staff!, except: %i[index show]
   before_action :set_category, only: %i[show edit update destroy]
+  decorates_assigned :categories, :category
 
   # GET /categories
   def index
-    @categories = Category.roots
+    @categories = Category.roots.decorate
   end
 
   # GET /categories/1
@@ -46,6 +47,8 @@ class CategoriesController < ApplicationController
     redirect_to categories_url, notice: 'Category was successfully destroyed.'
   end
 
+  def search; end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -55,6 +58,6 @@ class CategoriesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def category_params
-    params.require(:category).permit(:name, :parent_id)
+    params.require(:category).permit(:name, :parent_id, :image)
   end
 end

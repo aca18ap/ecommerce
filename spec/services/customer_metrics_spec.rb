@@ -56,6 +56,24 @@ describe 'Customer metrics' do
       end
     end
 
+    describe '.site_total_co2_saved' do
+      it 'returns the total co2 saved across all users' do
+        customer.products << product
+        customer.products << product2
+        expected_total = ((product.category.mean_co2 - product.co2_produced) + (product2.category.mean_co2 - product2.co2_produced)).round(2)
+        expect(CustomerMetrics.site_total_co2_saved).to eq expected_total
+      end
+    end
+
+    describe '.plane_journeys_saved' do
+      it 'returns the plane journeys equivalent of CO2 saved by the website' do
+        customer.products << product
+        customer.products << product2
+        expected_journeys = (((product.category.mean_co2 - product.co2_produced) + (product2.category.mean_co2 - product2.co2_produced)).to_f / 590).round(2)
+        expect(CustomerMetrics.plane_journeys_saved).to eq expected_journeys
+      end
+    end
+
     describe '.site_co2_per_pound' do
       it 'returns 0 if there are no entries in the product history table' do
         expect(CustomerMetrics.site_co2_per_pound).to eq 0

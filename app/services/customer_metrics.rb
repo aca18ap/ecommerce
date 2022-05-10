@@ -8,6 +8,18 @@ class CustomerMetrics < CalculateMetrics
       PurchaseHistory.joins(:product).average(:co2_produced).to_f.round(1)
     end
 
+    def site_total_co2_saved
+      customer_co2_saved = Customer.joins(:products, :categories)
+                                   .group('customers.id')
+                                   .select('SUM(categories.mean_co2 - products.co2_produced) / SQRT(COUNT(products))' \
+                                           'AS co2_saved')
+      customer_co2_saved.sum(&:co2_saved).round(2)
+    end
+
+    def plane_journeys_saved
+      (site_total_co2_saved.to_f / 590).round(2)
+    end
+
     def site_total_co2_produced
       customer_totals = Customer.joins(:products).group(:customer_id).sum(:co2_produced)
 

@@ -1,23 +1,15 @@
-%h1 Listing categories
 
-%table
-  %thead
-    %tr
-      %th Name
-      %th Children
-      %th
-      %th
-      %th
-
-  %tbody
+.container
+  %h1 Find a product by category
+  .row.align-items-center.d-flex
     - @categories.each do |category|
-      %tr
-        %td= category.name
-        %td= category.has_children?
-        %td= link_to 'Show', category
-        %td= link_to 'Edit', edit_category_path(category)
-        %td= link_to 'Destroy', category, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      .col-xl-3.col-sm-12
+        .card.bg-light.my-3
+          .card-body.d-flex.flex-column.justify-content-around.text-center
+            = link_to category.name, category
+          .card-image
+            = category.category_thumbnail
+  %br
 
-%br
-
-= link_to 'New Category', new_category_path
+  - if can?(:manage, Category)
+    = link_to 'New Category', new_category_path

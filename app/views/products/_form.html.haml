@@ -1,6 +1,7 @@
 -# frozen_string_literal: true
 = include_gon
 = stylesheet_link_tag 'products'
+
 .stepwizard
   .stepwizard-row.setup-panel
     .stepwizard-step.col-xs-2
@@ -66,26 +67,36 @@
         %h2.panel-title Category
         %br
       
-      .panel-body 
-        .form-group.float.required.product_category.form-group-valid
-          .float.required.d-none= f.label 'Category', :category
-          .d-flex.flex-column.col-3
-            %select.category_grandparent
-            %br
+      .panel-body
+        .row
+         
+          .col-4.form-group.float.required.product_category.form-group-valid
+            .float.required.d-none= f.label 'Category', :category
+            .d-flex.flex-column
+              %select.category_grandparent
+              %br
 
-            %select.category_parent
-            %br
+              %select.category_parent
+              %br
 
-            %select.category_child
-            %br
+              %select.category_child
+              %br
 
-            %select.category_grandchild
+              %select.category_grandchild
 
-        = f.input :category_id, :as => :hidden
+          .col-4
+            %input#search_category{placeholder: 'Search for a category'}
+            .card-body
+              #scrollable
+                .d-flex.flex-column{height: '300px'}
+                  .d-block.sticky-lg-top#search_results
+
+          = f.input :category_id, :as => :hidden
         %br
+
         %button.btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
 
-    
+      
     .panel.panel-primary.setup-content#step4
       .panel-heading
         %h2.panel-title Manufacturer Information

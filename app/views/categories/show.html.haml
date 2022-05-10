@@ -1,25 +1,34 @@
-%p#notice= notice
+= stylesheet_link_tag 'categories'
+.container-fluid.pad-edge
+  %p#notice= notice
 
-%h1
-  %b Name:
-  = @category.name
+  - if can?(:manage, Category)
+    .btn.btn-ecommerce.my-2
+      = link_to 'Edit', edit_category_path(@category)
+    .btn.btn-ecommerce.my-2
+      = link_to 'Destroy', @category, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+  .row
+    %nav{'aria-label'=>'breadcrumb'}
+      %ol.breadcrumb
+        %li.breadcrumb-item=link_to 'All Categories', categories_path
+        - @category.ancestors.each do |category|
+          %li.breadcrumb-item= link_to category.name, category
+        %li.breadcrumb-item.active{'aria-current'=>"#{@category}"}= @category.name
+    
+  .row
+    .col-xl-3.border-right
+      %h1
+        %b= @category.name
 
 
-- if @category.has_children?
-  %h3 Sub-categories
-  %table
-    %thead
-      %tr
-        %th Name
-        %th 
-    %tbody
-  - @category.children.each do |c|
-    %tr
-      %td= c.name
-      %td= link_to 'Show', c
+      #submenu
+        = render 'submenu_categories', categories: @category.root.descendants.arrange
 
-%hr
-= link_to 'Edit', edit_category_path(@category)
-= link_to 'Destroy', @category, :method => :delete, :data => { :confirm => 'Are you sure?' }
-\|
-= link_to 'Back', categories_path
+    .col-xl-9
+      - @category.products.each do |product|
+        = render partial: 'products/suggested_product_card', locals: {p: product.decorate}
+
+
+  %hr
+  
