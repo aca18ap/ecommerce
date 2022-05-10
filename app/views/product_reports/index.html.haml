@@ -13,10 +13,13 @@
     %tbody
       - @product_reports.each do |product_report|
         %tr
-          %td= product_report.product_link
-          %td= product_report.user_link
-          %td= product_report.content
-          - if can?(:read, product_report.model)
-            %td= link_to 'Show', product_report.model
-          - if can?(:destroy, product_report.model)
-            %td= link_to 'Destroy', product_report.model, :method => :delete, :data => { :confirm => 'Are you sure?' }
+          - decorated_product_report = product_report.decorate
+          %td= decorated_product_report.product_link
+          %td= decorated_product_report.user_link
+          %td= decorated_product_report.content
+          - if can?(:read, product_report)
+            %td= link_to 'Show', product_report
+          - if can?(:destroy, product_report)
+            %td= link_to 'Destroy', product_report, :method => :delete, :data => { :confirm => 'Are you sure?' }
+.justify-content-center.pagination.mb-5
+  = will_paginate(@product_reports, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer)
