@@ -23,15 +23,16 @@ describe 'Customer Metrics Graphs', js: true do
       within(:css, '#co2-per-pound-stat') { expect(page).to have_content 'N/AKg' }
       within(:css, '#total-purchases-stat') { expect(page).to have_content '0' }
 
-      plot_is_empty('#co2-purchased-graph')
+      # Time linecharts always show the last month, even if there is no data
+      plot_is_populated('#co2-purchased-graph')
       find('#open-total-co2-tab').click
-      plot_is_empty('#total-co2-graph')
+      plot_is_populated('#total-co2-graph')
       find('#open-co2-saved-tab').click
-      plot_is_empty('#co2-saved-graph')
+      plot_is_populated('#co2-saved-graph')
       find('#open-co2-pound-tab').click
-      plot_is_empty('#co2-pound-graph')
+      plot_is_populated('#co2-pound-graph')
       find('#open-products-added-tab').click
-      plot_is_empty('#products-added-graph')
+      plot_is_populated('#products-added-graph')
     end
   end
 
@@ -48,7 +49,7 @@ describe 'Customer Metrics Graphs', js: true do
     specify 'the graphs display the data' do
       within(:css, '#avg-co2-stat') { expect(page).to have_content "#{product.co2_produced.round(1)}Kg" }
       within(:css, '#total-co2-stat') { expect(page).to have_content "#{product.co2_produced.round(1)}Kg" }
-      # within(:css, '#co2-saved-stat') { expect(page).to have_content 'N/AKg' }
+      within(:css, '#co2-saved-stat') { expect(page).to have_content "#{(product.category.mean_co2 - product.co2_produced).round(1)}Kg" }
       within(:css, '#co2-per-pound-stat') { expect(page).to have_content "#{(product.co2_produced / product.price).round(1)}Kg" }
       within(:css, '#total-purchases-stat') { expect(page).to have_content '1' }
 
@@ -56,7 +57,7 @@ describe 'Customer Metrics Graphs', js: true do
       find('#open-total-co2-tab').click
       plot_is_populated('#total-co2-graph')
       find('#open-co2-saved-tab').click
-      # plot_is_populated('#co2-saved-graph')
+      plot_is_populated('#co2-saved-graph')
       find('#open-co2-pound-tab').click
       plot_is_populated('#co2-pound-graph')
       find('#open-products-added-tab').click

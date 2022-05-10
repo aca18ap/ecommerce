@@ -24,17 +24,18 @@ describe 'Calculating metrics' do
   end
 
   describe '.time_product_additions' do
-    it 'returns an empty array if there are no products in the system' do
-      expect(CalculateMetrics.time_product_additions).to eq({})
+    it 'returns 0s for the last month if there are no products in the system' do
+      expected_arr = (1.month.ago.to_date..Date.today).map { |day| [day, 0] }.to_ary
+      expect(CalculateMetrics.time_product_additions).to match_array(expected_arr)
     end
 
     it 'returns the number of products per day' do
       [0, 1, 3].each { |x| FactoryBot.create(:product, url: "https://test_#{x}.com", created_at: Date.today - x.days) }
 
-      expect(CalculateMetrics.time_product_additions).to match_array([[Date.today - 3.days, 1],
-                                                                      [Date.today - 2.days, 0],
-                                                                      [Date.today - 1.day, 1],
-                                                                      [Date.today, 1]])
+      expected_arr = (1.month.ago.to_date..(Date.today - 4.days)).map { |day| [day, 0] }.to_ary
+      expected_arr += [[Date.today - 3.days, 1], [Date.today - 2.days, 0], [Date.today - 1.day, 1], [Date.today, 1]]
+
+      expect(CalculateMetrics.time_product_additions).to match_array(expected_arr)
     end
   end
 
@@ -57,17 +58,18 @@ describe 'Calculating metrics' do
     let(:customer) { FactoryBot.create(:customer) }
     let(:product) { FactoryBot.create(:product, business_id: business.id) }
 
-    it 'returns an empty array if there are no affiliate views or affiliate products' do
-      expect(CalculateMetrics.time_affiliate_views).to eq({})
+    it 'returns 0s for the last month if there are no affiliate views or affiliate products' do
+      expected_arr = (1.month.ago.to_date..Date.today).map { |day| [day, 0] }.to_ary
+      expect(CalculateMetrics.time_affiliate_views).to match_array(expected_arr)
     end
 
     it 'gets the number of affiliate views per day' do
       [0, 1, 3].each { |x| AffiliateProductView.new(product_id: product.id, customer_id: customer.id, created_at: Date.today - x.days).save }
 
-      expect(CalculateMetrics.time_affiliate_views).to match_array([[Date.today - 3.days, 1],
-                                                                    [Date.today - 2.days, 0],
-                                                                    [Date.today - 1.day, 1],
-                                                                    [Date.today, 1]])
+      expected_arr = (1.month.ago.to_date..(Date.today - 4.days)).map { |day| [day, 0] }.to_ary
+      expected_arr += [[Date.today - 3.days, 1], [Date.today - 2.days, 0], [Date.today - 1.day, 1], [Date.today, 1]]
+
+      expect(CalculateMetrics.time_affiliate_views).to match_array(expected_arr)
     end
   end
 
@@ -87,17 +89,18 @@ describe 'Calculating metrics' do
   end
 
   describe '.time_visits' do
-    it 'returns an empty array if there are no visits in the system' do
-      expect(CalculateMetrics.time_visits).to eq({})
+    it 'returns 0s for the last month if there are no visits in the system' do
+      expected_arr = (1.month.ago.to_date..Date.today).map { |day| [day, 0] }.to_ary
+      expect(CalculateMetrics.time_visits).to match_array(expected_arr)
     end
 
     it 'returns the number of visit per day if there' do
       [0, 1, 3].each { |x| FactoryBot.create(:visit, from: Date.today - x.days) }
 
-      expect(CalculateMetrics.time_visits).to match_array([[Date.today - 3.days, 1],
-                                                           [Date.today - 2.days, 0],
-                                                           [Date.today - 1.day, 1],
-                                                           [Date.today, 1]])
+      expected_arr = (1.month.ago.to_date..(Date.today - 4.days)).map { |day| [day, 0] }.to_ary
+      expected_arr += [[Date.today - 3.days, 1], [Date.today - 2.days, 0], [Date.today - 1.day, 1], [Date.today, 1]]
+
+      expect(CalculateMetrics.time_visits).to match_array(expected_arr)
     end
   end
 
@@ -117,17 +120,18 @@ describe 'Calculating metrics' do
   end
 
   describe '.time_registrations' do
-    it 'returns an empty array if there are no registrations in the system' do
-      expect(CalculateMetrics.time_registrations).to eq({})
+    it 'returns 0s for the last month if there are no registrations in the system' do
+      expected_arr = (1.month.ago.to_date..Date.today).map { |day| [day, 0] }.to_ary
+      expect(CalculateMetrics.time_registrations).to match_array(expected_arr)
     end
 
     it 'returns the number of registrations each day' do
       [0, 1, 3].each { |x| Registration.new(vocation: Registration.vocations[:customer], created_at: Date.today - x.days).save }
 
-      expect(CalculateMetrics.time_registrations).to match_array([[Date.today - 3.days, 1],
-                                                                  [Date.today - 2.days, 0],
-                                                                  [Date.today - 1.day, 1],
-                                                                  [Date.today, 1]])
+      expected_arr = (1.month.ago.to_date..(Date.today - 4.days)).map { |day| [day, 0] }.to_ary
+      expected_arr += [[Date.today - 3.days, 1], [Date.today - 2.days, 0], [Date.today - 1.day, 1], [Date.today, 1]]
+
+      expect(CalculateMetrics.time_registrations).to match_array(expected_arr)
     end
   end
 

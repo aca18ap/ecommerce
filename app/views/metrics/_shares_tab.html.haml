@@ -1,0 +1,9 @@
+.row.justify-content-center.pt-3
+  .col-8.text-center
+    %h3#total-shares-stat= "Total Shares: #{@shares.size}"
+
+.row
+  #feature-shares-div.justify-content-center.bg-light-green
+    .card.my-3
+      .card-body.m-0.p-0
+        = bar_chart feature_interest_chart_path, colors: %w[#de5246 #1da1f2 #4267B2], id: 'feature-shares-barchart-plot', stacked: true, ytitle: 'Feature', xtitle: 'Shares', title: 'Top 30 Most Popular Features'

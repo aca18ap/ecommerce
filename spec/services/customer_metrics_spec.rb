@@ -8,9 +8,7 @@ describe 'Customer metrics' do
   let!(:customer) { FactoryBot.create(:customer) }
 
   def insert_purchases(product_id, customer_id, created_at)
-    purchase = PurchaseHistory.new(product_id: product_id, customer_id: customer_id, created_at: created_at)
-    purchase.save
-    purchase
+    PurchaseHistory.new(product_id: product_id, customer_id: customer_id, created_at: created_at).save
   end
 
   describe 'Site wide statistics' do
@@ -104,8 +102,9 @@ describe 'Customer metrics' do
 
   describe 'Time based metrics for a customer' do
     describe '.time_co2_per_purchase' do
-      it 'returns nil if there are no purchases for a customer' do
-        expect(CustomerMetrics.time_co2_per_purchase(customer)).to eq({})
+      it 'returns nil for the last month if there are no purchases for a customer' do
+        expected_arr = (1.month.ago.to_date..Date.today).map { |day| [day, nil] }.to_ary
+        expect(CustomerMetrics.time_co2_per_purchase(customer)).to match_array(expected_arr)
       end
 
       def test_co2_purchases
@@ -116,11 +115,12 @@ describe 'Customer metrics' do
         results = CustomerMetrics.time_co2_per_purchase(customer)
         results = results.map { |r| [r[0], r[1].to_f] }
 
-        expect(results).to match_array(
-          [[Date.today - 2.days, product.co2_produced],
-           [Date.today - 1.day, 0],
-           [Date.today, product2.co2_produced]]
-        )
+        expected_arr = (1.month.ago.to_date..(Date.today - 3.days)).map { |day| [day, 0] }.to_ary
+        expected_arr += [[Date.today - 2.days, product.co2_produced],
+                         [Date.today - 1.day, 0],
+                         [Date.today, product2.co2_produced]]
+
+        expect(results).to match_array(expected_arr)
       end
 
       it 'returns the correct average co2 per purchase per day for a customer if there are purchases in the morning' do
@@ -137,19 +137,22 @@ describe 'Customer metrics' do
     end
 
     describe '.time_total_co2' do
-      it 'returns nil if there are no purchases for a customer' do
-        expect(CustomerMetrics.time_total_co2(customer)).to eq({})
+      it 'returns 0s for the last month if there are no purchases for a customer' do
+        expected_arr = (1.month.ago.to_date..Date.today).map { |day| [day, 0] }.to_ary
+        expect(CustomerMetrics.time_total_co2(customer)).to match_array(expected_arr)
       end
 
       def test_co2_total
-        purchase1 = insert_purchases(product.id, customer.id, (Time.now - 2.days))
-        purchase2 = insert_purchases(product2.id, customer.id, Time.now)
+        insert_purchases(product.id, customer.id, (Time.now - 2.days))
+        insert_purchases(product2.id, customer.id, Time.now)
 
-        expect(CustomerMetrics.time_total_co2(customer)).to match_array(
-          [[purchase1.created_at.change({ hour: 0, min: 0, sec: 0 }), product.co2_produced],
-           [(purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day), 0],
-           [purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }), product2.co2_produced]]
-        )
+        # All 0 values up until the last 3 days, then manually calculate
+        expected_arr = (1.month.ago.to_date..(Date.today - 3.days)).map { |day| [day, 0] }.to_ary
+        expected_arr += [[Date.today - 2.days, product.co2_produced],
+                         [Date.today - 1.day, 0],
+                         [Date.today, product2.co2_produced]]
+
+        expect(CustomerMetrics.time_total_co2(customer)).to match_array(expected_arr)
       end
 
       it 'returns the correct total co2 produced per day for a customer if there are purchases in the morning' do
@@ -166,19 +169,20 @@ describe 'Customer metrics' do
     end
 
     describe '.time_co2_saved' do
-      it 'returns nil if there are no purchases for a customer' do
-        expect(CustomerMetrics.time_co2_saved(customer)).to eq([])
+      it 'returns 0s for the last month if there are no purchases for a customer' do
+        expected_arr = (1.month.ago.to_date..Date.today).map { |day| [day, 0] }.to_ary
+        expect(CustomerMetrics.time_co2_saved(customer)).to match_array(expected_arr)
       end
 
       def test_co2_saved
-        purchase1 = insert_purchases(product.id, customer.id, (Time.now - 2.days))
-        purchase2 = insert_purchases(product2.id, customer.id, Time.now)
+        insert_purchases(product.id, customer.id, (Time.now - 2.days))
+        insert_purchases(product2.id, customer.id, Time.now)
 
-        expect(CustomerMetrics.time_co2_saved(customer)).to match_array(
-          [[purchase1.created_at.change({ hour: 0, min: 0, sec: 0 }), (product.category.mean_co2 - product.co2_produced)],
-           [(purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day), 0],
-           [purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }), (product.category.mean_co2 - product.co2_produced)]]
-        )
+        expected_arr = (1.month.ago.to_date..(Date.today - 3.days)).map { |day| [day, 0] }.to_ary
+        expected_arr += [[Date.today - 2.days, (product.category.mean_co2 - product.co2_produced)],
+                         [Date.today - 1.day, 0],
+                         [Date.today, (product.category.mean_co2 - product.co2_produced)]]
+        expect(CustomerMetrics.time_co2_saved(customer)).to match_array(expected_arr)
       end
 
       it 'returns the correct total co2 produced per day for a customer if there are purchases in the morning' do
@@ -195,19 +199,21 @@ describe 'Customer metrics' do
     end
 
     describe '.time_co2_per_pound' do
-      it 'returns nil if there are no purchases for a customer' do
-        expect(CustomerMetrics.time_co2_per_pound(customer)).to eq([])
+      it 'returns 0s for the last month if there are no purchases for a customer' do
+        expected_arr = (1.month.ago.to_date..Date.today).map { |day| [day, 0] }.to_ary
+        expect(CustomerMetrics.time_co2_per_pound(customer)).to match_array(expected_arr)
       end
 
       def test_co2_per_pound
-        purchase1 = insert_purchases(product.id, customer.id, (Time.now - 2.days))
-        purchase2 = insert_purchases(product2.id, customer.id, Time.now)
+        insert_purchases(product.id, customer.id, (Time.now - 2.days))
+        insert_purchases(product2.id, customer.id, Time.now)
 
-        expect(CustomerMetrics.time_co2_per_pound(customer)).to match_array(
-          [[purchase1.created_at.change({ hour: 0, min: 0, sec: 0 }), (product.co2_produced / product.price)],
-           [(purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day), 0],
-           [purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }), (product2.co2_produced / product2.price)]]
-        )
+        expected_arr = (1.month.ago.to_date..(Date.today - 3.days)).map { |day| [day, 0] }.to_ary
+        expected_arr += [[Date.today - 2.days, (product.co2_produced / product.price)],
+                         [Date.today - 1.day, 0],
+                         [Date.today, (product2.co2_produced / product2.price)]]
+
+        expect(CustomerMetrics.time_co2_per_pound(customer)).to match_array(expected_arr)
       end
 
       it 'returns the correct co2 per pound metric per day for a customer if there are purchases in the morning' do
@@ -225,18 +231,17 @@ describe 'Customer metrics' do
 
     describe '.time_products_added' do
       it 'returns nil if there are no purchases for a customer' do
-        expect(CustomerMetrics.time_products_added(customer)).to eq({})
+        expected_arr = (1.month.ago.to_date..Date.today).map { |day| [day, 0] }.to_ary
+        expect(CustomerMetrics.time_products_added(customer)).to match_array(expected_arr)
       end
 
       def test_products_added
-        purchase1 = insert_purchases(product.id, customer.id, (Time.now - 2.days))
-        purchase2 = insert_purchases(product2.id, customer.id, Time.now)
+        insert_purchases(product.id, customer.id, (Time.now - 2.days))
+        insert_purchases(product2.id, customer.id, Time.now)
 
-        expect(CustomerMetrics.time_products_added(customer)).to match_array(
-          [[purchase1.created_at.change({ hour: 0, min: 0, sec: 0 }), 1],
-           [(purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day), 0],
-           [purchase2.created_at.change({ hour: 0, min: 0, sec: 0 }), 1]]
-        )
+        expected_arr = (1.month.ago.to_date..(Date.today - 3.days)).map { |day| [day, 0] }.to_ary
+        expected_arr += [[Date.today - 2.days, 1], [Date.today - 1.day, 0], [Date.today, 1]]
+        expect(CustomerMetrics.time_products_added(customer)).to match_array(expected_arr)
       end
 
       it 'returns the correct number of products added per day for a customer if there are purchases in the morning' do

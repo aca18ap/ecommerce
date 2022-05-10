@@ -33,24 +33,29 @@
 
       .container-fluid.tab-content
         .container-fluid.tab-pane.active#co2-purchase-tab
-          %h2.d-inline= 'CO<sub>2</sub> Per Purchase'.html_safe
-          = line_chart time_co2_per_purchase_chart_path, id: 'co2-purchased-graph', ytitle: 'CO2 Per Purchase', xtitle: 'Day', library: { noData: { fontWeight: 'bold' } }
+          .card.my-3
+            .card-body.m-0.p-0
+              = line_chart time_co2_per_purchase_chart_path, id: 'co2-purchased-graph', ytitle: 'CO2 Per Purchase', xtitle: 'Day', title: 'Cumulative CO2 Per Purchase Over the Last Month'
 
         .container-fluid.tab-pane.mb-2#total-co2-tab
-          %h2.d-inline= 'Total CO<sub>2</sub>'.html_safe
-          = line_chart time_total_co2_chart_path, id: 'total-co2-graph', ytitle: 'Total CO2', xtitle: 'Day'
+          .card.my-3
+            .card-body.m-0.p-0
+              = line_chart time_total_co2_chart_path, id: 'total-co2-graph', ytitle: 'Total CO2', xtitle: 'Day', title: 'Cumulative Total CO2 Produced Over the Last Month'
 
         .container-fluid.tab-pane#co2-saved-tab
-          %h2.d-inline= 'CO<sub>2</sub> Saved'.html_safe
-          = line_chart time_co2_saved_chart_path, id: 'co2-saved-graph', ytitle: 'CO2 Saved', xtitle: 'Day'
+          .card.my-3
+            .card-body.m-0.p-0
+              = line_chart time_co2_saved_chart_path, id: 'co2-saved-graph', ytitle: 'CO2 Saved', xtitle: 'Day', title: 'Cumulative Total CO2 Saved Over the Last Month'
 
         .container-fluid.tab-pane#co2-pound-tab
-          %h2.d-inline= 'CO<sub>2</sub> Per £'.html_safe
-          = line_chart time_co2_per_pound_chart_path, id: 'co2-pound-graph', ytitle: 'CO2 Per Pound', xtitle: 'Day'
+          .card.my-3
+            .card-body.m-0.p-0
+              = line_chart time_co2_per_pound_chart_path, id: 'co2-pound-graph', ytitle: 'CO2 Per Pound', xtitle: 'Day', title: 'Cumulative CO2 Per Pound Over the Last Month'
 
         .container-fluid.tab-pane#products-added-tab
-          %h2.d-inline= 'Products Added'
-          = line_chart time_products_added_chart_path, id: 'products-added-graph', ytitle: 'Products Added', xtitle: 'Day'
+          .card.my-3
+            .card-body.m-0.p-0
+              = line_chart time_products_added_chart_path, id: 'products-added-graph', ytitle: 'Products Added', xtitle: 'Day', title: 'Cumulative Product Additions Over the Last Month'
 
     .col-xl-5
       %h2.py-2= 'Recent Purchases'.html_safe

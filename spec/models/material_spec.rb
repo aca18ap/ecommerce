@@ -25,8 +25,19 @@ RSpec.describe Material, type: :model do
       subject.kg_co2_per_kg = ''
       expect(subject).not_to be_valid
     end
+
     it 'is invalid without co_per_kg' do
       subject.kg_co2_per_kg = ''
+      expect(subject).not_to be_valid
+    end
+
+    it 'is invalid with kg_co2_per_kg less than 0' do
+      subject.kg_co2_per_kg = -1
+      expect(subject).not_to be_valid
+    end
+
+    it 'is invalid with kg_co2_per_kg equal to 0' do
+      subject.kg_co2_per_kg = 0
       expect(subject).not_to be_valid
     end
   end

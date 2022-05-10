@@ -8,8 +8,8 @@ describe 'Business accessibility' do
 
   feature 'Business dashboard', js: true do
     scenario 'is accessible' do
-      skip 'Will fix after UX interview'
       visit dashboard_path
+      sleep(0.5) # Wait for graph to load
       expect(page).to be_axe_clean
     end
   end

@@ -102,13 +102,4 @@ RSpec.describe Product, type: :model do
       expect(product.reload.co2_produced).to be > 70
     end
   end
-
-  describe '.hour' do
-    it 'returns the "created_at" time, truncated by hour' do
-      time = Time.now
-      subject.created_at = time
-
-      expect(subject.hour).to eq time.change({ min: 0, sec: 0 })
-    end
-  end
 end

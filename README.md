@@ -18,10 +18,6 @@ For any issues, please contact one of us at our email address listed below:
 ### Description
 The current state of fast fashion is leaving a devastating trail of destruction on the environment. In an attempt to combat the throwaway culture of clothing and the mass scale environmental impacts of textiles imports, we propose to advertise environmentally sustainable alternatives to unsustainable products while browsing. We collect a database of products from our users, giving the product, the manufacturer, the materials and the country of production and use that to calculate a number of metrics to inform other user's future purchases. We provide a brand score over their catalog, a £/KgCO<sub>2</sub> rating for individual products and other useful metrics. These metrics combine to give a summary of a user's purchase history to help inform users of where they can improve and see the positive impact they make over time by choosing more environmentally sustainable options.
 
-Additionally, we partner with environmentally sustainable brands to suggest alternatives to fast fashion vendors online. You can trust these brands as they meet out [NUMBER] criteria and have been manually verified:
-1) CRITERIA 1
-2) CRITERIA 2
-
 ## Development
 
 ### Significant Features / Technology
@@ -29,7 +25,8 @@ Additionally, we partner with environmentally sustainable brands to suggest alte
 * [GeoCoder](https://github.com/alexreisner/geocoder) is used to retrieve locations from IP addresses and store them in our system for use in representing site usage metrics
 * [GeoJSON](https://geojson.org/) is used to render the locations of visitors and registrations in the UK
 * [Gon](https://github.com/gazay/gon) is used to pass Ruby controller variables to JS directly 
-* ADD MORE IN THE FUTURE AS THEY ARE PRESENT
+* [Chartkick/Highcharts](https://chartkick.com/#highcharts) is used to graph our system metrics and customer data
+* [groupdate](https://github.com/ankane/groupdate) is used to make efficient db queries got time based metrics
 
 ### Getting Started
 Clone the project, then:

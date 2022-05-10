@@ -10,21 +10,18 @@ describe 'Business metrics' do
   let(:customer) { FactoryBot.create(:customer) }
 
   describe '.time_affiliate_views' do
-    it 'returns nil if there are no affiliate views' do
-      expect(BusinessMetrics.time_affiliate_views(business)).to eq({})
+    it 'returns 0s for the last month if there are no affiliate views' do
+      expected_arr = (1.month.ago.to_date..Date.today).map { |day| [day, 0] }.to_ary
+      expect(BusinessMetrics.time_affiliate_views(business)).to match_array(expected_arr)
     end
 
     it 'returns the number of affiliate views by day if there are affiliate views' do
-      a = AffiliateProductView.new(product_id: product.id, customer_id: customer.id, created_at: Time.now - 2.days)
-      a.save
-      b = AffiliateProductView.new(product_id: product2.id, customer_id: customer.id, created_at: Time.now)
-      b.save
+      [0, 1, 3].each { |x| AffiliateProductView.new(product_id: product.id, customer_id: customer.id, created_at: Time.now - x.days).save }
 
-      expect(BusinessMetrics.time_affiliate_views(business)).to match_array(
-        [[a.created_at.change({ hour: 0, min: 0, sec: 0 }), 1],
-         [b.created_at.change({ hour: 0, min: 0, sec: 0 }) - 1.day, 0],
-         [b.created_at.change({ hour: 0, min: 0, sec: 0 }), 1]]
-      )
+      expected_arr = (1.month.ago.to_date..(Date.today - 4.days)).map { |day| [day, 0] }.to_ary
+      expected_arr += [[Date.today - 3.days, 1], [Date.today - 2.days, 0], [Date.today - 1.day, 1], [Date.today, 1]]
+
+      expect(BusinessMetrics.time_affiliate_views(business)).to match_array(expected_arr)
     end
   end
 

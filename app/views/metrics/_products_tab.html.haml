@@ -1,0 +1,26 @@
+.row.justify-content-center.pt-3
+  .col-8.text-center.d-flex.justify-content-between
+    %h3#total-products-stat= "Total Products: #{@products.size}"
+    %h3#total-affiliate-products-stat= "Total Affiliate Products: #{@affiliate_products.size}"
+    %h3#total-affiliate-views-stat= "Total Affiliate Views: #{@affiliate_views.size}"
+
+.row
+  #products-barchart-div.justify-content-center.col-xl-6
+    .card.my-3
+      .card-body.m-0.p-0
+        = bar_chart product_categories_chart_path, id: 'products-barchart-plot', ytitle: 'Category', xtitle: 'Additions', title: 'Top 30 Most Popular Categories'
+
+  #products-linechart-div.justify-content-center.col-xl-6
+    .card.my-3
+      .card-body.m-0.p-0
+        = line_chart time_product_additions_chart_path, id: 'products-linechart-plot', ytitle: 'Additions', xtitle: 'Day', title: 'Product Additions Over the Last Month'
+
+  #products-barchart-div.justify-content-center.col-xl-6
+    .card.my-3
+      .card-body.m-0.p-0
+        = bar_chart affiliate_categories_chart_path, id: 'affiliates-barchart-plot', ytitle: 'Category', xtitle: 'Additions', title: 'Top 30 Most Popular Affiliate Categories'
+
+  #affiliate-views-linechart-div.justify-content-center.col-xl-6
+    .card.my-3
+      .card-body.m-0.p-0
+        = line_chart time_affiliate_views_chart_path, id: 'affiliate-views-linechart-plot', ytitle: 'Views', xtitle: 'Day', title: 'Affiliate Product Views Over the Last Month'

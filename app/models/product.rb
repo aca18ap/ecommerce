@@ -71,13 +71,13 @@ class Product < ApplicationRecord
     errors.add :products_material, 'Materials should add up to 100%' if pms != 100
   end
 
-  # Gets the 'created_at' time truncated to the nearest hour
-  def hour
-    DateTime.parse(created_at.to_s).change({ min: 0, sec: 0 })
-  end
-
   def co2_per_pounds
     update_column(:kg_co2_per_pounds, co2_produced / price)
+  end
+
+  def update_metrics
+    co2
+    co2_per_pounds
   end
 
   private
