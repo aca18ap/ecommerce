@@ -5,6 +5,13 @@ const weights = {
     "Heavy": 1.5
 }
 
+let categories;
+$(function(){
+    if(gon){
+        categories = gon.all_cat_flat
+    }
+})
+
 $(document).ready(function(){
     setupFormSteps()
 
@@ -138,7 +145,14 @@ function summarize(){
     $('#summary').empty()
     let form = document.querySelectorAll('#form input ')
     form.forEach((e)=> {
-        $('#summary').append(`<p>${id_to_name(e.id)}: ${e.value}</p>`)
+        if(e.value != ''){
+            let name = id_to_name(e.id)
+            let value = e.value
+            if(name === 'Category'){
+                value = categories.find(x => x.id == parseInt(e.value)).name
+            }
+            $('#summary').append(`<p>${name}: ${value}</p>`)
+        }
     })
 }
 

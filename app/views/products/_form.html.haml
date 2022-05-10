@@ -121,13 +121,21 @@
               %select.category_grandchild
 
           .col-4
+            %label Search category
             %input#search_category{placeholder: 'Search for a category'}
             .card-body
               #scrollable
                 .d-flex.flex-column{height: '300px'}
                   .d-block.sticky-lg-top#search_results
 
-          = f.input :category_id, :as => :hidden
+            = f.input :category_id, :as => :hidden
+
+          .col-4.align-self-center
+            .text-center
+              %p Find the most suitable category you think this product belongs to 
+      
+
+
         %br
         %button.btn.btn-ecommerce.prevBtn{type: 'button', href: '#'} Previous
         %button.btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
@@ -195,13 +203,13 @@
     
     .panel-body
       .row
-        .col-6        
+        .col-4        
           %br
           .form-actions
             - if current_customer
               .h4 Have you purchased this product?  
               = f.input :customer_purchased, label: 'I have purchased this product', as: :boolean, input_html: { checked: false }
-        .col-6
+        .col-8
           .align-self-start
             .row#summary
 
