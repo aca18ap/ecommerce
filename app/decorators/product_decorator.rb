@@ -125,6 +125,7 @@ class ProductDecorator < ApplicationDecorator
   end
 
   def expand_description
+    return unless description
     return unless description.size > 160
 
     html_values = ''

@@ -32,12 +32,12 @@ class ProductsController < ApplicationController
   # GET /products/new
   def new
     if current_customer || current_staff || current_business
+      gon.push({ all_cat_flat: Category.all })
       @product = Product.new
       @product.products_material.build
     else
       redirect_to new_customer_registration_path, alert: 'You need to sign up before adding a new product!'
     end
-    gon.push({ all_cat_flat: Category.all })
   end
 
   # GET /products/1/edit
@@ -56,6 +56,7 @@ class ProductsController < ApplicationController
       @product.image.attach(params[:product][:image])
       redirect_to @product, notice: 'Product was successfully created.'
     else
+      gon.push({ all_cat_flat: Category.all })
       render :new
     end
   end
@@ -70,6 +71,7 @@ class ProductsController < ApplicationController
       end
       redirect_to @product, notice: 'Product was successfully updated.'
     else
+      gon.push({ cat_path: @product.category.path, all_cat_flat: Category.all })
       render :edit
     end
   end

@@ -1,8 +1,8 @@
 setupListeners()
 const weights = {
-    "Light": 0.5,
-    "Medium": 1,
-    "Heavy": 1.5
+    "light": 0.5,
+    "medium": 1,
+    "heavy": 1.5
 }
 
 let categories;
@@ -121,19 +121,17 @@ function setupFormSteps(){
 }
 
 $('.weight').on('click', (e)=>{
-    $('#mass').val(weights[e.target.innerHTML])
+    $('#product_mass').attr('value', weights[e.currentTarget.id])
     $('.weight').removeClass("active")
     $(e.currentTarget).addClass("active")
 })
 
 $(function(){
     $('#product_image').on('change', function(e){
-        console.log('triggered')
         let file = e.target.files[0]
         let reader = new FileReader()
         reader.onload = function(file){
             let img = new Image()
-            console.log(file)
             img.src = file.target.result
             $('#image_preview').html(img)
         }
@@ -149,7 +147,10 @@ function summarize(){
             let name = id_to_name(e.id)
             let value = e.value
             if(name === 'Category'){
-                value = categories.find(x => x.id == parseInt(e.value)).name
+                let c = categories.find(x => x.id == parseInt(e.value))
+                if (c !== undefined){
+                    name = c.name
+                }
             }
             $('#summary').append(`<p>${name}: ${value}</p>`)
         }
