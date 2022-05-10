@@ -5,22 +5,27 @@ class CustomerGraphsController < ApplicationController
   before_action :authenticate_customer!
 
   def time_co2_per_purchase_chart
-    render json: CustomerMetrics.time_co2_per_purchase(current_customer).transform_values(&:to_i)
+    sum = 0
+    render json: CustomerMetrics.time_co2_per_purchase(current_customer).map { |date, value| [date, sum += value.to_f] }
   end
 
   def time_total_co2_chart
-    render json: CustomerMetrics.time_total_co2(current_customer)
+    sum = 0
+    render json: CustomerMetrics.time_total_co2(current_customer).map { |date, value| [date, sum += value] }
   end
 
   def time_co2_saved_chart
-    render json: CustomerMetrics.time_co2_saved(current_customer)
+    sum = 0
+    render json: CustomerMetrics.time_co2_saved(current_customer).map { |date, value| [date, sum += value] }
   end
 
   def time_co2_per_pound_chart
-    render json: CustomerMetrics.time_co2_per_pound(current_customer)
+    sum = 0
+    render json: CustomerMetrics.time_co2_per_pound(current_customer).map { |date, value| [date, sum += value] }
   end
 
   def time_products_added_chart
-    render json: CustomerMetrics.time_products_added(current_customer)
+    sum = 0
+    render json: CustomerMetrics.time_products_added(current_customer).map { |date, value| [date, sum += value] }
   end
 end

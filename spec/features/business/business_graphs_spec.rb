@@ -23,7 +23,7 @@ describe 'Business Metrics Graphs', js: true do
       within(:css, '#affiliate-products-stat') { expect(page).to have_content '0' }
       within(:css, '#unique-categories-stat') { expect(page).to have_content '0' }
 
-      plot_is_empty('#total-product-views-graph')
+      plot_is_populated('#total-product-views-graph') # Time linecharts always show the last month, even if there is no data
       find('#open-product-views-tab').click
       plot_is_empty('#product-views-graph')
       find('#open-category-views-tab').click

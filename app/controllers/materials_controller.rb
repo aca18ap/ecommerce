@@ -42,8 +42,12 @@ class MaterialsController < Admin::AdminsController
 
   # DELETE /materials/1
   def destroy
-    @material.destroy
-    redirect_to materials_url, notice: 'Material was successfully destroyed.'
+    if @material.products.size.nonzero?
+      redirect_to materials_url, notice: 'Cannot delete material. Products with this material exist.'
+    else
+      @material.destroy
+      redirect_to materials_url, notice: 'Material was successfully destroyed.'
+    end
   end
 
   private

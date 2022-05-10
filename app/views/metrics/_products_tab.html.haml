@@ -1,8 +1,8 @@
 .row.justify-content-center.pt-3
   .col-8.text-center.d-flex.justify-content-between
-    %h3= "Total Products: #{@products.size}"
-    %h3= "Total Affiliate Products: #{@affiliate_products.size}"
-    %h3= "Total Affiliate Views: #{@affiliate_views.size}"
+    %h3#total-products-stat= "Total Products: #{@products.size}"
+    %h3#total-affiliate-products-stat= "Total Affiliate Products: #{@affiliate_products.size}"
+    %h3#total-affiliate-views-stat= "Total Affiliate Views: #{@affiliate_views.size}"
 
 .row
   #products-barchart-div.justify-content-center.col-xl-6

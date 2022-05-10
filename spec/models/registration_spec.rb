@@ -40,13 +40,4 @@ RSpec.describe Registration, type: :model do
       expect(subject).not_to be_valid
     end
   end
-
-  describe '.hour' do
-    it 'returns the "created_at" time, truncated by hour' do
-      time = Time.now
-      subject.created_at = time
-
-      expect(subject.hour).to eq time.change({ min: 0, sec: 0 })
-    end
-  end
 end
