@@ -2,7 +2,7 @@
     .form-inline
         .material_from_list.d-flex.align-middle
             .flex-fill
-                = link_to_remove_association f, class: 'align-self-end pe-3' do
+                = link_to_remove_association f, class: 'align-self-end pe-3 icon-color' do
                     %i.fa.fa-minus-circle
                 .d-inline-block#material= f.association :material, collection: Material.order(:name)
             .flex-fill

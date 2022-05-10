@@ -144,11 +144,26 @@ body{
 
 .weight{
     cursor: pointer;
+    background-color: var(--light2);
 }
 
 .active{
     background-color: var(--dark1);
-    background: var(--light1);
+    color: var(--light1)
+}
+
+.icon-color{
+    color: var(--dark1)
+}
+
+.fa-minus-circle{
+    color: var(--dark1);
+    transition: 0.3s ease;
+}
+
+.fa-minus-circle:hover {
+    color: red;
+    transition: 0.3s ease;
 }
 
 #image_preview img{
@@ -328,7 +343,7 @@ body{
 
 .stepwizard-step p {
     margin-top: 0px;
-    color: --var(dark1);
+    color: var(--dark1);
 }
 
 .stepwizard-row {

@@ -176,11 +176,10 @@
       %br
     .panel-body.d-flex.align-items-center.materials-section
       .flex-fill
-        #materials
-          = f.simple_fields_for :products_material do |products_material|
-            = render 'products_material_fields', :f => products_material
+        = f.simple_fields_for :products_material do |products_material|
+          = render 'products_material_fields', :f => products_material
         
-        .btn.btn-outline-primary= link_to_add_association 'Add Material', f, :products_material
+        .btn.btn-custom-active= link_to_add_association 'Add Material', f, :products_material
       .flex-fill
         .div
           %h4 Your materials should add up to 100%, missing:
