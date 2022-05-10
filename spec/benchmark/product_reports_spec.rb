@@ -24,9 +24,9 @@ describe 'Product Report Page' do
     context 'As an admin' do
       specify 'I can see the list of Product Reports within 0.5 second of visiting the page' do
         login_as(FactoryBot.create(:admin), scope: :staff)
-        expect {
-            visit product_reports_path
-        }.to perform_under(0.5).sec
+        expect do
+          visit product_reports_path
+        end.to perform_under(0.5).sec
       end
     end
   end

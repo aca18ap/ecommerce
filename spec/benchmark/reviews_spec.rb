@@ -13,7 +13,7 @@ describe 'Review Page' do
             description: "MyDescription #{i}",
             rating: rand(1..4),
             rank: i,
-            hidden: false,     
+            hidden: false,
             created_at: current_time,
             updated_at: current_time
           }

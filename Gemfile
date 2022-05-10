@@ -68,12 +68,12 @@ gem 'jquery-rails'
 gem 'rails_email_validator'
 
 group :development, :test do
+  gem 'bullet'
   gem 'byebug'
+  gem 'rspec-benchmark'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'sqlite3'
-  gem 'bullet'
-  gem 'rspec-benchmark'
 end
 
 group :development do

@@ -8,7 +8,8 @@ class ProductReportsController < ApplicationController
 
   # GET /product_reports
   def index
-    @product_reports = ProductReport.page(params[:page]).includes([:staff,:business,:customer]).accessible_by(current_ability)
+    @product_reports = ProductReport.page(params[:page]).includes(%i[staff business
+                                                                     customer]).accessible_by(current_ability)
   end
 
   # GET /product_reports/1

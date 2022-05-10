@@ -12,7 +12,7 @@ describe 'FAQ Page' do
           {
             question: "MyQuestion #{i}",
             answer: "MyAnswer #{i}",
-            clicks:  rand(1..99),
+            clicks: rand(1..99),
             hidden: false,
             usefulness: 0,
             created_at: current_time,

@@ -16,9 +16,9 @@ class Co2Calculator
     @materials_percentages = product_with_product_materials.products_material.map(&:percentage)
 
     @materials_co2 = []
-    if product_with_product_materials.products_material.length > 0 then
-      @materials_co2 = product_with_product_materials.products_material.map{ |m| m.material.kg_co2_per_kg}
-    end
+    return if product_with_product_materials.products_material.empty?
+
+    @materials_co2 = product_with_product_materials.products_material.map { |m| m.material.kg_co2_per_kg }
   end
 
   def calculate_co2
