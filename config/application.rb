@@ -38,7 +38,7 @@ module Genesys
       openssl_verify_mode: OpenSSL::SSL::VERIFY_PEER,
       openssl_verify_depth: 3,
       ca_file: '/etc/ssl/certs/ca-certificates.crt',
-      domain: 'student-app.demo.shefcompsci.org.uk'
+      domain: 'team04.demo1.genesys.shefcompsci.org.uk'
     }
 
     # Initialize configuration defaults for originally generated Rails version.
