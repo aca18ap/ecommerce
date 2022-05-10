@@ -1,67 +1,62 @@
-.container-fluid.pad-edge
-  .row
-    .d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-lg-start
-      %a.d-flex.align-items-center.mb-2.mr-5.mb-lg-0.text-decoration-none{:href => root_path}
-        %img{:alt => "mdo", :height => "48", :src => "/images/logo.png", :width => "160"}
-      .nav.col-12.col-lg-auto.me-lg-auto.justify-content-center.mr-5.custom-nav-fonts
-        %ul.my-auto
-          - if customer_signed_in? || business_signed_in? || staff_signed_in?
-            %li
-              = link_to 'Dashboard', dashboard_path, class: 'nav-link px-2 link-secondary', title: 'Dashboard'
-          - if can?(:read, Product)
-            %li
-              = link_to 'Products', products_path, class: 'nav-link px-2', title: 'View products'
-          - if can?(:read, Faq)
-            %li
-              = link_to 'FAQs', faqs_path, class: 'nav-link px-2', title: 'Frequently asked questions'
+.row.p-3
+  .d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-lg-start
+    %a.d-flex.align-items-center.mb-2.mr-5.mb-lg-0.text-decoration-none{:href => root_path}
+      %img{:alt => "mdo", :height => "48", :src => "/images/logo.png", :width => "160"}
+    .nav.col-12.col-lg-auto.me-lg-auto.justify-content-center.mr-5.custom-nav-fonts
+      %ul.my-auto
+        - if customer_signed_in? || business_signed_in? || staff_signed_in?
+          %li
+            = link_to 'Dashboard', dashboard_path, class: 'nav-link px-2 link-secondary', title: 'Dashboard'
+        - if can?(:read, Product)
+          %li
+            = link_to 'Products', products_path, class: 'nav-link px-2', title: 'View products'
+        - if can?(:read, Faq)
+          %li
+            = link_to 'FAQs', faqs_path, class: 'nav-link px-2', title: 'Frequently asked questions'
 
-      %body.dark
-        .load-flash
-        .mode-toggle.noselect
+    .dark
+      .load-flash
+      .mode-toggle.noselect
 
-          %h1.label-dark.my-auto Dark
-          .toggle-switch
-          %h1.label-light.my-auto Light
-            
-      = form_with url: products_path, method: :get do |form|
-        .input-group.mx-5
-          .form-outline
-            - if params[:search_term].present?
-              = form.text_field :search_term, placeholder: params[:search_term], class: 'form-control rounded'
-            - else 
-              = form.text_field :search_term, placeholder: 'Search products', class: 'form-control rounded'
-          %button{:type => "submit", :class => "btn btn-secondary", :title => "Search", :aria-label => "Search"}
-            %i.fa.fa-search
+        %h1.label-dark.my-auto Dark
+        .toggle-switch
+        %h1.label-light.my-auto Light
+          
+    = form_with url: products_path, method: :get do |form|
+      .input-group.mx-5
+        .form-outline
+          - if params[:search_term].present?
+            = form.text_field :search_term, placeholder: params[:search_term], class: 'form-control rounded'
+          - else 
+            = form.text_field :search_term, placeholder: 'Search products', class: 'form-control rounded'
+        %button{:type => "submit", :class => "btn btn-secondary", :title => "Search", :aria-label => "Search"}
+          %i.fa.fa-search
 
-      .dropdown.text-end
-        %a#dropdownUser1.d-block.custom-nav-fonts.text-decoration-none.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#"}
-          -if customer_signed_in?
-            #{current_customer.email}
-            %img.rounded-circle.filter-white{:alt => "user icon", :height => "32", :src => "/images/person.svg", :width => "32"}
-          -elsif business_signed_in?
-            #{current_business.email}
-            %img.rounded-circle.filter-white{:alt => "user icon", :height => "32", :src => "/images/person.svg", :width => "32"}
-          -elsif staff_signed_in?
-            #{current_staff.email}
-            %img.rounded-circle.filter-white{:alt => "user icon", :height => "32", :src => "/images/person.svg", :width => "32"}
-          -else
-            Account
-        %ul.dropdown-menu.text-small{"aria-labelledby" => "dropdownUser1"}
-          -if customer_signed_in?
-            = render partial: 'layouts/customer_nav_dropdown'
+    .dropdown.text-end
+      %a#dropdownUser1.d-block.custom-nav-fonts.text-decoration-none.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#"}
+        -if customer_signed_in?
+          #{current_customer.email}
+          %img.rounded-circle.filter-white{:alt => "user icon", :height => "32", :src => "/images/person.svg", :width => "32"}
+        -elsif business_signed_in?
+          #{current_business.email}
+          %img.rounded-circle.filter-white{:alt => "user icon", :height => "32", :src => "/images/person.svg", :width => "32"}
+        -elsif staff_signed_in?
+          #{current_staff.email}
+          %img.rounded-circle.filter-white{:alt => "user icon", :height => "32", :src => "/images/person.svg", :width => "32"}
+        -else
+          Account
+      %ul.dropdown-menu.text-small{"aria-labelledby" => "dropdownUser1"}
+        -if customer_signed_in?
+          = render partial: 'layouts/customer_nav_dropdown'
 
-          -elsif business_signed_in?
-            = render partial: 'layouts/business_nav_dropdown'
+        -elsif business_signed_in?
+          = render partial: 'layouts/business_nav_dropdown'
 
-          -elsif staff_signed_in?
-            = render partial: 'layouts/staff_nav_dropdown'
+        -elsif staff_signed_in?
+          = render partial: 'layouts/staff_nav_dropdown'
 
-          -else
-            %li
-              = link_to 'Sign In', new_customer_session_path, method: :post, :class => "dropdown-link"
+        -else
+          %li
+            = link_to 'Sign In', new_customer_session_path, method: :post, :class => "dropdown-link"
 
 
-.row.p-3#categories_navigation.w-100
-  .d-flex.justify-content-between
-    - Category.roots.each do |c|
-      = link_to c.name, c, id: 'text-categories'
