@@ -68,7 +68,9 @@ gem 'jquery-rails'
 gem 'rails_email_validator'
 
 group :development, :test do
+  gem 'bullet'
   gem 'byebug'
+  gem 'rspec-benchmark'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'sqlite3'
@@ -81,7 +83,7 @@ group :development do
   gem 'web-console'
 
   gem 'annotate'
-  gem 'bullet'
+
   gem 'capistrano'
   gem 'capistrano-bundler', require: false
   gem 'capistrano-passenger', require: false

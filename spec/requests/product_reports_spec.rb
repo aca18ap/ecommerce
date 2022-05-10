@@ -14,7 +14,7 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe '/product_reports', type: :request do
+RSpec.describe '/product_reports', type: :request, bullet: :skip_unused_eager_loading_check do
   # This should return the minimal set of attributes required to create a valid
   # ProductReport. As you add validations to ProductReport, be sure to
   # adjust the attributes here as well.

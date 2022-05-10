@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'Managing Product Reports' do
+describe 'Managing Product Reports', bullet: :skip_unused_eager_loading_check do
   describe 'When I am logged in as an admin' do
     let!(:product_report) { FactoryBot.create(:product_report) }
     before { login_as(FactoryBot.create(:admin), scope: :staff) }

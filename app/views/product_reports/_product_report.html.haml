@@ -1,0 +1,9 @@
+%tr
+    - decorated_product_report = product_report.decorate
+    %td= decorated_product_report.product_link
+    %td= decorated_product_report.user_link
+    %td= decorated_product_report.content
+    - if can?(:read, product_report)
+        %td= link_to 'Show', product_report
+    - if can?(:destroy, product_report)
+        %td= link_to 'Destroy', product_report, :method => :delete, :data => { :confirm => 'Are you sure?' }

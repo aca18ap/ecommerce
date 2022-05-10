@@ -23,6 +23,7 @@ end
 
 require 'webdrivers'
 require 'axe-rspec'
+require 'rspec-benchmark'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -57,6 +58,7 @@ RSpec.configure do |config|
   config.include Rails.application.routes.url_helpers
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include ActiveSupport::Testing::TimeHelpers
+  config.include RSpec::Benchmark::Matchers
 
   # Ensure our database is definitely empty before running the suite
   # (e.g. if a process got killed and things weren't cleaned up)
@@ -106,6 +108,15 @@ RSpec.configure do |config|
     end
     Rails.application.config.action_dispatch.show_exceptions = false
     Rails.application.config.consider_all_requests_local = true
+    
+  end
+
+  config.before(:each, bullet: :skip_unused_eager_loading_check) do
+    Bullet.unused_eager_loading_enable = false
+  end
+  
+  config.after(:each, bullet: :skip_unused_eager_loading_check) do
+    Bullet.unused_eager_loading_enable = true
   end
 
   # RSpec Rails can automatically mix in different behaviours to your tests

@@ -103,6 +103,9 @@ GEM
       thread_safe (~> 0.3, >= 0.3.1)
     bcrypt (3.1.16)
     bcrypt_pbkdf (1.1.0)
+    benchmark-malloc (0.2.0)
+    benchmark-perf (0.6.0)
+    benchmark-trend (0.4.0)
     bindex (0.8.1)
     bootsnap (1.10.3)
       msgpack (~> 1.2)
@@ -351,6 +354,11 @@ GEM
       rspec-core (~> 3.11.0)
       rspec-expectations (~> 3.11.0)
       rspec-mocks (~> 3.11.0)
+    rspec-benchmark (0.6.0)
+      benchmark-malloc (~> 0.2)
+      benchmark-perf (~> 0.6)
+      benchmark-trend (~> 0.4)
+      rspec (>= 3.0)
     rspec-core (3.11.0)
       rspec-support (~> 3.11.0)
     rspec-expectations (3.11.0)
@@ -534,6 +542,7 @@ DEPENDENCIES
   rails_email_validator
   ransack
   responders
+  rspec-benchmark
   rspec-rails
   rubocop (~> 1.23)
   sassc
