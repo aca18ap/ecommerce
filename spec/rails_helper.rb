@@ -108,6 +108,15 @@ RSpec.configure do |config|
     end
     Rails.application.config.action_dispatch.show_exceptions = false
     Rails.application.config.consider_all_requests_local = true
+    
+  end
+
+  config.before(:each, bullet: :skip_unused_eager_loading_check) do
+    Bullet.unused_eager_loading_enable = false
+  end
+  
+  config.after(:each, bullet: :skip_unused_eager_loading_check) do
+    Bullet.unused_eager_loading_enable = true
   end
 
   # RSpec Rails can automatically mix in different behaviours to your tests
