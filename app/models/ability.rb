@@ -29,6 +29,7 @@ class Ability
       can :read, Product
       can :read, Business
       can :read, Faq
+      can :create, Faq
       can :manage, :dashboard
       can :create, ProductReport
       can :read, AffiliateProductView
@@ -38,6 +39,7 @@ class Ability
       can :read, Product
       can :read, Business
       can :read, Faq
+      can :create, Faq
       can :create, ProductReport
       can :read, Category
     else
