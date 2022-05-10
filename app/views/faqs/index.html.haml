@@ -41,6 +41,10 @@
             - if can? :answer, faq then
               = link_to 'Answer', answer_faq_path(faq), :class => "btn btn-primary"
       %hr
+    
+    .justify-content-center.pagination.mb-5
+      = will_paginate(@faqs, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer)
+
     %br
     - if can? :create, Faq then
       = link_to 'Submit a New Question', new_faq_path, :class => "btn btn-ecommerce"

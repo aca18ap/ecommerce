@@ -7,7 +7,7 @@ class FaqsController < ApplicationController
 
   # GET /faqs
   def index
-    @faqs = Faq.accessible_by(current_ability).order(clicks: :desc)
+    @faqs = Faq.accessible_by(current_ability).order(clicks: :desc).page(params[:page]).per_page(15)
   end
 
   # GET /faqs/1
