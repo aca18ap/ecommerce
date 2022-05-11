@@ -6,7 +6,10 @@ class BusinessesController < ApplicationController
   load_and_authorize_resource except: :dashboard
 
   # GET /businesses/1
-  def show; end
+  def show
+    @products = @business.products.paginate(page: params[:page], per_page: 12).order(params['sort_by'])
+    @products = @products.reverse_order if params['order_by'] == 'descending'
+  end
 
   # GET /businesses/dashboard
   def dashboard
