@@ -9,6 +9,7 @@ class BusinessesController < ApplicationController
   def show
     @products = @business.products.paginate(page: params[:page], per_page: 12).order(params['sort_by'])
     @products = @products.reverse_order if params['order_by'] == 'descending'
+    @business = @business.decorate
   end
 
   # GET /businesses/dashboard
