@@ -102,7 +102,7 @@ class ProductDecorator < ApplicationDecorator
                   else
                     'flex-fill lboard_text'
                   end
-      html_values += "<a class=#{css_class} href=/products/#{p.id}>"
+      html_values += "<a class='icon-color #{css_class}' href=/products/#{p.id}>"
       html_values += "#{i + 1} | #{p.name} <sub>#{p.co2_produced}</sub></a><br>"
     end
     html_values.html_safe
@@ -111,12 +111,12 @@ class ProductDecorator < ApplicationDecorator
   def recommendations
     html_values = ''
     if difference_with_mean.negative?
-      html_values += '<h3 class=text-danger>We wouldn\'t recommend this product</h3>'
-      html_values += '<h4 class=text-success>Check out these greener alternatives</h3>'
+      html_values += '<div class=h3 class=text-danger>We wouldn\'t recommend this product</div>'
+      html_values += '<div class=h4 text-success>Check out these greener alternatives</div>'
     else
       html_values += "<div class='d-flex justify-content-between'>"
-      html_values += '<div class=row><h3>We recommend this product!!</h3>'
-      html_values += '<h5>Check out similar green content</h5></div>'
+      html_values += '<div class=row><div class=h3>We recommend this product!!</div>'
+      html_values += '<div class=h5>Check out similar green content</div></div>'
       html_values += "<div><div><div class=featureName style='visibility: hidden;'>#{product.name}</div>"
       html_values += h.render partial: 'layouts/share_icons'
       html_values += '</div></div></div>'

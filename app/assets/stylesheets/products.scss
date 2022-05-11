@@ -158,6 +158,10 @@ body{
     color: var(--dark1)
 }
 
+.icon-color a:hover{
+    color: var(--dark2)
+}
+
 .fa-minus-circle{
     color: var(--dark1);
     transition: 0.3s ease;
@@ -207,7 +211,7 @@ body{
     animation-fill-mode: forwards;
 }
 
-#buy-price{
+.buy-price{
     font-size: x-large;
 }
 

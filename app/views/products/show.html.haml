@@ -9,16 +9,16 @@
 
       // Products Image
       .row.round-image
-        %img= product.product_image
+        = product.product_image
         %br
 
       // Buy button and price
       .offset-y.text-center#buy_button_and_price
         .border.shadow-lg.flex-fill
-          %a.btn.fa-solid.fa-cart-shopping#buy-price{:href=>product.url, text: "Buy now"}
+          %a.btn.fa-solid.fa-cart-shopping.buy-price{:href=>product.url, text: "Buy now"}
             Buy now
             %i=fa_icon('cart-shopping')
-          #buy-price= product.price_with_currency
+          .buy-price= product.price_with_currency
 
         - if current_customer
           .border.shadow-lg.flex-fill
@@ -55,10 +55,10 @@
             %br
             %h4.center We estimate that...
             - if product.difference_with_mean > 0
-              %h1.text-success.center= product.co2_produced_with_unit
+              .h1.text-success.center= product.co2_produced_with_unit
             - else
-              %h1.text-danger.center= product.co2_produced_with_unit
-            %h4.center  ...were produced in the making of this product
+              .h1.text-danger.center= product.co2_produced_with_unit
+            .h4.center  ...were produced in the making of this product
 
             %br
           // Button to expand co2 breakdown
@@ -69,21 +69,21 @@
         // Co2 breakdown
         #co2_right
           .calculations.p-2
-            %h4.text-wrap How the CO2 was calculated
+            .h4.text-wrap How the CO2 was calculated
             %hr
             .row.materials_calculations
               = product.materials_breakdown
-              %h6.breakdown= "...roughly #{content_tag(:strong, @co2.materials_factor.round(2).to_s)} kg"
+              .h6.breakdown= "...roughly #{content_tag(:strong, @co2.materials_factor.round(2).to_s)} kg"
               
             %hr
             
             .row.materials_calculations
               %span
-                %h6.breakdown= "Manufactured in #{content_tag(:em,product.full_country_name)}" 
+                .h6.breakdown= "Manufactured in #{content_tag(:em,product.full_country_name)}" 
             
-                %h6.breakdown= "a distance of over #{content_tag(:strong, @co2.calc_distance.to_s)} km!"
+                .h6.breakdown= "a distance of over #{content_tag(:strong, @co2.calc_distance.to_s)} km!"
 
-                %h6.breakdown= "...roughly #{content_tag(:strong, (product.co2_produced - @co2.materials_factor).round(2))} kg"
+                .h6.breakdown= "...roughly #{content_tag(:strong, (product.co2_produced - @co2.materials_factor).round(2))} kg"
 
       %br
       = product.recommendations
@@ -96,17 +96,17 @@
 
     // Product statistics
     .row.pt-2.overflow-scroll
-      %h3 Understand this product
+      .h3 Understand this product
       .d-flex.cards.justify-content-between.card-deck
         .card.w-30.m-2#card1
           .align-content-center.p-2
             .card-body
-              %p.text-success.p-2.rounded.text-center Leaderboard
+              %p.fw-bold.p-2.rounded.text-center Leaderboard
               #scrollable.masked-overflow
                 .card-text.d-flex.flex-column.list-group#leaderboard              
                   = product.leaderboard_mini
                 %p.alert-danger.p-2.rounded.text-center ... not good ...
-            %img= image_tag('footprint.jpg', class: 'card-img-bottom')
+            %img= image_tag('footprint.jpg', class: 'card-img-bottom', alt: 'Decoration image for leaderboard')
         
 
         // How many of kg saved compared to average value
@@ -114,24 +114,24 @@
           .d-flex.align-items-center.h-100
             .card-body.text-center
               - if product.difference_with_mean > 0
-                %h4 A save of
-                %h3{:style => 'font-size: 2em'}= product.difference_formatted
-                %h4 compared to similar products...
+                .h4 A save of
+                .h3{:style => 'font-size: 2em'}= product.difference_formatted
+                .h4 compared to similar products...
               - else
-                %h4 An extra emission of
-                %h3.text-danger{:style => 'font-size: 2em'}= product.difference_formatted
-                %h4 above the average similar product...
+                .h4 An extra emission of
+                .h3.text-danger{:style => 'font-size: 2em'}= product.difference_formatted
+                .h4 above the average similar product...
                 
         //Changed it to km driven by car equivalent
         .card.m-2.w-30#card3
           .card-body.text-center.d-flex.flex-column.justify-content-center
-            %h4 ...equivalent to 
+            .h4 ...equivalent to 
             - if product.difference_with_mean > 0
-              %h3= product.co2_in_car_km
+              .h3= product.co2_in_car_km
             -else 
-              %h3.text-danger= product.co2_in_car_km
-            %h4 driven by car!
-          %img.card-img-bottom= image_tag('carCO2.jpg')
+              .h3.text-danger= product.co2_in_car_km
+            .h4 driven by car!
+          %img.card-img-bottom= image_tag('carCO2.jpg', alt: 'Co2 in car km')
 
   %hr
 
@@ -142,7 +142,7 @@
     .col-4
       .other-environmental-info.w-100
         // other information about product, should think of more
-        %h4 Other product information
+        .h4 Other product information
         %table.w-100
           %tr
             %td Weight:
