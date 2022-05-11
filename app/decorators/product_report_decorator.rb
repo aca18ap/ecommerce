@@ -20,7 +20,7 @@ class ProductReportDecorator < Draper::Decorator
     if object.staff_id
       h.link_to @staff.email, @staff
     elsif object.business_id
-      h.link_to @business.username, @business
+      h.link_to @business.name, @business
     else
       h.link_to @customer.username, @customer
     end
