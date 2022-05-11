@@ -24,8 +24,7 @@ class Ability
         can :read, Category
       end
     when Business
-      can :create, Product
-      can :destroy, Product, business_id: user.id
+      can :manage, Product, business_id: user.id
       can :read, Product
       can :read, Business
       can :read, Faq

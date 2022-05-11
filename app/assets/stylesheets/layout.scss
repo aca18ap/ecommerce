@@ -63,16 +63,6 @@ $mynewcolor: #bc7164;
   border-radius: 0px 0px 10px 10px;
 }
 
-.vertical-center {
-  margin: 0;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-
-
-}
 
 #dashboard-tabs {
   border-style: none;
@@ -109,4 +99,9 @@ $mynewcolor: #bc7164;
 .text-product:hover {
   color: var(--light1);
   background-color: var(--tertiary);
+}
+
+
+.offset-top-y {
+  top: -50px;
 }
