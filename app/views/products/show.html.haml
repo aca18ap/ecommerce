@@ -4,6 +4,16 @@
 = additional_javascript('products')
 
 .container-fluid.pad-edge
+  .pt-2
+  %p#notice= notice
+
+  .row
+    %nav{'aria-label'=>'breadcrumb'}
+      %ol.breadcrumb
+        %li.breadcrumb-item=link_to 'All Categories', categories_path, class: 'icon-color'
+        - @product.category.ancestors.each do |category|
+          %li.breadcrumb-item= link_to category.name, category, class: 'icon-color'
+        %li.breadcrumb-item=link_to @product.category.name, @product.category, class: 'icon-color'
   .row.py-3
     .col-xl-4
 
@@ -64,7 +74,7 @@
           // Button to expand co2 breakdown
           .flex-shrink-1
             %button.btn.h-100.shadow-none#chevron{:data-toggle=> "tooltip", title: "View a breakdown of how this value was calculated"}
-              %i.fa.fa-chevron-left#chevron-icon
+              %i.fa.fa-chevron-left.icon-color#chevron-icon
 
         // Co2 breakdown
         #co2_right
@@ -73,17 +83,17 @@
             %hr
             .row.materials_calculations
               = product.materials_breakdown
-              .h6.breakdown= "...roughly #{content_tag(:strong, @co2.materials_factor.round(2).to_s)} kg"
+              .h5.breakdown= "...roughly #{content_tag(:strong, @co2.materials_factor.round(2).to_s)} kg"
               
             %hr
             
             .row.materials_calculations
               %span
-                .h6.breakdown= "Manufactured in #{content_tag(:em,product.full_country_name)}" 
+                .h5.breakdown= "Manufactured in #{content_tag(:em,product.full_country_name)}" 
             
-                .h6.breakdown= "a distance of over #{content_tag(:strong, @co2.calc_distance.to_s)} km!"
+                .h5.breakdown= "a distance of over #{content_tag(:strong, @co2.calc_distance.to_s)} km!"
 
-                .h6.breakdown= "...roughly #{content_tag(:strong, (product.co2_produced - @co2.materials_factor).round(2))} kg"
+                .h5.breakdown= "...roughly #{content_tag(:strong, (product.co2_produced - @co2.materials_factor).round(2))} kg"
 
       %br
       = product.recommendations

@@ -61,3 +61,11 @@ a:hover, a:visited, a:link, a:active{text-decoration: none;}
 .form-text, .text-dark {
   color: var(--dark1) !important;
 }
+.bg-shade {
+  background-color: var(--light3);
+  border-radius: 0px 0px 10px 10px;
+}
+
+.breadcrumb-item{
+	color: var(--dark1)
+}
