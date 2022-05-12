@@ -13,11 +13,6 @@ class Customers::RegistrationsController < Devise::RegistrationsController
     return unless resource.save
 
     location = RetrieveLocation.new(nil, request.remote_ip).location
-    Sentry.capture_message('#create' \
-                           "\nIP: #{request.remote_ip}" \
-                           "\nlocation: #{location}" \
-                           "\nLatitude: #{location[:latitude]}" \
-                           "\nLongitude: #{location[:longitude]}")
     Registration.create(latitude: location[:latitude], longitude: location[:longitude],
                         vocation: Registration.vocations[:customer])
   end

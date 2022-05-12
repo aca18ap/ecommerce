@@ -15,17 +15,9 @@ class RetrieveLocation
     if !@params.nil? && @params.include?(:latitude) && @params.include?(:longitude)
       latitude = @params[:latitude]
       longitude = @params[:longitude]
-      Sentry.capture_message("#location:\nParams: #{@params}\nLatitude: #{latitude}\nLongitude: #{longitude}")
     else
       # IP = '90.204.36.252' if localhost to test on dev server
       geocode = Geocoder.search(@ip == '127.0.0.1' ? '94.3.89.188' : @ip).first
-
-      Sentry.capture_message('#location:' \
-                             "\nParams: #{@params}" \
-                             "\nIP: #{@ip == '127.0.0.1' ? '94.3.89.188' : @ip}" \
-                             "\nGeocode: #{geocode}" \
-                             "\nLatitude: #{geocode.latitude}\nLongitude: #{geocode.longitude}")
-
       begin
         latitude = geocode.latitude
         longitude = geocode.longitude
