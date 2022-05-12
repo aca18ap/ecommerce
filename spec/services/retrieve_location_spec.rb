@@ -58,7 +58,6 @@ describe 'Retrieve location', js: true do
   end
 
   it 'Returns nil if no params or IP are present' do
-    skip 'skipping to fix demo site'
     location = none.location
     expect(location[:latitude]).to eq(nil)
     expect(location[:longitude]).to eq(nil)

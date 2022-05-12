@@ -20,38 +20,4 @@ describe 'Shares' do
       end
     end
   end
-
-  context 'When I visit the pricing plans page' do
-    context 'The post is prefilled with different text for different features' do
-      specify 'Unlimited suggestions', js: true do
-        skip 'need fixing'
-        visit '/pricing_plans'
-        within(:css, '.unlimited-suggestions') { find('.btn').click }
-        w = window_opened_by do
-          find('#twitter').click
-        end
-        within_window w do
-          expect(page.current_url).to eq('https://twitter.com/intent/tweet?text=Get%20unlimited%20greener%20shopping%20suggestions%2C%20only%20on%20%40ecommerce')
-        end
-      end
-
-      specify 'One click visit retailer', js: true do
-        skip 'need fixing'
-        visit '/pricing_plans'
-        within(:css, '.one-click-access') { find('.btn').click }
-        find('#twitter').click
-        expect(current_url).to eq('https://twitter.com/intent/tweet?text=Easy%20access%20to%20green%20providers%20when%20shopping%20online%20on%20%40ecommerce')
-      end
-
-      specify 'View purchase history', js: true do
-        skip 'need fixing'
-
-        visit '/pricing_plans'
-
-        within(:css, '.view-purchase-history') { find('.btn').click }
-        find('#twitter').click
-        expect(current_url).to eq('https://twitter.com/intent/tweet?text=Quick%20access%20to%20your%20carbon%20footprint%2C%20save%20the%20planet%20click%20by%20click%20on%20%40ecommerce')
-      end
-    end
-  end
 end
