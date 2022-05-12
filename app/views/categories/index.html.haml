@@ -10,7 +10,7 @@
             = category.name
           .card-image
             = category.category_thumbnail
-          %a.card-link.stretched-link{href: "#{category_path(category)}"}
+          %a.card-link.stretched-link{href: "#{category_path(category)}", 'aria-label'=>"#{category.name}"}
   %br
 
   - if can?(:manage, Category)

@@ -133,7 +133,7 @@ $(function(){
         reader.onload = function(file){
             let img = new Image()
             img.src = file.target.result
-            $('#image_preview').html(img)
+            $('#image_preview').html(img).setAttribute('alt', 'Preview image')
         }
         reader.readAsDataURL(file)
     })
