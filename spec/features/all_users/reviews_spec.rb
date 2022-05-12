@@ -42,7 +42,7 @@ describe 'Reviews' do
         click_link 'Leave A Review'
         fill_in 'review[description]', with: 'A review string'
         click_button 'Create Review'
-        expect(page).to have_content 'Review was successfully created.'
+        expect(page).to have_content 'Thank you for leaving feedback!'
       end
 
       specify 'A review that I submit is hidden by default' do
@@ -58,7 +58,7 @@ describe 'Reviews' do
       specify 'I am showed an error' do
         click_link 'Leave A Review'
         click_button 'Create Review'
-        expect(page).to have_content "Description can't be blan"
+        expect(page).to have_content "Description can't be blank"
       end
     end
   end

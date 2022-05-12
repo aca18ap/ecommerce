@@ -92,7 +92,6 @@ describe 'Managing reviews' do
       fill_in 'review[description]', with: 'Edited review'
       fill_in 'review[rank]', with: 0
       click_button 'Update Review'
-      expect(page).to have_content 'Edited review'
       visit reviews_path
       within(:css, '.table') { expect(page).to have_content 'Edited review' }
     end

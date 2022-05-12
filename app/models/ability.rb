@@ -16,7 +16,7 @@ class Ability
       elsif user.reporter?
         can :read, :metrics
         cannot :manage, Review
-        can :create, [Faq, Product]
+        can :create, [Review, Faq, Product]
         can :read, Product
         can :like, Faq
         can :dislike, Faq
@@ -24,23 +24,18 @@ class Ability
         can :read, Category
       end
     when Business
+      can :create, [Review, Faq, Product, ProductReport]
+      can :destroy, Product, business_id: user.id
       can :manage, Product, business_id: user.id
       can :read, Product
       can :read, Business
       can :read, Faq
-      can :create, Faq
       can :manage, :dashboard
-      can :create, ProductReport
       can :read, AffiliateProductView
       can :read, Category
     when Customer
-      can :create, Product
-      can :read, Product
-      can :read, Business
-      can :read, Faq
-      can :create, Faq
-      can :create, ProductReport
-      can :read, Category
+      can :create, [Review, Faq, Product, ProductReport]
+      can :read, [Product, Business, Faq, Category]
     else
       can :new, Review
       can :create, [Review, Faq]
@@ -50,9 +45,7 @@ class Ability
       can :like, Faq
       can :dislike, Faq
       cannot :manage, Visit
-      can :read, Product
-      can :read, Business
-      can :read, Category
+      can :read, [Product, Business, Category]
     end
     #
     # The first argument to `can` is the action you are giving the user
