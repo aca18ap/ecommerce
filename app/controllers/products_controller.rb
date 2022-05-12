@@ -71,7 +71,7 @@ class ProductsController < ApplicationController
       end
       redirect_to @product, notice: 'Product was successfully updated.'
     else
-      gon.push({ cat_path: @product.category.path, all_cat_flat: Category.all })
+      gon.push({ cat_path: old_cat.path, all_cat_flat: Category.all })
       render :edit
     end
   end
