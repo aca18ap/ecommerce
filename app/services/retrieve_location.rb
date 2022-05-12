@@ -18,6 +18,8 @@ class RetrieveLocation
     else
       # IP = '90.204.36.252' if localhost to test on dev server
       geocode = Geocoder.search(@ip == '127.0.0.1' ? '94.3.89.188' : @ip).first
+
+      puts geocode.coordinates
       begin
         latitude = geocode.latitude
         longitude = geocode.longitude
