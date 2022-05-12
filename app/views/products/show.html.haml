@@ -37,13 +37,12 @@
         .d-flex#co2_left
           .eco-stats.d-flex.flex-column.w-100
             %h1
-              = product.name
+              = product.name 
               .pull-right
-                - if can?(:edit, Product)
+                - if can?(:manage, product.product)
                   .btn.btn-ecommerce
                     %i.fa.fa-edit
                     = link_to 'Edit', edit_product_path(product)
-                - if can?(:destroy, Product)
                   .btn.btn-ecommerce
                     %i.fa.fa-trash
                     = link_to 'Destroy', product, :method => :delete, :data => { :confirm => 'Are you sure?' }

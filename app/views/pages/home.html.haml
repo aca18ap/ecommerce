@@ -98,23 +98,18 @@
             .div
               = render 'layouts/share_icons'
 
-  .row.text-center.text-feldgrau.py-5.grabber
-    %h2 Tell us what you think!
-    %p
-    = button_to "Leave A Review", new_review_path, method: :get
-    %p
-    %p
-    %p
-    %p
-    %p
-    %h2 Top Customer Reviews
-    %p
-    %p
-    %p
-    %table.table
-      %tbody
+ 
+    
+  .row.text-center
+    .testimonial-slider
+      %ul.slider
         - @reviews.each_with_index do |review, i|
-          %tr{:style => "display: inline-block; width:65%;background: #E1E7E5;"}
-            %td{:style => "display: inline-block", 'id': "review-#{i}"}= "\"#{review.truncated_description}\""
-          %tr{:height => "90px", :style => "border-color: #f8f9fa"}
-            %td= link_to "Rate it useful", review_usefulness_path(id: review.id), class: 'css_class', style: 'font-size:90%; color:#419967; border:none'
+          / Single item
+          = render 'reviews/review', review: review, i: i
+
+  .row.text-center.pb-5
+    %h2 
+      Tell us what you think!
+    .my-auto
+      .btn.btn-ecommerce
+        = link_to "Leave A Review", new_review_path, method: :get

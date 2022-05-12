@@ -1,0 +1,6 @@
+%li
+  .testimonial-slider-content
+    %q{'id': "review-#{i}"}
+      = review.truncated_description
+    %p.source 
+      = link_to "Rate this", review_usefulness_path(id: review.id)

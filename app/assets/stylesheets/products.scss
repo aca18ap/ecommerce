@@ -11,7 +11,6 @@ body{
 }
 
 
-
 .offset-y {
     margin-top: -1em;
     align-items: center;
@@ -54,11 +53,6 @@ body{
   #description a:not(.collapsed):after {
       content: '- Show Less';
   }
-
-
-.card{
-    margin-right: 0.25em;
-}
 
 .center {
     text-align: center;
@@ -272,10 +266,10 @@ body{
 
 .lboard_text_this{
     font-size: medium;
-    background-color: darkgreen;
+    background-color: --var(tertiary);
     border-radius: 5px;
     padding: 2%;
-    color: white;
+    color: --var(white1);
    
 }
 
@@ -311,7 +305,7 @@ body{
 
 .stepwizard-step p {
     margin-top: 0px;
-    color: darkslategrey;
+    color: --var(dark1);
 }
 
 .stepwizard-row {
