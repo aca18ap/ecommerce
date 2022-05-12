@@ -8,11 +8,13 @@ class CategoriesController < ApplicationController
 
   # GET /categories
   def index
-    @categories = Category.roots.decorate
+    @categories = Category.roots.includes([:image_attachment]).decorate
   end
 
   # GET /categories/1
-  def show; end
+  def show
+    @products = @category.products.includes([:image_attachment]).paginate(page: params[:page], per_page: 24)
+  end
 
   # GET /categories/new
   def new

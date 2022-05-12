@@ -28,9 +28,11 @@
 
     .col-xl-9
       .products.row.row-cols-1.row-cols-md-3
-        - @category.products.each do |product|
+        - @products.each do |product|
           = render partial: 'products/suggested_product_card', locals: {p: product.decorate}
 
+  .justify-content-center.pagination.mb-5
+    = will_paginate(@products, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer)
 
   %hr
   
