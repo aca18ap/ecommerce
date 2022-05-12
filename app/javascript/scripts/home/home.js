@@ -6,7 +6,13 @@ $(function () {
 
 $('#scroll_down').on('click', ()=>{
     let next = document.getElementById('next')
-    next.scrollIntoView(true)
+    let headerOffset = 150;
+    let elementPosition = next.getBoundingClientRect().top
+    var offsetPosition = elementPosition + window.pageYOffset - headerOffset
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth"
+    })
 })
 
 

@@ -68,7 +68,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_global_search_variable
-    @q = Product.ransack(params[:q])
+    @q = Product.joins(:category).ransack(params[:q])
   end
 
   def search

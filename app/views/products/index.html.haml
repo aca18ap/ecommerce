@@ -3,13 +3,22 @@
 = stylesheet_link_tag 'products'
 
 .container-fluid.pad-edge
-  %h1.pt-5
-    - if not params[:search_term].blank? 
-      Listing products related to 
-      = "'" + params["search_term"] + "'"
-      %h4= link_to 'Show all products', products_path, class: 'col-form-label px-2'
-    - else 
-      Our crowdsourced products 
+  .row
+    .d-flex.justify-content-between.w-100
+      %h1.pt-5
+        - if not params[:search_term].blank? 
+          Listing products related to 
+          = "'" + params["search_term"] + "'"
+          %h4= link_to 'Show all products', products_path, class: 'col-form-label px-2'
+        - else 
+          Our crowdsourced products 
+
+      -# Add product button
+      - if can?(:new, Product)
+        .my-auto
+          .btn.btn-ecommerce.mx-2
+            %i.fa.fa-plus
+            = link_to 'New Product', new_product_path
 
 
   .d-flex
@@ -17,28 +26,21 @@
       %h5
         = page_entries_info products, :model => 'product'
 
-    -# Add product button
-    - if can?(:new, Product)
-      .my-auto
-        .btn.btn-ecommerce.mx-2
-          %i.fa.fa-plus
-          = link_to 'New Product', new_product_path
+
 
     -# Filter dropdown menus
     - if products.size > 0
       .my-auto
         = form_with url: products_path, method: :get do |form|
-          .input-group.collapse{ id: 'collapse'}
-            = form.label 'Sort by', class: 'col-form-label px-2'
-            = form.select :sort_by, Product.attribute_names, :selected => params[:sort_by], class: 'px-2' 
-            = form.select :order_by, ['descending', 'ascending'], :selected => params[:order_by], class: 'px-2'
-            = form.hidden_field :search_term, value: params[:search_term]
-            %button#submit_filter{:type => "submit", :class => "btn btn-success px-2"}
-              Apply
-
-    %button.align-self-center.btn.suggestions#filters{"aria-controls" => "collapse", "aria-expanded" => "true", "data-target" => "#collapse", "data-toggle" => "collapse", :type => "button"}
-      %i.fa.fa-filter.fa-2x.icon-color
-      %p.icon-color Filters
+          .input-group
+            .mx-2= sort_link @q, :name, "Name"
+            .mx-2= sort_link @q, :price, "Price"
+            .mx-2= sort_link @q, :co2_produced, "CO2 Produced"
+            .mx-2= sort_link @q, :manufacturer, "Manufacturer"
+     
+    -# .align-self-center.btn.suggestions#filters
+    %i.fa.fa-filter.fa-2x.icon-color
+      -# %p.icon-color Sort By
   %hr
 
 

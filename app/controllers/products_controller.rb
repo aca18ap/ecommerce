@@ -14,8 +14,7 @@ class ProductsController < ApplicationController
   # GET /products
   def index
     @products = Product.with_attached_image.where(nil)
-    # @q = Product.ransack(params[:q])
-    @products = @q.result(distinct: true)
+    @products = @q.result
     @products = @products.paginate(page: params[:page], per_page: 12).order(params['sort_by'])
     @products = @products.reverse_order if params['order_by'] == 'descending'
   end
@@ -107,11 +106,6 @@ class ProductsController < ApplicationController
     else
       product_params.except(:image, :customer_purchased)
     end
-  end
-
-  # List of params that can be used to filter products if specified
-  def filtering_params(params)
-    params.slice(:name, :similarity, :search_term, :business_id)
   end
 
   # Creates a view in the affiliate product views table if the product shown is associated with a business

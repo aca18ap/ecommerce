@@ -8,14 +8,14 @@ describe 'Search Products' do
 
     specify 'I can view products related to an entered search term' do
       visit '/'
-      fill_in 'search_term', with: 'TestName'
+      fill_in 'q', with: 'TestName'
       click_button
       within(:css, '.products') { expect(page).to have_content 'TestName' }
     end
 
     specify 'If no products match my search term, I see no results' do
       visit '/'
-      fill_in 'search_term', with: 'ProductNotInSystem'
+      fill_in 'q', with: 'ProductNotInSystem'
       click_button
       expect(page).to have_content 'No products found'
     end
@@ -25,12 +25,9 @@ describe 'Search Products' do
         FactoryBot.create(:product, name: "Product #{i}", url: "https://www.test#{i}")
       end
       visit products_path
-      fill_in 'search_term', with: 'Product'
+      fill_in 'q', with: 'Product'
       click_button
-      find(:css, '#filters').click
-      select 'name', from: 'sort_by'
-      select 'ascending', from: 'order_by'
-      find(:css, '#submit_filter').click
+      find('Name').click
       within(:css, '.products') do
         expect('Product 1').to appear_before('Product 2')
       end
@@ -41,12 +38,11 @@ describe 'Search Products' do
         FactoryBot.create(:product, name: "Product #{i}", url: "https://www.test#{i}")
       end
       visit products_path
-      fill_in 'search_term', with: 'Product'
+      fill_in 'q', with: 'Product'
       click_button
-      find(:css, '#filters').click
-      select 'name', from: 'sort_by'
-      select 'descending', from: 'order_by'
-      find(:css, '#submit_filter').click
+      find('Name').click
+      find('Name').click
+
       within(:css, '.products') do
         expect('Product 2').to appear_before('Product 1')
       end
@@ -54,7 +50,7 @@ describe 'Search Products' do
 
     specify 'I cannot perform an XSS injection attack' do
       visit '/'
-      fill_in 'search_term', with: '
+      fill_in 'q', with: '
         <script>
           $(function() {
             window.location.replace("http://api.rubyonrails.org/classes/ActionView/Helpers/SanitizeHelper.html");
@@ -68,7 +64,7 @@ describe 'Search Products' do
 
     specify 'I cannot perform an SQL injection attack' do
       visit '/'
-      fill_in 'search_term', with: "TestName') OR 'SQLTest'--"
+      fill_in 'q', with: "TestName') OR 'SQLTest'--"
       click_button
       expect(page).to have_content "'TestName') OR 'SQLTest'--"
     end

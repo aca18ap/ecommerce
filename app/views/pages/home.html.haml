@@ -35,8 +35,8 @@
                 .fa.fa-chevron-down.pulse
         .col-4.d-flex.flex-column.text-end.pt-5
           .row.image_overlay_font.text-white#total_co2_saved
-            %a.font-large.disable_link{href: '#', "data-bs-content" => "This is equivalent to #{CustomerMetrics.plane_journeys_saved} flights London to New York!", "data-toggle" => "popover", 'data-bs-trigger'=>'hover'}
-              .d-flex.flex-no-wrap= CustomerMetrics.site_total_co2_saved
+            %a.font-large.d-flex.flex-column.disable_link.text-start{href: '#', "data-bs-content" => "This is equivalent to #{CustomerMetrics.plane_journeys_saved} flights London to New York!", "data-toggle" => "popover", 'data-bs-trigger'=>'hover'}
+              = CustomerMetrics.site_total_co2_saved
               .small Kg of CO2
             .text-center
               %strong.fst-italic ...saved by users on our platform!
@@ -51,7 +51,7 @@
         %path.shape-fill{:d => "M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"}
     .col-lg.bg-segment.pad-vertically
       .row.text-white.pad-edge.segment-font
-        .text-center.w-75.mx-auto.pb-5
+        .text-center.w-75.mx-auto.pb-5#next
           .h1 Why ecommerce?
           .h2.p-4
             Shopping online can increase CO
