@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
   before_action :update_headers_to_disable_caching
   before_action :ie_warning
   before_action :current_ability
+  before_action :set_global_search_variable
 
   # Catch NotFound exceptions and handle them neatly, when URLs are mistyped or mislinked
   rescue_from ActiveRecord::RecordNotFound do
@@ -64,5 +65,14 @@ class ApplicationController < ActionController::Base
                            customer_signed_in?
                            Ability.new(current_customer)
                          end
+  end
+
+  def set_global_search_variable
+    @q = Product.ransack(params[:q])
+  end
+
+  def search
+    index
+    render :index
   end
 end

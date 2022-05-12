@@ -23,6 +23,7 @@ gem 'image_processing'
 gem 'pg'
 gem 'puma'
 gem 'rails', '~> 6.1.5', '>= 6.1.5'
+gem 'ransack'
 gem 'responders'
 gem 'shakapacker'
 
@@ -32,7 +33,6 @@ gem 'hamlit'
 gem 'hamlit-rails'
 
 gem 'draper'
-gem 'ransack'
 gem 'select2-rails'
 gem 'simple_form'
 
