@@ -5,15 +5,10 @@ html {
     scroll-behavior: smooth;
 }
 
-// ::-webkit-scrollbar {
-//     display: none;
-// }
-
 body{
     overflow-x: hidden;
     width: 100%;
 }
-
 
 
 .offset-y {
@@ -58,11 +53,6 @@ body{
   #description a:not(.collapsed):after {
       content: '- Show Less';
   }
-
-
-.card{
-    margin-right: 0.25em;
-}
 
 .center {
     text-align: center;
@@ -112,11 +102,6 @@ body{
     border: none;
 }
 
-a:hover, a:visited, a:link, a:active
-{
-    text-decoration: none;
-}
-
 .calculations{
     color: darkgreen;
     background-color: lightgreen;
@@ -129,7 +114,6 @@ a:hover, a:visited, a:link, a:active
     // 0 100px 80px rgba(0, 0, 0, 0.12)
     ;
 
-    
     min-height: 200px;
     background: white;
     border-radius: 5px;
@@ -159,7 +143,7 @@ a:hover, a:visited, a:link, a:active
     // font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: small;
     a:link, a:visited{
-        border-radius: 30px;
+        border-radius: 60px;
         background-color: #36b161;
         color: white;
         padding: 14px 25px;
@@ -282,23 +266,15 @@ a:hover, a:visited, a:link, a:active
 
 .lboard_text_this{
     font-size: medium;
-    background-color: darkgreen;
+    background-color: --var(tertiary);
     border-radius: 5px;
     padding: 2%;
-    color: white;
+    color: --var(white1);
    
 }
 
 #current_product:hover {
-    color: white;
-}
-
-a {
-    text-decoration: none;
-    color: black;
-}
-a:hover {
-    color: green;
+    color: var(--white1);
 }
 
 @keyframes pulse {
@@ -329,7 +305,7 @@ a:hover {
 
 .stepwizard-step p {
     margin-top: 0px;
-    color: darkslategrey;
+    color: --var(dark1);
 }
 
 .stepwizard-row {
@@ -383,85 +359,10 @@ a:hover {
 }
 
 
-/* width */
-::-webkit-scrollbar {
-    width: 2px;
-  }
-  
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #888;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-
- /* The sidebar menu */
- .sidebar {
-  height: 100%; /* 100% Full-height */
-  width: 0; /* 0 width - change this with JavaScript */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Stay on top */
-  top: 0;
-  left: 0;
-  overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 60px; /* Place content 60px from the top */
-  transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
-  background-color: var(--light2);
+.card-subtitle {
+  font-weight: bold;
 }
 
-/* The sidebar links */
-.sidebar a {
-  // padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  display: block;
-  transition: 0.3s;
-}
-
-/* When you mouse over the navigation links, change their color */
-.sidebar a:hover {
-  color: #f1f1f1;
-}
-
-/* Position and style the close button (top right corner) */
-.sidebar .closebtn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-size: 36px;
-  margin-left: 50px;
-}
-
-/* The button used to open the sidebar */
-.openbtn {
-  font-size: 20px;
-  cursor: pointer;
-  background-color: #111;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-}
-
-.openbtn:hover {
-  background-color: #444;
-}
-
-/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
-#main {
-  transition: margin-left .5s; /* If you want a transition effect */
-  padding-left: 20px;
-}
-
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-// @media screen and (max-height: 450px) {
-//   .sidebar {padding-top: 15px;}
-//   .sidebar a {font-size: 18px;}
-// } 
-
-.admin-tasks {
-  width:100%;
-  padding:10%;
+#filters {
+  color: var(--dark1);
 }

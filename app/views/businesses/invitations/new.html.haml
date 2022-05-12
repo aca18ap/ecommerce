@@ -1,9 +1,12 @@
+- content_for :title, "Invite business"
+
 .container-fluid.devise-form-container
-  %h2= 'Send Invitation'
-  = simple_form_for(resource, as: resource_name, url: business_invitation_path) do |f|
-    .form-inputs
-      .email= f.input :email, validate: true, id: 'email', type: 'email'
-    .form-inputs
-      = f.input :name, validate: true, id: 'name', type: 'text'
-    .form-actions
-      = f.button :submit, 'Invite Business', method: :post, class: 'btn'
+  .p-5
+    %h2= 'Invite business'
+    = simple_form_for(resource, as: resource_name, url: business_invitation_path) do |f|
+      .form-inputs
+        .email= f.input :email, validate: true, id: 'email', type: 'email'
+      .form-inputs
+        = f.input :name, validate: true, id: 'name', type: 'text'
+      .form-actions
+        = f.button :submit, 'Send Invite', method: :post, class: 'text-uppercase btn btn-ecommerce mt-4 w-100'

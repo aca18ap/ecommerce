@@ -1,0 +1,32 @@
+@import 'variables';
+
+// Tab styling for dashboard
+#dashboard-tabs {border-style: none;}
+#dashboard-tabs .nav-link {font-weight: bold; color: var(--dark1); border-style: none;}
+#dashboard-tabs .active {background-color: var(--tertiary);color: var(--light1);}
+
+// Set dashboard bg colour
+.customer-dashboard {
+  background-color: var(--light3);
+}
+
+// Faint border used to separate dashboard elements
+.figure-border{
+  border-style: solid;
+  border-color: var(--light2);
+}
+
+// Product partial font style
+.text-product{
+  color: var(--dark1);
+  font-size:1.2em;
+  background-color: var(--light3);
+}
+.text-product:hover {
+  color: var(--light1);
+  background-color: var(--tertiary);
+}
+
+.text-dash-header {
+  font-weight: bold;
+}

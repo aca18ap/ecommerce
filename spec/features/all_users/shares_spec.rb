@@ -22,26 +22,6 @@ describe 'Shares' do
   end
 
   context 'When I visit the pricing plans page' do
-    context 'I can share the unlimited suggestions feature' do
-      specify 'to facebook', js: true do
-        visit '/pricing_plans'
-        within(:css, '.unlimited-suggestions') { find('.btn').click }
-        expect(page).to have_css('.fb-share-button')
-      end
-
-      specify 'to email', js: true do
-        visit '/pricing_plans'
-        within(:css, '.unlimited-suggestions') { find('.btn').click }
-        expect(page).to have_css('.email-share-button')
-      end
-
-      specify 'to twitter', js: true do
-        visit '/pricing_plans'
-        within(:css, '.unlimited-suggestions') { find('.btn').click }
-        expect(page).to have_css('.twitter-share-button')
-      end
-    end
-
     context 'The post is prefilled with different text for different features' do
       specify 'Unlimited suggestions', js: true do
         skip 'need fixing'

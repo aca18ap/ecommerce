@@ -5,13 +5,12 @@ class BusinessesController < ApplicationController
   before_action :set_business, only: %i[show edit update destroy unlock invite]
   load_and_authorize_resource except: :dashboard
 
-  # GET /businesses
-  def index
-    redirect_back fallback_location: root_path
-  end
-
   # GET /businesses/1
-  def show; end
+  def show
+    @products = @business.products.paginate(page: params[:page], per_page: 12).order(params['sort_by'])
+    @products = @products.reverse_order if params['order_by'] == 'descending'
+    @business = @business.decorate
+  end
 
   # GET /businesses/dashboard
   def dashboard

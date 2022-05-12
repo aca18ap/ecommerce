@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     root to: 'pages#home', as: :authenticated_customer_root
     get '/dashboard', to: 'customers#show'
   end
-  resources :customers, path: 'customer' do
+  resources :customers, path: 'customer', only: %i[show edit update destroy] do
     patch :unlock, on: :member
   end
   get '/customer/show'
@@ -20,7 +20,7 @@ Rails.application.routes.draw do
                                      invitations: 'staffs/invitations' }
   authenticated :staff, ->(u) { u.admin? } do
     root to: 'pages#home', as: :authenticated_admin_root
-    get '/dashboard', to: 'staffs#show'
+    get '/dashboard', to: 'metrics#index'
   end
   namespace :admin do
     get '/users', to: '/admin/users#index'
@@ -40,11 +40,10 @@ Rails.application.routes.draw do
   authenticated :staff, ->(u) { u.reporter? } do
     root to: 'staffs#show', as: :authenticated_reporter_root
   end
-  resources :staffs, path: 'staff', only: %i[show edit index update destroy] do
+  resources :staffs, path: 'staff', only: %i[edit update destroy] do
     patch :unlock, on: :member
     patch :invite, on: :member
   end
-  get '/staff/show'
   get '/staff/edit'
 
   devise_for :businesses, path: 'business',
@@ -54,7 +53,7 @@ Rails.application.routes.draw do
     root to: 'pages#home', as: :authenticated_business_root
     get '/dashboard', to: 'businesses#dashboard'
   end
-  resources :businesses, path: 'business', only: %i[show dashboard index edit update destroy] do
+  resources :businesses, path: 'business', only: %i[show dashboard edit update destroy] do
     patch :unlock, on: :member
     patch :invite, on: :member
   end
@@ -89,9 +88,6 @@ Rails.application.routes.draw do
       post 'dislike'
     end
   end
-
-  ## ===== Newsletters ===== ##
-  resources :newsletters
 
   ## ===== Metrics ===== ##
   resources :metrics, only: %i[index create]
@@ -132,14 +128,10 @@ Rails.application.routes.draw do
   get :ie_warning, to: 'errors#ie_warning'
 
   ## ===== Pages ===== ##
-  get :pricing_plans, to: 'pages#pricing_plans'
   get :review_usefulness, to: 'pages#review_usefulness'
   get :carbon_footprint_viewer, to: 'pages#carbon_footprint_viewer'
   get :extension_features, to: 'pages#extension_features'
   get :crowdsourced_feature, to: 'pages#crowdsourced_feature'
-  get :business_info, to: 'pages#business_info'
-  get :welcome, to: 'pages#welcome'
-  get :thanks, to: 'pages#thanks'
 
   ## ===== Root ===== ##
   root to: 'pages#home'

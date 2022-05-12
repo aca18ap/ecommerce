@@ -6,8 +6,8 @@ RSpec.describe 'staff', type: :request do
   describe 'GET /staff/show' do
     before { login_as(FactoryBot.create(:admin), scope: :staff) }
 
-    it 'shows the current staff\' dashboard' do
-      get staff_show_path
+    it 'shows the metrics page' do
+      get metrics_path
       expect(response).to be_successful
     end
   end
@@ -79,9 +79,6 @@ RSpec.describe 'staff', type: :request do
     let(:reporter) { FactoryBot.create(:reporter) }
 
     def check_routes
-      get staff_show_path
-      assert_response 302
-
       get new_staff_registration_path
       assert_response 302
 

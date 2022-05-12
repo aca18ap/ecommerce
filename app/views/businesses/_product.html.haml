@@ -1,17 +1,20 @@
 .row.bg-light.w-100.m-0.p-0{id: "product-#{product.id}-partial"}
-  = link_to product, class: 'col-11 row m-0 p-0 text-black text-decoration-none' do
+  = link_to product, class: 'col-11 row m-0 p-0 text-product text-decoration-none' do
     .col-3.px-0.mx-0.d-flex.flex-column.justify-content-center
       = product.product_image(100, 100)
 
     .col-7.px-0.mx-0
-      %h3.text-black.fw-normal.m-0= product.name
+      .fw-normal.m-0= product.name
       %p= product.truncated_description
 
     .col-2.px-0.mx-0
       .container.w-auto.m-0.text-center
-      %h2= product.number_of_views
+      = product.number_of_views
 
   .col-1.px-0.mx-0.text-center.d-flex.flex-column.justify-content-center
+    = link_to edit_product_path(product), class: 'text-danger' do
+      %i.fs-4= fa_icon('edit')
+      %span.sr-only.sr-only-focusable Edit Product
     = link_to product_path(product), method: :delete, remote: true, class: 'delete_product text-danger', data: { confirm: 'Are you sure you want to remove this affiliate product. This cannot be undone?', 'deleted-product-id': "#{product.id}" } do
       %i.fs-4= fa_icon('trash')
       %span.sr-only.sr-only-focusable Delete Product

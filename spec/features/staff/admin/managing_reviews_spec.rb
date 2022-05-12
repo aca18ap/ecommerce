@@ -51,7 +51,7 @@ describe 'Managing reviews' do
 
       logout(:staff)
       visit root_path
-      within(:css, '.table') { expect(page).not_to have_content 'MyHiddenText' }
+      within(:css, '.testimonial-slider') { expect(page).not_to have_content 'MyHiddenText' }
     end
 
     specify 'I can show a review' do
@@ -63,7 +63,7 @@ describe 'Managing reviews' do
 
       logout(:staff)
       visit root_path
-      within(:css, '.table') { expect(page).to have_content 'MyHiddenText' }
+      within(:css, '.testimonial-slider') { expect(page).to have_content 'MyHiddenText' }
     end
 
     specify 'I can change the order of reviews' do

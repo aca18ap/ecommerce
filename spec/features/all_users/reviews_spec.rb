@@ -13,21 +13,21 @@ describe 'Reviews' do
     end
 
     specify 'I can view shown reviews on the landing page' do
-      within(:css, '.table') { expect(page).to have_content 'MyText' }
+      within(:css, '.testimonial-slider') { expect(page).to have_content 'MyText' }
     end
 
     context 'If a review has more than 120 characters in the description' do
       specify 'The review description is truncated' do
-        within(:css, '.table') { expect(page).to have_content "#{'a' * 117}..." }
+        within(:css, '.testimonial-slider') { expect(page).to have_content "#{'a' * 117}..." }
       end
     end
 
     specify 'I cannot view hidden posts on the landing page' do
-      within(:css, '.table') { expect(page).not_to have_content 'MyHiddenText' }
+      within(:css, '.testimonial-slider') { expect(page).not_to have_content 'MyHiddenText' }
     end
 
     specify 'I can state that a review was useful' do
-      within(:css, '.table') { click_link 'Rate it useful' }
+      within(:css, '.testimonial-slider') { click_link 'Rate this' }
       expect(page).to have_content 'Thank you for your feedback.'
     end
   end
@@ -39,24 +39,24 @@ describe 'Reviews' do
 
     context 'If I fill in the required information' do
       specify 'I can submit a review' do
-        click_button 'Leave A Review'
+        click_link 'Leave A Review'
         fill_in 'review[description]', with: 'A review string'
         click_button 'Create Review'
         expect(page).to have_content 'Review was successfully created.'
       end
 
       specify 'A review that I submit is hidden by default' do
-        click_button 'Leave A Review'
+        click_link 'Leave A Review'
         fill_in 'review[description]', with: 'A review string'
         click_button 'Create Review'
         visit root_path
-        within(:css, '.table') { expect(page).not_to have_content 'A review string' }
+        within(:css, '.testimonial-slider') { expect(page).not_to have_content 'A review string' }
       end
     end
 
     context 'If I do not provide any content for the review' do
       specify 'I am showed an error' do
-        click_button 'Leave A Review'
+        click_link 'Leave A Review'
         click_button 'Create Review'
         expect(page).to have_content "Description can't be blan"
       end
@@ -69,7 +69,7 @@ describe 'Reviews' do
     end
 
     specify 'I cannot perform an SQL injection attack' do
-      click_button 'Leave A Review'
+      click_link 'Leave A Review'
       fill_in 'review[description]', with: "'); DROP TABLE Reviews--"
       click_button 'Create Review'
 
@@ -79,7 +79,7 @@ describe 'Reviews' do
     end
 
     specify 'I cannot perform an XSS attack' do
-      click_button 'Leave A Review'
+      click_link 'Leave A Review'
       fill_in 'review[description]', with: "<h1>Hello</h1>
                                 <script>
                                   $(function() {

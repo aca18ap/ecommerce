@@ -2,27 +2,29 @@
 = include_gon
 = additional_javascript('businesses')
 
+  
+
 .container-fluid.pad-edge
   %h1.pt-5= "#{@business.name}'s Dashboard"
-
-.container-fluid.p-0.m-0
-  .row.mx-5.my-3.px-lg-5.align-content-around.border-top.border-bottom
+  .row.my-5.px-lg-5.align-content-around.border-top.border-bottom
     = render 'stat_bar_item', elem_id: 'total-views', statistic: @business.total_product_views, statistic_unit: '', description: 'Total Product Views'
     = render 'stat_bar_item', elem_id: 'customer-purchases', statistic: @business.customer_purchases, statistic_unit: '', description: 'Customer Purchases'
     = render 'stat_bar_item', elem_id: 'affiliate-products', statistic: @business.products.size, statistic_unit: '', description: 'Affiliate Products'
     = render 'stat_bar_item', elem_id: 'unique-categories', statistic: @business.unique_product_categories, statistic_unit: '', description: 'Unique Categories'
 
-  .row.m-3.bg-light-green
+  .row.my-5
     .col-xl-7
-      %ul.nav.nav-tabs.mb-2
-        %li.active
-          = link_to 'Total Product Views', '#total-product-views-tab', { 'data-toggle': 'tab', class: 'btn', id: 'open-total-product-views-tab' }
-        %li
-          = link_to 'Views By Product', '#product-views-tab', { 'data-toggle': 'tab', class: 'btn', id: 'open-product-views-tab' }
-        %li
-          = link_to 'Views By Category', '#category-views-tab', { 'data-toggle': 'tab', class: 'btn', id: 'open-category-views-tab' }
-
-      .container-fluid.tab-content
+      // Tabs navs
+      %ul#dashboard-tabs.nav.nav-tabs.metric-tabs{:role => "tablist"}
+        %li.nav-item{:role => "presentation"}
+          %a#open-total-product-views-tab.nav-link.active{"aria-controls" => "open-total-product-views-tab", "aria-selected" => "true", "data-toggle" => "tab", :href => "#total-product-views-tab", :role => "tab"} Total Product Views
+        %li.nav-item{:role => "presentation"}
+          %a#open-product-views-tab.nav-link{"aria-controls" => "open-product-views-tab", "aria-selected" => "false", "data-toggle" => "tab", :href => "#product-views-tab", :role => "tab"} Views By Product
+        %li.nav-item{:role => "presentation"}
+          %a#open-category-views-tab.nav-link{"aria-controls" => "open-category-views-tab", "aria-selected" => "false", "data-toggle" => "tab", :href => "#category-views-tab", :role => "tab"} Views By Category
+      
+      // Tab content      
+      .container-fluid.tab-content.customer-dashboard.figure-border
         .container-fluid.tab-pane.active#total-product-views-tab
           .card.my-3
             .card-body.m-0.p-0
@@ -39,6 +41,18 @@
               = bar_chart views_by_category_chart_path, id: 'category-views-graph', ytitle: 'Category', xtitle: 'Views', title: 'Top 30 Most Popular Categories'
 
     .col-xl-5
-      %h2.py-2 Affiliate Products
-      .container.px-0.mx-0.h-100.overflow-scroll
+      .d-flex.justify-content-between
+        .my-auto.text-dash-header
+          Affiliate Products
+        - if can?(:create, Product)
+          .btn.btn-ecommerce.my-2
+            %i.fa.fa-plus
+            = link_to 'Add Product', new_product_path
+
+      .container.px-0.mx-0.overflow-scroll.h-75
         = render partial: 'product', collection: @business.products
+
+
+
+
+   

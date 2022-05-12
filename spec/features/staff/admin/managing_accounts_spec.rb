@@ -224,7 +224,7 @@ describe 'Managing businesses' do
     find('#invite-business-button').click
     fill_in 'business[email]', with: 'newbusiness@team04.com'
     fill_in 'business[name]', with: 'NewName'
-    click_link_or_button 'Invite Business'
+    click_link_or_button 'Send Invite'
 
     new_business = Business.find_by_email('newbusiness@team04.com')
     within(:css, "#business-#{new_business.id}") { expect(page).to have_content 'newbusiness@team04.com' }

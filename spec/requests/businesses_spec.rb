@@ -11,40 +11,15 @@ RSpec.describe 'Business', type: :request do
     end
   end
 
-  describe 'GET /business/show' do
-    def login_as_business
-      login_as(FactoryBot.create(:business), scope: :business)
-    end
-
-    it 'If I am not logged in I see the directory' do
-      get business_show_path
-      expect(response).to redirect_to(businesses_path)
-    end
-
-    it 'If I am logged in as a business I see the directory' do
-      login_as_business
-      get business_show_path
-      expect(response).to redirect_to(businesses_path)
-    end
-  end
-
   describe 'GET /business/show as roles' do
     let(:business) { FactoryBot.create(:business) }
 
     def check_routes
-      get business_show_path
-      expect(response).to redirect_to(businesses_path)
-
       get new_business_registration_path
       assert_response 302
 
       get business_path(business)
       assert_response 200
-    end
-
-    it 'I can view the directory of businesses' do
-      get business_show_path
-      expect(response).to redirect_to(businesses_path)
     end
 
     it 'I can view a business\' profile' do
