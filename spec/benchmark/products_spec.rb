@@ -31,15 +31,13 @@ describe 'Product Page' do
 
     context 'As a visitor' do
       specify 'I can see the list of Products within 0.5 second of visiting the page' do
-        puts "Products"
         expect do
-          puts Benchmark.measure{visit products_path}
+          visit products_path
         end.to perform_under(0.5).sec
       end
       specify 'I can see the list of Products in a Category within 0.5 second of visiting the page' do
-        puts "Categories"
         expect do
-          puts Benchmark.measure{visit category_path(@category)}
+          puts visit category_path(@category)
         end.to perform_under(0.5).sec
       end
     end
