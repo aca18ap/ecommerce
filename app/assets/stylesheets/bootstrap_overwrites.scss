@@ -11,6 +11,8 @@ $theme-colors: (
   "dark":       var(--dark1)
 );
 
+
+// Card overwrites
 .card {
   background-color: var(--light3);
   border-color: var(--light2);
@@ -40,4 +42,45 @@ $theme-colors: (
 .card-text {
   color: var(--dark3);
   margin-bottom: 0.5em;
+}
+
+
+// Dark theme fix for pagination
+.pagination > li {
+  background-color: var(--light2);
+}
+.pagination > li > a
+{
+  background-color: var(--light3);
+  color: var(--dark3);
+  border-color: var(--light2);
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+  color: var(--white1);
+  background-color: var(--tertiary);
+  border-color: var(--light2);
+}
+
+.pagination > .active > a
+{
+  color: var(--light2);
+  background-color:  var(--tertiary) !important;
+  border: solid 1px  var(--tertiary) !important;
+}
+
+.pagination > .active > a:hover
+{
+  background-color: var(--tertiary) !important;
+  border: solid 1px var(--tertiary);
+}
+
+.page-item.disabled .page-link {
+  background-color: var(--light2);
+  color: var(--dark1);
+  border-color: var(--light2);
 }
