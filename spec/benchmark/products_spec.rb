@@ -6,7 +6,7 @@ describe 'Product Page' do
   context 'Given there are 10,000 Products in the system' do
     before do
       current_time = Time.zone.now
-      category = FactoryBot.build(:category)
+      @category = FactoryBot.create(:category)
       example_material = FactoryBot.create(:material)
       Product.insert_all(
         10_000.times.map do |i|
@@ -14,7 +14,7 @@ describe 'Product Page' do
             name: "MyProduct #{i}",
             description: "Product Number #{i}",
             mass: rand(1..99),
-            category_id: category.id,
+            category_id: @category.id,
             url: 'https://clothes.com',
             manufacturer: 'Me',
             price: rand(1..99),
@@ -31,8 +31,15 @@ describe 'Product Page' do
 
     context 'As a visitor' do
       specify 'I can see the list of Products within 0.5 second of visiting the page' do
+        puts "Products"
         expect do
-          visit products_path
+          puts Benchmark.measure{visit products_path}
+        end.to perform_under(0.5).sec
+      end
+      specify 'I can see the list of Products in a Category within 0.5 second of visiting the page' do
+        puts "Categories"
+        expect do
+          puts Benchmark.measure{visit category_path(@category)}
         end.to perform_under(0.5).sec
       end
     end
