@@ -1,5 +1,8 @@
 @import 'variables';
 
+/*
+Styling for home page
+*/
 
 .grabber h1 {
   font-family: 'Fredericka the Great';
@@ -120,7 +123,6 @@
   width: 100%;
   overflow: hidden;
   line-height: 0;
-  /* transform: rotate(180deg); */
 }
 
 .custom-shape-divider-top-1637446340 svg {
@@ -197,18 +199,12 @@ ul.feature-list li {
   color: #3E4F44;
 } 
 
-
-
 .segment-font .h3 {
   color: #93e5ab;
 }
 
 #total_co2_saved {
   margin-top: 5vh;
-}
-
-body { 
-  font-family: 'Open Sans', sans-serif;
 }
 
 @keyframes pulse {

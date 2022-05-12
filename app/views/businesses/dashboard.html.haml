@@ -42,12 +42,12 @@
 
     .col-xl-5
       .d-flex.justify-content-between
-        .my-auto
+        .my-auto.text-dash-header
           Affiliate Products
         - if can?(:create, Product)
           .btn.btn-ecommerce.my-2
-            %i.fa.fa-new
-              = link_to 'Add Product', new_product_path
+            %i.fa.fa-plus
+            = link_to 'Add Product', new_product_path
 
       .container.px-0.mx-0.overflow-scroll.h-75
         = render partial: 'product', collection: @business.products

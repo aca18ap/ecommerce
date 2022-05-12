@@ -1,22 +1,14 @@
 @import 'variables';
-@import "bootstrap";
+
+
+/* 
+ General page styling
+*/
 
 html, body {
   height: 100%;
 }
 
-.devise-form-container {
-  margin-top: 3rem;
-  margin-bottom: 3rem;
-  background: var(--light2);
-  color: var(--dark1);
-  padding: 0;
-  max-width: 500px;
-  border-radius: 10px;
-}
-.w-100vw{
-	width: 100vw;
-}
 
 body {
   display: flex;
@@ -32,76 +24,50 @@ body {
   padding-top: 140px;
 }
 
-#cat_nav{
-    background-color: darkslategrey;
+// Login form style
+.devise-form-container {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  background: var(--light2);
+  color: var(--dark1);
+  padding: 0;
+  max-width: 500px;
+  border-radius: 10px;
 }
 
-a {
-  color: var(--fg1);
+// Custom class to set width
+.w-100vw{
+	width: 100vw;
 }
 
-a:hover, a:visited, a:link, a:active
-{
-    text-decoration: none;
-}
+// Default link styling
+a {color: var(--fg1);}
+a:hover, a:visited, a:link, a:active{text-decoration: none;}
 
+// Default table styling
 .table {
   color: var(--bg1);
 }
 
-$mynewcolor: #bc7164;
-.btn-primary {
-  @include button-variant($mynewcolor, darken($mynewcolor, 7.5%), darken($mynewcolor, 10%), lighten($mynewcolor,5%), lighten($mynewcolor, 10%), darken($mynewcolor,30%));
-}
-
-.btn-outline-primary {
-  @include button-outline-variant($mynewcolor, #222222, lighten($mynewcolor,5%), $mynewcolor);
-}
-
+// Box shadow 
 .bg-shade {
   background-color: var(--light3);
   border-radius: 0px 0px 10px 10px;
 }
 
 
-#dashboard-tabs {
-  border-style: none;
-}
-
-#dashboard-tabs .nav-link {
-  // font-size:1em;
-  font-weight: bold;
-  color: var(--dark1);
-  border-style: none;
-}
-
-#dashboard-tabs .active {
-  background-color: var(--tertiary);
-  color: var(--light1);
-}
-
-.customer-dashboard {
-  background-color: var(--light3);
-
-}
-
-.figure-border{
-  border-style: solid;
-  border-color: var(--light2);
-}
-
-.text-product{
-  color: var(--dark1);
-  font-size:1.4em;
-  background-color: var(--light3);
-}
-
-.text-product:hover {
-  color: var(--light1);
-  background-color: var(--tertiary);
-}
-
-
 .offset-top-y {
   top: -50px;
+}
+
+.colors {
+  color: #b5ffe1; // Nav link
+  color: #93e5ab; // Nav link hover
+  color: #00241b; // Dropdown link
+  color: #337054; // Dropdown link hover 
+}
+
+
+.form-text, .text-dark {
+  color: var(--dark1) !important;
 }

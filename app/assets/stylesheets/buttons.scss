@@ -1,13 +1,13 @@
 
 
-Button a {
-  color: white;
-  text-decoration: none;
-}
+// Button a {
+//   color: white;
+//   text-decoration: none;
+// }
 
-Button a:hover {
-  color: white;
-}
+// Button a:hover {
+//   color: white;
+// }
 
 .btn-custom, 
 .btn-custom:hover a{
@@ -52,18 +52,22 @@ Button a:hover {
 }
 
 .btn-ecommerce { 
-  color: #47251F;
+  color: var(--br4dark);
   background-color: var(--br4); 
   border-color: var(--br4); 
 } 
  
+.btn-ecommerce a:hover {
+  color: #FFFFFF; 
+}
+
 .btn-ecommerce:hover, 
 .btn-ecommerce:focus, 
 .btn-ecommerce:active, 
 .btn-ecommerce.active, 
 .open .dropdown-toggle.btn-ecommerce { 
   color: #FFFFFF; 
-  background-color: #bc9464; 
+  background-color: var(--br4); 
   border-color: var(--br4); 
 } 
  
@@ -94,13 +98,5 @@ fieldset[disabled] .btn-ecommerce.active {
  
 .btn-ecommerce .badge { 
   color: var(--br4); 
-  background-color: #FFFFFF; 
+  background-color: var(--white1);
 }
-
-#openBtn {
-  position: fixed;
-  font-size: 2em;
-  top: 60px;
-  left: 10%;
-}
-

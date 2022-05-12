@@ -1,12 +1,11 @@
 @import "bootstrap/functions";
 @import "bootstrap/variables";
-
 /* Define dark and light palettes with CSS variables */
 
 :root {
   --radius: 50px;
-  --sans: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen, ubuntu,
-    cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  // --sans: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen, ubuntu,
+    // cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   --theme-white: #e6e6e6;
 }
 
@@ -19,6 +18,7 @@
   --br3: #b8658c;
   --br3light: #e2bfd0;
   --br4: #bc9464; 
+  --br4dark: #47251F;
   --light1: #f2f2f2;
   --light2: #CDD1D5;
   --light3: #e6e6e6;
@@ -27,6 +27,7 @@
   --accent1: #262626;
   --accent2: #333333;
   --accent3: #404040;
+  --white1: #f2f2f2;
 }
 
 :root[color-mode="dark"] {
@@ -40,10 +41,15 @@
   --dark2: #CDD1D5;
   --br1: #00241B;
   --br4: #bc7164;
+  --br4dark: #47251F;
   --accent1: #e6e6e6;
   --accent2: #f2f2f2;
   --accent3: #ffffff;
+  --white1: #f2f2f2;
 }
+
+
+
 
 // $colors: (
 //     light: (
@@ -72,20 +78,6 @@
 //     )
 // );
 
-// @function color($color,$tone){
-//   @warn map-get($colors,$color);
-//   @if map-has-key($colors,$color){
-//       $color: map-get($colors,$color);
-//           @if map-has-key($color,$tone){
-//               $tone: map-get($color,$tone);
-//               @return $tone;
-//           }
-//           @warn "unknown tone `#{$tone}` in color";
-//           @return null;        
-//   }
-//   @warn "unknown color `#{$color}` in palette";
-//   @return null;
-// }
 
 :root {
 	--gray-5:#010101; /*dark*/
@@ -109,3 +101,5 @@
 	--gray-95:#FCFEFE; /*light*/
 	--animate:200ms;
 }
+
+
