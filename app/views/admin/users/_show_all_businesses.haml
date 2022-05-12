@@ -10,6 +10,7 @@
 
   %tbody
     - @businesses.each do |business|
+      -business = business.decorate
       %tr.align-middle{id: "business-#{business.id}"}
         %td= business.email
         %td= business.name
@@ -18,3 +19,5 @@
         %td= business.invite_button?
         %td= link_to 'Edit user', edit_admin_business_path(business), class: 'ajax-modal btn btn-xs'
         %td= link_to 'Delete user', admin_business_path(business), method: :delete, class: 'btn btn-xs', data: { confirm: 'Are you sure you want to delete this business?' }
+.justify-content-center.pagination.mb-5
+  = will_paginate(@businesses, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer)

@@ -12,6 +12,11 @@ describe 'Categories' do
     let!(:sub_product) { FactoryBot.create(:product, url: 'http://www.uuwd.com', name: 'sub_product', category_id: sub_category.id) }
     before { login_as(customer, scope: :customer) }
 
+    specify 'I can view a list of categories' do
+      visit categories_path
+      expect(page).to have_content(category.name)
+    end
+
     specify 'I can view all products in a category' do
       visit category_path(category)
       expect(page).to have_content(product.name)

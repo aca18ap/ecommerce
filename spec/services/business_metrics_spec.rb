@@ -16,7 +16,7 @@ describe 'Business metrics' do
     end
 
     it 'returns the number of affiliate views by day if there are affiliate views' do
-      [0, 1, 3].each { |x| AffiliateProductView.new(product_id: product.id, customer_id: customer.id, created_at: Time.now - x.days).save }
+      [0, 1, 3].each { |x| AffiliateProductView.new(product_id: product.id, customer_id: customer.id, created_at: Date.today - x.days).save }
 
       expected_arr = (1.month.ago.to_date..(Date.today - 4.days)).map { |day| [day, 0] }.to_ary
       expected_arr += [[Date.today - 3.days, 1], [Date.today - 2.days, 0], [Date.today - 1.day, 1], [Date.today, 1]]
