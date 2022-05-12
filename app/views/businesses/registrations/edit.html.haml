@@ -18,7 +18,7 @@
           - if resource.avatar.attached?
             .mx-3
               = image_tag resource.avatar.variant(resize: "60x60!")
-        = f.input :name, required: true
+        = f.input :name, required: true, label: 'Company name'
         = f.input :description, required: false
         = f.input :current_password, hint: "We need your current password to confirm your changes", required: true, input_html: { autocomplete: "current-password" }
       .form-actions
