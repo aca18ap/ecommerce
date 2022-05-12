@@ -29,9 +29,9 @@ describe 'Staff accessibility' do
 
   feature 'View metrics', js: true do
     scenario 'is accessible' do
-      skip 'Until Liam can fix'
-      # visit metrics_path
-      # expect(page).to be_axe_clean
+      skip 'I actually could not change the colour of this no data message at all'
+      visit metrics_path
+      expect(page).to be_axe_clean
     end
   end
 end
