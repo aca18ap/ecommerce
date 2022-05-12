@@ -4,9 +4,9 @@
       .card-title.align-self-center.pt-1= p.name
     .card-body.d-flex.flex-column.justify-content-around
       - if p.image.attached?
-        %img= image_tag(p.image, 'class' => 'card-img-top')
+        %img= image_tag(p.image, 'class' => 'card-img-top', alt: 'Product Image')
       - else
-        %img= image_tag("default-image.jpg", 'class' => 'card-img-top')  
+        %img= image_tag("default-image.jpg", 'class' => 'card-img-top', alt: 'Product Image')  
       .card-subtitle.align-self-center.pt-1= p.price_with_currency
       .card-text-left.align-self-center.pt-1= p.co2_produced_with_unit
       %a.card-link.stretched-link{:href=>"#{product_path(p)}"}

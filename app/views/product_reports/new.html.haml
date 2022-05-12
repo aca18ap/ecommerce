@@ -1,14 +1,17 @@
 .container-fluid.pad-edge
-  %h1.pt-5 Report an Inappropriate or Inaccurate Product Listing
-  %p Please tell us what we can do to improve the listing below.
+  .btn.btn-ecommerce.my-2
+    = link_to 'Back to Product', @product_report.product
 
-  %p
-    %b Name:
-    = @product_report.product.name
-  %p
-    %b Vendor:
-    = @product_report.product.business_name
+  .row
+    %h1.pt-5 Report an Inappropriate or Inaccurate Product Listing
+    %p Please tell us what we can do to improve the listing below.
 
-  = render 'form'
+    %p
+      %b Name:
+      = @product_report.product.name
+    %p
+      %b Vendor:
+      = @product_report.product.business_name
 
-  = link_to 'Back to Product', @product_report.product
+    = render 'form'
+

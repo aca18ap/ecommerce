@@ -1,14 +1,16 @@
+= stylesheet_link_tag 'categories'
 
 .container
   %h1 Find a product by category
-  .row.align-items-center.d-flex
+  .row.row-cols-1.row-cols-md-4
     - @categories.each do |category|
-      .col-xl-3.col-sm-12
-        .card.bg-light.my-3
+      .col.my-3
+        .card.h-100
           .card-body.d-flex.flex-column.justify-content-around.text-center
-            = link_to category.name, category
+            = category.name
           .card-image
             = category.category_thumbnail
+          %a.card-link.stretched-link{href: "#{category_path(category)}", 'aria-label'=>"#{category.name}"}
   %br
 
   - if can?(:manage, Category)

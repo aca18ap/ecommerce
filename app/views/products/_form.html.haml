@@ -29,7 +29,7 @@
       %p  
         %small Materials
     .stepwizard-step.col-xs-2
-      %a.btn.btn-default.btn-circle{href: "#step7", type: "button"}7
+      %a.btn.btn-default.btn-circle.summary_trigger{href: "#step7", type: "button"}7
       %p  
         %small Submit Product
 
@@ -38,28 +38,64 @@
   = f.error_notification
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
   
-  .form-inputs
+  .form-inputs#form
     .panel.panel-primary.setup-content#step1
       .panel-heading
         %h2.panel-title Name and Description
         %br
       .panel-body
-        .form-group
-          = f.input :name
-        .form-group
-          = f.input :description
+        .row 
+          .col-6
+            .form-group
+              = f.input :name
+            .form-group
+              = f.input :description
+          .col-6.align-self-center
+            .text-center
+              %p Enter the name and a brief description of the product you're adding
       %br
       %button.btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
+
     .panel.panel-primary.setup-content#step2
       .panel-heading
         %h2.panel-title Mass and Price
         %br
       .panel-body 
-        .form-group
-          = f.input :mass
-        .form-group
-          = f.input :price
+        .row
+          .col-6
+            .form-group
+              .d-none= f.input :mass, id: 'mass'
+              .card-deck.d-flex.justify-content-between.text-center
+                .card.weight#light
+                  .card-body
+                    .card-title
+                      .h2 Light
+                    .card-text
+                      %p less than 0.5 kg
+                .card.weight#medium
+                  .card-body
+                    .card-title
+                      .h2 Medium
+                    .card-text
+                      %p between 0.5 and 1.5kg
+                .card.weight#heavy
+                  .card-body
+                    .card-title
+                      .h2 Heavy
+                    .card-text
+                      %p over 1.5kg
+            %br
+            .input-group
+              .input-group-prepend
+                %span.input-group-text £
+
+              = f.number_field :price, step: 0.01, min: 0.01
+          
+          .col-6.align-self-center
+            .text-center
+              %p Select the weight and tell us the price the product you're adding costs
       %br
+      %button.btn.btn-ecommerce.prevBtn{type: 'button', href: '#'} Previous
       %button.btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
 
     .panel.panel-primary.setup-content#step3
@@ -85,15 +121,23 @@
               %select.category_grandchild
 
           .col-4
+            %label Search category
             %input#search_category{placeholder: 'Search for a category'}
             .card-body
               #scrollable
                 .d-flex.flex-column{height: '300px'}
                   .d-block.sticky-lg-top#search_results
 
-          = f.input :category_id, :as => :hidden
-        %br
+            = f.input :category_id, :as => :hidden
 
+          .col-4.align-self-center
+            .text-center
+              %p Find the most suitable category you think this product belongs to 
+      
+
+
+        %br
+        %button.btn.btn-ecommerce.prevBtn{type: 'button', href: '#'} Previous
         %button.btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
 
       
@@ -101,11 +145,20 @@
       .panel-heading
         %h2.panel-title Manufacturer Information
         %br      
-      .panel-body 
-        = f.input :url
-        = f.input :manufacturer
-        = f.input :manufacturer_country
+      .panel-body
+        .row
+          .col-6
+            = f.input :url, placeholder: 'http://www.nike.com/product=?4g....'
+            = f.input :manufacturer, placeholder: 'e.g. Nike'
+            = f.input :manufacturer_country, label: 'Made in ...'
+          .col-6.align-self-center
+            .text-center
+              %p Enter the link to the website where you've seen or purchased the product (this needs to be unique)
+              %p Enter the manufacturer name
+              %p Enter the manufacturing country of the product (all labels have a Made in ...)
+          
       %br
+      %button.btn.btn-ecommerce.prevBtn{type: 'button', href: '#'} Previous
       %button.btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
 
     .panel.panel-primary.setup-content#step5
@@ -113,8 +166,15 @@
         %h2.panel-title Image
         %br
       .panel-body
-        = f.file_field :image
+        .row
+          .col-6.align-self-center
+            = f.file_field :image, id: 'product_image'
+          .col-6
+            .h2 Your preview will appear here
+            .w-100.image
+              #image_preview
       %br
+      %button.btn.btn-ecommerce.prevBtn{type: 'button', href: '#'} Previous
       %button.btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
 
 
@@ -124,26 +184,38 @@
       %br
     .panel-body.d-flex.align-items-center.materials-section
       .flex-fill
-        #materials
-          = f.simple_fields_for :products_material do |products_material|
-            = render 'products_material_fields', :f => products_material
-          = link_to_add_association 'Add Material', f, :products_material
+        = f.simple_fields_for :products_material do |products_material|
+          = render 'products_material_fields', :f => products_material
+        
+        .btn.btn-custom-active= link_to_add_association 'Add Material', f, :products_material
       .flex-fill
         .div
           %h4 Your materials should add up to 100%, missing:
           %h3#sum 0
     %br
+    %button.btn.btn-ecommerce.prevBtn{type: 'button', href: '#'} Previous
     %button.btn.btn-ecommerce.nextBtn.pull-right{type: 'button', href: '#'} Next
 
   .panel.panel-primary.setup-content#step7
     .panel-heading
       %h2.panel-title Submit Product
       %br
-    .panel-body        
-      %br
-      .form-actions
-        - if current_customer
-          %h2 Have you purchased this product?  
-          = f.input :customer_purchased, label: 'I have purchased this product', as: :boolean, input_html: { checked: false }
-        .btn.submit_btn.btn.pull-right= f.button :submit
+    
+    .panel-body
+      .row
+        .col-4        
+          %br
+          .form-actions
+            - if current_customer
+              .h4 Have you purchased this product?  
+              = f.input :customer_purchased, label: 'I have purchased this product', as: :boolean, input_html: { checked: false }
+        .col-8
+          .align-self-start
+            .row#summary
+
+            %button.btn.btn-success.btn.pull-left= f.button :submit
+      %button.btn.btn-ecommerce.prevBtn{type: 'button', href: '#'} Previous
+
+%br
+
 

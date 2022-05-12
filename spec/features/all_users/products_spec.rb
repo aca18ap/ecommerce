@@ -16,7 +16,7 @@ describe 'Products' do
       fill_in 'product[description]', with: 'AirForceOne'
       click_button 'Next'
 
-      fill_in 'product[mass]', with: '2'
+      find('#medium').click
       fill_in 'product[price]', with: '10.1'
       click_button 'Next'
 
@@ -27,7 +27,7 @@ describe 'Products' do
 
       fill_in 'product[url]', with: 'https://nike.com'
       fill_in 'product[manufacturer]', with: 'nike'
-      select 'Vietnam', from: 'Manufacturer country'
+      select 'Vietnam', from: 'Made in ...'
       click_button 'Next'
       click_button 'Next'
 
@@ -36,7 +36,6 @@ describe 'Products' do
 
       click_button 'Next'
       click_button 'Create Product'
-      visit products_path
       expect(page).to have_content 'AirForceOne'
     end
 
@@ -112,7 +111,7 @@ describe 'Products' do
       click_link 'Edit'
       expect(page).to have_content 'Editing product'
       fill_in 'product[name]', with: 'UpdatedTestName'
-      select 'Italy', from: 'Manufacturer country'
+      select 'Italy', from: 'Made in ...'
       click_button 'Update Product'
       expect(page).to have_content 'Product was successfully updated.'
     end
@@ -122,7 +121,7 @@ describe 'Products' do
       click_link 'Edit'
       expect(page).to have_content 'Editing product'
       click_link(href: '#step6')
-      click_link 'Remove Material'
+      find('.fa-minus-circle').click
       fill_in 'product[products_material_attributes][1][percentage]', with: '100'
       click_button 'Next'
       click_button 'Update Product'

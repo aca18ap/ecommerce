@@ -9,9 +9,9 @@ class CategoryDecorator < Draper::Decorator
       meta = ActiveStorage::Analyzer::ImageAnalyzer.new(image).metadata
       height = meta['width'] if height.nil?
       width = meta['width'] if width.nil?
-      h.image_tag(image, class: 'img-fluid', size: "#{height}x#{width}")
+      h.image_tag(image, class: 'img-fluid', size: "#{height}x#{width}", alt: name)
     else
-      h.image_tag('default-image.jpg', class: 'img-fluid', size: "#{height}x#{width}")
+      h.image_tag('default-image.jpg', class: 'img-fluid', size: "#{height}x#{width}", alt: name)
     end
   end
 end

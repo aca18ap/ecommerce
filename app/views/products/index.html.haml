@@ -37,11 +37,14 @@
               Apply
 
     %button.align-self-center.btn.suggestions#filters{"aria-controls" => "collapse", "aria-expanded" => "true", "data-target" => "#collapse", "data-toggle" => "collapse", :type => "button"}
-      %i.fa.fa-filter.fa-2x
-      %p Filters
+      %i.fa.fa-filter.fa-2x.icon-color
+      %p.icon-color Filters
   %hr
 
-  .products.row
+
+
+
+  .products.row.row-cols-1.row-cols-md-4
     - products.each do |product|
       = render partial: 'suggested_product_card', locals: {p: product.decorate}
    

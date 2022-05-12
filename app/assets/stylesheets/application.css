@@ -8,11 +8,11 @@
  *= require layout
  *= require home
  *= require dark_toggle
- *= require buttons
  *= require nav
  *= require footer
  *= require features
  *= require sidebar
  *= require select2
  *= require dashboard
+ *= require buttons
  */

@@ -28,7 +28,7 @@ body{
 
 #description {
     width: 500px;
-    font-size: 0.75em;
+    font-size: 1em;
     line-height: 1.5;
   }
   
@@ -53,6 +53,11 @@ body{
   #description a:not(.collapsed):after {
       content: '- Show Less';
   }
+
+
+.card{
+    background-color: var(--light2);
+}
 
 .center {
     text-align: center;
@@ -97,6 +102,8 @@ body{
     max-width: 75%;
 }
 
+
+
 .bg-none{
     background: none;
     border: none;
@@ -137,6 +144,43 @@ body{
     }
 }
 
+.weight{
+    cursor: pointer;
+    background-color: var(--light2);
+}
+
+.active{
+    background-color: var(--dark1);
+    color: var(--light1)
+}
+
+.icon-color{
+    color: var(--dark1)
+}
+
+.icon-color a:hover{
+    color: var(--dark2)
+}
+
+.fa-minus-circle{
+    color: var(--dark1);
+    transition: 0.3s ease;
+}
+
+.fa-minus-circle:hover {
+    color: red;
+    transition: 0.3s ease;
+}
+
+#image_preview img{
+    object-fit: contain;
+    width: 66%;
+}
+
+.panel {
+    max-height: 100vh;
+}
+
 #back-button {
     // z-index: 1;
     // position: absolute;
@@ -167,7 +211,7 @@ body{
     animation-fill-mode: forwards;
 }
 
-#buy-price{
+.buy-price{
     font-size: x-large;
 }
 
@@ -305,7 +349,7 @@ body{
 
 .stepwizard-step p {
     margin-top: 0px;
-    color: --var(dark1);
+    color: var(--dark1);
 }
 
 .stepwizard-row {

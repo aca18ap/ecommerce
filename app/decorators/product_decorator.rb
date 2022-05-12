@@ -34,7 +34,7 @@ class ProductDecorator < ApplicationDecorator
   end
 
   def product_image_thumbnail(height = nil, width = nil)
-    if image.attached?
+    if with_image_attached.image.attached?
       meta = ActiveStorage::Analyzer::ImageAnalyzer.new(image).metadata
       height = meta['width'] if height.nil?
       width = meta['width'] if width.nil?
@@ -96,15 +96,14 @@ class ProductDecorator < ApplicationDecorator
 
   def leaderboard_mini
     html_values = ''
-    product.category.products.order(:kg_co2_per_pounds).each_with_index do |p, i|
-      p.co2_per_pounds if p.kg_co2_per_pounds.nil?
+    product.category.products.order(:co2_produced).each_with_index do |p, i|
       css_class = if p.id == id
                     'lboard_text_this flex-fill'
                   else
                     'flex-fill lboard_text'
                   end
-      html_values += "<a class=#{css_class} href=/products/#{p.id}>"
-      html_values += "#{i + 1} | #{p.name} <sub>#{p.kg_co2_per_pounds.round(3)}</sub></a><br>"
+      html_values += "<a class='icon-color #{css_class}' href=/products/#{p.id}>"
+      html_values += "#{i + 1} | #{p.name} <sub>#{p.co2_produced}</sub></a><br>"
     end
     html_values.html_safe
   end
@@ -112,16 +111,26 @@ class ProductDecorator < ApplicationDecorator
   def recommendations
     html_values = ''
     if difference_with_mean.negative?
-      html_values += '<h3 class=text-danger>We wouldn\'t recommend this product</h3>'
-      html_values += '<h4 class=text-success>Check out these greener alternatives</h3>'
+      html_values += '<div class=h3 class=text-danger>We wouldn\'t recommend this product</div>'
+      html_values += '<div class=h4 text-success>Check out these greener alternatives</div>'
     else
       html_values += "<div class='d-flex justify-content-between'>"
-      html_values += '<div class=row><h3>We recommend this product!!</h3>'
-      html_values += '<h5>Check out similar green content</h5></div>'
+      html_values += '<div class=row><div class=h3>We recommend this product!!</div>'
+      html_values += '<div class=h5>Check out similar green content</div></div>'
       html_values += "<div><div><div class=featureName style='visibility: hidden;'>#{product.name}</div>"
       html_values += h.render partial: 'layouts/share_icons'
       html_values += '</div></div></div>'
     end
+    html_values.html_safe
+  end
+
+  def expand_description
+    return unless description
+    return unless description.size > 160
+
+    html_values = ''
+    html_values += '<a class="button collapsed" data-toggle=collapse href=#descriptionText '
+    html_values += 'aria-expanded=false aria-controls=descrpitionText></a>'
     html_values.html_safe
   end
 end
