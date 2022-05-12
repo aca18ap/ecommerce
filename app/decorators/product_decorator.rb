@@ -8,6 +8,12 @@ class ProductDecorator < ApplicationDecorator
     business ? business.name : 'Unknown'
   end
 
+  def truncated_name
+    return if name.nil? || name.empty?
+
+    name.truncate(50, separator: /\w+/)
+  end
+
   def truncated_description
     return if description.nil? || description.empty?
 

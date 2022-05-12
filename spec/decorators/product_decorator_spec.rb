@@ -49,6 +49,32 @@ RSpec.describe ProductDecorator do
     end
   end
 
+  describe '.truncated_name' do
+    context 'If a product name is under 50 characters long' do
+      it 'returns the full product name' do
+        product.name = 'Under 50 characters'
+        expect(product.truncated_name).to eq product.name
+      end
+    end
+
+    context 'If a product name is over 50 characters long' do
+      it 'returns 47 characters with an ellipse if the product name is more than 50 characters long' do
+        product.name = 'a' * 51
+        expect(product.truncated_name).to eq "#{'a' * 47}..."
+      end
+    end
+
+    context 'If a product name is nil or empty' do
+      it 'returns nothing' do
+        product.name = nil
+        expect(product.truncated_name).to eq nil
+
+        product.name = ''
+        expect(product.truncated_name).to eq nil
+      end
+    end
+  end
+
   describe '.co2_produced_with_unit' do
     it 'returns the product co2 produced with "kg of CO2" after it' do
       expect(product.co2_produced_with_unit).to eq "#{product.co2_produced}<sub>Kg of CO2</sub>"
