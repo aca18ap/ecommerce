@@ -46,7 +46,7 @@ class ReviewsController < ApplicationController
   # DELETE /reviews/1
   def destroy
     @review.destroy
-    redirect_to root_path, notice: 'Review was successfully destroyed.'
+    redirect_back fallback_location: root_path, notice: 'Review was successfully destroyed.'
   end
 
   private

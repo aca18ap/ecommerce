@@ -9,7 +9,7 @@ describe 'Regression test for logged in user reviews' do
   end
 
   def test_review
-    click_button 'Leave A Review'
+    click_link 'Leave A Review'
     expect(page).to have_content 'New review'
     expect(page).to_not have_content '403'
   end
