@@ -10,7 +10,7 @@ describe 'Admin Users Page' do
         10_000.times.map do |i|
           {
             email: "customer#{i}@team04.com",
-            #password: "Password123",
+            # password: "Password123",
             username: "MyUsername#{i}",
             created_at: current_time,
             updated_at: current_time
