@@ -3,6 +3,24 @@
 = include_gon
 = additional_javascript('products')
 
+.modal.fade#leaving-modal{'tab-index'=>'-1', role: 'dialog', 'aria-hidden'=>'true'}
+  .modal-dialog{role: 'document'}
+    .modal-content
+      .modal-header
+        .h2.modal-title Just a heads up...
+        %button.btn.btn-ecommerce{type: 'button', class:'close', 'data-dismiss'=>'modal', 'aria-label'=>'Close' }
+          X
+      .modal-body
+        %p ...you are about to leave this website and visit this product in its original website.
+        %p Don't forget to come back and record your purchase on your ecommerce profile!
+        
+      .modal-footer
+        %button.btn.btn-ecommerce{'data-dismiss'=>'modal'} Close
+        %button.btn.btn-ecommerce= link_to 'Leave website', product.url, target: :_blank
+
+
+
+
 .container-fluid.pad-edge
   .pt-2
   %p#notice= notice
@@ -25,7 +43,7 @@
       // Buy button and price
       .offset-y.text-center#buy_button_and_price
         .border.shadow-lg.flex-fill
-          %a.btn.fa-solid.fa-cart-shopping.buy-price{:href=>product.url, text: "Buy now"}
+          %button.btn.fa-solid.fa-cart-shopping.buy-price{'data-toggle'=>'modal', 'data-target'=>'#leaving-modal', text: "Buy now"}
             Buy now
             %i=fa_icon('cart-shopping')
           .buy-price= product.price_with_currency
