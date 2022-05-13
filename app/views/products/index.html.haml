@@ -29,7 +29,7 @@
 
 
     -# Filter dropdown menus
-    - if products.size > 0
+    - if products.includes([:image_attachment]).size > 0
       .my-auto
         = form_with url: products_path, method: :get do |form|
           .input-group
