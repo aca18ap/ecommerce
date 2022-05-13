@@ -14,15 +14,14 @@
           %li
             = link_to 'FAQs', faqs_path, class: 'nav-link px-2', title: 'Frequently asked questions'
           
-    = form_with url: products_path, method: :get do |form|
+
+    = search_form_for @q do |f|
       .input-group.mx-5
         .form-outline
-          - if params[:search_term].present?
-            = form.text_field :search_term, placeholder: params[:search_term], class: 'form-control rounded'
-          - else 
-            = form.text_field :search_term, placeholder: 'Search products', class: 'form-control rounded'
+          = f.search_field :name_or_description_or_manufacturer_or_category_name_cont, placeholder: 'Search a product', class: 'form-control rounded'
         %button{:type => "submit", :class => "btn btn-secondary", :title => "Search", :aria-label => "Search"}
           %i.fa.fa-search
+
 
     .dropdown.text-end
       %a#dropdownUser1.d-block.custom-nav-fonts.text-decoration-none.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#"}

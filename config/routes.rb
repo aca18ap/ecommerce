@@ -65,7 +65,11 @@ Rails.application.routes.draw do
   get :review_created, to: 'reviews#created'
   
   ## ===== Products ===== ## 
-  resources :products
+  resources :products do
+    collection do
+      match 'search' => 'products#index', via: [:get, :post], as: :search
+    end
+  end
   resources :materials
 
   ## ===== Categories ===== #

@@ -27,6 +27,11 @@ The current state of fast fashion is leaving a devastating trail of destruction 
 * [Gon](https://github.com/gazay/gon) is used to pass Ruby controller variables to JS directly 
 * [Chartkick/Highcharts](https://chartkick.com/#highcharts) is used to graph our system metrics and customer data
 * [groupdate](https://github.com/ankane/groupdate) is used to make efficient db queries got time based metrics
+* [ancestry](https://github.com/stefankroes/ancestry) is used to create nested product categories
+* [cocoon](https://github.com/nathanvda/cocoon) is used by the product form to deal with nested attributes for materials.
+* [ransack](https://activerecord-hackery.github.io/ransack/) is used to search products in the database
+* [countries](https://github.com/countries/countries) is used along a csv file that stores sea distances between countries stored in alpha3
+
 
 ### Getting Started
 Clone the project, then:

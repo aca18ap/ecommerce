@@ -8,7 +8,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories
   def index
-    @categories = Category.roots.includes([:image_attachment]).decorate
+    @categories = Category.roots.with_attached_image.decorate
   end
 
   # GET /categories/1
